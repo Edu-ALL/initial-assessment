@@ -3,18 +3,25 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/dashboard' },
+    { path: '/', redirect: '/login' },
     {
       path: '/',
       component: () => import('../layouts/default.vue'),
       children: [
         {
           path: 'dashboard',
-          component: () => import('../pages/dashboard.vue'),
+          name: 'dashboard',
+          component: () => import('../pages/user/student/dashboard.vue'),
         },
         {
-          path: 'account-settings',
-          component: () => import('../pages/account-settings.vue'),
+          path: 'assessment',
+          name: 'assessment',
+          component: () => import('../pages/user/student/assessment.vue'),
+        },
+        {
+          path: 'activity',
+          name: 'activity',
+          component: () => import('../pages/tables.vue'),
         },
         {
           path: 'typography',
@@ -44,7 +51,7 @@ const router = createRouter({
       children: [
         {
           path: 'login',
-          component: () => import('../pages/login.vue'),
+          component: () => import('../pages/user/student/auth/login.vue'),
         },
         {
           path: 'register',
