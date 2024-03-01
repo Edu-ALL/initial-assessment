@@ -20,6 +20,12 @@ class Question extends Model
         'maximum_answer'
     ];
 
+    public function scopeWithAndWhereHas($query, $relation, $constraint)
+    {
+        return $query->whereHas($relation, $constraint)
+            ->with([$relation => $constraint]);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
@@ -32,6 +38,6 @@ class Question extends Model
 
     public function options()
     {
-        return $this->hasMany(Option::class, 'category_id', 'id');
+        return $this->hasMany(Option::class, 'question_id', 'id');
     }
 }
