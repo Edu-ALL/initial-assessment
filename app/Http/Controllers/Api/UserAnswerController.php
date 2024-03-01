@@ -27,59 +27,59 @@ class UserAnswerController extends Controller
 
     public function store(Request $request)
     {
+        $option_id = [];
+        // return json_encode($request->options);
         // TODO:
         # Buat validasi untuk maksimal/minimum jawaban
         # Point untuk spesial case
 
-        $question_id = $request->question_id;
-        $sub_question_id = $request->question_id;
+        // $question_id = $request->question_id;
+        // $sub_question_id = $request->question_id;
 
-        $question = $sub_question_id != null ? SubQuestion::find($sub_question_id) : Question::find($question_id);
+        // $question = $sub_question_id != null ? SubQuestion::find($sub_question_id) : Question::find($question_id);
 
         $user = User::find(1);
 
         # validation
-        $rules = [
-            'question_id' => 'required|exists:questions,id',
-            'sub_question_id' => 'nullable|exists:sub_questions,id',
-            'option_id' => [
-                $question->question_type == 'mandatory' ? 'required' : 'nullable',
-                'exists:options,id',
-            ],
-            'answer_descriptive' => $question->question_type == 'mandatory' && $question->answer_type != 'option' ? 'required' : 'nullable',
-            'is_checked' => 'nullable|in:true,false'
-        ];
+        // $rules = [
+        //     'question_id' => 'required|exists:questions,id',
+        //     'sub_question_id' => 'nullable|exists:sub_questions,id',
+        //     'option_id' => [
+        //         $question->question_type == 'mandatory' ? 'required' : 'nullable',
+        //         'exists:options,id',
+        //     ],
+        //     'answer_descriptive' => $question->question_type == 'mandatory' && $question->answer_type != 'option' ? 'required' : 'nullable',
+        //     'is_checked' => 'nullable|in:true,false'
+        // ];
 
-        $incomingRequest = [
-            'option_id' => $request->option_id,
-            'answer_descriptive' => $request->answer_descriptive,
-            'question_id' => $question_id,
-            'sub_question_id' => $sub_question_id,
-            'is_checked' => $request->is_checked
-        ];
+        // $incomingRequest = [
+        //     'option_id' => $request->option_id,
+        //     'answer_descriptive' => $request->answer_descriptive,
+        //     'question_id' => $question_id,
+        //     'sub_question_id' => $sub_question_id,
+        //     'is_checked' => $request->is_checked
+        // ];
 
-        $validator = Validator::make($incomingRequest, $rules);
+        // $validator = Validator::make($incomingRequest, $rules);
 
 
         # threw error if validation fails
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'error' => $validator->errors()
-            ]);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'error' => $validator->errors()
+        //     ]);
+        // }
 
-        $answerDetails = [
-            (int)$incomingRequest['option_id'] => [
-                'answer_descriptive' => $incomingRequest['answer_descriptive'],
-                'is_checked' => $incomingRequest['is_checked']
-            ]
-        ];
+
+
+        // return $request->options;
+
 
         DB::beginTransaction();
         try {
 
-            $this->answerRepository->syncAnswer($user, $answerDetails);
+            $this->answerRepository->syncAnswer($user, $request->options);
 
             DB::commit();
         } catch (Exception $e) {
@@ -95,7 +95,7 @@ class UserAnswerController extends Controller
         return response()->json([
             'success' => true,
             'message' => "Answer successfully stored",
-            'data' => $this->answerRepository->responseAnswer($user, (int)$incomingRequest['option_id'])
+            'data' => $this->answerRepository->responseAnswer($user, 1)
         ]);
     }
 }
