@@ -19,9 +19,9 @@ const router = createRouter({
           component: () => import('../pages/user/student/assessment.vue'),
         },
         {
-          path: 'activity',
-          name: 'activity',
-          component: () => import('../pages/tables.vue'),
+          path: 'quest',
+          name: 'quest',
+          component: () => import('../pages/user/student/quest.vue'),
         },
         {
           path: 'typography',

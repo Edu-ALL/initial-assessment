@@ -34,7 +34,7 @@ const submit = () => {
     <VCardActions class="justify-space-between">
       <VBtn
         variant="elevated"
-        class="me-5 mb-1 bg-warning"
+        class="ms-3 mb-1 bg-warning"
         @click="checkStep(4)"
       >
         <VIcon icon="bx-chevron-left" />
@@ -44,7 +44,7 @@ const submit = () => {
       <VBtn
         variant="elevated"
         class="me-5 mb-1"
-        @click="submit"
+        @click="checkStep(6)"
       >
         <span class="me-2">Submit</span>
         <VIcon icon="bx-chevron-right" />

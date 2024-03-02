@@ -30,7 +30,7 @@ const checkStep = value => {
     <VCardActions class="justify-space-between">
       <VBtn
         variant="elevated"
-        class="me-5 mb-1 bg-warning"
+        class="ms-3 mb-1 bg-warning"
         @click="checkStep(2)"
       >
         <VIcon icon="bx-chevron-left" />

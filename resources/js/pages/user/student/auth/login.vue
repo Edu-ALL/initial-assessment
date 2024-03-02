@@ -1,17 +1,27 @@
 <script setup>
+import { onMounted } from "vue"
 import router from "@/router"
+import { showNotif } from '@/helper/notification'
 
 const rules = ref( {
   required: value => !!value || 'Field is required',
   maxlength: value => value.length==10 || 'Field must be 10 characters long',
 })
 
+const formData = ref(null)
+
 const form = ref({
   ticket_id: '',
 })
 
-const submit = () => {
-  router.push({ name: 'assessment' })
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    showNotif('success', 'You`ve successfully logged in', 'bottom-end')
+    router.push({ name: 'assessment' })
+  }
+
 }
 </script>
 
@@ -38,7 +48,10 @@ const submit = () => {
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="submit">
+        <VForm
+          ref="formData"
+          @submit.prevent="submit"
+        >
           <VRow>
             <!-- email -->
             <VCol cols="12">
@@ -46,7 +59,7 @@ const submit = () => {
                 v-model="form.ticket_id"
                 autofocus
                 placeholder="**********"
-                label="Ticket ID"
+                label="Ticket Number"
                 type="email"
                 length="10"
                 :rules="[rules.required, rules.maxlength]"
@@ -59,7 +72,7 @@ const submit = () => {
                 block
                 type="submit"
               >
-                Submit
+                Log In
               </VBtn>
             </VCol>
           </VRow>

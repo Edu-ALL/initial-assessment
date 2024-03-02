@@ -71,9 +71,9 @@ const upgradeBanner = computed(() => {
       />
       <VerticalNavLink
         :item="{
-          title: 'Activity',
+          title: 'Quest',
           icon: 'bx-user-check',
-          to: '/activity',
+          to: '/quest',
         }"
       />
     </template>
