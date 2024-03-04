@@ -1,7 +1,10 @@
 <script setup>
-import { onMounted } from "vue"
-import router from "@/router"
 import { showNotif } from '@/helper/notification'
+import router from "@/router"
+import { onMounted } from 'vue'
+
+
+const props = defineProps({ 'ticket': String })
 
 const rules = ref( {
   required: value => !!value || 'Field is required',
@@ -23,6 +26,12 @@ const submit = async () => {
   }
 
 }
+
+onMounted(() => {
+  if(props.ticket) {
+    form.value.ticket_id = props.ticket
+  }
+})
 </script>
 
 <template>
@@ -72,11 +81,26 @@ const submit = async () => {
                 block
                 type="submit"
               >
-                Log In
+                Sign In
               </VBtn>
             </VCol>
           </VRow>
         </VForm>
+      </VCardText>
+
+      <VCardText class="text-center">
+        <h5 class="mb-3">
+          I don't have a ticket number,
+        </h5>
+        <a href="https://registration.edu-all.com/form/event?ft=cta&ev=evt-0014&et=offline&as=attend&s=ots&t=self&a=true">
+          <VBtn
+            block
+            color="secondary"
+            type="button"
+          >
+            Sign Up Now
+          </VBtn>
+        </a>
       </VCardText>
     </VCard>
   </div>

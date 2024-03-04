@@ -23,26 +23,6 @@ const router = createRouter({
           name: 'quest',
           component: () => import('../pages/user/student/quest.vue'),
         },
-        {
-          path: 'typography',
-          component: () => import('../pages/typography.vue'),
-        },
-        {
-          path: 'icons',
-          component: () => import('../pages/icons.vue'),
-        },
-        {
-          path: 'cards',
-          component: () => import('../pages/cards.vue'),
-        },
-        {
-          path: 'tables',
-          component: () => import('../pages/tables.vue'),
-        },
-        {
-          path: 'form-layouts',
-          component: () => import('../pages/form-layouts.vue'),
-        },
       ],
     },
     {
@@ -51,17 +31,56 @@ const router = createRouter({
       children: [
         {
           path: 'login',
+          props: route => ({
+            ticket: route.query.ticket,
+          }),
           component: () => import('../pages/user/student/auth/login.vue'),
         },
+      ],
+    },
+
+    // Admin 
+    { path: '/admin', redirect: '/admin/login' },
+    {
+      path: '/admin',
+      component: () => import('../layouts/admin-default.vue'),
+      children: [
         {
-          path: 'register',
-          component: () => import('../pages/register.vue'),
+          path: 'dashboard',
+          name: 'admin-dashboard',
+          component: () => import('../pages/user/admin/dashboard.vue'),
         },
         {
-          path: '/:pathMatch(.*)*',
-          component: () => import('../pages/[...all].vue'),
+          path: 'student',
+          name: 'student',
+          component: () => import('../pages/user/admin/student.vue'),
+        },
+        {
+          path: 'student/:id',
+          name: 'student-detail',
+          props: route => ({
+            id: route.params.id,
+          }),
+          component: () => import('../pages/user/admin/student-detail.vue'),
         },
       ],
+    },
+    {
+      path: '/admin',
+      component: () => import('../layouts/blank.vue'),
+      children: [
+        {
+          path: 'login',
+          component: () => import('../pages/user/admin/auth/login.vue'),
+        },
+      ],
+    },
+
+    // Catch-all route for 404 errors
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../pages/error/404.vue'),
     },
   ],
 })

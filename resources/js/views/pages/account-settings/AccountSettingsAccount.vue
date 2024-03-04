@@ -334,27 +334,5 @@ const currencies = [
         </VCardText>
       </VCard>
     </VCol>
-
-    <VCol cols="12">
-      <!-- 👉 Deactivate Account -->
-      <VCard title="Deactivate Account">
-        <VCardText>
-          <div>
-            <VCheckbox
-              v-model="isAccountDeactivated"
-              label="I confirm my account deactivation"
-            />
-          </div>
-
-          <VBtn
-            :disabled="!isAccountDeactivated"
-            color="error"
-            class="mt-3"
-          >
-            Deactivate Account
-          </VBtn>
-        </VCardText>
-      </VCard>
-    </VCol>
   </VRow>
 </template>

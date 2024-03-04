@@ -1,7 +1,4 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import logo from '@images/logo.svg?raw'
-
 const form = ref({
   email: '',
   password: '',
@@ -17,24 +14,16 @@ const isPasswordVisible = ref(false)
       class="auth-card pa-4 pt-7"
       max-width="448"
     >
-      <VCardItem class="justify-center">
-        <template #prepend>
-          <div class="d-flex">
-            <div
-              class="d-flex text-primary"
-              v-html="logo"
-            />
-          </div>
-        </template>
-
-        <VCardTitle class="text-2xl font-weight-bold">
-          sneat
-        </VCardTitle>
-      </VCardItem>
+      <div class="d-flex justify-center mb-10 mt-5">
+        <img
+          src="@images/eduall/eduall.png"
+          alt=""
+        >
+      </div>
 
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Welcome to sneat! 👋🏻
+          Welcome to EduALL Assessment! 👋🏻
         </h5>
         <p class="mb-0">
           Please sign-in to your account and start the adventure
@@ -42,7 +31,7 @@ const isPasswordVisible = ref(false)
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/')">
+        <VForm @submit.prevent="$router.push('/admin/dashboard')">
           <VRow>
             <!-- email -->
             <VCol cols="12">
@@ -88,37 +77,6 @@ const isPasswordVisible = ref(false)
               >
                 Login
               </VBtn>
-            </VCol>
-
-            <!-- create account -->
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span>New on our platform?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                to="/register"
-              >
-                Create an account
-              </RouterLink>
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">or</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <AuthProvider />
             </VCol>
           </VRow>
         </VForm>
