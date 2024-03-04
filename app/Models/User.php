@@ -30,6 +30,6 @@ class User extends Authenticatable
 
     public function answers()
     {
-        return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id')->using(Answer::class)->withTimestamps();
+        return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id')->using(Answer::class)->withPivot('answer_descriptive')->withTimestamps();
     }
 }
