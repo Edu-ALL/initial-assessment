@@ -28,7 +28,9 @@ class UserAnswerController extends Controller
     public function store(Request $request)
     {
         $option_id = [];
-        // return json_encode($request->options);
+        $answers = $request->answers;
+        $rules = [];
+
         // TODO:
         # Buat validasi untuk maksimal/minimum jawaban
         # Point untuk spesial case
@@ -39,6 +41,16 @@ class UserAnswerController extends Controller
         // $question = $sub_question_id != null ? SubQuestion::find($sub_question_id) : Question::find($question_id);
 
         $user = User::find(1);
+
+        foreach ($answers as $key => $answer) {
+
+            $rules[$key . '.question_id'] = 'required|exists:questions,id';
+            $rules[$key . '.sub_question_id'] = 'nullable|exists:sub_questions,id';
+            $rules[$key . '.is_answer'] = 'required|boolean';
+            $rules[$key . '.answer_descriptive'] = 'nullable';
+        }
+
+        // return $rules;
 
         # validation
         // $rules = [
@@ -60,26 +72,22 @@ class UserAnswerController extends Controller
         //     'is_checked' => $request->is_checked
         // ];
 
-        // $validator = Validator::make($incomingRequest, $rules);
+        $validator = Validator::make($answers, $rules);
 
 
         # threw error if validation fails
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'error' => $validator->errors()
-        //     ]);
-        // }
-
-
-
-        // return $request->options;
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()
+            ]);
+        }
 
 
         DB::beginTransaction();
         try {
 
-            $this->answerRepository->syncAnswer($user, $request->options);
+            $this->answerRepository->syncAnswer($user, $answers);
 
             DB::commit();
         } catch (Exception $e) {
