@@ -39,5 +39,5 @@ Route::get('response', function () {
     return response()->json($categories);
 });
 
-Route::post('answer/', [AssessmentController::class, 'storeAnswer']);
+Route::post('answer/{next_category}', [AssessmentController::class, 'storeAnswer']);
 Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);

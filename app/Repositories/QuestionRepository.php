@@ -6,6 +6,7 @@ use App\Interfaces\QuestionRepositoryInterface;
 use App\Models\Category;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\SubQuestion;
 use App\Models\UserClient;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +48,9 @@ class QuestionRepository implements QuestionRepositoryInterface
             $data = [
                 'id' => $question->id,
                 'category_id' => $question->category_id,
+                'title' => $question->title,
                 'description' => $question->description,
+                'question_type' => $question->question_type,
                 'answer_type' => $question->answer_type,
                 'total_point' => $question->total_point,
                 'minimum_answer' => $question->minimum_answer,
@@ -60,8 +63,10 @@ class QuestionRepository implements QuestionRepositoryInterface
                 $sub_questions = $sub_questions->map(function ($sub_question) use ($arrAnswer) {
                     $format_sub_question = [
                         'id' => $sub_question->id,
-                        'category_id' => $sub_question->category_id,
+                        'question_id' => $sub_question->question_id,
+                        'title' => $sub_question->title,
                         'description' => $sub_question->description,
+                        'question_type' => $sub_question->question_type,
                         'answer_type' => $sub_question->answer_type,
                         'total_point' => $sub_question->total_point,
                         'minimum_answer' => $sub_question->minimum_answer,
@@ -75,8 +80,9 @@ class QuestionRepository implements QuestionRepositoryInterface
                             $key = null;
                             $is_answer = false;
 
-                            if ($key = array_search($option->id, array_column($arrAnswer, 'answer_id')) !== false) {
+                            if (array_search($option->id, array_column($arrAnswer, 'answer_id')) !== false) {
                                 $is_answer = true;
+                                $key = array_search($option->id, array_column($arrAnswer, 'answer_id'));
                             }
 
                             $format_options = [
@@ -87,7 +93,7 @@ class QuestionRepository implements QuestionRepositoryInterface
                                 'option_answer' => $option->option_answer,
                                 'point' => $option->point,
                                 'is_answer' => $is_answer,
-                                'answer_descriptive' => $arrAnswer[$key]['answer_descriptive'],
+                                'answer_descriptive' => $key != null ? $arrAnswer[$key]['answer_descriptive'] : null,
                             ];
 
                             return $format_options;
@@ -105,5 +111,15 @@ class QuestionRepository implements QuestionRepositoryInterface
         });
 
         return $questions;
+    }
+
+    public function getQuestionById($question_id)
+    {
+        return Question::find($question_id);
+    }
+
+    public function getSubQuestionById($sub_question_id)
+    {
+        return SubQuestion::find($sub_question_id);
     }
 }
