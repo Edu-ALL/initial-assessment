@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AssessmentController;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -38,4 +39,5 @@ Route::get('response', function () {
     return response()->json($categories);
 });
 
-Route::post('answer/', [UserAnswerController::class, 'store']);
+Route::post('answer/{next_category}', [AssessmentController::class, 'storeAnswer']);
+Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);

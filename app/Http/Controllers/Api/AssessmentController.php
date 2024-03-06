@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\AnswerRepositoryInterface;
+use App\Interfaces\QuestionRepositoryInterface;
 use App\Models\Option;
 use App\Models\Pivot\Answer;
 use App\Models\Question;
@@ -16,16 +17,18 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class UserAnswerController extends Controller
+class AssessmentController extends Controller
 {
     private AnswerRepositoryInterface $answerRepository;
+    private QuestionRepositoryInterface $questionRepository;
 
-    public function __construct(AnswerRepositoryInterface $answerRepository)
+    public function __construct(AnswerRepositoryInterface $answerRepository, QuestionRepositoryInterface $questionRepository)
     {
         $this->answerRepository = $answerRepository;
+        $this->questionRepository = $questionRepository;
     }
 
-    public function store(Request $request)
+    public function storeAnswer(Request $request)
     {
         $option_id = [];
         $answers = $request->answers;
@@ -104,6 +107,33 @@ class UserAnswerController extends Controller
             'success' => true,
             'message' => "Answer successfully stored",
             'data' => $this->answerRepository->responseAnswer($user, 1)
+        ]);
+    }
+
+    public function getQuestion(Request $request)
+    {
+        $category_id = $request->category;
+
+        $user = User::find(1);
+
+        try {
+
+            $question = $this->questionRepository->getQuestion($category_id, $user);
+
+            DB::commit();
+        } catch (Exception $e) {
+
+            Log::error('Get question failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+            return response()->json([
+                'success' => false,
+                'message' => "get question failed " . $e
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Get question successfully",
+            'data' => $question
         ]);
     }
 }
