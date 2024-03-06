@@ -253,11 +253,9 @@ class AssessmentController extends Controller
     {
         $category_id = $request->category;
 
-        $user = User::find(1);
-
         try {
 
-            $question = $this->questionRepository->getQuestion($category_id, $user);
+            $question = $this->questionRepository->getQuestionOnly($category_id);
 
             DB::commit();
         } catch (Exception $e) {

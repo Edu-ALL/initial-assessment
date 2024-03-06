@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
+
+    public function getQuestionOnly($category_id)
+    {
+        $question_withSQ = Question::has('sub_questions')->with(['sub_questions'])->get();
+        $question_withoutSQ = Question::doesntHave('sub_questions')->get();
+
+        $questions = $question_withSQ->merge($question_withoutSQ);
+
+        $category = Category::find($category_id);
+
+        $response[$category->name] = $questions->where('category_id', $category->id);
+
+        return $response;
+    }
+
     public function getQuestion($category_id, $user)
     {
         $response = $arrAnswer = [];
