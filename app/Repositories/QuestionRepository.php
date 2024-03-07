@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\DB;
 class QuestionRepository implements QuestionRepositoryInterface
 {
 
+    public function getOptionOnly($category_id)
+    {
+        $response = Option::leftJoin('questions', 'questions.id', '=', 'options.question_id')->leftJoin('sub_questions', 'sub_questions.id', '=', 'options.sub_question_id')
+            ->select('options.id', 'options.question_id', 'options.sub_question_id', 'options.title_of_answer', 'options.option_answer', 'options.point')
+            ->where('questions.category_id', $category_id)->get();
+
+        return $response;
+    }
+
     public function getQuestionOnly($category_id)
     {
         $question_withSQ = Question::has('sub_questions')->with(['sub_questions.options'])->get();
