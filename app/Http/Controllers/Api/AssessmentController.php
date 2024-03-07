@@ -255,7 +255,7 @@ class AssessmentController extends Controller
 
         try {
 
-            $question = $this->questionRepository->getQuestionOnly($category_id);
+            $question = $this->questionRepository->getOptionOnly($category_id);
 
             DB::commit();
         } catch (Exception $e) {

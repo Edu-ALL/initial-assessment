@@ -14,6 +14,36 @@ use Illuminate\Support\Facades\DB;
 class QuestionRepository implements QuestionRepositoryInterface
 {
 
+    public function getOptionOnly($category_id)
+    {
+        $result = Option::leftJoin('questions', 'questions.id', '=', 'options.question_id')->leftJoin('sub_questions', 'sub_questions.id', '=', 'options.sub_question_id')
+            ->select('options.id', 'options.question_id', 'options.sub_question_id', 'options.title_of_answer', 'options.option_answer', 'options.point')
+            ->where('questions.category_id', $category_id)->get();
+
+        $jumlah_pertanyaan = Question::where('category_id', $category_id)->count();
+        for ($i = 1 ; $i <= $jumlah_pertanyaan; $i++) {
+
+            if ($sub_question = Question::where('category_id', $category_id)->where('id', $i)->has('sub_questions')->count() > 0)
+            {
+                $jumlah_pertanyaan_sub = SubQuestion::where('question_id', $i)->count();
+                for ($a = 1 ; $a <= $jumlah_pertanyaan_sub ; $a++) {
+
+                    $response['option'.$i.'-'.$a] = Option::where('sub_question_id', $a)->get();
+
+                }
+                
+            } else {
+
+                $response['option'.$i] = Option::where('question_id', $i)->get();
+                
+            }
+            
+
+        }
+
+        return $response;
+    }
+
     public function getQuestionOnly($category_id)
     {
         $question_withSQ = Question::has('sub_questions')->with(['sub_questions.options'])->get();
