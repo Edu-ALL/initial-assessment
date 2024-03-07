@@ -16,8 +16,8 @@ class QuestionRepository implements QuestionRepositoryInterface
 
     public function getQuestionOnly($category_id)
     {
-        $question_withSQ = Question::has('sub_questions')->with(['sub_questions'])->get();
-        $question_withoutSQ = Question::doesntHave('sub_questions')->get();
+        $question_withSQ = Question::has('sub_questions')->with(['sub_questions.options'])->get();
+        $question_withoutSQ = Question::doesntHave('sub_questions')->with('options')->get();
 
         $questions = $question_withSQ->merge($question_withoutSQ);
 
