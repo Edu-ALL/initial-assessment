@@ -28,8 +28,8 @@ class User extends Authenticatable
         'phone_number',
     ];
 
-    public function answers()
-    {
-        return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id')->using(Answer::class)->withPivot('answer_descriptive')->withTimestamps();
-    }
+    // public function answers()
+    // {
+    //     return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id')->using(Answer::class)->withPivot('answer_descriptive')->withTimestamps();
+    // }
 }

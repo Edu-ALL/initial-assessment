@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Models\Pivot;
+namespace App\Models;
 
 use App\Models\Option;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Answer extends Pivot
+class Answer extends Model
 {
     use HasFactory;
 
@@ -17,6 +16,8 @@ class Answer extends Pivot
     protected $fillable = [
         'user_id',
         'answer_id',
+        'question_id',
+        'sub_question_id',
         'answer_descriptive',
         'point',
     ];

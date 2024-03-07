@@ -11,6 +11,7 @@ class Option extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'question_id',
         'sub_question_id',
         'title_of_answer',
@@ -28,8 +29,8 @@ class Option extends Model
         return $this->belongsTo(SubQuestion::class, 'sub_question_id', 'id');
     }
 
-    public function user()
-    {
-        return $this->belongsToMany(User::class, 'user_question_answer', 'answer_id', 'user_id')->using(Answer::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsToMany(User::class, 'user_question_answer', 'answer_id', 'user_id')->using(Answer::class);
+    // }
 }
