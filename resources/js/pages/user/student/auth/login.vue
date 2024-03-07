@@ -1,30 +1,28 @@
 <script setup>
 import { showNotif } from '@/helper/notification'
-import router from "@/router"
+import router from '@/router'
 import { onMounted } from 'vue'
 
 
 const props = defineProps({ 'ticket': String })
 
-const rules = ref( {
-  required: value => !!value || 'Field is required',
-  maxlength: value => value.length==10 || 'Field must be 10 characters long',
-})
 
 const formData = ref(null)
+
+const isValidate = ref(false)
 
 const form = ref({
   ticket_id: '',
 })
 
-const submit = async () => {
-  const { valid } = await formData.value.validate()
 
-  if (valid) {
+const submit = async () => {
+  if(form.value.ticket_id.length==4) {
     showNotif('success', 'You`ve successfully logged in', 'bottom-end')
     router.push({ name: 'assessment' })
+  } else {
+    isValidate.value = true
   }
-
 }
 
 onMounted(() => {
@@ -38,7 +36,7 @@ onMounted(() => {
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <VCard
       class="auth-card pa-4 pt-7"
-      max-width="550"
+      max-width="500"
     >
       <div class="d-flex justify-center mb-10 mt-5">
         <img
@@ -47,12 +45,13 @@ onMounted(() => {
         >
       </div>
 
-      <VCardText class="pt-2">
+      <VCardText class="pt-2 text-center pb-3">
         <h5 class="text-h5 mb-1">
           Welcome to EduALL Assessment! 👋🏻
         </h5>
         <p class="mb-0">
-          Please sign-in to your ticket number start the adventure
+          Please sign in with your ticket number  <br>
+          to begin the adventure.
         </p>
       </VCardText>
 
@@ -63,19 +62,24 @@ onMounted(() => {
         >
           <VRow>
             <!-- email -->
-            <VCol cols="12">
-              <VTextField
+            <VCol
+              cols="12"
+              class="pb-0"
+            >
+              <VOtpInput
                 v-model="form.ticket_id"
-                autofocus
-                placeholder="**********"
-                label="Ticket Number"
-                type="email"
-                length="10"
-                :rules="[rules.required, rules.maxlength]"
+                title="Ticket Number"
+                type="text"
+                length="4"
+                divider="-"
+                :error="isValidate"
               />
             </VCol>
             
-            <VCol cols="12">
+            <VCol
+              cols="12"
+              class=""
+            >
               <!-- login button -->
               <VBtn
                 block
