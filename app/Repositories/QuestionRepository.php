@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
+
+    public function getQuestionOnly($category_id)
+    {
+        $question_withSQ = Question::has('sub_questions')->with(['sub_questions'])->get();
+        $question_withoutSQ = Question::doesntHave('sub_questions')->get();
+
+        $questions = $question_withSQ->merge($question_withoutSQ);
+
+        $category = Category::find($category_id);
+
+        $response[$category->name] = $questions->where('category_id', $category->id);
+
+        return $response;
+    }
+
     public function getQuestion($category_id, $user)
     {
         $response = $arrAnswer = [];
@@ -52,6 +67,7 @@ class QuestionRepository implements QuestionRepositoryInterface
                 'description' => $question->description,
                 'question_type' => $question->question_type,
                 'answer_type' => $question->answer_type,
+                'point_type' => $question->point_type,
                 'total_point' => $question->total_point,
                 'minimum_answer' => $question->minimum_answer,
                 'maximum_answer' => $question->maximum_answer,
@@ -68,6 +84,7 @@ class QuestionRepository implements QuestionRepositoryInterface
                         'description' => $sub_question->description,
                         'question_type' => $sub_question->question_type,
                         'answer_type' => $sub_question->answer_type,
+                        'point_type' => $sub_question->point_type,
                         'total_point' => $sub_question->total_point,
                         'minimum_answer' => $sub_question->minimum_answer,
                         'maximum_answer' => $sub_question->maximum_answer,
