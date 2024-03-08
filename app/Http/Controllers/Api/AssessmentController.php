@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AnswerRepositoryInterface;
 use App\Interfaces\QuestionRepositoryInterface;
-use App\Models\Answer as ModelsAnswer;
+use App\Models\Answer;
 use App\Models\Option;
-use App\Models\Pivot\Answer;
 use App\Models\Question;
 use App\Models\SubQuestion;
 use App\Models\User;
@@ -143,10 +142,8 @@ class AssessmentController extends Controller
     public function storeAnswer(Request $request)
     {
 
-        // return ModelsAnswer::where('id', 152)->first();
         $next_category = $request->next_category;
 
-        // return $request->all();
         $answers = [];
         foreach ($request->all() as $request1) {
             foreach ($request1 as $request2) {
@@ -162,17 +159,15 @@ class AssessmentController extends Controller
 
         $user = User::find(1);
 
-        // return $answers;
-
         DB::beginTransaction();
         try {
 
+            // TODO:
+            # 1. set point by description 
             $this->setPoint($collectionAnswer, $user->id);
 
             $a = $this->answerRepository->syncAnswer($user, $collectionAnswer);
 
-            // TODO:
-            # 1. store point 
 
             // $question = $this->questionRepository->getQuestion($next_category, $user);
 
@@ -199,42 +194,40 @@ class AssessmentController extends Controller
     # Set point untuk spesial case
     protected function setPoint($collectionAnswer, $user_id)
     {
-        $point_details = [];
+        $point_details = $question_ids = [];
 
         $i = 0;
 
         foreach ($collectionAnswer->where('sub_question_id', '!=', null)->unique('sub_question_id') as $subQuestions) {
-
+            $question_ids[] = $subQuestions['question_id'];
             $point_details[$i]['user_id'] = $user_id;
+            $point_details[$i]['question_id'] = $subQuestions['question_id'];
+            $point_details[$i]['sub_question_id'] = $subQuestions['sub_question_id'];
 
             $dbSubQuestion = SubQuestion::where('id', $subQuestions['sub_question_id'])->first();
 
             switch ($dbSubQuestion['point_type']) {
+                case 'no_point':
+                    $point_details[$i]['point'] = 0;
+
                 case 'faculty':
-                    $point_details[$i]['question_id'] = $subQuestions['question_id'];
-                    $point_details[$i]['sub_question_id'] = $subQuestions['sub_question_id'];
                     $point_details[$i]['point'] = $this->setPointByFaculty($subQuestions['sub_question_id'], $collectionAnswer);
                     break;
 
                 case 'option':
-                    $point_details[$i]['question_id'] = $subQuestions['question_id'];
-                    $point_details[$i]['sub_question_id'] = $subQuestions['sub_question_id'];
                     $point_details[$i]['point'] = $this->setPointByOption($subQuestions['question_id'], $subQuestions['sub_question_id'], $collectionAnswer);
                     break;
 
                 case 'sub_question':
                     $point_details[$i]['point'] = $this->setPointBySubQuestion($subQuestions['sub_question_id'], $collectionAnswer);
                     break;
-
-                case 'no_point':
-                    $point_details[$i]['point'] = 0;
             }
 
-            count($point_details) > 0 ? UserPoint::insert($point_details) : null;
             $i++;
         }
 
-        foreach ($collectionAnswer->where('sub_question_id', '=', null)->unique('sub_question_id') as  $Questions) {
+        foreach ($collectionAnswer->where('sub_question_id', '=', null)->unique('question_id') as  $Questions) {
+            $question_ids[] = $Questions['question_id'];
             $point_details[$i]['user_id'] = $user_id;
             $point_details[$i]['question_id'] = $Questions['question_id'];
             $point_details[$i]['sub_question_id'] = null;
@@ -242,6 +235,9 @@ class AssessmentController extends Controller
             $dbQuestion = Question::where('id', $Questions['question_id'])->first();
 
             switch ($dbQuestion->point_type) {
+
+                case 'no_point':
+                    $point_details[$i]['point'] = 0;
 
                 case 'option':
                     $point_details[$i]['point'] = $this->setPointByOption($Questions['question_id'], null, $collectionAnswer);
@@ -251,12 +247,14 @@ class AssessmentController extends Controller
                     $point_details[$i]['point'] = $this->setPointBySubQuestion($Questions['question_id'], $collectionAnswer);
                     break;
 
-                case 'no_point':
-                    $point_details[$i]['point'] = 0;
+                case 'description':
+                    $point_details[$i]['point'] = $Questions['answer_descriptive'] != null ? $dbQuestion->total_point : 0;
             }
             $i++;
         }
 
+        count($question_ids) > 0 ? UserPoint::where('user_id', $user_id)->whereIn('question_id', $question_ids)->delete() : null;
+        count($point_details) > 0 ? UserPoint::insert($point_details) : null;
         return $point_details;
     }
 
@@ -321,6 +319,7 @@ class AssessmentController extends Controller
         return $point;
     }
 
+
     public function getQuestion(Request $request)
     {
         $category_id = $request->category;
@@ -344,5 +343,80 @@ class AssessmentController extends Controller
             'message' => "Get question successfully",
             'data' => $question
         ]);
+    }
+
+    public function getAnswer(Request $request)
+    {
+        $response = $optionDetail = [];
+        $question_withSQ = Question::has('sub_questions')->with(['sub_questions.answers'])->get();
+        $question_withoutSQ = Question::doesntHave('sub_questions')->with(['answers'])->get();
+
+        $merge = $question_withSQ->merge($question_withoutSQ);
+
+        $questions = $merge->where('category_id', $request->category);
+
+        foreach ($questions as $key => $question) {
+
+            if ($question->sub_questions()->count() == 0 && $question->answers()->count() > 0) {
+                foreach ($question->answers as $answer) {
+                    if ($answer->option()->count() > 0) {
+                        $optionDetail[$key][] = [
+                            'id' => $answer->option->id,
+                            'question_id' => $answer->option->question_id,
+                            'sub_question_id' => $answer->option->sub_question_id,
+                            'title_of_answer' => $answer->option->title_of_answer,
+                            'option_answer' => $answer->option->option_answer,
+                            'point' => $answer->option->point,
+                        ];
+                    } else {
+                        $optionDetail[$key][] = [
+                            'id' => null,
+                            'question_id' => $answer->question_id,
+                            'sub_question_id' => $answer->sub_question_id,
+                            'answer_descriptive' => $answer->answer_descriptive,
+                        ];
+                    }
+                }
+
+
+                $response[] = [
+                    'answer' => $optionDetail[$key],
+
+                ];
+            }
+
+            if ($question->sub_questions()->count() > 0) {
+                foreach ($question->sub_questions as $key2 => $sub_question) {
+
+                    if ($question->answers()->count() > 0) {
+                        foreach ($sub_question->answers as $answer) {
+                            if ($answer->option()->count() > 0) {
+                                $optionDetail[$key2][] = [
+                                    'id' => $answer->option->id,
+                                    'question_id' => $answer->option->question_id,
+                                    'sub_question_id' => $answer->option->sub_question_id,
+                                    'title_of_answer' => $answer->option->title_of_answer,
+                                    'option_answer' => $answer->option->option_answer,
+                                    'point' => $answer->option->point,
+                                ];
+                            } else {
+                                $optionDetail[$key2][] = [
+                                    'id' => null,
+                                    'question_id' => $answer->question_id,
+                                    'sub_question_id' => $answer->sub_question_id,
+                                    'answer_descriptive' => $answer->answer_descriptive,
+                                ];
+                            }
+                        }
+                        $response[] = [
+                            'answer' => $optionDetail[$key2]
+
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $response;
     }
 }

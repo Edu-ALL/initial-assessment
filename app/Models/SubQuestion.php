@@ -29,4 +29,9 @@ class SubQuestion extends Model
     {
         return $this->hasMany(Option::class, 'sub_question_id', 'id');
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'sub_question_id', 'id');
+    }
 }

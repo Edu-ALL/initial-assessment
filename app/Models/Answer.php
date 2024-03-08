@@ -21,4 +21,9 @@ class Answer extends Model
         'answer_descriptive',
         'point',
     ];
+
+    public function option()
+    {
+        return $this->belongsTo(Option::class, 'answer_id', 'id');
+    }
 }

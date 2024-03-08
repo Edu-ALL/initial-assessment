@@ -46,7 +46,7 @@ class AnswerRepository implements AnswerRepositoryInterface
 
         // return $new_answer;
 
-        count($question_ids) > 0 ? Answer::whereIn('question_id', $question_ids)->delete() : null;
+        count($question_ids) > 0 ? Answer::where('user_id', $user->id)->whereIn('question_id', $question_ids)->delete() : null;
         // $old_answers = $user->answers()->whereIn('question_id', $question_ids)->get();
 
         return Answer::insert($new_answer);
