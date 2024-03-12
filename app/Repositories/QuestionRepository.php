@@ -21,24 +21,18 @@ class QuestionRepository implements QuestionRepositoryInterface
             ->where('questions.category_id', $category_id)->get();
 
         $jumlah_pertanyaan = Question::where('category_id', $category_id)->count();
-        for ($i = 1 ; $i <= $jumlah_pertanyaan; $i++) {
+        for ($i = 1; $i <= $jumlah_pertanyaan; $i++) {
 
-            if ($sub_question = Question::where('category_id', $category_id)->where('id', $i)->has('sub_questions')->count() > 0)
-            {
+            if ($sub_question = Question::where('category_id', $category_id)->where('id', $i)->has('sub_questions')->count() > 0) {
                 $jumlah_pertanyaan_sub = SubQuestion::where('question_id', $i)->count();
-                for ($a = 1 ; $a <= $jumlah_pertanyaan_sub ; $a++) {
+                for ($a = 1; $a <= $jumlah_pertanyaan_sub; $a++) {
 
-                    $response['option'.$i.'-'.$a] = Option::where('sub_question_id', $a)->get();
-
+                    $response['option' . $i . '-' . $a] = Option::where('sub_question_id', $a)->get();
                 }
-                
             } else {
 
-                $response['option'.$i] = Option::where('question_id', $i)->get();
-                
+                $response['option' . $i] = Option::where('question_id', $i)->get();
             }
-            
-
         }
 
         return $response;

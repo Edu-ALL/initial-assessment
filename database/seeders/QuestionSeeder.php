@@ -69,7 +69,7 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'mandatory',
                 'answer_type' => 'description',
-                'point_type' => 'option',
+                'point_type' => 'sub_question',
                 'total_point' => 6,
                 'minimum_answer' => 1,
                 'maximum_answer' => 2
@@ -93,8 +93,8 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'option',
-                'total_point' => 18,
+                'point_type' => 'description',
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
@@ -135,6 +135,129 @@ class QuestionSeeder extends Seeder
                 'total_point' => 3.5,
                 'minimum_answer' => 1,
                 'maximum_answer' => 2
+            ],
+
+            [ #11
+                'id' => 11,
+                'category_id' => 3,
+                'title' => 'What curriculum does your school use?',
+                'description' => null,
+                'question_type' => 'mandatory',
+                'answer_type' => 'option',
+                'point_type' => 'no_point',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 6
+            ],
+            [ #12
+                'id' => 12,
+                'category_id' => 3,
+                'title' => 'What is your current subject selection?',
+                'description' => null,
+                'question_type' => 'mandatory',
+                'answer_type' => 'option',
+                'point_type' => 'no_point',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 6
+            ],
+            [ #13
+                'id' => 13,
+                'category_id' => 3,
+                'title' => 'What were your last report grades?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'option',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 2
+            ],
+            [ #14
+                'id' => 14,
+                'category_id' => 3,
+                'title' => 'Have you done any standardized tests?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'standard_test',
+                'total_point' => 12,
+                'minimum_answer' => 1,
+                'maximum_answer' => 3
+            ],
+            [ #15
+                'id' => 15,
+                'category_id' => 3,
+                'title' => 'Do you feel like you need help in your academics?',
+                'description' => null,
+                'question_type' => 'mandatory',
+                'answer_type' => 'option',
+                'point_type' => 'no_point',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+            [ #16
+                'id' => 16,
+                'category_id' => 3,
+                'title' => 'In which area do you need help in your academics?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'description',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+
+
+            [ #17
+                'id' => 17,
+                'category_id' => 4,
+                'title' => 'What writing activities do you most often do at school?',
+                'description' => 'Choose 3 options.',
+                'question_type' => 'optional',
+                'answer_type' => 'option',
+                'point_type' => 'no_point',
+                'total_point' => 1,
+                'minimum_answer' => 1,
+                'maximum_answer' => 3
+            ],
+            [ #18
+                'id' => 18,
+                'category_id' => 4,
+                'title' => 'How confident are you in expressing yourself through non-academic writing (such as stories, journals)?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'option',
+                'point_type' => 'option',
+                'total_point' => 5,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+            [ #19
+                'id' => 19,
+                'category_id' => 4,
+                'title' => 'How confident are you in expressing yourself through academic writing (such as essays and journals)?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'option',
+                'point_type' => 'option',
+                'total_point' => 5,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+            [ #20
+                'id' => 20,
+                'category_id' => 4,
+                'title' => 'Have you done any of these activities related to writing?',
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'option',
+                'total_point' => 15,
+                'minimum_answer' => 1,
+                'maximum_answer' => 3
             ],
         ];
 

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\AnswerRepositoryInterface;
+use App\Models\Answer;
 use App\Models\Option;
 use App\Models\UserClient;
 use Illuminate\Support\Collection;
@@ -10,28 +11,46 @@ use Illuminate\Support\Facades\DB;
 
 class AnswerRepository implements AnswerRepositoryInterface
 {
-    public function syncAnswer($user, $answerDetails)
+    public function syncAnswer($user, $collectionAnswers)
     {
         $old_ids = $question_ids = [];
         $new_answer = [];
 
-        foreach ($answerDetails as $answer) {
+        foreach ($collectionAnswers->unique('question_id') as $answer) {
             $question_ids[] = $answer['question_id'];
 
-            if ($answer['is_answer']) {
-                $new_answer[$answer['id']] = ['answer_descriptive' => $answer['answer_descriptive']];
+
+
+            // $new_answer[$answer['id']] = ['answer_descriptive' => $answer['answer_descriptive']];
+        }
+
+        foreach ($collectionAnswers as $answer) {
+            if ($answer['id'] != null) {
+                $new_answer[] = [
+                    'user_id' => $user->id,
+                    'answer_id' => $answer['id'],
+                    'question_id' => $answer['question_id'],
+                    'sub_question_id' => $answer['sub_question_id'],
+                    'answer_descriptive' => null
+                ];
+            } else {
+                $new_answer[] = [
+                    'user_id' => $user->id,
+                    'answer_id' => null,
+                    'question_id' => $answer['question_id'],
+                    'sub_question_id' => $answer['sub_question_id'],
+                    'answer_descriptive' => $answer['answer_descriptive']
+                ];
             }
         }
 
-        $old_answers = $user->answers()->whereIn('question_id', $question_ids)->get();
+        // return $new_answer;
 
-        foreach ($old_answers as $old_answer) {
-            $old_ids[] = $old_answer->id;
-        }
+        count($question_ids) > 0 ? Answer::where('user_id', $user->id)->whereIn('question_id', $question_ids)->delete() : null;
+        // $old_answers = $user->answers()->whereIn('question_id', $question_ids)->get();
 
-        $user->answers()->detach($old_ids);
-
-        $user->answers()->attach($new_answer);
+        return Answer::insert($new_answer);
+        // $user->answers()->attach($new_answer);
     }
 
     public function responseAnswer($user, $answer_id)

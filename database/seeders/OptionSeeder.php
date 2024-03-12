@@ -13,6 +13,8 @@ class OptionSeeder extends Seeder
      */
     public function run(): void
     {
+        $indexOption = 1;
+
         # seeds for options no 1a
         $faculty = ['Arts and Humanities', 'Social Sciences', 'Science', 'Engineering', 'Business', 'Health Sciences', 'Law', 'Agriculture', 'Architecture and Design', 'Information Technology'];
         $major_0 = ['English Literature', 'History', 'Philosophy', 'Languages and Linquistics', 'Art and Design', 'Music', 'Theatre and Performance Studies', 'Religious Studies', 'Classics'];
@@ -27,248 +29,279 @@ class OptionSeeder extends Seeder
         $major_9 = ['Information Technology', 'Software Engineering', 'Cybersecurity', 'Data Science', 'Information Systems'];
         foreach ($faculty as $key => $value) {
             foreach (${'major_' . $key} as $key_2 => $value_2) {
-                $seeds[] =
+                $seeds[$indexOption] =
                     [
+                        'id' => $indexOption,
                         'question_id' => 1,
                         'sub_question_id' => 1,
                         'title_of_answer' => $faculty[$key],
                         'option_answer' => $value_2,
                         'point' => 1
                     ];
+
+                $indexOption++;
             }
         }
+
 
         # seeds for options no 1b
         $major_na = ['Sports', 'Music, Singing', 'Creative Art', 'Public Speaking', 'Debate', 'Robotic, Coding', 'Cooking', 'Reading and writing'];
         foreach ($major_na as $key => $value) {
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 1,
                 'sub_question_id' => 2,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 0
             ];
+
+            $indexOption++;
         }
 
         # seeds for options no 2
-        $seeds = [
-            [
+        $option_no_2 = ['School', 'Tutoring', 'Clubs (after school activities)', 'Volunteering', 'Internship', 'Competition preparation', 'Helping family business/do family errands', 'Personal development (hobbies)'];
+        $point_no_2 = [1, 1, 1, 2, 3, 2, 2, 2];
+        foreach ($option_no_2 as $key => $value) {
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 2,
                 'sub_question_id' => null,
                 'title_of_answer' => null,
-                'option_answer' => 'School',
-                'point' => 1
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Tutoring',
-                'point' => 1
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Clubs (after school activities)',
-                'point' => 1
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Volunteering',
-                'point' => 2
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Internship',
-                'point' => 3
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Competition preparation',
-                'point' => 2
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Helping family business/do family errands',
-                'point' => 2
-            ],
-            [
-                'question_id' => 2,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => 'Personal development (hobbies)',
-                'point' => 2
-            ],
-        ];
+                'option_answer' => $value,
+                'point' => $point_no_2[$key]
+            ];
+
+            $indexOption++;
+        }
+
+        // $seeds = [
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'School',
+        //         'point' => 1
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Tutoring',
+        //         'point' => 1
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Clubs (after school activities)',
+        //         'point' => 1
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Volunteering',
+        //         'point' => 2
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Internship',
+        //         'point' => 3
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Competition preparation',
+        //         'point' => 2
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Helping family business/do family errands',
+        //         'point' => 2
+        //     ],
+        //     [
+        //         'question_id' => 2,
+        //         'sub_question_id' => null,
+        //         'title_of_answer' => null,
+        //         'option_answer' => 'Personal development (hobbies)',
+        //         'point' => 2
+        //     ],
+        // ];
+
+
+
+
 
         # seeds for options no 3
         $options_no_3 = ['Hard-working', 'Creative', 'Adaptive', 'Empathetic', 'Resilient', 'Meticulous', 'Honest', 'Love to learn', 'Others (long answer)'];
         foreach ($options_no_3 as $key => $value) {
 
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 3,
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 0
             ];
+
+            $indexOption++;
         }
 
         # seeds for options no 4
         $options_no_4 = ['Procrastinate', 'Impatient', 'Careless', 'Irresponsible', 'Insecure', 'Stubborn', 'Pessimistic', 'Ignorant', 'Others (long answer)'];
         foreach ($options_no_4 as $key => $value) {
 
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 4,
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 0
             ];
-        }
 
-        $options_no_5 = ['Academic', 'Personal (for example your dream job)'];
-        foreach ($options_no_5 as $key => $value) {
-
-            $seeds[] = [
-                'question_id' => 5,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => $value,
-                'point' => 3
-            ];
+            $indexOption++;
         }
 
         $options_no_6 = ['US', 'UK', 'HK', 'Singapore', 'Japan', 'China, Korea', 'EU (Netherlands, Germany, etc.)'];
         foreach ($options_no_6 as $key => $value) {
 
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 6,
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 1
             ];
+
+            $indexOption++;
         }
 
         $options_no_8 = ['International', 'National', 'Province/Town', 'School'];
         $point_option_no_8 = [1, 0.75, 0.5, 0.25];
         foreach ($options_no_8 as $key => $value) {
 
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 8,
                 'sub_question_id' => 3,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => $point_option_no_8[$key]
             ];
+
+            $indexOption++;
         }
 
         for ($i = 0; $i < 2; $i++) {
-            $seeds[] = [
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
                 'question_id' => 8,
-                'sub_question_id' => 4,
+                'sub_question_id' => 6,
                 'title_of_answer' => null,
                 'option_answer' => 'Total hours spent?',
                 'point' => 1
             ];
+
+            $indexOption++;
         }
 
-        for ($i = 0; $i < 4; $i++) {
-            $seeds[] = [
-                'question_id' => 8,
-                'sub_question_id' => 5,
-                'title_of_answer' => null,
-                'option_answer' => 'Please describe it?',
-                'point' => 1
-            ];
-        }
+        $options_no_11 = ['IB Diploma Programme (IBDP)', 'IB MYP', 'Cambridge IGCSE', 'Cambridge A-Level', 'National curriculum', 'Others'];
+        foreach ($options_no_11 as $key => $value) {
 
-        for ($i = 0; $i < 4; $i++) {
-            $seeds[] = [
-                'question_id' => 8,
-                'sub_question_id' => 6,
-                'title_of_answer' => null,
-                'option_answer' => 'Please describe it?',
-                'point' => 0.5
-            ];
-        }
-
-        for ($i = 0; $i < 4; $i++) {
-            $seeds[] = [
-                'question_id' => 8,
-                'sub_question_id' => 7,
-                'title_of_answer' => null,
-                'option_answer' => 'Please describe it?',
-                'point' => 1
-            ];
-        }
-
-        for ($i = 0; $i < 2; $i++) {
-            $seeds[] = [
-                'question_id' => 8,
-                'sub_question_id' => 8,
-                'title_of_answer' => null,
-                'option_answer' => 'Please describe it?',
-                'point' => 1
-            ];
-        }
-
-        $options_no_9 = ['In what field was your personal project in?', 'Please provide a brief description'];
-        foreach ($options_no_9 as $key => $value) {
-
-            $seeds[] = [
-                'question_id' => 9,
-                'sub_question_id' => 9,
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 11,
+                'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 1
             ];
+
+            $indexOption++;
         }
 
-        $options_sub_no_10 = ['Are you interested in conducting one?(Yes/No)', 'If yes, in what topic do you want to develop a project?'];
-        foreach ($options_sub_no_10 as $key => $value) {
+        $options_no_15 = ['Yes', 'No'];
+        foreach ($options_no_15 as $key => $value) {
 
-            $seeds[] = [
-                'question_id' => 9,
-                'sub_question_id' => 10,
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 15,
+                'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 1
             ];
+
+            $indexOption++;
         }
 
-        $options_sub_no_11 = ['In what field was your research project in?', 'Please provide a brief description'];
-        foreach ($options_sub_no_11 as $key => $value) {
+        $options_no_17 = ['Research reports', 'Descriptive texts', 'Argumentative texts', 'Narrative texts', 'Journals', 'Self-reflection', 'Others'];
+        foreach ($options_no_17 as $key => $value) {
 
-            $seeds[] = [
-                'question_id' => 10,
-                'sub_question_id' => 11,
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 17,
+                'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
                 'point' => 1
             ];
+
+            $indexOption++;
         }
 
-        $options_sub_no_12 = ['Are you interested in conducting one?(Yes/No)', 'If yes, in what topic do you want to develop a project?'];
-        foreach ($options_sub_no_12 as $key => $value) {
+        #No 18
+        for ($i = 1; $i < 6; $i++) {
 
-            $seeds[] = [
-                'question_id' => 10,
-                'sub_question_id' => 12,
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 18,
+                'sub_question_id' => null,
+                'title_of_answer' => null,
+                'option_answer' => $i,
+                'point' => $i
+            ];
+
+            $indexOption++;
+        }
+
+        #No 19
+        for ($i = 1; $i < 6; $i++) {
+
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 19,
+                'sub_question_id' => null,
+                'title_of_answer' => null,
+                'option_answer' => $i,
+                'point' => $i
+            ];
+
+            $indexOption++;
+        }
+
+        $options_no_20 = ['Competitions', 'Workshops', 'Self-writing (journals, stories, etc.)'];
+        foreach ($options_no_20 as $key => $value) {
+
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 20,
+                'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
-                'point' => 1
+                'point' => 5
             ];
+
+            $indexOption++;
         }
 
 
