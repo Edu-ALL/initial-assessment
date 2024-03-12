@@ -1,21 +1,66 @@
 <script setup>
 import ApiService from '@/services/ApiService'
-import { defineEmits, onMounted } from 'vue'
+import { defineEmits, watch } from 'vue'
 
 const emits = defineEmits(['step'])
 
-const inputData = ref()
+const options = ref()
 
-const questions = ref()
+const inputData = ref(
+  [
+    {
+      answer: [],
+    },
+    {
+      answer: [],
+    },
+    {
+      answer: [],
+    },
+    {
+      answer: [],
+    },
+    {
+      answer: [],
+    },
+    {
+      answer: {
+        id: null,
+        question_id: 7,
+        sub_question_id: null,
+        answer_descriptive: "",
+      },
+    },
+    {
+      answer: {
+        id: null,
+        question_id: 7,
+        sub_question_id: null,
+        answer_descriptive: "",
+      },
+    },
+    {
+      answer: [],
+    },
+    {
+      answer: {
+        id: null,
+        question_id: 7,
+        sub_question_id: null,
+        answer_descriptive: "",
+      },
+      
+    },
+  ],
+)
 
-const getQuestion =  async() => {
-  const endpoint = 'response'
+const getOptions =  async() => {
+  const endpoint = 'question/1'
   try {
     const res = await ApiService.get(endpoint)
     if (res.success) {
-      questions.value = res.data[1]['Exploration']
+      options.value = res.data
     }
-    console.log(res)
   } catch (error) {
     console.error(error)
   }
@@ -32,9 +77,13 @@ const itemProps = item => {
   }
 }
 
+const checkLog = () => {
+  console.log(inputData.value)
+}
 
-onMounted(() => {
-  getQuestion()
+
+watch(() => {
+  getOptions()
 })
 </script>
 
@@ -52,69 +101,187 @@ onMounted(() => {
     <VCardText>
       <p>
         <strong>
-          How well have you explored yourself?
+          How well have you explored yourself? 
         </strong>
         This area aims to understand your personality, values, interests, and skills/aptitudes that will help you develop your career plan and decide what is best for your future!
       </p>
-    </VCardText>
-    <VCardText>
-      <div
-        v-for="item in questions"
-        :key="item"
-        class=""
-      >
-        <!-- Main Question  -->
-        <section>
-          <p>
-            <span class="text-primary">
-              {{ item.title }}
-            </span>
-            <span
-              v-if="item?.question_type=='mandatory'"
-              style="color: red;"
-              class="ms-3"
-            >*</span>
-          </p>
-          <small>{{ item.description }}</small>
 
-          <!-- Sub Question  -->
-          <section v-if="item?.sub_question">
-            <div
-              v-for="sub_item in item.sub_question"
-              :key="sub_item"
-              class=""
-            >
-              <p>
-                <span>
-                  {{ sub_item.title }}
-                </span>
-                <span
-                  v-if="sub_item.question_type=='mandatory'"
-                  style="color: red;"
-                  class="ms-3"
-                >*</span>
-              </p>
-              <section
-                v-if="sub_item?.options"
-                class="mb-5"
-              >
-                <VSelect
-                  v-model="data.answer"
-                  :item-props="itemProps"
-                  :items="sub_item.options"
-                  item-value="id"
-                  label="'Choose the option"
-                  closable-chips="true"
-                  :counter="sub_item.maximum_answer"
-                  chips
-                  multiple
-                />
-              </section>
-            </div>
-          </section>
-        </section>
-      </div>
+      <ol
+        type="1"
+        class="ms-5"
+      >
+        <!-- Question 1 -->
+        <li>
+          <div class="mb-3">
+            What are your current interests?
+            <span style="color:red">*</span>
+          </div>
+          <ol
+            type="A"
+            class="ms-5"
+          >
+            <li class="mb-3">
+              <label>
+                Academic (general majors)
+                <span style="color:red">*</span>
+              </label>
+              <VSelect
+                v-model="inputData[0].answer"
+                :item-props="itemProps"
+                :items="options && options['option1-1'] ? options['option1-1'] : ''"
+                label="Answer"
+                density="compact"
+                closable-chips
+                chips
+                multiple
+                class="my-3"
+              />
+            </li>
+            <li class="mb-3">
+              <label>
+                Non-academic
+                <span style="color:red">*</span>
+              </label>
+              <VSelect
+                v-model="inputData[1].answer"
+                :item-props="itemProps"
+                :items="options && options['option1-2'] ? options['option1-2'] : ''"
+                label="Answer"
+                density="compact"
+                closable-chips
+                chips
+                multiple
+                class="my-3"
+              />
+            </li>
+          </ol>
+        </li>
+
+        <!-- Question 2 -->
+        <li>
+          <div class="mb-3">
+            What is your daily schedule? (can pick more than one)
+            <span style="color:red">*</span>
+          </div>
+          <VSelect
+            v-model="inputData[2].answer"
+            :item-props="itemProps"
+            :items="options && options['option2'] ? options['option2'] : ''"
+            label="Answer"
+            density="compact"
+            closable-chips
+            chips
+            multiple
+            class="my-3"
+          />
+        </li>
+        
+        <!-- Question 3 -->
+        <li>
+          <div class="mb-3">
+            What do you identify as your strengths? (can pick more than one) 
+            <span style="color:red">*</span>
+          </div>
+          <VSelect
+            v-model="inputData[3].answer"
+            :item-props="itemProps"
+            :items="options && options['option3'] ? options['option3'] : ''"
+            label="Answer"
+            density="compact"
+            closable-chips
+            chips
+            multiple
+            class="my-3"
+          />
+        </li>
+     
+        <!-- Question 4 -->
+        <li>
+          <div class="mb-3">
+            What do you identify as your weaknesses? (can pick more than one)
+            <span style="color:red">*</span>
+          </div>
+          <VSelect
+            v-model="inputData[4].answer"
+            :item-props="itemProps"
+            :items="options && options['option4'] ? options['option4'] : ''"
+            label="Answer"
+            density="compact"
+            closable-chips
+            chips
+            multiple
+            class="my-3"
+          />
+        </li>
+        
+        <!-- Question 5 -->
+        <li>
+          <div class="mb-3">
+            What are your goals?
+          </div>
+          <ol
+            type="A"
+            class="ms-5"
+          >
+            <li class="mb-3">
+              <label>
+                Academic
+              </label>
+              <VTextarea
+                v-model="inputData[5].answer.answer_descriptive"
+                label="Answer"
+                class="my-3"
+              />
+            </li>
+            <li class="mb-3">
+              <label>
+                Personal (for example your dream job)
+              </label>
+              <VTextarea
+                v-model="inputData[6].answer.answer_descriptive"
+                label="Answer"
+                class="my-3"
+              />
+            </li>
+          </ol>
+        </li>
+        
+        <!-- Question 6 -->
+        <li>
+          <div class="mb-3">
+            Where is your dream country to study in? (Can pick more than one)
+            <span style="color:red">*</span>
+          </div>
+          <VSelect
+            v-model="inputData[7].answer"
+            :item-props="itemProps"
+            :items="options && options['option6'] ? options['option6'] : ''"
+            label="Answer"
+            density="compact"
+            closable-chips
+            chips
+            multiple
+            class="my-3"
+          />
+        </li>
+        
+        <!-- Question 7 -->
+        <li>
+          <div class="mb-3">
+            What is your dream university?
+          </div>
+          <VTextarea
+            v-model="inputData[8].answer.answer_descriptive"
+            label="Answer"
+            class="my-3"
+            @change="checkLog"
+          />
+        </li>
+      </ol>
     </VCardText>
+
+
+
     <VCardActions class="justify-space-between">
       <VBtn
         variant="elevated"
@@ -130,9 +297,15 @@ onMounted(() => {
         class="me-5 mb-1"
         @click="checkStep(3)"
       >
-        <span class="me-2">Profile Building</span>
+        <span class="me-1">Profile Building</span>
         <VIcon icon="bx-chevron-right" />
       </VBtn>
     </VCardActions>
   </VCard>
 </template>
+
+<style>
+ol li {
+  margin-bottom: 5px;
+}
+</style>

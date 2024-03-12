@@ -1,13 +1,13 @@
 
 <script setup>
-import Intro from '@/components/student/assessment/intro.vue'
-import Exploration from '@/components/student/assessment/exploration.vue'
-import ProfileBuilding from '@/components/student/assessment/profile-building.vue'
 import Academic from '@/components/student/assessment/academic.vue'
-import Writing from '@/components/student/assessment/writing.vue'
 import Closing from '@/components/student/assessment/closing.vue'
+import Exploration from '@/components/student/assessment/exploration.vue'
+import Intro from '@/components/student/assessment/intro.vue'
+import ProfileBuilding from '@/components/student/assessment/profile-building.vue'
+import Writing from '@/components/student/assessment/writing.vue'
 
-const step = ref(1)
+const step = ref(3)
 
 const checkStep = value => {
   step.value = value
