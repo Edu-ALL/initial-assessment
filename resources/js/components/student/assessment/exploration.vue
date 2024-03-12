@@ -24,31 +24,31 @@ const inputData = ref(
       answer: [],
     },
     {
-      answer: {
+      answer: [{
         id: null,
         question_id: 7,
         sub_question_id: null,
         answer_descriptive: "",
-      },
+      }],
     },
     {
-      answer: {
+      answer: [{
         id: null,
         question_id: 7,
         sub_question_id: null,
         answer_descriptive: "",
-      },
+      }],
     },
     {
       answer: [],
     },
     {
-      answer: {
+      answer: [{
         id: null,
         question_id: 7,
         sub_question_id: null,
         answer_descriptive: "",
-      },
+      }],
       
     },
   ],
@@ -228,7 +228,7 @@ watch(() => {
                 Academic
               </label>
               <VTextarea
-                v-model="inputData[5].answer.answer_descriptive"
+                v-model="inputData[5].answer[0].answer_descriptive"
                 label="Answer"
                 class="my-3"
               />
@@ -238,7 +238,7 @@ watch(() => {
                 Personal (for example your dream job)
               </label>
               <VTextarea
-                v-model="inputData[6].answer.answer_descriptive"
+                v-model="inputData[6].answer[0].answer_descriptive"
                 label="Answer"
                 class="my-3"
               />
@@ -271,7 +271,7 @@ watch(() => {
             What is your dream university?
           </div>
           <VTextarea
-            v-model="inputData[8].answer.answer_descriptive"
+            v-model="inputData[8].answer[0].answer_descriptive"
             label="Answer"
             class="my-3"
             @change="checkLog"

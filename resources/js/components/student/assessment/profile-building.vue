@@ -19,50 +19,6 @@ const inputData = ref(
         {
           id: null,
           question_id: 8,
-          sub_question_id: 3,
-          answer_descriptive: "",
-        },
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 3,
-          answer_descriptive: "",
-        },
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 3,
-          answer_descriptive: "",
-        },
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 3,
-          answer_descriptive: "",
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 4,
-          answer_descriptive: "",
-        },
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 4,
-          answer_descriptive: "",
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 8,
           sub_question_id: 5,
           answer_descriptive: "",
         },
@@ -88,18 +44,6 @@ const inputData = ref(
     },
     {
       answer: [
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 6,
-          answer_descriptive: "",
-        },
-        {
-          id: null,
-          question_id: 8,
-          sub_question_id: 6,
-          answer_descriptive: "",
-        },
         {
           id: null,
           question_id: 8,
@@ -154,6 +98,62 @@ const inputData = ref(
           id: null,
           question_id: 8,
           sub_question_id: 8,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 8,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 8,
+          answer_descriptive: "",
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 9,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 9,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 9,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 9,
+          answer_descriptive: "",
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 10,
+          answer_descriptive: "",
+        },
+        {
+          id: null,
+          question_id: 8,
+          sub_question_id: 10,
           answer_descriptive: "",
         },
       ],
@@ -161,78 +161,83 @@ const inputData = ref(
 
     // Question 2 
     {
-      answer: 
-        {
-          id: null,
-          question_id: 9,
-          sub_question_id: 9,
-          answer_descriptive: "",
-        },
-    },
-    {
-      answer: 
-        {
-          id: null,
-          question_id: 9,
-          sub_question_id: 10,
-          answer_descriptive: "",
-        },
-    },
-    {
-      answer: 
+      answer: [
         {
           id: null,
           question_id: 9,
           sub_question_id: 11,
           answer_descriptive: "",
         },
+      ],
     },
     {
       answer: 
-        {
+        [{
           id: null,
           question_id: 9,
           sub_question_id: 12,
           answer_descriptive: "",
-        },
+        }],
+    },
+    {
+      answer: 
+        [{
+          id: null,
+          question_id: 9,
+          sub_question_id: 13,
+          answer_descriptive: "",
+        }],
+    },
+    {
+      answer: 
+       [ {
+         id: null,
+         question_id: 9,
+         sub_question_id: 14,
+         answer_descriptive: "",
+       }],
     },
 
     // Question 3 
     {
-      answer: 
-        {
-          id: null,
-          question_id: 10,
-          sub_question_id: 13,
-          answer_descriptive: "",
-        },
-    },
-    {
-      answer: 
-        {
-          id: null,
-          question_id: 10,
-          sub_question_id: 14,
-          answer_descriptive: "",
-        },
-    },
-    {
-      answer: 
+      answer: [
         {
           id: null,
           question_id: 10,
           sub_question_id: 15,
           answer_descriptive: "",
         },
+      ],
     },
     {
-      answer: 
+      answer: [
         {
           id: null,
           question_id: 10,
           sub_question_id: 16,
           answer_descriptive: "",
         },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 10,
+          sub_question_id: 17,
+          answer_descriptive: "",
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 10,
+          sub_question_id: 18,
+          answer_descriptive: "",
+        },
+      ],
     },
   ],
 )
@@ -260,6 +265,10 @@ const itemProps = item => {
     title: item.option_answer,
     subtitle: item.title_of_answer,
   }
+}
+
+const checkLog = () => {
+  console.log(inputData.value)
 }
 
 
@@ -468,7 +477,7 @@ watch(() => {
                 In what field was your personal project in?
                 <span style="color:red">*</span>
                 <VTextarea
-                  v-model="inputData[6].answer.answer_descriptive"
+                  v-model="inputData[6].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
@@ -477,7 +486,7 @@ watch(() => {
                 Please provide a brief description*
                 <span style="color:red">*</span>
                 <VTextarea
-                  v-model="inputData[7].answer.answer_descriptive"
+                  v-model="inputData[7].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
@@ -485,7 +494,7 @@ watch(() => {
               <li v-if="radioData.radio1=='no'">
                 Are you interested in conducting one?
 
-                <VRadioGroup v-model="inputData[8].answer.answer_descriptive">
+                <VRadioGroup v-model="inputData[8].answer[0].answer_descriptive">
                   <VRadio
                     label="Yes"
                     value="yes"
@@ -499,7 +508,7 @@ watch(() => {
               <li v-if="radioData.radio1=='no'">
                 If yes, in what topic do you want to develop a project?
                 <VTextarea
-                  v-model="inputData[9].answer.answer_descriptive"
+                  v-model="inputData[9].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
@@ -538,7 +547,7 @@ watch(() => {
                 In what field was your research project in?
                 <span style="color:red">*</span>
                 <VTextarea
-                  v-model="inputData[10].answer.answer_descriptive"
+                  v-model="inputData[10].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
@@ -547,7 +556,7 @@ watch(() => {
                 Please provide a brief description*
                 <span style="color:red">*</span>
                 <VTextarea
-                  v-model="inputData[11].answer.answer_descriptive"
+                  v-model="inputData[11].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
@@ -555,7 +564,7 @@ watch(() => {
               <li v-if="radioData.radio2 == 'no'">
                 Are you interested in conducting one?
                 
-                <VRadioGroup v-model="inputData[12].answer.answer_descriptive">
+                <VRadioGroup v-model="inputData[12].answer[0].answer_descriptive">
                   <VRadio
                     label="Yes"
                     value="yes"
@@ -569,7 +578,7 @@ watch(() => {
               <li v-if="radioData.radio2 == 'no'">
                 If yes, in what topic do you want to develop a project?
                 <VTextarea
-                  v-model="inputData[13].answer.answer_descriptive"
+                  v-model="inputData[13].answer[0].answer_descriptive"
                   label="Answer"
                   class="my-3"
                 />
