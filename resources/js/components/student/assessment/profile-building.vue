@@ -1,10 +1,11 @@
 <script setup>
+import { rules } from '@/helper/rules'
 import { defineEmits } from 'vue'
 import { VDivider } from 'vuetify/lib/components/index.mjs'
 
 const emits = defineEmits(['step'])
 
-const options = ref()
+const formData = ref()
 
 const radioData = ref({
   'radio1': 'yes',
@@ -49,12 +50,14 @@ const inputData = ref(
           question_id: 8,
           sub_question_id: 6,
           answer_descriptive: "",
+          score: '',
         },
         {
           id: null,
           question_id: 8,
           sub_question_id: 6,
           answer_descriptive: "",
+          score: '',
         },
       ],
     },
@@ -242,20 +245,6 @@ const inputData = ref(
   ],
 )
 
-const getOptions =  async() => {
-  const endpoint = 'question/1'
-  try {
-    const res = await ApiService.get(endpoint)
-    if (res.success) {
-      console.log(res.data.data)
-      options.value = res.data['Exploration']
-    }
-    console.log(res)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const checkStep = value => {
   emits('step', value)
 }
@@ -267,345 +256,359 @@ const itemProps = item => {
   }
 }
 
-const checkLog = () => {
-  console.log(inputData.value)
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    console.log(inputData.value) 
+    checkStep(4)
+  }
 }
-
-
-watch(() => {
-  getOptions()
-})
 </script>
 
 <template>
   <!-- Profile Building  -->
   <VCard>
-    <VCardTitle class="mb-4">
-      <h3>
-        <strong>
-          Profile Building
-        </strong>
-      </h3>
-      <VDivider />
-    </VCardTitle>
-    <VCardText>
-      <p>
-        <strong>
-          Let’s see how many activities you’ve joined!
-        </strong>
-        This area aims to educate you on the importance of building your unique strengths and accumulating experiences, making you stand out in a competitive landscape and setting the stage for your success beyond high school! 
-      </p>
+    <VForm
+      ref="formData"
+      validate-on="input"
+      fast-fail
+      @submit.prevent="submit"
+    >
+      <VCardTitle class="mb-4">
+        <h3>
+          <strong>
+            Profile Building
+          </strong>
+        </h3>
+        <VDivider />
+      </VCardTitle>
+      <VCardText>
+        <div class="bg-primary px-3 py-3 rounded">
+          <h3 class="text-white mb-3">
+            Let’s see how many activities you’ve joined!
+          </h3>
+          <p class="mb-0">
+            This area aims to educate you on the importance of building your unique strengths and accumulating experiences, making you stand out in a competitive landscape and setting the stage for your success beyond high school! 
+          </p>
+        </div>
 
-      <ol
-        type="1"
-        class="ms-5"
-      >
-        <!-- Question 1 -->
-        <li class="my-5">
-          <div class="mb-3">
-            What activities have you done?
-            <span style="color:red">*</span>
-          </div>
-          <ol
-            type="A"
-            class="ms-5"
-          >
-            <!-- Sub 1  -->
-            <li class="mb-3">
-              <label>
-                How many competitions have you won or participated in? 
-              </label>
-              <VRow
-                v-for="i in inputData[0].answer"
-                :key="i"
-                class="mt-1"
-              >
-                <VCol md="9">
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Competition Name"
-                  />
-                </VCol>
-                <VCol md="3">
-                  <VSelect
-                    v-model="i.id"
-                    :item-props="itemProps"
-                    :items="items"
-                    label="Level"
-                    density="compact"
-                    closable-chips
-                    chips
-                    multiple
-                  />
-                </VCol>
-              </VRow>
-            </li>
-            <!-- Sub 2  -->
-            <li class="mb-3">
-              <label>
-                How many internships have you participated in? Please state the duration of your internship.
-              </label>
-              <VRow
-                v-for="i in inputData[1].answer"
-                :key="i"
-                class="mt-1"
-              >
-                <VCol md="9">
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Company Name"
-                  />
-                </VCol>
-                <VCol md="3">
-                  <VTextField
-                    v-model="i.id"
-                    type="number"
-                    density="compact"
-                    label="Total Hours"
-                  />
-                </VCol>
-              </VRow>
-            </li>
-            <!-- Sub 3  -->
-            <li class="mb-3">
-              <label>
-                How many volunteering opportunities have you joined?
-              </label>
-              <VRow class="mt-2">
-                <VCol
-                  v-for="i in inputData[2].answer"
-                  :key="i"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Company Name"
-                  />
-                </VCol>
-              </VRow>
-            </li>
-            <!-- Sub 4 -->
-            <li class="mb-3">
-              <label>
-                How many school clubs have you done?
-              </label>
-              <VRow class="mt-2">
-                <VCol
-                  v-for="i in inputData[3].answer"
-                  :key="i"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Club Name"
-                  />
-                </VCol>
-              </VRow>
-            </li>
-            <!-- Sub 5  -->
-            <li class="mb-3">
-              <label>
-                How many out-of-school activities have you done? (e.g coding/robotic/ cooking classes)
-              </label>
-              <VRow class="mt-2">
-                <VCol
-                  v-for="i in inputData[4].answer"
-                  :key="i"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Activity"
-                  />
-                </VCol>
-              </VRow>
-            </li>
-            <!-- Sub 6  -->
-            <li class="mb-3">
-              <label>
-                How many summer/winter programs have you attended?
-              </label>
-              <VRow class="mt-2">
-                <VCol
-                  v-for="i in inputData[5].answer"
-                  :key="i"
-                  md="6"
-                >
-                  <VTextField
-                    v-model="i.answer_descriptive"
-                    density="compact"
-                    label="Program Name"
-                  />
-                </VCol>
-              </VRow>
-            </li>
-          </ol>
-        </li>
-
-        <!-- Question 2 -->
-        <li class="my-5">
-          <div class="mb-3">
-            Have you ever created a personal project? 
-            <span style="color:red">*</span> <br>
-            <small>
-              A personal project combines your passion and the skills you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
-            </small>
-
-            <VRadioGroup v-model="radioData.radio1">
-              <VRadio
-                label="Yes"
-                value="yes"
-              />
-              <VRadio
-                label="No"
-                value="no"
-              />
-            </VRadioGroup>
-
-            <VDivider class="my-3" />
-
+        <ol
+          type="1"
+          class="ms-5"
+        >
+          <!-- Question 1 -->
+          <li class="my-5">
+            <div class="mb-3">
+              What activities have you done?
+              <span style="color:red">*</span>
+            </div>
             <ol
               type="A"
-              class="ms-4"
+              class="ms-5"
             >
-              <li v-if="radioData.radio1=='yes'">
-                In what field was your personal project in?
-                <span style="color:red">*</span>
-                <VTextarea
-                  v-model="inputData[6].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
-                />
+              <!-- Sub 1  -->
+              <li class="mb-3">
+                <label>
+                  How many competitions have you won or participated in? 
+                </label>
+                <VRow
+                  v-for="i in inputData[0].answer"
+                  :key="i"
+                  class="mt-1"
+                >
+                  <VCol md="9">
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Competition Name"
+                    />
+                  </VCol>
+                  <VCol md="3">
+                    <VSelect
+                      v-model="i.id"
+                      :item-props="itemProps"
+                      :items="items"
+                      label="Level"
+                      density="compact"
+                      closable-chips
+                      chips
+                      :rules="i.answer_descriptive ? rules.required : ''"
+                    />
+                  </VCol>
+                </VRow>
               </li>
-              <li v-if="radioData.radio1=='yes'">
-                Please provide a brief description*
-                <span style="color:red">*</span>
-                <VTextarea
-                  v-model="inputData[7].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
-                />
+              <!-- Sub 2  -->
+              <li class="mb-3">
+                <label>
+                  How many internships have you participated in? Please state the duration of your internship.
+                </label>
+                <VRow
+                  v-for="i in inputData[1].answer"
+                  :key="i"
+                  class="mt-1"
+                >
+                  <VCol md="9">
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Company Name"
+                    />
+                  </VCol>
+                  <VCol md="3">
+                    <VTextField
+                      v-model="i.score"
+                      type="number"
+                      density="compact"
+                      label="Total Hours"
+                      :rules="i.answer_descriptive ? rules.required : ''"
+                    />
+                  </VCol>
+                </VRow>
               </li>
-              <li v-if="radioData.radio1=='no'">
-                Are you interested in conducting one?
-
-                <VRadioGroup v-model="inputData[8].answer[0].answer_descriptive">
-                  <VRadio
-                    label="Yes"
-                    value="yes"
-                  />
-                  <VRadio
-                    label="No"
-                    value="no"
-                  />
-                </VRadioGroup>
+              <!-- Sub 3  -->
+              <li class="mb-3">
+                <label>
+                  How many volunteering opportunities have you joined?
+                </label>
+                <VRow class="mt-2">
+                  <VCol
+                    v-for="i in inputData[2].answer"
+                    :key="i"
+                    md="6"
+                  >
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Company Name"
+                    />
+                  </VCol>
+                </VRow>
               </li>
-              <li v-if="radioData.radio1=='no'">
-                If yes, in what topic do you want to develop a project?
-                <VTextarea
-                  v-model="inputData[9].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
-                />
+              <!-- Sub 4 -->
+              <li class="mb-3">
+                <label>
+                  How many school clubs have you done?
+                </label>
+                <VRow class="mt-2">
+                  <VCol
+                    v-for="i in inputData[3].answer"
+                    :key="i"
+                    md="6"
+                  >
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Club Name"
+                    />
+                  </VCol>
+                </VRow>
+              </li>
+              <!-- Sub 5  -->
+              <li class="mb-3">
+                <label>
+                  How many out-of-school activities have you done? (e.g coding/robotic/ cooking classes)
+                </label>
+                <VRow class="mt-2">
+                  <VCol
+                    v-for="i in inputData[4].answer"
+                    :key="i"
+                    md="6"
+                  >
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Activity"
+                    />
+                  </VCol>
+                </VRow>
+              </li>
+              <!-- Sub 6  -->
+              <li class="mb-3">
+                <label>
+                  How many summer/winter programs have you attended?
+                </label>
+                <VRow class="mt-2">
+                  <VCol
+                    v-for="i in inputData[5].answer"
+                    :key="i"
+                    md="6"
+                  >
+                    <VTextField
+                      v-model="i.answer_descriptive"
+                      density="compact"
+                      label="Program Name"
+                    />
+                  </VCol>
+                </VRow>
               </li>
             </ol>
-          </div>
-        </li>
+          </li>
+
+          <!-- Question 2 -->
+          <li class="my-5">
+            <div class="mb-3">
+              Have you ever created a personal project? 
+              <span style="color:red">*</span> <br>
+              <small>
+                A personal project combines your passion and the skills you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
+              </small>
+
+              <VRadioGroup v-model="radioData.radio1">
+                <VRadio
+                  label="Yes"
+                  value="yes"
+                />
+                <VRadio
+                  label="No"
+                  value="no"
+                />
+              </VRadioGroup>
+
+              <VDivider class="my-3" />
+
+              <ol
+                type="A"
+                class="ms-4"
+              >
+                <li v-if="radioData.radio1=='yes'">
+                  In what field was your personal project in?
+                  <span style="color:red">*</span>
+                  <VTextarea
+                    v-model="inputData[6].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
+                    :rules="rules.required"
+                  />
+                </li>
+                <li v-if="radioData.radio1=='yes'">
+                  Please provide a brief description*
+                  <span style="color:red">*</span>
+                  <VTextarea
+                    v-model="inputData[7].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
+                    :rules="rules.required"
+                  />
+                </li>
+                <li v-if="radioData.radio1=='no'">
+                  Are you interested in conducting one?
+
+                  <VRadioGroup v-model="inputData[8].answer[0].answer_descriptive">
+                    <VRadio
+                      label="Yes"
+                      value="yes"
+                    />
+                    <VRadio
+                      label="No"
+                      value="no"
+                    />
+                  </VRadioGroup>
+                </li>
+                <li v-if="radioData.radio1=='no'">
+                  If yes, in what topic do you want to develop a project?
+                  <VTextarea
+                    v-model="inputData[9].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
+                  />
+                </li>
+              </ol>
+            </div>
+          </li>
         
-        <!-- Question 3 -->
-        <li class="my-5">
-          <div class="mb-3">
-            Have you ever conducted a research project?
-            <span style="color:red">*</span> <br>
-            <small>
-              A research project is a detailed study where you look closely at a specific topic, question, or problem to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
-            </small>
+          <!-- Question 3 -->
+          <li class="my-5">
+            <div class="mb-3">
+              Have you ever conducted a research project?
+              <span style="color:red">*</span> <br>
+              <small>
+                A research project is a detailed study where you look closely at a specific topic, question, or problem to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
+              </small>
 
-            <VRadioGroup v-model="radioData.radio2">
-              <VRadio
-                label="Yes"
-                value="yes"
-              />
-              <VRadio
-                label="No"
-                value="no"
-              />
-            </VRadioGroup>
-
-            <VDivider class="my-3" />
-
-            <ol
-              type="A"
-              class="ms-4"
-            >
-              <li v-if="radioData.radio2 == 'yes'">
-                In what field was your research project in?
-                <span style="color:red">*</span>
-                <VTextarea
-                  v-model="inputData[10].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
+              <VRadioGroup v-model="radioData.radio2">
+                <VRadio
+                  label="Yes"
+                  value="yes"
                 />
-              </li>
-              <li v-if="radioData.radio2 == 'yes'">
-                Please provide a brief description*
-                <span style="color:red">*</span>
-                <VTextarea
-                  v-model="inputData[11].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
+                <VRadio
+                  label="No"
+                  value="no"
                 />
-              </li>
-              <li v-if="radioData.radio2 == 'no'">
-                Are you interested in conducting one?
+              </VRadioGroup>
+
+              <VDivider class="my-3" />
+
+              <ol
+                type="A"
+                class="ms-4"
+              >
+                <li v-if="radioData.radio2 == 'yes'">
+                  In what field was your research project in?
+                  <span style="color:red">*</span>
+                  <VTextarea
+                    v-model="inputData[10].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
+                    :rules="rules.required"
+                  />
+                </li>
+                <li v-if="radioData.radio2 == 'yes'">
+                  Please provide a brief description*
+                  <span style="color:red">*</span>
+                  <VTextarea
+                    v-model="inputData[11].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
+                    :rules="rules.required"
+                  />
+                </li>
+                <li v-if="radioData.radio2 == 'no'">
+                  Are you interested in conducting one?
                 
-                <VRadioGroup v-model="inputData[12].answer[0].answer_descriptive">
-                  <VRadio
-                    label="Yes"
-                    value="yes"
+                  <VRadioGroup v-model="inputData[12].answer[0].answer_descriptive">
+                    <VRadio
+                      label="Yes"
+                      value="yes"
+                    />
+                    <VRadio
+                      label="No"
+                      value="no"
+                    />
+                  </VRadioGroup>
+                </li>
+                <li v-if="radioData.radio2 == 'no'">
+                  If yes, in what topic do you want to develop a project?
+                  <VTextarea
+                    v-model="inputData[13].answer[0].answer_descriptive"
+                    label="Answer"
+                    class="my-3"
                   />
-                  <VRadio
-                    label="No"
-                    value="no"
-                  />
-                </VRadioGroup>
-              </li>
-              <li v-if="radioData.radio2 == 'no'">
-                If yes, in what topic do you want to develop a project?
-                <VTextarea
-                  v-model="inputData[13].answer[0].answer_descriptive"
-                  label="Answer"
-                  class="my-3"
-                />
-              </li>
-            </ol>
-          </div>
-        </li>
-      </ol>
-    </VCardText>
-    <VCardActions class="justify-space-between">
-      <VBtn
-        variant="elevated"
-        class="ms-3 mb-1 bg-warning"
-        @click="checkStep(2)"
-      >
-        <VIcon icon="bx-chevron-left" />
-        <span class="me-2">Exploration</span>
-      </VBtn>
+                </li>
+              </ol>
+            </div>
+          </li>
+        </ol>
+      </VCardText>
+      <VCardActions class="justify-space-between">
+        <VBtn
+          variant="elevated"
+          class="ms-3 mb-1 bg-warning"
+          @click="checkStep(2)"
+        >
+          <VIcon icon="bx-chevron-left" />
+          <span class="me-2">Exploration</span>
+        </VBtn>
 
-      <VBtn
-        variant="elevated"
-        class="me-5 mb-1"
-        @click="checkStep(4)"
-      >
-        <span class="me-2">Academic</span>
-        <VIcon icon="bx-chevron-right" />
-      </VBtn>
-    </VCardActions>
+        <VBtn
+          variant="elevated"
+          class="me-5 mb-1"
+          type="submit"
+        >
+          <span class="me-2">Academic</span>
+          <VIcon icon="bx-chevron-right" />
+        </VBtn>
+      </VCardActions>
+    </VForm>
   </VCard>
 </template>
