@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue'
+
+const mission = ref()
+</script>
+
 <template>
   <VExpansionPanel>
     <VExpansionPanelTitle>
@@ -18,8 +24,23 @@
         </VAlertTitle>
       </VAlert>
 
+      <VRadioGroup
+        v-model="mission"
+        class="mt-3"
+      >
+        <VRadio
+          label="Visit an NGO booth and be inspired to help out (encourage NGO to also create a small activity)"
+          value="1"
+        />
+        <VRadio
+          label="Participate in STEM+ activities to gauge what interests you!"
+          value="2"
+        />
+      </VRadioGroup>
+      <VDivider class="my-3" />
+
       <ol class="ms-5 my-3">
-        <li>
+        <li v-if="mission==1">
           <strong>
             Visit an NGO booth 
           </strong>
@@ -54,7 +75,7 @@
           <VDivider class="my-6" />
         </li>
 
-        <li>
+        <li v-if="mission==2">
           <strong>
             Participate in STEM+ activities 
           </strong> 

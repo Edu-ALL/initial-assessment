@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue'
+
+const mission = ref()
+</script>
+
 <template>
   <VExpansionPanel>
     <VExpansionPanelTitle>
@@ -18,8 +24,24 @@
         </VAlertTitle>
       </VAlert>
 
+      <VRadioGroup
+        v-model="mission"
+        class="mt-3"
+      >
+        <VRadio
+          label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "
+          value="1"
+        />
+        <VRadio
+          label="Get to understand more about your dreams! Participate in a sharing session!"
+          value="2"
+        />
+      </VRadioGroup>
+      
+      <VDivider class="my-3" />
+
       <ol class="ms-5 my-3">
-        <li>
+        <li v-if="mission==1">
           <strong>
             Take the 5 minute ONE*T test
           </strong>
@@ -29,7 +51,11 @@
             class="ms-4 my-3"
           >
             <li class="mb-3">
-              Please visit <a href="https://www.mynextmove.org/explore/ip">ONE*T test</a>
+              Please visit <a
+                href="https://www.mynextmove.org/explore/ip"
+                target="_blank"
+                rel="noopener noreferrer"
+              >ONE*T test</a>
             </li>
             <li>
               <p>
@@ -53,7 +79,7 @@
           <VDivider class="my-6" />
         </li>
 
-        <li>
+        <li v-if="mission==2">
           <strong>
             Get to understand more about your dreams! 
           </strong>
