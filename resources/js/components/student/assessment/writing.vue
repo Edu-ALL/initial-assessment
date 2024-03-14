@@ -121,7 +121,6 @@ watch(() => {
         <VDivider />
       </VCardTitle>
       <VCardText>
-        {{ options }}
         <div class="bg-primary px-3 py-3 rounded">
           <h3 class="text-white mb-3">
             How well can you explain yourself through writing?
