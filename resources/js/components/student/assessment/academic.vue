@@ -11,7 +11,6 @@ const sub_option = ref()
 
 const radioData = ref({
   radio1: 'yes',
-  radio2: 'yes',
 })
 
 const getOptions =  async() => {
@@ -63,7 +62,59 @@ const inputData = ref(
       ],
     },
     {
-      answer: [],
+      answer: [
+        {
+          id: null,
+          question_id: 14,
+          sub_question_id: 21,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 14,
+          sub_question_id: 22,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 14,
+          sub_question_id: 23,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 15,
+          sub_question_id: null,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 16,
+          sub_question_id: null,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
     },
   ],
 )
@@ -143,7 +194,6 @@ watch(() => {
           </li>
 
           <!-- Question 2  -->
-          {{ inputData[1].answer }}
           <li class="my-5">
             What is your current subject selection?
             <span style="color:red">*</span> <br>
@@ -170,51 +220,63 @@ watch(() => {
               What were your last report grades?
               <span style="color:red">*</span>
 
-              <VRadioGroup v-model="radioData.radio1">
+              <VRadioGroup v-model="inputData[2].answer[0].sub_question_id">
                 <VRadio
                   label="Yes"
-                  value="yes"
+                  value="20"
                 />
                 <VRadio
                   label="I don't know"
-                  value="no"
+                  value="19"
                 />
               </VRadioGroup>
 
               <VDivider class="my-3" />
 
               <!-- Detail Score  -->
-
-              <VRow
-                v-for="item in inputData[1].answer"
-                :key="item"
-              >
-                <VCol :cols="inputData[0].answer.id == 122 ? 8: 10">
-                  <VTextField
-                    density="compact"
-                    :value="item.option_answer"
-                    readonly
-                  />
-                </VCol>
-                <VCol
-                  v-if="inputData[0].answer.id == 122"
-                  cols="2"
+              <!-- If Answer I Know  -->
+              <section v-if="inputData[2].answer[0].sub_question_id==20">
+                <VRow
+                  v-for="item in inputData[1].answer"
+                  :key="item"
                 >
-                  <VSelect
-                    v-model="item.answer_descriptive"
-                    label="Level"
-                    density="compact"
-                    :items="['HL','SL']"
-                  />
-                </VCol>
-                <VCol cols="2">
-                  <VTextField
-                    v-model="item.score"
-                    density="compact"
-                    label="Score"
-                  />
-                </VCol>
-              </VRow>
+                  <VCol :cols="inputData[0].answer.id == 122 ? 8: 10">
+                    <VTextField
+                      v-model="item.option_answer"
+                      label="Subject"
+                      density="compact"
+                      readonly
+                    />
+                  </VCol>
+                  <VCol
+                    v-if="inputData[0].answer.id == 122"
+                    cols="2"
+                  >
+                    <VSelect
+                      v-model="item.answer_descriptive"
+                      label="Level"
+                      density="compact"
+                      :items="['HL','SL']"
+                    />
+                  </VCol>
+                  <VCol cols="2">
+                    <VTextField
+                      v-model="item.score"
+                      density="compact"
+                      label="Score"
+                    />
+                  </VCol>
+                </VRow>
+              </section>
+
+              <!-- If Answer I Dont Know  -->
+              <section v-if="inputData[2].answer[0].sub_question_id==19">
+                <VTextField
+                  v-model="inputData[2].answer[0].score"
+                  label="Average Score"
+                  density="compact"
+                />
+              </section>
             </div>
           </li>
 
@@ -224,7 +286,7 @@ watch(() => {
               Have you done any standardized tests?
               <span style="color:red">*</span>
 
-              <VRadioGroup v-model="radioData.radio2">
+              <VRadioGroup v-model="radioData.radio1">
                 <VRadio
                   label="Yes"
                   value="yes"
@@ -236,30 +298,32 @@ watch(() => {
               </VRadioGroup>
 
               <VDivider class="my-3" />
-
               <VRow>
                 <VCol cols="4">
                   <VTextField
+                    v-model="inputData[3].answer[0].score"
                     type="number"
                     label="IELTS"
                     density="compact"
-                    :disabled="radioData.radio2=='no'"
+                    :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
                 <VCol cols="4">
                   <VTextField
+                    v-model="inputData[4].answer[0].score"
                     type="number"
                     label="TOEFL"
                     density="compact"
-                    :disabled="radioData.radio2=='no'"
+                    :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
                 <VCol cols="4">
                   <VTextField
+                    v-model="inputData[5].answer[0].score"
                     type="number"
                     label="SAT"
                     density="compact"
-                    :disabled="radioData.radio2=='no'"
+                    :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
               </VRow>
@@ -272,7 +336,10 @@ watch(() => {
               Do you feel like you need help in your academics?
               <span style="color:red">*</span>
 
-              <VRadioGroup :rules="rules.required">
+              <VRadioGroup
+                v-model="inputData[6].answer[0].answer_descriptive"
+                :rules="rules.required"
+              >
                 <VRadio
                   label="Yes"
                   value="yes"
@@ -291,6 +358,7 @@ watch(() => {
               In which area do you need help in your academics?
 
               <VTextarea
+                v-model="inputData[7].answer[0].answer_descriptive"
                 label="Answer"
                 density="compact"
                 class="mt-3"

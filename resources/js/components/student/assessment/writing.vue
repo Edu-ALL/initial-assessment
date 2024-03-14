@@ -1,13 +1,27 @@
 <script setup>
 import { rules } from '@/helper/rules'
-import { defineEmits } from 'vue'
+import ApiService from '@/services/ApiService'
+import { defineEmits, watch } from 'vue'
 
 const emits = defineEmits(['step'])
 
+const options = ref()
 const formData = ref()
 
 const checkStep = value => {
   emits('step', value)
+}
+
+const getOptions =  async() => {
+  const endpoint = 'question/4'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const tickLabels = ref ({
@@ -29,6 +43,7 @@ const inputData = ref(
         question_id: 18,
         sub_question_id: null,
         answer_descriptive: "",
+        score: null,
       }],
     },
     {
@@ -37,6 +52,7 @@ const inputData = ref(
         question_id: 19,
         sub_question_id: null,
         answer_descriptive: "",
+        score: null,
       }],
     },
     {
@@ -74,6 +90,17 @@ const submit = async () => {
     checkStep(6)
   }
 }
+
+const itemProps = item => {
+  return {
+    title: item.option_answer,
+    subtitle: item.title_of_answer,
+  }
+}
+
+watch(() => {
+  getOptions()
+})
 </script>
 
 <template>
@@ -94,6 +121,7 @@ const submit = async () => {
         <VDivider />
       </VCardTitle>
       <VCardText>
+        {{ options }}
         <div class="bg-primary px-3 py-3 rounded">
           <h3 class="text-white mb-3">
             How well can you explain yourself through writing?
@@ -112,12 +140,15 @@ const submit = async () => {
             What writing activities do you most often do at school? Choose 3 options.
             <VSelect
               v-model="inputData[0].answer"
+              :item-props="itemProps"
+              :items="options && options['option17'] ? options['option17'] : ''"
               label="Answer"
               density="compact"
               closable-chips
               chips
               multiple
               class="mt-3"
+              :rules="rules.maxLength_3"
             />
           </li>
 
@@ -128,7 +159,7 @@ const submit = async () => {
             <VRow>
               <VCol cols="4">
                 <VSlider
-                  v-model="inputData[1].answer[0].answer_descriptive"
+                  v-model="inputData[1].answer[0].score"
                   :max="4"
                   :ticks="tickLabels"
                   show-ticks="always"
@@ -148,7 +179,7 @@ const submit = async () => {
             <VRow>
               <VCol cols="4">
                 <VSlider
-                  v-model="inputData[2].answer[0].answer_descriptive"
+                  v-model="inputData[2].answer[0].score"
                   :max="4"
                   :ticks="tickLabels"
                   show-ticks="always"
