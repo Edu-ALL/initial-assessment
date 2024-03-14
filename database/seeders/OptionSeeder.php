@@ -36,6 +36,7 @@ class OptionSeeder extends Seeder
                         'sub_question_id' => 1,
                         'title_of_answer' => $faculty[$key],
                         'option_answer' => $value_2,
+                        'reference_to' => null,
                         'point' => 1
                     ];
 
@@ -53,6 +54,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => 2,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 0
             ];
 
@@ -69,6 +71,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => $point_no_2[$key]
             ];
 
@@ -148,6 +151,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 0
             ];
 
@@ -164,6 +168,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 0
             ];
 
@@ -179,6 +184,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 1
             ];
 
@@ -192,23 +198,11 @@ class OptionSeeder extends Seeder
             $seeds[$indexOption] = [
                 'id' => $indexOption,
                 'question_id' => 8,
-                'sub_question_id' => 3,
+                'sub_question_id' => 5,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => $point_option_no_8[$key]
-            ];
-
-            $indexOption++;
-        }
-
-        for ($i = 0; $i < 2; $i++) {
-            $seeds[$indexOption] = [
-                'id' => $indexOption,
-                'question_id' => 8,
-                'sub_question_id' => 6,
-                'title_of_answer' => null,
-                'option_answer' => 'Total hours spent?',
-                'point' => 1
             ];
 
             $indexOption++;
@@ -223,11 +217,71 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
-                'point' => 1
+                'reference_to' => null,
+                'point' => 0
             ];
 
             $indexOption++;
         }
+
+        # no 12
+        $group_0 = ['Studies in Language and Literature', 'Language Acquisition', 'Individuals and Societies', 'Sciences', 'Mathematics', 'The Arts', 'Core Components'];
+        $group_1 = ['Sciences', 'Mathematics', 'Humanities and Social Sciences', 'Languages', 'Arts and Design', 'Technology and Vocational', 'Physical Education'];
+
+
+        $subject0_0 = ['Literature', 'Language and Literature', 'Literature and Performance'];
+        $subject0_1 = ['Language B', 'Language ab initio', 'Classical Languages'];
+        $subject0_2 = ['Business Management, Economics', 'Geography', 'Global Politics', 'History', 'Information Technology in a Global Society', 'Philosophy', 'Psychology', 'Social and Cultural Anthropology', 'Environmental Systems and Societies', 'World Religions'];
+        $subject0_3 = ['Biology', 'Chemistry', 'Physics', 'Computer Science', 'Design Technology', 'Environmental Systems and Societies', 'Sports', 'Exercise', 'Health Science'];
+        $subject0_4 = ['Mathematics: Analysis and Approaches', 'Mathematics: Applications', 'Interpretation'];
+        $subject0_5 = ['Visual Arts', 'Music', 'Theatre', 'Dance', 'Film'];
+        $subject0_6 = ['Theory of Knowledge (TOK)', 'Extended Essay (EE)', 'Creativity', 'Activity', 'Service (CAS)'];
+
+        $subject1_0 = ['Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Marine Science', 'Psychology'];
+        $subject1_1 = ['Mathematics', 'Further Mathematics'];
+        $subject1_2 = ['Geography', 'History', 'Sociology', 'Law', 'Government and Politics', 'Psychology', 'Economics', 'Business Studies', 'Global Perspectives', 'Research'];
+        $subject1_3 = ['English Language', 'English Literature', 'Chinese', 'Spanish', 'French', 'German', 'Arabic', 'Other languages'];
+        $subject1_4 = ['Art and Design', 'Music', 'Theatre Studies', 'Media Studies', 'Textile Design', 'Photography'];
+        $subject1_5 = ['Computer Science', 'Information Technology', 'Design', 'Technology'];
+        $subject1_6 = ['Physical Education'];
+
+        $subject2_0 = ['Bahasa Indonesia (Indonesian Language and Literature)', 'Matematika (Mathematics)', 'Ilmu Pengetahuan Alam Terpadu (Science Studies)', 'Ilmu Pengetahuan Sosial Terpadu (Social Studies)', 'Pendidikan Kewarganegaraan (Civic)', 'Pendidikan Agama (Religion)', 'Bahasa Inggris (English Language)', 'Seni dan Prakarya (Arts and Craftsmanship)', 'Pendidikan Jasmani, Olahraga, dan Kesehatan (Physical Education)', 'Bahasa Asing (Foreign Language)', 'Teknologi Informasi dan Komunikasi (Information and Communication Technology)', 'Fisika (Physics)', 'Kimia (Chemistry)', 'Biologi (Biology)', 'Sejarah (History)', 'Geografi (Geography)', 'Ekonomi (Economics)', 'Sosiologi (Sociology)'];
+        $reference_to = ['IB', 'Cambridge'];
+        for ($i = 0; $i < 2; $i++) {
+            foreach (${'group_' . $i} as $key => $value) {
+                foreach (${'subject' . $i . '_' . $key} as $key_2 => $value_2) {
+                    $seeds[$indexOption] =
+                        [
+                            'id' => $indexOption,
+                            'question_id' => 12,
+                            'sub_question_id' => null,
+                            'title_of_answer' => $value,
+                            'option_answer' => $value_2,
+                            'reference_to' => $reference_to[$i],
+                            'point' => 0
+                        ];
+
+                    $indexOption++;
+                }
+            }
+        }
+
+        foreach ($subject2_0 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $indexOption,
+                    'question_id' => 12,
+                    'sub_question_id' => null,
+                    'title_of_answer' => null,
+                    'option_answer' => $value,
+                    'reference_to' => 'National',
+                    'point' => 0
+                ];
+
+            $indexOption++;
+        }
+        # end no 12
+
 
         $options_no_15 = ['Yes', 'No'];
         foreach ($options_no_15 as $key => $value) {
@@ -238,6 +292,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 1
             ];
 
@@ -253,6 +308,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $value,
+                'reference_to' => null,
                 'point' => 1
             ];
 
@@ -268,6 +324,7 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $i,
+                'reference_to' => null,
                 'point' => $i
             ];
 
@@ -283,22 +340,8 @@ class OptionSeeder extends Seeder
                 'sub_question_id' => null,
                 'title_of_answer' => null,
                 'option_answer' => $i,
+                'reference_to' => null,
                 'point' => $i
-            ];
-
-            $indexOption++;
-        }
-
-        $options_no_20 = ['Competitions', 'Workshops', 'Self-writing (journals, stories, etc.)'];
-        foreach ($options_no_20 as $key => $value) {
-
-            $seeds[$indexOption] = [
-                'id' => $indexOption,
-                'question_id' => 20,
-                'sub_question_id' => null,
-                'title_of_answer' => null,
-                'option_answer' => $value,
-                'point' => 5
             ];
 
             $indexOption++;

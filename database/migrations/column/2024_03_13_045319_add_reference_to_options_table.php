@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('question', function (Blueprint $table) {
-            DB::statement("ALTER TABLE questions MODIFY COLUMN point_type ENUM('option', 'question', 'sub_question', 'faculty', 'no_point', 'standard_test', 'description', 'slot') NOT NULL");
+        Schema::table('options', function (Blueprint $table) {
+            $table->enum('reference_to', ['IB', 'Cambridge', 'National'])->after('sub_question_id')->nullable();
         });
     }
 
@@ -22,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('question', function (Blueprint $table) {
+        Schema::table('options', function (Blueprint $table) {
             //
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('sub_questions', function (Blueprint $table) {
-            DB::statement("ALTER TABLE sub_questions MODIFY COLUMN point_type ENUM('option', 'question', 'sub_question', 'faculty', 'no_point', 'standard_test', 'description') NOT NULL");
+            DB::statement("ALTER TABLE sub_questions MODIFY COLUMN point_type ENUM('option', 'question', 'sub_question', 'faculty', 'no_point', 'standard_test', 'description', 'slot') NOT NULL");
         });
     }
 

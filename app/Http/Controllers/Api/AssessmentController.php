@@ -351,6 +351,8 @@ class AssessmentController extends Controller
         $question_withSQ = Question::has('sub_questions')->with(['sub_questions.answers'])->get();
         $question_withoutSQ = Question::doesntHave('sub_questions')->with(['answers'])->get();
 
+        $user = User::find(1);
+
         $merge = $question_withSQ->merge($question_withoutSQ);
 
         $questions = $merge->where('category_id', $request->category);
@@ -358,7 +360,7 @@ class AssessmentController extends Controller
         foreach ($questions as $key => $question) {
 
             if ($question->sub_questions()->count() == 0 && $question->answers()->count() > 0) {
-                foreach ($question->answers as $answer) {
+                foreach ($question->answers()->where('user_id', $user->id)->get() as $answer) {
                     if ($answer->option()->count() > 0) {
                         $optionDetail[$key][] = [
                             'id' => $answer->option->id,
@@ -389,7 +391,7 @@ class AssessmentController extends Controller
                 foreach ($question->sub_questions as $key2 => $sub_question) {
 
                     if ($question->answers()->count() > 0) {
-                        foreach ($sub_question->answers as $answer) {
+                        foreach ($sub_question->answers()->where('user_id', $user->id)->get() as $answer) {
                             if ($answer->option()->count() > 0) {
                                 $optionDetail[$key2][] = [
                                     'id' => $answer->option->id,
@@ -418,5 +420,30 @@ class AssessmentController extends Controller
         }
 
         return $response;
+    }
+
+    public function getSubOption(Request $request)
+    {
+        $curriculum = $request->curriculum;
+
+        try {
+
+            $sub_option = $this->questionRepository->getOptionByCurriculum($curriculum);
+
+            DB::commit();
+        } catch (Exception $e) {
+
+            Log::error('Get sub option failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+            return response()->json([
+                'success' => false,
+                'message' => "get sub option failed " . $e
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Get sub option successfully",
+            'data' => $sub_option
+        ]);
     }
 }

@@ -16,24 +16,24 @@ class QuestionRepository implements QuestionRepositoryInterface
 
     public function getOptionOnly($category_id)
     {
-        $result = Option::leftJoin('questions', 'questions.id', '=', 'options.question_id')->leftJoin('sub_questions', 'sub_questions.id', '=', 'options.sub_question_id')
-            ->select('options.id', 'options.question_id', 'options.sub_question_id', 'options.title_of_answer', 'options.option_answer', 'options.point')
-            ->where('questions.category_id', $category_id)->get();
 
-        $jumlah_pertanyaan = Question::where('category_id', $category_id)->count();
-        for ($i = 1; $i <= $jumlah_pertanyaan; $i++) {
+        $response = [];
 
-            if ($sub_question = Question::where('category_id', $category_id)->where('id', $i)->has('sub_questions')->count() > 0) {
-                $jumlah_pertanyaan_sub = SubQuestion::where('question_id', $i)->count();
-                for ($a = 1; $a <= $jumlah_pertanyaan_sub; $a++) {
-
-                    $response['option' . $i . '-' . $a] = Option::where('sub_question_id', $a)->get();
+        $questions = Question::where('category_id', $category_id)->get();
+        foreach ($questions as $question) {
+            if ($question->sub_questions()->count() > 0) {
+                foreach ($question->sub_questions as $sub_question) {
+                    if (count($option = Option::where('sub_question_id', $sub_question->id)->get()) > 0) {
+                        $response['option' . $question->id . '-' . $sub_question->id] = Option::where('sub_question_id', $sub_question->id)->get();
+                    }
                 }
             } else {
-
-                $response['option' . $i] = Option::where('question_id', $i)->get();
+                if (count($option = Option::where('question_id', $question->id)->get()) > 0) {
+                    $response['option' . $question->id] = $option;
+                }
             }
         }
+
 
         return $response;
     }
@@ -162,5 +162,33 @@ class QuestionRepository implements QuestionRepositoryInterface
     public function getSubQuestionById($sub_question_id)
     {
         return SubQuestion::find($sub_question_id);
+    }
+
+    public function getOptionByCurriculum($curriculum_id)
+    {
+
+        $curriculum = null;
+
+        switch ($curriculum_id) {
+            case 122:
+            case 123:
+                $curriculum = 'IB';
+                break;
+
+            case 124:
+            case 125:
+                $curriculum = 'Cambridge';
+                break;
+
+            case 126:
+                $curriculum = 'National';
+                break;
+        }
+        $response['sub_option'] = Option::where('reference_to', $curriculum)->get();
+
+        if ($curriculum == null)
+            $response = null;
+
+        return $response;
     }
 }
