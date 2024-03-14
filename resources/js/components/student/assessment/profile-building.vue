@@ -1,11 +1,13 @@
 <script setup>
 import { rules } from '@/helper/rules'
-import { defineEmits } from 'vue'
+import ApiService from '@/services/ApiService'
+import { defineEmits, watch } from 'vue'
 import { VDivider } from 'vuetify/lib/components/index.mjs'
 
 const emits = defineEmits(['step'])
 
 const formData = ref()
+const options = ref()
 
 const radioData = ref({
   'radio1': 'yes',
@@ -245,6 +247,18 @@ const inputData = ref(
   ],
 )
 
+const getOptions =  async() => {
+  const endpoint = 'question/2'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const checkStep = value => {
   emits('step', value)
 }
@@ -264,6 +278,10 @@ const submit = async () => {
     checkStep(4)
   }
 }
+
+watch(() => {
+  getOptions()
+})
 </script>
 
 <template>
@@ -328,11 +346,10 @@ const submit = async () => {
                     <VSelect
                       v-model="i.id"
                       :item-props="itemProps"
-                      :items="items"
+                      :items="options && options['option8-5'] ? options['option8-5'] : ''"
+                      item-value="id"
                       label="Level"
                       density="compact"
-                      closable-chips
-                      chips
                       :rules="i.answer_descriptive ? rules.required : ''"
                     />
                   </VCol>

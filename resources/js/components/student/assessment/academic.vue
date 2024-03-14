@@ -1,15 +1,47 @@
 <script setup>
 import { rules } from '@/helper/rules'
-import { defineEmits } from 'vue'
+import ApiService from '@/services/ApiService'
+import { defineEmits, watch } from 'vue'
 
 const emits = defineEmits(['step'])
 
 const formData = ref()
+const options = ref()
+const sub_option = ref()
 
 const radioData = ref({
   radio1: 'yes',
   radio2: 'yes',
 })
+
+const getOptions =  async() => {
+  const endpoint = 'question/3'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const getSubOption  = async ()  => {
+  // Reset Answer 
+  inputData.value[1].answer = []
+
+  const id = inputData.value[0].answer.id
+
+  const endpoint = 'sub_option/' + id
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      sub_option.value = res.data.sub_option
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 const inputData = ref(
   [
@@ -18,6 +50,17 @@ const inputData = ref(
     },
     {
       answer: [],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 13,
+          sub_question_id: 20,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
     },
     {
       answer: [],
@@ -30,6 +73,14 @@ const checkStep = value => {
   emits('step', value)
 }
 
+const itemProps = item => {
+  return {
+    title: item.option_answer,
+    subtitle: item.title_of_answer,
+  }
+}
+
+
 const submit = async () => {
   const { valid } = await formData.value.validate()
 
@@ -38,6 +89,10 @@ const submit = async () => {
     checkStep(5)
   }
 }
+
+watch(() => {
+  getOptions()
+})
 </script>
 
 <template>
@@ -76,16 +131,19 @@ const submit = async () => {
             What curriculum does your school use?
             <span style="color:red">*</span>
             <VSelect
+              v-model="inputData[0].answer"
+              :item-props="itemProps"
+              :items="options && options['option11'] ? options['option11'] : ''"
               label="Answer"
               density="compact"
-              closable-chips
-              chips
               class="mt-3"
               :rules="rules.required"
+              @update:model-value="getSubOption"
             />
           </li>
 
           <!-- Question 2  -->
+          {{ inputData[1].answer }}
           <li class="my-5">
             What is your current subject selection?
             <span style="color:red">*</span> <br>
@@ -93,8 +151,11 @@ const submit = async () => {
               The curriculum that appears refers to the answer in question number 1
             </small>
             <VSelect
+              v-model="inputData[1].answer"
               label="Answer"
               density="compact"
+              :item-props="itemProps"
+              :items="sub_option"
               closable-chips
               chips
               class="mt-3"
@@ -122,7 +183,38 @@ const submit = async () => {
 
               <VDivider class="my-3" />
 
-              ---- Option Here ----
+              <!-- Detail Score  -->
+
+              <VRow
+                v-for="item in inputData[1].answer"
+                :key="item"
+              >
+                <VCol :cols="inputData[0].answer.id == 122 ? 8: 10">
+                  <VTextField
+                    density="compact"
+                    :value="item.option_answer"
+                    readonly
+                  />
+                </VCol>
+                <VCol
+                  v-if="inputData[0].answer.id == 122"
+                  cols="2"
+                >
+                  <VSelect
+                    v-model="item.answer_descriptive"
+                    label="Level"
+                    density="compact"
+                    :items="['HL','SL']"
+                  />
+                </VCol>
+                <VCol cols="2">
+                  <VTextField
+                    v-model="item.score"
+                    density="compact"
+                    label="Score"
+                  />
+                </VCol>
+              </VRow>
             </div>
           </li>
 
