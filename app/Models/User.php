@@ -8,7 +8,7 @@ use App\Models\Answer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -22,11 +22,13 @@ class User extends Authenticatable
     protected $fillable = [
         'uuid',
         'ticket_id',
-        'first_name',
-        'last_name',
+        'full_name',
         'email',
         'phone_number',
     ];
+
+    public $timestamps = false;
+
 
     public function answers()
     {
