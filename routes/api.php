@@ -19,14 +19,16 @@ use App\Http\Controllers\Api\UserAnswerController;
 |
 */
 
-// Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
 
-    Route::post('answer/', [AssessmentController::class, 'storeAnswer']);
-    Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
-    Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
-    Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
+    Route::post('signout', [AuthController::class, 'signOut']);
     
-// });
+});
+
+Route::post('answer/', [AssessmentController::class, 'storeAnswer']);
+Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
+Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
+Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
 
 # Auth
-Route::post('signin', [AuthController::class, 'signin'])->name('signin');
+Route::post('signin', [AuthController::class, 'signIn']);

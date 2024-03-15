@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Token;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -78,5 +80,28 @@ class AuthController extends Controller
             'data' => $data
         ]);
         
+    }
+
+    public function signOut(Request $request)
+    {
+        try {
+
+            # revoke the access token
+            $request->user()->token()->revoke();
+
+        } catch (Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => "We've encountered an issue that prevents us from continuing the process further."
+            ], 500);
+
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Signed out'
+        ]);
+
     }
 }
