@@ -57,7 +57,7 @@ class QuestionSeeder extends Seeder
                 'description' => 'can pick more than one',
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
-                'point_type' => 'option',
+                'point_type' => 'no_point',
                 'total_point' => 0,
                 'minimum_answer' => 1,
                 'maximum_answer' => 9
@@ -193,7 +193,7 @@ class QuestionSeeder extends Seeder
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
                 'point_type' => 'no_point',
-                'total_point' => 1,
+                'total_point' => 0,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
@@ -219,7 +219,7 @@ class QuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'option',
                 'point_type' => 'no_point',
-                'total_point' => 1,
+                'total_point' => 0,
                 'minimum_answer' => 1,
                 'maximum_answer' => 3
             ],
@@ -230,7 +230,7 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'option',
-                'point_type' => 'option',
+                'point_type' => 'scale',
                 'total_point' => 5,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
@@ -242,7 +242,7 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'option',
-                'point_type' => 'option',
+                'point_type' => 'scale',
                 'total_point' => 5,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1

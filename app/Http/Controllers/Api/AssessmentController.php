@@ -141,9 +141,6 @@ class AssessmentController extends Controller
 
     public function storeAnswer(Request $request)
     {
-
-        $next_category = $request->next_category;
-
         $answers = [];
         foreach ($request->all() as $request1) {
             foreach ($request1 as $request2) {
@@ -166,10 +163,7 @@ class AssessmentController extends Controller
             # 1. set point by description 
             $this->setPoint($collectionAnswer, $user->id);
 
-            $a = $this->answerRepository->syncAnswer($user, $collectionAnswer);
-
-
-            // $question = $this->questionRepository->getQuestion($next_category, $user);
+            $insertedAnswer = $this->answerRepository->syncAnswer($user, $collectionAnswer);
 
             DB::commit();
         } catch (Exception $e) {
@@ -186,7 +180,7 @@ class AssessmentController extends Controller
         return response()->json([
             'success' => true,
             'message' => "Answer successfully stored",
-            'data' => $a
+            'data' => $insertedAnswer
         ]);
     }
 
@@ -209,6 +203,7 @@ class AssessmentController extends Controller
             switch ($dbSubQuestion['point_type']) {
                 case 'no_point':
                     $point_details[$i]['point'] = 0;
+                    break;
 
                 case 'faculty':
                     $point_details[$i]['point'] = $this->setPointByFaculty($subQuestions['sub_question_id'], $collectionAnswer);
@@ -220,6 +215,22 @@ class AssessmentController extends Controller
 
                 case 'sub_question':
                     $point_details[$i]['point'] = $this->setPointBySubQuestion($subQuestions['sub_question_id'], $collectionAnswer);
+                    break;
+
+                case 'description':
+                    $point_details[$i]['point'] = $subQuestions['answer_descriptive'] != null ? $dbSubQuestion->total_point : 0;
+                    break;
+
+                case 'slot':
+                    $point_details[$i]['point'] = $this->setPointBySlot($subQuestions['sub_question_id'], $collectionAnswer);
+                    break;
+
+                case 'standard_test':
+                    $point_details[$i]['point'] = $this->setPointByStandardTest($subQuestions['sub_question_id'], $collectionAnswer);
+                    break;
+
+                case 'score':
+                    $point_details[$i]['point'] = $subQuestions['score'] != null ? $dbSubQuestion->total_point : 0;
                     break;
             }
 
@@ -238,17 +249,23 @@ class AssessmentController extends Controller
 
                 case 'no_point':
                     $point_details[$i]['point'] = 0;
+                    break;
 
                 case 'option':
                     $point_details[$i]['point'] = $this->setPointByOption($Questions['question_id'], null, $collectionAnswer);
                     break;
 
                 case 'question':
-                    $point_details[$i]['point'] = $this->setPointBySubQuestion($Questions['question_id'], $collectionAnswer);
+                    $point_details[$i]['point'] = $this->setPointByQuestion($Questions['question_id'], $collectionAnswer);
                     break;
 
                 case 'description':
                     $point_details[$i]['point'] = $Questions['answer_descriptive'] != null ? $dbQuestion->total_point : 0;
+                    break;
+
+                case 'scale':
+                    $point_details[$i]['point'] = $Questions['score'] != null ? $Questions['score'] + 1 : 0;
+                    break;
             }
             $i++;
         }
@@ -314,7 +331,71 @@ class AssessmentController extends Controller
             $option_ids = $collectionAnswer->where('question_id', $question_id)->pluck('id');
         }
 
-        $point = $option_ids != null ? Option::whereIn('id', $option_ids)->sum('point') : 0;
+        if ($option_ids != null) {
+            foreach ($option_ids as $option_id) {
+                $option = Option::where('id', $option_id)->first();
+                $point += $option->point;
+            }
+        }
+
+        return $point;
+    }
+
+    protected function setPointBySlot($sub_question_id, $collectionAnswer)
+    {
+        $point = $count = 0;
+
+        $count = $collectionAnswer->where('sub_question_id', $sub_question_id)->where('answer_descriptive', '!=', null)->count();
+        $sub_question = SubQuestion::where('id', $sub_question_id)->first();
+
+        $point = $count != 0 ? $count * $sub_question->total_point : 0;
+
+        return $point;
+    }
+
+    protected function setPointByStandardTest($sub_question_id, $collectionAnswer)
+    {
+        $answer = $collectionAnswer->where('sub_question_id', $sub_question_id)->first();
+
+        $sub_question = SubQuestion::where('id', $sub_question_id)->first();
+
+        switch ($sub_question->title) {
+            case 'IELTS':
+                if ($answer['score'] <= 4 || $answer['score'] == 0 || $answer['score'] == null) {
+                    $point = 1;
+                } else if ($answer['score'] == 5) {
+                    $point = 2;
+                } else if ($answer['score'] > 5 && $answer['score'] <= 7) {
+                    $point = 3;
+                } else if ($answer['score'] > 7 && $answer['score'] <= 9) {
+                    $point = 4;
+                }
+                break;
+
+            case 'TOEFL':
+                if ($answer['score'] < 60 || $answer['score'] == 0 || $answer['score'] == null) {
+                    $point = 1;
+                } else if ($answer['score'] >= 60 && $answer['score'] < 80) {
+                    $point = 2;
+                } else if ($answer['score'] >= 80 && $answer['score'] < 100) {
+                    $point = 3;
+                } else if ($answer['score'] >= 100 && $answer['score'] <= 120) {
+                    $point = 4;
+                }
+                break;
+
+            case 'SAT':
+                if ($answer['score'] < 1100 || $answer['score'] == 0 || $answer['score'] == null) {
+                    $point = 1;
+                } else if ($answer['score'] >= 1100 && $answer['score'] < 1300) {
+                    $point = 2;
+                } else if ($answer['score'] >= 1300 && $answer['score'] < 1500) {
+                    $point = 3;
+                } else if ($answer['score'] >= 1500) {
+                    $point = 4;
+                }
+                break;
+        }
 
         return $point;
     }
@@ -353,13 +434,13 @@ class AssessmentController extends Controller
 
         $user = User::find(1);
 
-        $merge = $question_withSQ->merge($question_withoutSQ);
+        $merge = $question_withSQ->merge($question_withoutSQ)->sortBy('id');
 
         $questions = $merge->where('category_id', $request->category);
 
         foreach ($questions as $key => $question) {
 
-            if ($question->sub_questions()->count() == 0 && $question->answers()->count() > 0) {
+            if ($question->sub_questions()->count() == 0 && $question->answers()->where('user_id', $user->id)->count() > 0) {
                 foreach ($question->answers()->where('user_id', $user->id)->get() as $answer) {
                     if ($answer->option()->count() > 0) {
                         $optionDetail[$key][] = [
@@ -369,6 +450,9 @@ class AssessmentController extends Controller
                             'title_of_answer' => $answer->option->title_of_answer,
                             'option_answer' => $answer->option->option_answer,
                             'point' => $answer->option->point,
+                            'answer_descriptive' => $answer->answer_descriptive,
+                            'score' => $answer->score,
+
                         ];
                     } else {
                         $optionDetail[$key][] = [
@@ -376,6 +460,7 @@ class AssessmentController extends Controller
                             'question_id' => $answer->question_id,
                             'sub_question_id' => $answer->sub_question_id,
                             'answer_descriptive' => $answer->answer_descriptive,
+                            'score' => $answer->score,
                         ];
                     }
                 }
@@ -390,7 +475,7 @@ class AssessmentController extends Controller
             if ($question->sub_questions()->count() > 0) {
                 foreach ($question->sub_questions as $key2 => $sub_question) {
 
-                    if ($question->answers()->count() > 0) {
+                    if ($sub_question->answers()->where('user_id', $user->id)->count() > 0) {
                         foreach ($sub_question->answers()->where('user_id', $user->id)->get() as $answer) {
                             if ($answer->option()->count() > 0) {
                                 $optionDetail[$key2][] = [
@@ -400,6 +485,9 @@ class AssessmentController extends Controller
                                     'title_of_answer' => $answer->option->title_of_answer,
                                     'option_answer' => $answer->option->option_answer,
                                     'point' => $answer->option->point,
+                                    'answer_descriptive' => $answer->answer_descriptive,
+                                    'score' => $answer->score,
+
                                 ];
                             } else {
                                 $optionDetail[$key2][] = [
@@ -407,6 +495,7 @@ class AssessmentController extends Controller
                                     'question_id' => $answer->question_id,
                                     'sub_question_id' => $answer->sub_question_id,
                                     'answer_descriptive' => $answer->answer_descriptive,
+                                    'score' => $answer->score,
                                 ];
                             }
                         }
