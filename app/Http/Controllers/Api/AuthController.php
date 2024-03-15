@@ -30,13 +30,16 @@ class AuthController extends Controller
             return Redirect::back()->withError('Cannot process the request.');
         }
 
+        # collect the validated request
         $validated = $request->collect();
 
+        # can be customized depends on the endpoint
         $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$validated['ticket_no']}";
+
+        # create 
         $response = Http::get($endpoint);
 
-        $data = $response->collect('data');
-
+        # catch when sending the request to $endpoints failed
         if ($response->failed()) {
 
             return response()->json([
@@ -44,6 +47,13 @@ class AuthController extends Controller
                 'message' => 'Cannot process the request.'
             ]);
         }
+        
+        # catch the success if request to $endpoints failed but not giving 500 error code
+        if ($response['success'] === false) 
+            return $response;
+
+        $data = $response->collect('data');
+
 
         if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
 
@@ -62,7 +72,11 @@ class AuthController extends Controller
         $token = $user->createToken('Access-EduAll-Assessment')->accessToken;
         $data['token'] = $token;
         
-        return $data;
+        return response()->json([
+            'success' => true,
+            'message' => 'Access granted',
+            'data' => $data
+        ]);
         
     }
 }
