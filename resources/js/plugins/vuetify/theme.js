@@ -1,4 +1,4 @@
-export const staticPrimaryColor = '#696CFF'
+export const staticPrimaryColor = '#0000FF'
 
 const theme = {
   defaultTheme: 'light',
@@ -6,16 +6,16 @@ const theme = {
     light: {
       dark: false,
       colors: {
-        'primary': '#696CFF',
+        'primary': '#0000FF',
         'on-primary': '#fff',
-        'secondary': '#8592A3',
+        'secondary': '#000',
         'on-secondary': '#fff',
-        'success': '#71DD37',
+        'success': '#4bb213',
         'on-success': '#fff',
         'info': '#03C3EC',
         'on-info': '#fff',
-        'warning': '#FFAB00',
-        'on-warning': '#fff',
+        'warning': '#FECF18',
+        'on-warning': '#000',
         'error': '#FF3E1D',
         'background': '#F5F5F9',
         'on-background': '#32475C',
@@ -54,16 +54,16 @@ const theme = {
     dark: {
       dark: true,
       colors: {
-        'primary': '#696CFF',
+        'primary': '#0000FF',
         'on-primary': '#fff',
-        'secondary': '#8592A3',
+        'secondary': '#000',
         'on-secondary': '#fff',
-        'success': '#71DD37',
+        'success': '#4bb213',
         'on-success': '#fff',
         'info': '#03C3EC',
         'on-info': '#fff',
-        'warning': '#FFAB00',
-        'on-warning': '#fff',
+        'warning': '#FECF18',
+        'on-warning': '#000',
         'error': '#FF3E1D',
         'background': '#232333',
         'on-background': '#DBDBEB',

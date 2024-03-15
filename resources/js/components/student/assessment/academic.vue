@@ -29,7 +29,7 @@ const getSubOption  = async ()  => {
   // Reset Answer 
   inputData.value[1].answer = []
 
-  const id = inputData.value[0].answer.id
+  const id = inputData.value[0].answer[0].id
 
   const endpoint = 'sub_option/' + id
   try {
@@ -182,7 +182,7 @@ watch(() => {
             What curriculum does your school use?
             <span style="color:red">*</span>
             <VSelect
-              v-model="inputData[0].answer"
+              v-model="inputData[0].answer[0]"
               :item-props="itemProps"
               :items="options && options['option11'] ? options['option11'] : ''"
               label="Answer"
