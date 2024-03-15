@@ -76,6 +76,18 @@ const checkStep = value => {
   emits('step', value)
 }
 
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/1')
+    
+    if (res) {
+      inputData.value = res
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const itemProps = item => {
   return {
     title: item.option_answer,
@@ -87,14 +99,26 @@ const submit = async () => {
   const { valid } = await formData.value.validate()
 
   if (valid) {
-    console.log(inputData.value) 
-    checkStep(3)
+    handleSubmit()
+
+    // checkStep(3)
+  }
+}
+
+const handleSubmit = async () => {
+  try {
+    const res = await ApiService.post('answer', inputData.value)
+
+    console.log(res)
+  } catch (error) {
+    console.error(error)
   }
 }
 
 
 watch(() => {
   getOptions()
+  getAnswer()
 })
 </script>
 

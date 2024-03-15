@@ -3,8 +3,8 @@ import { showNotif } from '@/helper/notification'
 import router from '@/router'
 import ApiService from '@/services/ApiService'
 import JwtService from '@/services/JwtService'
+import UserService from '@/services/UserService'
 import { onMounted, ref } from 'vue'
-import { load } from 'webfontloader'
 
 
 const props = defineProps({ 'ticket': String })
@@ -32,6 +32,7 @@ const submit = async () => {
       if(!res.success) {
         showNotif('error', res.message, 'bottom-end')
       } else {
+        UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
         router.push({ name: 'assessment' })
 

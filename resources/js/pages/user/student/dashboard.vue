@@ -1,4 +1,5 @@
 <script setup>
+import JwtService from '@/services/JwtService'
 import illustrationJohnDark from '@images/cards/illustration-john-dark.png'
 import illustrationJohnLight from '@images/cards/illustration-john-light.png'
 import { useTheme } from 'vuetify'
@@ -65,6 +66,7 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 
       <VCard>
         <VCardText>
+          {{ JwtService.getToken() }}
           <h3>Notes</h3>
         </VCardText>
       </VCard>

@@ -1,9 +1,9 @@
-import JwtService from '@/services/JwtService'
 import axios from 'axios'
+import JwtService from './JwtService'
 
 
-const token = JwtService.getToken()
-const auth = token ? 'Bearer ' + token : ''
+const token = JwtService.saveToken()
+const auth = token ? `Bearer ${token}` : null
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // Ganti dengan URL API yang sesuai
