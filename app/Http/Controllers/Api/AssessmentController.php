@@ -301,9 +301,6 @@ class AssessmentController extends Controller
         $point = 0;
 
         if ($collectionAnswer->where('sub_question_id', $sub_question_id)->count() > 0) {
-            // foreach ($collectionAnswer->where('sub_question_id', $sub_question_id)->unique('title_of_answer') as $key => $checkAnswer) {
-            //     $countFaculty[] = count($checkAnswer);
-            // }
 
             $countFaculty = $collectionAnswer->where('sub_question_id', $sub_question_id)->countBy('title_of_answer');
 
@@ -332,8 +329,10 @@ class AssessmentController extends Controller
 
         if ($option_ids != null) {
             foreach ($option_ids as $option_id) {
-                $option = Option::where('id', $option_id)->first();
-                $point += $option->point;
+                if ($option_id != null) {
+                    $option = Option::where('id', $option_id)->first();
+                    $point += $option->point;
+                }
             }
         }
 
@@ -546,5 +545,41 @@ class AssessmentController extends Controller
             'message' => "Get sub option successfully",
             'data' => $sub_option
         ]);
+    }
+
+    public function getRanking(Request $request)
+    {
+        $defaultRank = [-4, -3, -2, -1];
+        $points = [50, 60, 70, 50];
+        $new_points = [];
+        $is_duplicate = false;
+
+        $counted = array_count_values($points);
+
+        $duplicateValue = null;
+
+        foreach ($counted as $val => $count) {
+            if ($count > 1) {
+                $duplicateValue = $val;
+            }
+        }
+
+        $keysDuplicate = array_keys($points, $duplicateValue);
+
+        foreach ($points as $key => $point) {
+            $is_duplicate = false;
+            $new_points[$key] = $point;
+            foreach ($keysDuplicate as $keyDuplicate) {
+                if ($key == $keyDuplicate) {
+                    $is_duplicate = true;
+                }
+            }
+
+            if ($is_duplicate) {
+                $new_points[$key] = $point + $defaultRank[$key];
+            }
+        }
+
+        return $new_points;
     }
 }
