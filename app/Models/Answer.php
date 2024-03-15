@@ -20,6 +20,7 @@ class Answer extends Model
         'sub_question_id',
         'answer_descriptive',
         'point',
+        'score',
     ];
 
     public function option()

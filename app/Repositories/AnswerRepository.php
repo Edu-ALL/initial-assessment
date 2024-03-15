@@ -18,39 +18,37 @@ class AnswerRepository implements AnswerRepositoryInterface
 
         foreach ($collectionAnswers->unique('question_id') as $answer) {
             $question_ids[] = $answer['question_id'];
-
-
-
-            // $new_answer[$answer['id']] = ['answer_descriptive' => $answer['answer_descriptive']];
         }
 
         foreach ($collectionAnswers as $answer) {
-            if ($answer['id'] != null) {
-                $new_answer[] = [
-                    'user_id' => $user->id,
-                    'answer_id' => $answer['id'],
-                    'question_id' => $answer['question_id'],
-                    'sub_question_id' => $answer['sub_question_id'],
-                    'answer_descriptive' => null
-                ];
-            } else {
-                $new_answer[] = [
-                    'user_id' => $user->id,
-                    'answer_id' => null,
-                    'question_id' => $answer['question_id'],
-                    'sub_question_id' => $answer['sub_question_id'],
-                    'answer_descriptive' => $answer['answer_descriptive']
-                ];
+            $answer_descirptive = $score = null;
+
+            if (isset($answer['answer_descriptive'])) {
+                if ($answer['answer_descriptive'] != '') {
+                    $answer_descirptive = $answer['answer_descriptive'];
+                }
             }
+
+            if (isset($answer['score'])) {
+                if ($answer['score'] != '') {
+                    $score = $answer['score'];
+                }
+            }
+
+            $new_answer[] = [
+                'user_id' => $user->id,
+                'answer_id' => $answer['id'],
+                'question_id' => $answer['question_id'],
+                'sub_question_id' => $answer['sub_question_id'],
+                'answer_descriptive' => $answer_descirptive,
+                'score' => $score,
+            ];
         }
 
-        // return $new_answer;
 
         count($question_ids) > 0 ? Answer::where('user_id', $user->id)->whereIn('question_id', $question_ids)->delete() : null;
-        // $old_answers = $user->answers()->whereIn('question_id', $question_ids)->get();
 
         return Answer::insert($new_answer);
-        // $user->answers()->attach($new_answer);
     }
 
     public function responseAnswer($user, $answer_id)
