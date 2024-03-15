@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\UserAnswerController;
 
 Route::middleware(['auth:api'])->group(function () {
 
+    Route::get('check', [AuthController::class, 'checkAuth']);
     Route::post('signout', [AuthController::class, 'signOut']);
     
 });

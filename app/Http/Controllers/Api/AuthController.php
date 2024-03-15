@@ -35,8 +35,46 @@ class AuthController extends Controller
         # collect the validated request
         $validated = $request->collect();
 
+        $response = $this->getClientInfo($validated['ticket_no']);
+        
+        # variable response contains the response we got from the CRM http
+        $data = $response['response'];
+
+        # variable user contains User model which will created if does not exist
+        $user = $response['user'];
+
+        
+        $token = $user->createToken('Access-EduAll-Assessment')->accessToken;
+        $data['token'] = $token;
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Access granted',
+            'data' => $data
+        ]);
+        
+    }
+
+    public function checkAuth(Request $request)
+    {
+        $ticketId = $request->user()->ticket_id;
+
+        # send request to get data client using ticket id from crm
+        $response = $this->getClientInfo($ticketId);
+        $data = $response['response']; 
+
+        //! data quest should be added into variable $data
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
+
+    private function getClientInfo($ticket_no)
+    {
         # can be customized depends on the endpoint
-        $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$validated['ticket_no']}";
+        $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$ticket_no}";
 
         # create 
         $response = Http::get($endpoint);
@@ -70,16 +108,10 @@ class AuthController extends Controller
             $user->save();
         }
 
-        
-        $token = $user->createToken('Access-EduAll-Assessment')->accessToken;
-        $data['token'] = $token;
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'Access granted',
-            'data' => $data
-        ]);
-        
+        return [
+            'response' => $data,
+            'model' => $user
+        ];
     }
 
     public function signOut(Request $request)
