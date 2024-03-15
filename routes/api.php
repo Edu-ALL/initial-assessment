@@ -21,7 +21,7 @@ use App\Http\Controllers\Api\UserAnswerController;
 
 // Route::middleware(['auth:api'])->group(function () {
 
-Route::post('answer/', [AssessmentController::class, 'storeAnswer']);
+Route::post('answer/{category}', [AssessmentController::class, 'storeAnswer']);
 Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
 Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
 Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);

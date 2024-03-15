@@ -1,4 +1,5 @@
 <script setup>
+import { showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { defineEmits, watch } from 'vue'
@@ -7,6 +8,7 @@ const emits = defineEmits(['step'])
 
 const formData = ref()
 const options = ref()
+const loading = ref(false)
 
 const inputData = ref(
   [
@@ -79,9 +81,9 @@ const checkStep = value => {
 const getAnswer = async () => {
   try {
     const res = await ApiService.get('answer/1')
-    
-    if (res) {
-      inputData.value = res
+
+    if (res.success && res.data.length>0) {
+      inputData.value = res.data
     }
   } catch (error) {
     console.error(error)
@@ -100,18 +102,22 @@ const submit = async () => {
 
   if (valid) {
     handleSubmit()
-
-    // checkStep(3)
   }
 }
 
 const handleSubmit = async () => {
+  loading.value = true
   try {
-    const res = await ApiService.post('answer', inputData.value)
-
-    console.log(res)
+    const res = await ApiService.post('answer/1', inputData.value)
+    if(res.success) {
+      checkStep(3)
+    } else {
+      showNotif('error', res.message)
+    }
+    loading.value = false
   } catch (error) {
     console.error(error)
+    loading.value = false
   }
 }
 
@@ -129,6 +135,7 @@ watch(() => {
       ref="formData"
       validate-on="input"
       fast-fail
+      :disabled="loading"
       @submit.prevent="submit"
     >
       <VCardTitle class="mb-4">
@@ -330,6 +337,7 @@ watch(() => {
         <VBtn
           variant="elevated"
           class="ms-3 mb-1 bg-warning"
+          :disabled="loading"
           @click="checkStep(1)"
         >
           <VIcon icon="bx-chevron-left" />
@@ -338,8 +346,10 @@ watch(() => {
 
         <VBtn
           variant="elevated"
+          color="secondary"
           class="me-5 mb-1"
           type="submit"
+          :loading="loading"
         >
           <span class="me-1">Profile Building</span>
           <VIcon icon="bx-chevron-right" />
