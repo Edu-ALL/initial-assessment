@@ -5,20 +5,18 @@ namespace App\Repositories;
 use App\Interfaces\AnswerRepositoryInterface;
 use App\Models\Answer;
 use App\Models\Option;
+use App\Models\Question;
 use App\Models\UserClient;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class AnswerRepository implements AnswerRepositoryInterface
 {
-    public function syncAnswer($user, $collectionAnswers)
+    public function syncAnswer($user, $category_id, $collectionAnswers)
     {
-        $old_ids = $question_ids = [];
-        $new_answer = [];
+        $question_ids = $new_answer = [];
 
-        foreach ($collectionAnswers->unique('question_id') as $answer) {
-            $question_ids[] = $answer['question_id'];
-        }
+        $question_ids = Question::where('category_id', $category_id)->pluck('id');
 
         foreach ($collectionAnswers as $answer) {
             $answer_descirptive = $score = null;

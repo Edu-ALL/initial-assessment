@@ -141,6 +141,7 @@ class AssessmentController extends Controller
 
     public function storeAnswer(Request $request)
     {
+        $category_id = $request->category;
         $answers = [];
         foreach ($request->all() as $request1) {
             foreach ($request1 as $request2) {
@@ -159,11 +160,9 @@ class AssessmentController extends Controller
         DB::beginTransaction();
         try {
 
-            // TODO:
-            # 1. set point by description 
             $this->setPoint($collectionAnswer, $user->id);
 
-            $insertedAnswer = $this->answerRepository->syncAnswer($user, $collectionAnswer);
+            $insertedAnswer = $this->answerRepository->syncAnswer($user, $category_id, $collectionAnswer);
 
             DB::commit();
         } catch (Exception $e) {
@@ -429,86 +428,99 @@ class AssessmentController extends Controller
     public function getAnswer(Request $request)
     {
         $response = $optionDetail = [];
-        $question_withSQ = Question::has('sub_questions')->with(['sub_questions.answers'])->get();
-        $question_withoutSQ = Question::doesntHave('sub_questions')->with(['answers'])->get();
 
-        $user = User::find(1);
+        try {
+            $question_withSQ = Question::has('sub_questions')->with(['sub_questions.answers'])->get();
+            $question_withoutSQ = Question::doesntHave('sub_questions')->with(['answers'])->get();
 
-        $merge = $question_withSQ->merge($question_withoutSQ)->sortBy('id');
+            $user = User::find(1);
 
-        $questions = $merge->where('category_id', $request->category);
+            $merge = $question_withSQ->merge($question_withoutSQ);
 
-        foreach ($questions as $key => $question) {
+            $questions = $merge->where('category_id', $request->category)->sortBy('id');
 
-            if ($question->sub_questions()->count() == 0 && $question->answers()->where('user_id', $user->id)->count() > 0) {
-                foreach ($question->answers()->where('user_id', $user->id)->get() as $answer) {
-                    if ($answer->option()->count() > 0) {
-                        $optionDetail[$key][] = [
-                            'id' => $answer->option->id,
-                            'question_id' => $answer->option->question_id,
-                            'sub_question_id' => $answer->option->sub_question_id,
-                            'title_of_answer' => $answer->option->title_of_answer,
-                            'option_answer' => $answer->option->option_answer,
-                            'point' => $answer->option->point,
-                            'answer_descriptive' => $answer->answer_descriptive,
-                            'score' => $answer->score,
+            foreach ($questions as $key => $question) {
 
-                        ];
-                    } else {
-                        $optionDetail[$key][] = [
-                            'id' => null,
-                            'question_id' => $answer->question_id,
-                            'sub_question_id' => $answer->sub_question_id,
-                            'answer_descriptive' => $answer->answer_descriptive,
-                            'score' => $answer->score,
-                        ];
-                    }
-                }
+                if ($question->sub_questions()->count() == 0 && $question->answers()->where('user_id', $user->id)->count() > 0) {
+                    foreach ($question->answers()->where('user_id', $user->id)->get() as $answer) {
+                        if ($answer->option()->count() > 0) {
+                            $optionDetail[$key][] = [
+                                'id' => $answer->option->id,
+                                'question_id' => $answer->option->question_id,
+                                'sub_question_id' => $answer->option->sub_question_id,
+                                'reference_to' => $answer->option->reference_to,
+                                'title_of_answer' => $answer->option->title_of_answer,
+                                'option_answer' => $answer->option->option_answer,
+                                'point' => $answer->option->point,
+                                'answer_descriptive' => $answer->answer_descriptive,
+                                'score' => $answer->score,
 
-
-                $response[] = [
-                    'answer' => $optionDetail[$key],
-
-                ];
-            }
-
-            if ($question->sub_questions()->count() > 0) {
-                foreach ($question->sub_questions as $key2 => $sub_question) {
-
-                    if ($sub_question->answers()->where('user_id', $user->id)->count() > 0) {
-                        foreach ($sub_question->answers()->where('user_id', $user->id)->get() as $answer) {
-                            if ($answer->option()->count() > 0) {
-                                $optionDetail[$key2][] = [
-                                    'id' => $answer->option->id,
-                                    'question_id' => $answer->option->question_id,
-                                    'sub_question_id' => $answer->option->sub_question_id,
-                                    'title_of_answer' => $answer->option->title_of_answer,
-                                    'option_answer' => $answer->option->option_answer,
-                                    'point' => $answer->option->point,
-                                    'answer_descriptive' => $answer->answer_descriptive,
-                                    'score' => $answer->score,
-
-                                ];
-                            } else {
-                                $optionDetail[$key2][] = [
-                                    'id' => null,
-                                    'question_id' => $answer->question_id,
-                                    'sub_question_id' => $answer->sub_question_id,
-                                    'answer_descriptive' => $answer->answer_descriptive,
-                                    'score' => $answer->score,
-                                ];
-                            }
+                            ];
+                        } else {
+                            $optionDetail[$key][] = [
+                                'id' => null,
+                                'question_id' => $answer->question_id,
+                                'sub_question_id' => $answer->sub_question_id,
+                                'answer_descriptive' => $answer->answer_descriptive,
+                                'score' => $answer->score,
+                            ];
                         }
-                        $response[] = [
-                            'answer' => $optionDetail[$key2]
+                    }
+                    $response[] = [
+                        'answer' => $optionDetail[$key]
+                    ];
+                }
 
-                        ];
+                if ($question->sub_questions()->count() > 0) {
+                    foreach ($question->sub_questions as $sub_question) {
+                        if ($sub_question->answers()->where('user_id', $user->id)->count() > 0) {
+                            foreach ($sub_question->answers()->where('user_id', $user->id)->get() as $answer) {
+                                if ($answer->option()->count() > 0) {
+                                    $optionDetail['s' . $sub_question->id][] = [
+                                        'id' => $answer->option->id,
+                                        'question_id' => $answer->option->question_id,
+                                        'sub_question_id' => $answer->option->sub_question_id,
+                                        'reference_to' => $answer->option->reference_to,
+                                        'title_of_answer' => $answer->option->title_of_answer,
+                                        'option_answer' => $answer->option->option_answer,
+                                        'point' => $answer->option->point,
+                                        'answer_descriptive' => $answer->answer_descriptive,
+                                        'score' => $answer->score,
+
+                                    ];
+                                } else {
+                                    $optionDetail['s' . $sub_question->id][] = [
+                                        'id' => null,
+                                        'question_id' => $answer->question_id,
+                                        'sub_question_id' => $answer->sub_question_id,
+                                        'answer_descriptive' => $answer->answer_descriptive,
+                                        'score' => $answer->score,
+                                    ];
+                                }
+                            }
+
+                            $response[] = [
+                                'answer' => $optionDetail['s' . $sub_question->id]
+                            ];
+                        }
                     }
                 }
             }
+
+            DB::commit();
+        } catch (Exception $e) {
+            Log::error('Get answer failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+            return response()->json([
+                'success' => false,
+                'message' => "get answer failed " . $e
+            ]);
         }
 
-        return $response;
+        return response()->json([
+            'success' => true,
+            'message' => "Get answer successfully",
+            'data' => $response
+        ]);
     }
 
     public function getSubOption(Request $request)

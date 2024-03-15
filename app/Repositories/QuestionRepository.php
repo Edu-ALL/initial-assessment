@@ -24,12 +24,14 @@ class QuestionRepository implements QuestionRepositoryInterface
             if ($question->sub_questions()->count() > 0) {
                 foreach ($question->sub_questions as $sub_question) {
                     if (count($option = Option::where('sub_question_id', $sub_question->id)->get()) > 0) {
-                        $response['option' . $question->id . '-' . $sub_question->id] = Option::where('sub_question_id', $sub_question->id)->get();
+                        $mapping = $this->mappingOption($option);
+                        $response['option' . $question->id . '-' . $sub_question->id] = $mapping;
                     }
                 }
             } else {
                 if (count($option = Option::where('question_id', $question->id)->get()) > 0) {
-                    $response['option' . $question->id] = $option;
+                    $mapping = $this->mappingOption($option);
+                    $response['option' . $question->id] = $mapping;
                 }
             }
         }
@@ -38,19 +40,6 @@ class QuestionRepository implements QuestionRepositoryInterface
         return $response;
     }
 
-    public function getQuestionOnly($category_id)
-    {
-        $question_withSQ = Question::has('sub_questions')->with(['sub_questions.options'])->get();
-        $question_withoutSQ = Question::doesntHave('sub_questions')->with('options')->get();
-
-        $questions = $question_withSQ->merge($question_withoutSQ);
-
-        $category = Category::find($category_id);
-
-        $response[$category->name] = $questions->where('category_id', $category->id);
-
-        return $response;
-    }
 
     public function getQuestion($category_id, $user)
     {
@@ -190,5 +179,22 @@ class QuestionRepository implements QuestionRepositoryInterface
             $response = null;
 
         return $response;
+    }
+
+    protected function mappingOption($options)
+    {
+        return $options->map(function ($opt) {
+            return [
+                'id' => $opt->id,
+                'question_id' => $opt->question_id,
+                'sub_question_id' => $opt->sub_question_id,
+                'reference_to' => $opt->reference_to,
+                'title_of_answer' => $opt->title_of_answer,
+                'option_answer' => $opt->option_answer,
+                'point' => $opt->point,
+                'answer_descriptive' => $opt->answer_descriptive,
+                'score' => $opt->score,
+            ];
+        });
     }
 }
