@@ -13,7 +13,7 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
     <!-- 👉 Congratulations -->
     <VCol
       cols="12"
-      md="8"
+      md="6"
     >
       <VCard class="text-center text-sm-start mb-4">
         <VRow no-gutters>
@@ -72,13 +72,13 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 
     <VCol
       cols="12"
-      sm="4"
+      md="6"
     >
       <VCard>
         <VCardTitle class="my-2 bg-primary">
-          <h3 class="text-white text-center">
+          <h4 class="text-white text-center">
             Your Quest
-          </h3>
+          </h4>
         </VCardTitle>
         <VDivider />
         <VCardText>
