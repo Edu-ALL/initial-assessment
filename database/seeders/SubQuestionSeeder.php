@@ -33,8 +33,8 @@ class SubQuestionSeeder extends Seeder
                 'description' => NULL,
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
-                'point_type' => 'faculty',
-                'total_point' => 3,
+                'point_type' => 'no_point',
+                'total_point' => 0,
                 'minimum_answer' => 1,
                 'maximum_answer' => 3
             ],
@@ -84,7 +84,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'slot',
-                'total_point' => 2,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 2
             ],
@@ -96,7 +96,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'slot',
-                'total_point' => 4,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 4
             ],
@@ -108,7 +108,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'slot',
-                'total_point' => 2,
+                'total_point' => 0.5,
                 'minimum_answer' => 1,
                 'maximum_answer' => 4
             ],
@@ -120,7 +120,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'slot',
-                'total_point' => 4,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 4
             ],
@@ -239,7 +239,7 @@ class SubQuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'description',
+                'point_type' => 'score',
                 'total_point' => 6,
                 'minimum_answer' => 1,
                 'maximum_answer' => 2
@@ -251,7 +251,7 @@ class SubQuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'description',
+                'point_type' => 'sub_question',
                 'total_point' => 12,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
