@@ -22,6 +22,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Passport::tokensCan([
+            'client' => 'Can access initial assessment',
+            'admin' => 'Can access dashboard admin'
+        ]);
+
+        Passport::setDefaultScope(['client']);
+
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));

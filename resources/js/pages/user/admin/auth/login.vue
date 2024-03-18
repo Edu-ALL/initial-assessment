@@ -23,10 +23,10 @@ const isPasswordVisible = ref(false)
 
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Welcome to EduALL Assessment! 👋🏻
+          Welcome to EduALL Assessment Dashboard! 👋🏻
         </h5>
         <p class="mb-0">
-          Please sign-in to your account and start the adventure
+          Please sign-in
         </p>
       </VCardText>
 
