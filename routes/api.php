@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Models\Category;
@@ -19,7 +20,7 @@ use App\Http\Controllers\Api\UserAnswerController;
 |
 */
 
-Route::middleware(['auth:api'])->group(function () {
+Route::middleware(['auth:api', 'scopes:client'])->group(function () {
 
     Route::get('check', [AuthController::class, 'checkAuth']);
     Route::post('signout', [AuthController::class, 'signOut']);
@@ -33,3 +34,17 @@ Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOptio
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
+
+
+# Admin
+Route::prefix('admin')->group(function () {
+
+    Route::post('signin', [AdminController::class, 'signIn']);
+
+    Route::middleware(['auth:api', 'scopes:admin'])->group(function () {
+
+        Route::post('signout', [AdminController::class, 'signOut']);
+        
+    });
+
+});
