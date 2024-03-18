@@ -41,10 +41,10 @@ class AuthController extends Controller
         $data = $response['response'];
 
         # variable user contains User model which will created if does not exist
-        $user = $response['user'];
+        $user = $response['model'];
 
-        
-        $token = $user->createToken('Access-EduAll-Assessment')->accessToken;
+        # generate token
+        $token = $user->createToken('Access-EduAll-Assessment', ['client'])->accessToken;
         $data['token'] = $token;
         
         return response()->json([

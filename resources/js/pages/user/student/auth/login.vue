@@ -28,7 +28,6 @@ const submit = async () => {
         ticket_no: form.value.ticket_id,
       })
 
-      console.log(res)
       if(!res.success) {
         showNotif('error', res.message, 'bottom-end')
       } else {
@@ -42,7 +41,7 @@ const submit = async () => {
       }
       loading.value = false
     } catch (error) {
-      console.error(error)
+      showNotif('error', error, 'bottom-end')
       loading.value = false
     }
 

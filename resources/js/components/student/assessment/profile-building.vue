@@ -267,6 +267,10 @@ const getAnswer = async () => {
 
     if (res.success && res.data.length>0) {
       inputData.value = res.data
+      
+      // check radio 1 & radio 2
+      radioData.value.radio1 = inputData.value[6].answer[0].answer_descriptive ? 'yes': 'no'
+      radioData.value.radio2 = inputData.value[10].answer[0].answer_descriptive ? 'yes': 'no'
     }
   } catch (error) {
     console.error(error)
@@ -293,19 +297,40 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
-  console.log(inputData.value)
   loading.value = true
+  resetRadio()
   try {
     const res = await ApiService.post('answer/2', inputData.value)
     if(res.success) {
-      checkStep(3)
+      checkStep(4)
     } else {
-      showNotif('error', res.message)
+      showNotif('error', res.message, 'bottom-end')
     }
     loading.value = false
   } catch (error) {
-    console.error(error)
+    showNotif('error', error, 'bottom-end')
     loading.value = false
+  }
+}
+
+const resetRadio = radio => {
+  let val = radioData.value[radio]
+  if(radio=='radio1') {
+    if(val=='yes') {
+      inputData.value[8].answer[0].answer_descriptive = null
+      inputData.value[9].answer[0].answer_descriptive = null
+    } else {
+      inputData.value[6].answer[0].answer_descriptive = null
+      inputData.value[7].answer[0].answer_descriptive = null
+    }
+  } else {
+    if(val=='yes') {
+      inputData.value[12].answer[0].answer_descriptive = null
+      inputData.value[13].answer[0].answer_descriptive = null
+    } else {
+      inputData.value[10].answer[0].answer_descriptive = null
+      inputData.value[11].answer[0].answer_descriptive = null
+    }
   }
 }
 
@@ -382,6 +407,8 @@ watch(() => {
                       item-value="id"
                       label="Level"
                       density="compact"
+                      chips
+                      closable-chips
                       :rules="i.answer_descriptive ? rules.required : ''"
                     />
                   </VCol>
@@ -429,7 +456,7 @@ watch(() => {
                     <VTextField
                       v-model="i.answer_descriptive"
                       density="compact"
-                      label="Company Name"
+                      label="Company/Organization Name"
                     />
                   </VCol>
                 </VRow>
@@ -503,7 +530,10 @@ watch(() => {
                 A personal project combines your passion and the skills you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
               </small>
 
-              <VRadioGroup v-model="radioData.radio1">
+              <VRadioGroup
+                v-model="radioData.radio1"
+                @change="resetRadio('radio1')"
+              >
                 <VRadio
                   label="Yes"
                   value="yes"
@@ -575,7 +605,10 @@ watch(() => {
                 A research project is a detailed study where you look closely at a specific topic, question, or problem to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
               </small>
 
-              <VRadioGroup v-model="radioData.radio2">
+              <VRadioGroup
+                v-model="radioData.radio2"
+                @change="resetRadio('radio2')"
+              >
                 <VRadio
                   label="Yes"
                   value="yes"
