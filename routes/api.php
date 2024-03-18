@@ -30,6 +30,7 @@ Route::post('answer/{category}', [AssessmentController::class, 'storeAnswer']);
 Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
 Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
 Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
+Route::get('ranking', [AssessmentController::class, 'getRanking']);
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
