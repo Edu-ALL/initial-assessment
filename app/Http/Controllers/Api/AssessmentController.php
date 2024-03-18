@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\AnswerRepositoryInterface;
 use App\Interfaces\QuestionRepositoryInterface;
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\SubQuestion;
@@ -224,39 +225,194 @@ class AssessmentController extends Controller
 
     public function getRanking(Request $request)
     {
-        return UserPoint::select()->with('question')->where('user_id', 1)->get()->groupBy('question.category_id');
+        $user = User::find(1);
 
-        $defaultRank = [-4, -3, -2, -1];
-        $points = [50, 60, 70, 50];
-        $new_points = [];
-        $is_duplicate = false;
+        $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
+            ->leftjoin('category', 'category.id', '=', 'questions.category_id')
+            ->select(DB::raw('SUM(user_points.point) as point'), 'name')
+            ->where('user_id', $user->id)
+            ->where('questions.category_id', '<', 5) # Only initial assessment
+            ->groupBy('name')
+            ->get();
 
-        $counted = array_count_values($points);
+        $decrease = -4;
+        $categories = Category::where('id', '<', 5)->get();
 
-        $duplicateValue = null;
+        foreach ($categories as $key => $category) {
+            $points[] = [
+                'category' => $category->name,
+                'point' => 0
+            ];
 
-        foreach ($counted as $val => $count) {
-            if ($count > 1) {
-                $duplicateValue = $val;
+            $defaultRank[] = $decrease;
+            $decrease++;
+        }
+
+
+        if ($userPoints->count() > 0) {
+            $i = 0;
+            foreach ($userPoints as $userPoint) {
+                $points[$i] = [
+                    'category' => $userPoint['name'],
+                    'point' => $userPoint['point']
+                ];
+                $i++;
             }
         }
 
-        $keysDuplicate = array_keys($points, $duplicateValue);
 
-        foreach ($points as $key => $point) {
-            $is_duplicate = false;
-            $new_points[$key] = $point;
-            foreach ($keysDuplicate as $keyDuplicate) {
-                if ($key == $keyDuplicate) {
-                    $is_duplicate = true;
+        $collectionPoint = collect($points);
+
+        $duplicateValue = $collectionPoint->duplicates('point')->unique();
+
+
+        $new_points = $collectionPoint;
+        if (count($duplicateValue) > 0) {
+            foreach ($collectionPoint as $key => $point) {
+                $is_duplicate = false;
+
+                foreach ($duplicateValue as $value) {
+                    if ($point['point'] == $value) {
+                        $is_duplicate = true;
+                    }
+                }
+
+                if ($is_duplicate) {
+                    $new_points[$key] = [
+                        'category' => $point['category'],
+                        'point' => $point['point'] + $defaultRank[$key],
+                    ];
                 }
             }
+        }
 
-            if ($is_duplicate) {
-                $new_points[$key] = $point + $defaultRank[$key];
+
+        $sorted =  $new_points->sortBy('point');
+
+        return $sorted->values()->all();
+
+
+        // $counted = [];
+        // foreach (array_count_values($points) as $key => $value) {
+        //     $counted[$key] = $value;
+        // }
+
+
+        // $new_points = [];
+        // $is_duplicate = false;
+
+        // $counted = array_count_values($points);
+
+        // $duplicateValue = null;
+
+        // foreach ($counted as $val => $count) {
+        //     if ($count > 1) {
+        //         $duplicateValue = $val;
+        //     }
+        // }
+
+        // $keysDuplicate = array_keys($points, $duplicateValue);
+
+        // foreach ($points as $key => $point) {
+        //     $is_duplicate = false;
+        //     $new_points[$key] = $point;
+        //     foreach ($keysDuplicate as $keyDuplicate) {
+        //         if ($key == $keyDuplicate) {
+        //             $is_duplicate = true;
+        //         }
+        //     }
+
+        //     if ($is_duplicate) {
+        //         $new_points[$key] = $point + $defaultRank[$key];
+        //     }
+        // }
+
+        // $sorted = collect($new_points);
+
+        // $sorted = $sorted->sort();
+
+        // return $sorted;
+    }
+
+    public function getReport(Request $request)
+    {
+        $user = User::find(1);
+        $result = [];
+
+        $userPoint = UserPoint::where('user_id', $user->id)->get();
+
+        $majors = $userPoint->where('sub_question_id', 1)->sum('point');
+        $daily_schedules = $userPoint->where('question_id', 2)->sum('point');
+        $goals = $userPoint->whereIn('sub_question_id', [3, 4])->sum('point');
+        $dream_country = $userPoint->where('question_id', 6)->sum('point');
+        $competition = $userPoint->where('sub_question_id', 5)->sum('point');
+        $internship = $userPoint->where('sub_question_id', 6)->sum('point');
+        $voluntering = $userPoint->where('sub_question_id', 7)->sum('point');
+        $school_club = $userPoint->where('sub_question_id', 8)->sum('point');
+        $out_of_school = $userPoint->where('sub_question_id', 9)->sum('point');
+
+        $result['majors'] = isset($majors) && $majors < 2 ? true : false;
+        $result['daily_shedules'] = isset($daily_schedules) && $daily_schedules < 5 ? true : false;
+        $result['goals'] = isset($goals) && $goals < 3 ? true : false;
+        $result['dream_country'] = isset($dream_country) && $dream_country < 0 ? true : false;
+        $result['competition'] = isset($competition) && $competition == 1 ? true : false;
+        $result['internship'] = isset($internship) && $internship == 1 ? true : false;
+        $result['voluntering'] = isset($voluntering) && $voluntering == 1 ? true : false;
+        $result['school_club'] = isset($school_club) && $school_club < 1 ? true : false;
+        $result['out_of_school'] = isset($out_of_school) && $out_of_school < 2 ? true : false;
+
+        return $result;
+    }
+
+    public function checklistQuest(Request $request)
+    {
+        $user = User::find(1);
+        $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
+            ->leftjoin('category', 'category.id', '=', 'questions.category_id')
+            ->select(DB::raw('SUM(user_points.point) as point'), 'name')
+            ->where('user_id', $user->id)
+            ->where('questions.category_id', '>', 4) # Only initial assessment
+            ->groupBy('name')
+            ->get();
+
+        $result = [
+            'Exploration' => false,
+            'Profile Building' => false,
+            'Academic Profiling' => false,
+            'Writing' => false,
+            'Sponsor (fun quest)' => false,
+        ];
+
+        if ($userPoints->count() > 0) {
+            foreach ($userPoints as $key => $userPoint) {
+                switch ($userPoint->name) {
+                    case 'Exploration':
+                        $result[$userPoint['name']] = $userPoint['point'] == 2 ? true : false;
+                        break;
+
+                    case 'Profile Building':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Academic Profiling':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Writing':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Sponsor (fun quest)':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    default:
+                        $result[$userPoint['name']] = false;
+                        break;
+                }
             }
         }
 
-        return $new_points;
+        return $result;
     }
 }

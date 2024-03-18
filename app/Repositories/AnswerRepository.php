@@ -48,7 +48,6 @@ class AnswerRepository implements AnswerRepositoryInterface
             ];
         }
 
-
         count($question_ids) > 0 ? Answer::where('user_id', $user->id)->whereIn('question_id', $question_ids)->delete() : null;
 
         return Answer::insert($new_answer);
@@ -134,6 +133,10 @@ class AnswerRepository implements AnswerRepositoryInterface
 
                 case 'scale':
                     $point_details[$i]['point'] = $Questions['score'] != null ? $Questions['score'] + 1 : 0;
+                    break;
+
+                case 'score':
+                    $point_details[$i]['point'] = $Questions['score'] != null ? $dbQuestion->total_point : 0;
                     break;
             }
             $i++;
