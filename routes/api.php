@@ -44,7 +44,5 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth:api', 'scopes:admin'])->group(function () {
 
         Route::post('signout', [AdminController::class, 'signOut']);
-        
     });
-
 });

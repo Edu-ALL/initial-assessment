@@ -1,7 +1,10 @@
 <script setup>
 import { showNotif } from '@/helper/notification'
 import router from '@/router'
-import { onMounted } from 'vue'
+import ApiService from '@/services/ApiService'
+import JwtService from '@/services/JwtService'
+import UserService from '@/services/UserService'
+import { onMounted, ref } from 'vue'
 
 
 const props = defineProps({ 'ticket': String })
@@ -10,6 +13,7 @@ const props = defineProps({ 'ticket': String })
 const formData = ref(null)
 
 const isValidate = ref(false)
+const loading = ref(false)
 
 const form = ref({
   ticket_id: '',
@@ -18,8 +22,30 @@ const form = ref({
 
 const submit = async () => {
   if(form.value.ticket_id.length==4) {
-    showNotif('success', 'You`ve successfully logged in', 'bottom-end')
-    router.push({ name: 'assessment' })
+    loading.value =true
+    try {
+      const res = await ApiService.post('signin', {
+        ticket_no: form.value.ticket_id,
+      })
+
+      console.log(res)
+      if(!res.success) {
+        showNotif('error', res.message, 'bottom-end')
+      } else {
+        UserService.saveUser(res.data)
+        JwtService.saveToken(res.data.token)
+        router.push({ name: 'assessment' })
+
+        setTimeout(() => {
+          showNotif('success', 'You`ve successfully logged in', 'bottom-end')
+        }, 1000)
+      }
+      loading.value = false
+    } catch (error) {
+      console.error(error)
+      loading.value = false
+    }
+
   } else {
     isValidate.value = true
   }
@@ -72,6 +98,7 @@ onMounted(() => {
                 type="text"
                 length="4"
                 divider="-"
+                :loading="loading"
                 :error="isValidate"
               />
             </VCol>
@@ -84,6 +111,7 @@ onMounted(() => {
               <VBtn
                 block
                 type="submit"
+                :loading="loading"
               >
                 Sign In
               </VBtn>

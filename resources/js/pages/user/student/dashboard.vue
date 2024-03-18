@@ -1,16 +1,12 @@
 <script setup>
-import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
-import AnalyticsFinanceTabs from '@/views/dashboard/AnalyticsFinanceTab.vue'
-import AnalyticsOrderStatistics from '@/views/dashboard/AnalyticsOrderStatistics.vue'
-import AnalyticsProfitReport from '@/views/dashboard/AnalyticsProfitReport.vue'
-import AnalyticsTotalRevenue from '@/views/dashboard/AnalyticsTotalRevenue.vue'
-import AnalyticsTransactions from '@/views/dashboard/AnalyticsTransactions.vue'
+import JwtService from '@/services/JwtService'
+import illustrationJohnDark from '@images/cards/illustration-john-dark.png'
+import illustrationJohnLight from '@images/cards/illustration-john-light.png'
+import { useTheme } from 'vuetify'
+import { VCardText } from 'vuetify/lib/components/index.mjs'
 
-// 👉 Images
-import chart from '@images/cards/chart-success.png'
-import card from '@images/cards/credit-card-primary.png'
-import paypal from '@images/cards/paypal-error.png'
-import wallet from '@images/cards/wallet-info.png'
+const { global } = useTheme()
+const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrationJohnDark : illustrationJohnLight)
 </script>
 
 <template>
@@ -18,136 +14,157 @@ import wallet from '@images/cards/wallet-info.png'
     <!-- 👉 Congratulations -->
     <VCol
       cols="12"
-      md="8"
+      md="6"
     >
-      <AnalyticsCongratulations />
+      <VCard class="text-center text-sm-start mb-4">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            sm="8"
+            order="2"
+            order-sm="1"
+          >
+            <VCardItem>
+              <VCardTitle class="text-md-h5 text-primary">
+                Congratulations { Name }! 🎉
+              </VCardTitle>
+            </VCardItem>
+
+            <VCardText>
+              <span>
+                Thank you for completing the questionnaire 🤩.
+                <br>
+                Check your results by clicking the button below.
+              </span>
+              <br>
+              <VBtn
+                variant="tonal"
+                class="mt-4"
+                size="small"
+              >
+                Download Result
+              </VBtn>
+            </VCardText>
+          </VCol>
+
+          <VCol
+            cols="12"
+            sm="4"
+            order="1"
+            order-sm="2"
+            class="text-center"
+          >
+            <img
+              :src="illustrationJohn"
+              :height="$vuetify.display.xs ? '150' : '175'"
+              :class="$vuetify.display.xs ? 'mt-6 mb-n2' : 'position-absolute mt-10 me-10'"
+              class="john-illustration flip-in-rtl"
+            >
+          </VCol>
+        </VRow>
+      </VCard>
+
+      <VCard>
+        <VCardText>
+          {{ JwtService.getToken() }}
+          <h3>Notes</h3>
+        </VCardText>
+      </VCard>
     </VCol>
 
     <VCol
       cols="12"
-      sm="4"
+      md="6"
     >
-      <VRow>
-        <!-- 👉 Profit -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Profit',
-              image: chart,
-              stats: '$12,628',
-              change: 72.80,
-            }"
-          />
-        </VCol>
+      <VCard>
+        <VCardTitle class="my-2 bg-primary">
+          <h4 class="text-white text-center">
+            Your Quest
+          </h4>
+        </VCardTitle>
+        <VDivider />
+        <VCardText>
+          <VTimeline
+            align="start"
+            side="center"
+          >
+            <VTimelineItem
+              dot-color="primary"
+              size="small"
+            >
+              <div class="d-flex">
+                <strong class="me-4">1</strong>
+                <div>
+                  <strong>Exploration Area</strong>
+                  <div class="text-caption">
+                    Discover more about yourself and how it’ll be vital in shaping your future.
+                  </div>
+                </div>
+              </div>
+            </VTimelineItem>
 
-        <!-- 👉 Sales -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Sales',
-              image: wallet,
-              stats: '$4,679',
-              change: 28.42,
-            }"
-          />
-        </VCol>
-      </VRow>
-    </VCol>
+            <VTimelineItem
+              dot-color="dark"
+              size="small"
+            >
+              <div class="d-flex">
+                <strong class="me-4">2</strong>
+                <div>
+                  <strong>Profile Building Area</strong>
+                  <div class="text-caption">
+                    Identify what aspects you can hone to stand out more in an ever-growing competitive landscape.
+                  </div>
+                </div>
+              </div>
+            </VTimelineItem>
 
-    <!-- 👉 Total Revenue -->
-    <VCol
-      cols="12"
-      md="8"
-      order="2"
-      order-md="1"
-    >
-      <AnalyticsTotalRevenue />
-    </VCol>
+            <VTimelineItem
+              dot-color="primary"
+              size="small"
+            >
+              <div class="d-flex">
+                <strong class="me-4">3</strong>
+                <div>
+                  <strong>Academic Area</strong>
+                  <div class="text-caption">
+                    Consult your current scores and understand strategies on how to upgrade your academic profile. 
+                  </div>
+                </div>
+              </div>
+            </VTimelineItem>
 
-    <VCol
-      cols="12"
-      sm="8"
-      md="4"
-      order="1"
-      order-md="2"
-    >
-      <VRow>
-        <!-- 👉 Payments -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <CardStatisticsVertical
-            v-bind=" {
-              title: 'Payments',
-              image: paypal,
-              stats: '$2,468',
-              change: -14.82,
-            }"
-          />
-        </VCol>
+            <VTimelineItem
+              dot-color="primary"
+              size="small"
+            >
+              <div class="d-flex">
+                <strong class="me-4">4</strong>
+                <div>
+                  <strong>Writing Area</strong>
+                  <div class="text-caption">
+                    Delve deeper into what style of writing you’ll specifically need to master and what personal experiences you can utilize towards that goal.
+                  </div>
+                </div>
+              </div>
+            </VTimelineItem>
 
-        <!-- 👉 Revenue -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Transactions',
-              image: card,
-              stats: '$14,857',
-              change: 28.14,
-            }"
-          />
-        </VCol>
-      </VRow>
-
-      <VRow>
-        <!-- 👉 Profit Report -->
-        <VCol
-          cols="12"
-          sm="12"
-        >
-          <AnalyticsProfitReport />
-        </VCol>
-      </VRow>
-    </VCol>
-
-    <!-- 👉 Order Statistics -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsOrderStatistics />
-    </VCol>
-
-    <!-- 👉 Tabs chart -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsFinanceTabs />
-    </VCol>
-
-    <!-- 👉 Transactions -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsTransactions />
+            <VTimelineItem
+              dot-color="primary"
+              size="small"
+            >
+              <div class="d-flex">
+                <strong class="me-4">5</strong>
+                <div>
+                  <strong>Sponsor Area</strong>
+                  <div class="text-caption">
+                    End the journey by refreshing your mind at one of our collaborator booths!
+                  </div>
+                </div>
+              </div>
+            </VTimelineItem>
+          </VTimeline>          
+        </VCardText>
+      </VCard>
     </VCol>
   </VRow>
 </template>

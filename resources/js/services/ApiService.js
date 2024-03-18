@@ -1,9 +1,15 @@
 import axios from 'axios'
+import JwtService from './JwtService'
+
+
+const token = JwtService.saveToken()
+const auth = token ? `Bearer ${token}` : null
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // Ganti dengan URL API yang sesuai
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': auth,
 
     // Jika diperlukan, Anda bisa menambahkan header lain di sini
   },
