@@ -1,122 +1,230 @@
 <script setup>
-import { ref } from 'vue'
+import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import ApiService from '@/services/ApiService'
+import { ref, watch } from 'vue'
 
-const mission = ref()
+const done = ref(false)
+const formData = ref()
+const mission = ref(1)
+const options = ref()
+const loading = ref(false)
+
+const inputData = ref([
+  {
+    answer: [],
+  },
+  {
+    answer: [],
+  },
+])
+
+const getOptions =  async() => {
+  const endpoint = 'question/5'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+      inputData.value[0].answer = options.value['option21-28']
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  if (confirmed) {
+    // Lakukan pengiriman data
+    loading.value = true
+    resetRadio()
+    try {
+      const res = await ApiService.post('answer/5', inputData.value)
+      if(res.success) {
+        getAnswer()
+      } else {
+        showNotif('error', res.message)
+      }
+      loading.value = false
+    } catch (error) {
+      console.error(error)
+      loading.value = false
+    }
+  }
+}
+
+const resetRadio = () => {
+  const mission_choosed = mission.value
+
+  if(mission_choosed==1) {
+    inputData.value[1].answer = []
+  } else {
+    for (let index = 0; index < 6; index++) {
+      inputData.value[0].answer[index].answer_descriptive = null      
+    }
+  }
+}
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/5')
+
+    if (res.success && res.data.length>0) {
+      done.value = true
+    } else {
+      done.value = false
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+watch(() => {
+  getOptions()
+  getAnswer()
+})
 </script>
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle>
+    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
       <VIcon
-        icon="bx-check-circle"
+        :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
-        color="success"
       />
       Exploration Area
     </VExpansionPanelTitle>
-    <VExpansionPanelText>
-      <VAlert color="warning">
-        <VAlertTitle>
-          <p class="my-0">
-            Develop your career plan and decide what is best for your future!
-            <strong>Choose your mission!</strong>
-          </p>
-        </VAlertTitle>
-      </VAlert>
-
-      <VRadioGroup
-        v-model="mission"
-        class="mt-3"
+    <VExpansionPanelText v-if="!done">
+      <VForm
+        ref="formData"
+        validate-on="input"
+        fast-fail
+        :disabled="loading"
+        @submit.prevent="submit"
       >
-        <VRadio
-          label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "
-          value="1"
-        />
-        <VRadio
-          label="Get to understand more about your dreams! Participate in a sharing session!"
-          value="2"
-        />
-      </VRadioGroup>
+        <VAlert color="warning">
+          <VAlertTitle>
+            <p class="my-0">
+              Develop your career plan and decide what is best for your future!
+              <strong>Choose your mission!</strong>
+            </p>
+          </VAlertTitle>
+        </VAlert>
+        <VRadioGroup
+          v-model="mission"
+          class="mt-3"
+        >
+          <VRadio
+            label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "
+            :value="1"
+          />
+          <VRadio
+            label="Get to understand more about your dreams! Participate in a sharing session!"
+            :value="2"
+          />
+        </VRadioGroup>
       
-      <VDivider class="my-3" />
-
-      <ol class="ms-5 my-3">
-        <li v-if="mission==1">
-          <strong>
-            Take the 5 minute ONE*T test
-          </strong>
-          to find out which jobs woold fit you! 
-          <ol
-            type="I"
-            class="ms-4 my-3"
-          >
-            <li class="mb-3">
-              Please visit <a
-                href="https://www.mynextmove.org/explore/ip"
-                target="_blank"
-                rel="noopener noreferrer"
-              >ONE*T test</a>
-            </li>
-            <li>
-              <p>
-                After finishing you have to write your score!
-              </p>
+        <VDivider class="my-3" />
+        <ol class="ms-5 my-3">
+          <li v-if="mission==1">
+            <strong>
+              Take the 5 minute ONE*T test
+            </strong>
+            to find out which jobs woold fit you! 
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li class="mb-3">
+                Please visit <a
+                  href="https://www.mynextmove.org/explore/ip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >ONE*T test</a>
+              </li>
+              <li>
+                <p>
+                  After finishing you have to write your score!
+                </p>
               
-              <VRow>
-                <VCol
-                  v-for="i in 6"
-                  :key="i"
-                  cols="4"
-                >
-                  <VTextField
-                    label="Realistic"
-                    density="compact"
+                <VRow>
+                  <VCol
+                    v-for="item, index in inputData[0].answer"
+                    :key="index"
+                    cols="4"
+                  >
+                    <VTextField
+                      v-model="inputData[0].answer[index].answer_descriptive"
+                      :label="item.option_answer"
+                      density="compact"
+                    />
+                  </VCol>
+                </VRow>
+              </li>
+            </ol>
+            <VDivider class="my-6" />
+          </li>
+
+          <li v-if="mission==2">
+            <strong>
+              Get to understand more about your dreams! 
+            </strong>
+            Participate in a sharing session!
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li class="mb-3">
+                Speaker Name
+                <VRadioGroup v-model="inputData[1].answer[0]">
+                  <VRadio
+                    v-for="item in options['option22-29']"
+                    :key="item"
+                    :value="item"
+                    :label="item.option_answer"
                   />
-                </VCol>
-              </VRow>
-            </li>
-          </ol>
-          <VDivider class="my-6" />
-        </li>
+                </VRadioGroup>
+              </li>
+              <li v-if="inputData[1].answer[0]">
+                Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
 
-        <li v-if="mission==2">
-          <strong>
-            Get to understand more about your dreams! 
-          </strong>
-          Participate in a sharing session!
-          <ol
-            type="I"
-            class="ms-4 my-3"
-          >
-            <li class="mb-3">
-              Speaker Name
-
-              <VRadioGroup>
-                <VRadio
-                  v-for="item in ['apple', 'banana', 'cherry']"
-                  :key="item"
-                  :label="item"
-                  :value="item"
+                <VTextarea
+                  v-model="inputData[1].answer[0].answer_descriptive"
+                  label="Reflection"
+                  density="compact"
+                  class="mt-3"
                 />
-              </VRadioGroup>
-            </li>
-            <li>
-              Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
+              </li>
+            </ol>
+          </li>
+        </ol>
 
-              <VTextarea
-                label="Reflection"
-                density="compact"
-                class="mt-3"
-              />
-            </li>
-          </ol>
-        </li>
-      </ol>
-
-      <div class="w-100 d-flex justify-center mt-4">
-        <VBtn color="secondary">
-          Submit
-        </VBtn>
+        <div class="w-100 d-flex justify-center mt-4">
+          <VBtn
+            color="secondary"
+            type="submit"
+            :loading="loading"
+          >
+            <VIcon
+              icon="bx-save"
+              color="white"
+              class="me-3"
+            />
+            Submit
+          </VBtn>
+        </div>
+      </VForm>
+    </VExpansionPanelText>
+    <VExpansionPanelText v-if="done">
+      <div class="bg-warning px-4 py-4 rounded">
+        <h4>You have successfully submitted this data</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

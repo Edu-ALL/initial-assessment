@@ -21,7 +21,13 @@ const getAnswer = async () => {
 
     if (res.success && res.data.length>0) {
       inputData.value = res.data
-      
+
+      // check radio standardized test 
+      if(inputData.value[3].answer[0].score==null && 
+        inputData.value[4].answer[0].score==null && 
+        inputData.value[5].answer[0].score==null) {
+        radioData.value.radio1 = 'no'
+      }
     }
   } catch (error) {
     console.error(error)
@@ -164,7 +170,6 @@ const submit = async () => {
 
 const handleSubmit = async () => {
   loading.value = true
-  console.log(inputData.value)
   try {
     const res = await ApiService.post('answer/3', inputData.value)
     if(res.success) {
@@ -348,8 +353,13 @@ watch(() => {
                     type="number"
                     label="IELTS"
                     density="compact"
+                    min="0"
+                    max="9"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 9
+                  </small>
                 </VCol>
                 <VCol cols="4">
                   <VTextField
@@ -357,8 +367,13 @@ watch(() => {
                     type="number"
                     label="TOEFL"
                     density="compact"
+                    min="0"
+                    max="120"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 120
+                  </small>
                 </VCol>
                 <VCol cols="4">
                   <VTextField
@@ -366,8 +381,13 @@ watch(() => {
                     type="number"
                     label="SAT"
                     density="compact"
+                    min="400"
+                    max="1600"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 1600
+                  </small>
                 </VCol>
               </VRow>
             </div>

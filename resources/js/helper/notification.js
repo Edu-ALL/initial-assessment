@@ -20,4 +20,19 @@ export const showNotif = (status, message, position='top-end') => {
   })
 }
 
-export default { showNotif }
+// Fungsi untuk konfirmasi sebelum mengirimkan data
+export const confirmBeforeSubmit = async message => {
+  const result = await Swal.fire({
+    icon: 'warning',
+    title: 'Confirmation',
+    width: 450,
+    text: message,
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No, Cancel',
+  })
+
+  return result.isConfirmed
+}
+
+export default { showNotif, confirmBeforeSubmit }

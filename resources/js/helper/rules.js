@@ -14,4 +14,11 @@ export const rules = {
       return 'This field has a maximum of 3 options'
     },
   ],
+  not_zero: [
+    value => {
+      if (!value || value==0) return 'Field cannot be 0'
+      
+      return true
+    },
+  ],
 }
