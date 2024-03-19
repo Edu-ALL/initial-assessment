@@ -1,119 +1,226 @@
 <script setup>
-import { ref } from 'vue'
+import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import ApiService from '@/services/ApiService'
+import { ref, watch } from 'vue'
 
-const mission = ref()
+const done = ref(false)
+const formData = ref()
+const mission = ref(1)
+const options = ref()
+const loading = ref(false)
+
+const inputData = ref([
+  {
+    answer: [],
+  },
+  {
+    answer: [],
+  },
+])
+
+const getOptions =  async() => {
+  const endpoint = 'question/6'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  if (confirmed) {
+    // Lakukan pengiriman data
+    loading.value = true
+    resetRadio()
+    try {
+      const res = await ApiService.post('answer/6', inputData.value)
+      if(res.success) {
+        getAnswer()
+      } else {
+        showNotif('error', res.message)
+      }
+      loading.value = false
+    } catch (error) {
+      console.error(error)
+      loading.value = false
+    }
+  }
+}
+
+const resetRadio = () => {
+  const mission_choosed = mission.value
+
+  if(mission_choosed==1) {
+    inputData.value[1].answer = []
+  } else {
+    inputData.value[0].answer = []
+  }
+}
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/6')
+
+    if (res.success && res.data.length>0) {
+      done.value = true
+    } else {
+      done.value = false
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+watch(() => {
+  getOptions()
+  getAnswer()
+})
 </script>
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle>
+    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
       <VIcon
-        icon="bx-check-circle"
+        :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
-        color="muted"
       />
       Profile Building Area
     </VExpansionPanelTitle>
-    <VExpansionPanelText>
-      <VAlert color="warning">
-        <VAlertTitle>
-          <p class="my-0">
-            Set the stage for your success beyond high school and understand how to stand out in a competitive landscape!
-            <strong>Choose your mission!</strong>
-          </p>
-        </VAlertTitle>
-      </VAlert>
-
-      <VRadioGroup
-        v-model="mission"
-        class="mt-3"
+    <VExpansionPanelText v-if="!done">
+      <VForm
+        ref="formData"
+        validate-on="input"
+        fast-fail
+        :disabled="loading"
+        @submit.prevent="submit"
       >
-        <VRadio
-          label="Visit an NGO booth and be inspired to help out (encourage NGO to also create a small activity)"
-          value="1"
-        />
-        <VRadio
-          label="Participate in STEM+ activities to gauge what interests you!"
-          value="2"
-        />
-      </VRadioGroup>
-      <VDivider class="my-3" />
+        <VAlert color="warning">
+          <VAlertTitle>
+            <p class="my-0">
+              Set the stage for your success beyond high school and understand how to stand out in a competitive landscape!
+              <strong>Choose your mission!</strong>
+            </p>
+          </VAlertTitle>
+        </VAlert>
 
-      <ol class="ms-5 my-3">
-        <li v-if="mission==1">
-          <strong>
-            Visit an NGO booth 
-          </strong>
-          and be inspired to help out (encourage NGO to also create a small activity)
+        <VRadioGroup
+          v-model="mission"
+          class="mt-3"
+        >
+          <VRadio
+            label="Visit an NGO booth and be inspired to help out (encourage NGO to also create a small activity)"
+            :value="1"
+          />
+          <VRadio
+            label="Participate in STEM+ activities to gauge what interests you!"
+            :value="2"
+          />
+        </VRadioGroup>
+        <VDivider class="my-3" />
 
-          <ol
-            type="I"
-            class="ms-4 my-3"
-          >
-            <li class="mb-3">
-              Which NGO representative did you meet? 
+        <ol class="ms-5 my-3">
+          <li v-if="mission==1">
+            <strong>
+              Visit an NGO booth 
+            </strong>
+            and be inspired to help out (encourage NGO to also create a small activity)
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li class="mb-3">
+                Which NGO representative did you meet? 
 
-              <VRadioGroup>
-                <VRadio
-                  v-for="item in ['apple', 'banana', 'cherry']"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                />
-              </VRadioGroup>
-            </li>
-            <li>
-              From your interaction, how do you think you can contribute to the cause?
+                <VRadioGroup v-model="inputData[0].answer[0]">
+                  <VRadio
+                    v-for="item in options['option23-31']"
+                    :key="item"
+                    :value="item"
+                    :label="item.option_answer"
+                  />
+                </VRadioGroup>
+              </li>
+              <li v-if="inputData[0].answer[0]">
+                How do you think you can use your skills and/or interests to contribute to their causes?
               
-              <VTextarea
-                label="Description"
-                density="compact"
-                class="mt-3"
-              />
-            </li>
-          </ol>
-          <VDivider class="my-6" />
-        </li>
-
-        <li v-if="mission==2">
-          <strong>
-            Participate in STEM+ activities 
-          </strong> 
-          to gauge what interests you! 
-
-          <ol
-            type="I"
-            class="ms-4 my-3"
-          >
-            <li class="mb-3">
-              What topic did you learn about in this area?
-
-              <VRadioGroup>
-                <VRadio
-                  v-for="item in ['apple', 'banana', 'cherry']"
-                  :key="item"
-                  :label="item"
-                  :value="item"
+                <VTextarea
+                  v-model="inputData[0].answer[0].answer_descriptive"
+                  label="Description"
+                  density="compact"
+                  class="mt-3"
                 />
-              </VRadioGroup>
-            </li>
-            <li>
-              From your observation, what potential project can you think of?
-              
-              <VTextarea
-                label="Description"
-                density="compact"
-                class="mt-3"
-              />
-            </li>
-          </ol>
-        </li>
-      </ol>
+              </li>
+            </ol>
+            <VDivider class="my-6" />
+          </li>
 
-      <div class="w-100 d-flex justify-center mt-4">
-        <VBtn color="secondary">
-          Submit
-        </VBtn>
+          <li v-if="mission==2">
+            <strong>
+              Participate in STEM+ activities 
+            </strong> 
+            to gauge what interests you! 
+
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li class="mb-3">
+                What topic did you learn about in this area?
+
+                <VRadioGroup v-model="inputData[1].answer[0]">
+                  <VRadio
+                    v-for="item in options['option24-33']"
+                    :key="item"
+                    :value="item"
+                    :label="item.option_answer"
+                  />
+                </VRadioGroup>
+              </li>
+              <li v-if="inputData[1].answer[0]">
+                From your observation, what potential project can you think of?
+              
+                <VTextarea
+                  v-model="inputData[1].answer[0].answer_descriptive"
+                  label="Description"
+                  density="compact"
+                  class="mt-3"
+                />
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="w-100 d-flex justify-center mt-4">
+          <VBtn
+            color="secondary"
+            type="submit"
+            :loading="loading"
+          >
+            <VIcon
+              icon="bx-save"
+              color="white"
+              class="me-3"
+            />
+            Submit
+          </VBtn>
+        </div>
+      </VForm>
+    </VExpansionPanelText>
+    <VExpansionPanelText v-if="done">
+      <div class="bg-warning px-4 py-4 rounded">
+        <h4>You have successfully submitted this data</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

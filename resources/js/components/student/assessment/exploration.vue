@@ -74,6 +74,11 @@ const getOptions =  async() => {
   }
 }
 
+const otherField  = ref({
+  field1: false,
+  field2: false,
+})
+
 const checkStep = value => {
   emits('step', value)
 }
@@ -84,6 +89,10 @@ const getAnswer = async () => {
 
     if (res.success && res.data.length>0) {
       inputData.value = res.data
+
+      // cek checkOtherOption 
+      checkOtherOption(3, 1)
+      checkOtherOption(4, 2)
     }
   } catch (error) {
     console.error(error)
@@ -118,6 +127,17 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error(error)
     loading.value = false
+  }
+}
+
+const checkOtherOption = (i, field) => { // i dari index answer | field dari otherField 
+  let data = inputData.value[i].answer
+  let index = data.findIndex(item => item.option_answer === "Others (long answer)")
+
+  if (index !== -1) {
+    otherField.value['field'+field] = index
+  } else {
+    otherField.value['field'+field] = null
   }
 }
 
@@ -235,6 +255,7 @@ watch(() => {
               What do you identify as your strengths? (can pick more than one) 
               <span style="color:red">*</span>
             </div>
+            
             <VSelect
               v-model="inputData[3].answer"
               :item-props="itemProps"
@@ -246,6 +267,14 @@ watch(() => {
               multiple
               class="my-3"
               :rules="[...rules.required]"
+              @update:model-value="checkOtherOption(3, 1)"
+            />
+            <VTextField
+              v-if="otherField.field1"
+              v-model="inputData[3].answer[otherField.field1].answer_descriptive"
+              label="Separated by comma"
+              density="compact"
+              class="my-5"
             />
           </li>
      
@@ -266,6 +295,14 @@ watch(() => {
               multiple
               class="my-3"
               :rules="[...rules.required]"
+              @update:model-value="checkOtherOption(4, 2)"
+            />
+            <VTextField
+              v-if="otherField.field2"
+              v-model="inputData[4].answer[otherField.field2].answer_descriptive"
+              label="Separated by comma"
+              density="compact"
+              class="my-5"
             />
           </li>
         

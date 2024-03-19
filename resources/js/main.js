@@ -22,5 +22,10 @@ app.use(vuetify)
 app.use(createPinia())
 app.use(router)
 
+// remove warm log 
+app.config.warnHandler = function (msg, vm, trace) {
+  return null
+}
+
 // Mount vue app
 app.mount('#app')

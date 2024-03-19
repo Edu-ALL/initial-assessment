@@ -1,108 +1,223 @@
 <script setup>
-import { ref } from 'vue'
+import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import ApiService from '@/services/ApiService'
+import { ref, watch } from 'vue'
 
-const mission = ref()
+const done = ref(false)
+const formData = ref()
+const mission = ref(1)
+const options = ref()
+const loading = ref(false)
+
+const inputData = ref([
+  {
+    answer: [],
+  },
+  {
+    answer: [{
+      id: null,
+      question_id: 26,
+      sub_question_id: null,
+      answer_descriptive: null,
+      score: null,
+    }],
+  },
+])
+
+const getOptions =  async() => {
+  const endpoint = 'question/7'
+  try {
+    const res = await ApiService.get(endpoint)
+    if (res.success) {
+      options.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  console.log(inputData.value)
+
+  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  if (confirmed) {
+    // Lakukan pengiriman data
+    loading.value = true
+    resetRadio()
+    try {
+      const res = await ApiService.post('answer/7', inputData.value)
+      if(res.success) {
+        getAnswer()
+      } else {
+        showNotif('error', res.message)
+      }
+      loading.value = false
+    } catch (error) {
+      console.error(error)
+      loading.value = false
+    }
+  }
+}
+
+const resetRadio = () => {
+  const mission_choosed = mission.value
+
+  if(mission_choosed==1) {
+    inputData.value[1].answer[0].answer_descriptive = null
+  } else {
+    inputData.value[0].answer = []
+  }
+}
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/7')
+
+    if (res.success && res.data.length>0) {
+      done.value = true
+    } else {
+      done.value = false
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+watch(() => {
+  getOptions()
+  getAnswer()
+})
 </script>
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle>
+    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
       <VIcon
-        icon="bx-check-circle"
+        :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
-        color="success"
       />
       Academic Area
     </VExpansionPanelTitle>
     <VExpansionPanelText>
-      <VAlert color="warning">
-        <VAlertTitle>
-          <p class="my-0">
-            Understand better what academic profile will suit your intended major!
-            <strong>Choose your mission!</strong>
-          </p>
-        </VAlertTitle>
-      </VAlert>
-
-      <VRadioGroup
-        v-model="mission"
-        class="mt-3"
+      <VForm
+        ref="formData"
+        validate-on="input"
+        fast-fail
+        :disabled="loading"
+        @submit.prevent="submit"
       >
-        <VRadio
-          label="Take a short SAT/IELTS/TOEFL diagnostic test to know what to improve!"
-          value="1"
-        />
-        <VRadio
-          label="Consult your subjects to ensure your best fit! "
-          value="2"
-        />
-      </VRadioGroup>
+        <VAlert color="warning">
+          <VAlertTitle>
+            <p class="my-0">
+              Understand better what academic profile will suit your intended major!
+              <strong>Choose your mission!</strong>
+            </p>
+          </VAlertTitle>
+        </VAlert>
+
+        <VRadioGroup
+          v-model="mission"
+          class="mt-3"
+        >
+          <VRadio
+            label="Take a short SAT/IELTS/TOEFL diagnostic test to know what to improve!"
+            :value="1"
+          />
+          <VRadio
+            label="Consult your subjects to ensure your best fit! "
+            :value="2"
+          />
+        </VRadioGroup>
       
-      <VDivider class="my-3" />
+        <VDivider class="my-3" />
+        <ol class="ms-5 my-3">
+          <li v-if="mission==1">
+            <strong>
+              Take a short SAT/IELTS/TOEFL diagnostic test 
+            </strong>
+            to know what to improve! 
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li class="mb-3">
+                Choose one option
 
-      <ol class="ms-5 my-3">
-        <li v-if="mission==1">
-          <strong>
-            Take a short SAT/IELTS/TOEFL diagnostic test 
-          </strong>
-          to know what to improve! 
-          <ol
-            type="I"
-            class="ms-4 my-3"
-          >
-            <li class="mb-3">
-              Test
-
-              <VRadioGroup>
-                <VRadio
-                  v-for="item in ['SAT', 'IELTS', 'TOEFL']"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                />
-              </VRadioGroup>
-            </li>
-            <li>
-              <p>
-                When chosen, they can insert their score
-              </p>
+                <VRadioGroup v-model="inputData[0].answer[0]">
+                  <VRadio
+                    v-for="item in options['option25']"
+                    :key="item"
+                    :label="item.option_answer"
+                    :value="item"
+                  />
+                </VRadioGroup>
+              </li>
+              <li v-if="inputData[0].answer[0]">
+                <p>
+                  When chosen, they can insert their score
+                </p>
               
-              <VTextField
-                label="Score"
-                density="compact"
-                type="number"
-              />
-            </li>
-          </ol>
-          <VDivider class="my-6" />
-        </li>
+                <VTextField
+                  v-model="inputData[0].answer[0].answer_descriptive"
+                  label="Score"
+                  density="compact"
+                  type="number"
+                />
+              </li>
+            </ol>
+            <VDivider class="my-6" />
+          </li>
 
-        <li v-if="mission==2">
-          <strong>
-            Consult your subjects 
-          </strong>
-          to ensure your best fit! 
-          <ol
-            type="I"
-            class="ms-4 my-3"
+          <li v-if="mission==2">
+            <strong>
+              Consult your subjects 
+            </strong>
+            to ensure your best fit! 
+            <ol
+              type="I"
+              class="ms-4 my-3"
+            >
+              <li>
+                What major are you planning to go to based on your consultation and your subject selection?
+
+                <VTextarea
+                  v-model="inputData[1].answer[0].answer_descriptive"
+                  label="Answer"
+                  density="compact"
+                  class="mt-3"
+                />
+              </li>
+            </ol>
+          </li>
+        </ol>
+
+        <div class="w-100 d-flex justify-center mt-4">
+          <VBtn
+            color="secondary"
+            type="submit"
+            :loading="loading"
           >
-            <li>
-              What major are you planning to go to based on your consultation and your subject selection?
-
-              <VTextarea
-                label="Answer"
-                density="compact"
-                class="mt-3"
-              />
-            </li>
-          </ol>
-        </li>
-      </ol>
-
-      <div class="w-100 d-flex justify-center mt-4">
-        <VBtn color="secondary">
-          Submit
-        </VBtn>
+            <VIcon
+              icon="bx-save"
+              color="white"
+              class="me-3"
+            />
+            Submit
+          </VBtn>
+        </div>
+      </VForm>
+    </VExpansionPanelText>
+    <VExpansionPanelText v-if="done">
+      <div class="bg-warning px-4 py-4 rounded">
+        <h4>You have successfully submitted this data</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

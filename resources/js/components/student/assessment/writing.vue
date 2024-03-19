@@ -1,4 +1,5 @@
 <script setup>
+import { showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { defineEmits, watch } from 'vue'
@@ -7,9 +8,22 @@ const emits = defineEmits(['step'])
 
 const options = ref()
 const formData = ref()
+const loading = ref(false)
 
 const checkStep = value => {
   emits('step', value)
+}
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/4')
+
+    if (res.success && res.data.length>0) {
+      inputData.value = res.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const getOptions =  async() => {
@@ -25,11 +39,12 @@ const getOptions =  async() => {
 }
 
 const tickLabels = ref ({
-  0: '1',
-  1: '2',
-  2: '3',
-  3: '4',
-  4: '5',
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
 })
 
 const inputData = ref(
@@ -82,15 +97,6 @@ const inputData = ref(
   ],
 )
 
-const submit = async () => {
-  const { valid } = await formData.value.validate()
-
-  if (valid) {
-    console.log(inputData.value) 
-    checkStep(6)
-  }
-}
-
 const itemProps = item => {
   return {
     title: item.option_answer,
@@ -98,8 +104,33 @@ const itemProps = item => {
   }
 }
 
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  loading.value = true
+  try {
+    const res = await ApiService.post('answer/4', inputData.value)
+    if(res.success) {
+      checkStep(6)
+    } else {
+      showNotif('error', res.message, 'bottom-end')
+    }
+    loading.value = false
+  } catch (error) {
+    showNotif('error', error, 'bottom-end')
+    loading.value = false
+  }
+}
+
 watch(() => {
   getOptions()
+  getAnswer()
 })
 </script>
 
@@ -110,6 +141,7 @@ watch(() => {
       ref="formData"
       validate-on="input"
       fast-fail
+      :disabled="loading"
       @submit.prevent="submit"
     >
       <VCardTitle class="mb-4">
@@ -156,16 +188,16 @@ watch(() => {
             How confident are you in expressing yourself through non-academic writing (such as stories, journals)?
             <span style="color:red">*</span>
             <VRow>
-              <VCol cols="4">
+              <VCol cols="5">
                 <VSlider
                   v-model="inputData[1].answer[0].score"
-                  :max="4"
+                  :max="5"
                   :ticks="tickLabels"
                   show-ticks="always"
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.required"
+                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>
@@ -176,16 +208,16 @@ watch(() => {
             How confident are you in expressing yourself through academic writing (such as essays and journals)?
             <span style="color:red">*</span>
             <VRow>
-              <VCol cols="4">
+              <VCol cols="5">
                 <VSlider
                   v-model="inputData[2].answer[0].score"
-                  :max="4"
+                  :max="5"
                   :ticks="tickLabels"
                   show-ticks="always"
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.required"
+                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>
@@ -233,6 +265,7 @@ watch(() => {
         <VBtn
           variant="elevated"
           class="ms-3 mb-1 bg-warning"
+          :disabled="loading"
           @click="checkStep(4)"
         >
           <VIcon icon="bx-chevron-left" />
@@ -243,6 +276,7 @@ watch(() => {
           variant="elevated"
           class="me-5 mb-1"
           type="submit"
+          :loading="loading"
         >
           <span class="me-2">Submit</span>
           <VIcon icon="bx-chevron-right" />

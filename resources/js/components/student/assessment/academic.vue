@@ -1,4 +1,5 @@
 <script setup>
+import { showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { defineEmits, watch } from 'vue'
@@ -8,10 +9,30 @@ const emits = defineEmits(['step'])
 const formData = ref()
 const options = ref()
 const sub_option = ref()
+const loading = ref(false)
 
 const radioData = ref({
   radio1: 'yes',
 })
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/3')
+
+    if (res.success && res.data.length>0) {
+      inputData.value = res.data
+
+      // check radio standardized test 
+      if(inputData.value[3].answer[0].score==null && 
+        inputData.value[4].answer[0].score==null && 
+        inputData.value[5].answer[0].score==null) {
+        radioData.value.radio1 = 'no'
+      }
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 const getOptions =  async() => {
   const endpoint = 'question/3'
@@ -131,18 +152,41 @@ const itemProps = item => {
   }
 }
 
+const resetRadio = radio => {
+  let val = radioData.value[radio]
+  inputData.value[3].answer[0].score = val == 'yes' ? val : null
+  inputData.value[4].answer[0].score = val == 'yes' ? val : null
+  inputData.value[5].answer[0].score = val == 'yes' ? val : null
+}
+
 
 const submit = async () => {
   const { valid } = await formData.value.validate()
 
   if (valid) {
-    console.log(inputData.value) 
-    checkStep(5)
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  loading.value = true
+  try {
+    const res = await ApiService.post('answer/3', inputData.value)
+    if(res.success) {
+      checkStep(5)
+    } else {
+      showNotif('error', res.message, 'bottom-end')
+    }
+    loading.value = false
+  } catch (error) {
+    showNotif('error', error, 'bottom-end')
+    loading.value = false
   }
 }
 
 watch(() => {
   getOptions()
+  getAnswer()
 })
 </script>
 
@@ -153,6 +197,7 @@ watch(() => {
       ref="formData"
       validate-on="input"
       fast-fail
+      :disabled="loading"
       @submit.prevent="submit"
     >
       <VCardTitle class="mb-4">
@@ -223,11 +268,11 @@ watch(() => {
               <VRadioGroup v-model="inputData[2].answer[0].sub_question_id">
                 <VRadio
                   label="Yes"
-                  value="20"
+                  :value="20"
                 />
                 <VRadio
                   label="I don't know"
-                  value="19"
+                  :value="19"
                 />
               </VRadioGroup>
 
@@ -240,7 +285,7 @@ watch(() => {
                   v-for="item in inputData[1].answer"
                   :key="item"
                 >
-                  <VCol :cols="inputData[0].answer.id == 122 ? 8: 10">
+                  <VCol :cols="inputData[0].answer[0].id == 122 ? 8: 10">
                     <VTextField
                       v-model="item.option_answer"
                       label="Subject"
@@ -249,7 +294,7 @@ watch(() => {
                     />
                   </VCol>
                   <VCol
-                    v-if="inputData[0].answer.id == 122"
+                    v-if="inputData[0].answer[0].id == 122"
                     cols="2"
                   >
                     <VSelect
@@ -286,7 +331,10 @@ watch(() => {
               Have you done any standardized tests?
               <span style="color:red">*</span>
 
-              <VRadioGroup v-model="radioData.radio1">
+              <VRadioGroup
+                v-model="radioData.radio1"
+                @change="resetRadio"
+              >
                 <VRadio
                   label="Yes"
                   value="yes"
@@ -305,8 +353,13 @@ watch(() => {
                     type="number"
                     label="IELTS"
                     density="compact"
+                    min="0"
+                    max="9"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 9
+                  </small>
                 </VCol>
                 <VCol cols="4">
                   <VTextField
@@ -314,8 +367,13 @@ watch(() => {
                     type="number"
                     label="TOEFL"
                     density="compact"
+                    min="0"
+                    max="120"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 120
+                  </small>
                 </VCol>
                 <VCol cols="4">
                   <VTextField
@@ -323,8 +381,13 @@ watch(() => {
                     type="number"
                     label="SAT"
                     density="compact"
+                    min="400"
+                    max="1600"
                     :disabled="radioData.radio1=='no'"
                   />
+                  <small>
+                    The maximum score is 1600
+                  </small>
                 </VCol>
               </VRow>
             </div>
@@ -371,6 +434,7 @@ watch(() => {
         <VBtn
           variant="elevated"
           class="ms-3 mb-1 bg-warning"
+          :disabled="loading"
           @click="checkStep(3)"
         >
           <VIcon icon="bx-chevron-left" />
@@ -381,6 +445,7 @@ watch(() => {
           variant="elevated"
           class="me-5 mb-1"
           type="submit"
+          :loading="loading"
         >
           <span class="me-2">Writing</span>
           <VIcon icon="bx-chevron-right" />
