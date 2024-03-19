@@ -339,7 +339,9 @@ class AssessmentController extends Controller
         $user = User::find(1);
         $result = [];
 
-        $userPoint = UserPoint::where('user_id', $user->id)->get();
+        $userPoint = UserPoint::with('question', 'question.category')->where('user_id', $user->id)->get();
+
+        // $userPointCategory = $userPoint->where('')
 
         $majors = $userPoint->where('sub_question_id', 1)->sum('point');
         $daily_schedules = $userPoint->where('question_id', 2)->sum('point');
@@ -360,58 +362,6 @@ class AssessmentController extends Controller
         $result['voluntering'] = isset($voluntering) && $voluntering == 1 ? true : false;
         $result['school_club'] = isset($school_club) && $school_club < 1 ? true : false;
         $result['out_of_school'] = isset($out_of_school) && $out_of_school < 2 ? true : false;
-
-        return $result;
-    }
-
-    public function checklistQuest(Request $request)
-    {
-        $user = User::find(1);
-        $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
-            ->leftjoin('category', 'category.id', '=', 'questions.category_id')
-            ->select(DB::raw('SUM(user_points.point) as point'), 'name')
-            ->where('user_id', $user->id)
-            ->where('questions.category_id', '>', 4) # Only initial assessment
-            ->groupBy('name')
-            ->get();
-
-        $result = [
-            'Exploration' => false,
-            'Profile Building' => false,
-            'Academic Profiling' => false,
-            'Writing' => false,
-            'Sponsor (fun quest)' => false,
-        ];
-
-        if ($userPoints->count() > 0) {
-            foreach ($userPoints as $key => $userPoint) {
-                switch ($userPoint->name) {
-                    case 'Exploration':
-                        $result[$userPoint['name']] = $userPoint['point'] == 2 ? true : false;
-                        break;
-
-                    case 'Profile Building':
-                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
-                        break;
-
-                    case 'Academic Profiling':
-                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
-                        break;
-
-                    case 'Writing':
-                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
-                        break;
-
-                    case 'Sponsor (fun quest)':
-                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
-                        break;
-
-                    default:
-                        $result[$userPoint['name']] = false;
-                        break;
-                }
-            }
-        }
 
         return $result;
     }

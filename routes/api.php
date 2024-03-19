@@ -32,7 +32,6 @@ Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
 Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
 Route::get('ranking', [AssessmentController::class, 'getRanking']);
 Route::get('report', [AssessmentController::class, 'getReport']);
-Route::get('checklist_quest', [AssessmentController::class, 'checklistQuest']);
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
