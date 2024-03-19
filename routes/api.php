@@ -8,6 +8,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserAnswerController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::prefix('admin')->group(function () {
     Route::post('signin', [AdminController::class, 'signIn']);
 
     Route::group(['middleware' => ['auth:api', 'scopes:admin'] ], function () {
+
+        Route::get('get/clients', [UserController::class, 'index']);
 
         Route::post('signout', [AdminController::class, 'signOut']);
     });
