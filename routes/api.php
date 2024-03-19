@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\UserAnswerController;
 |
 */
 
-Route::middleware(['auth:api', 'scopes:client'])->group(function () {
+Route::group(['middleware' => ['auth:api', 'scopes:client'] ], function () {
 
     Route::get('check', [AuthController::class, 'checkAuth']);
     Route::post('signout', [AuthController::class, 'signOut']);
@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function () {
 
     Route::post('signin', [AdminController::class, 'signIn']);
 
-    Route::middleware(['auth:api', 'scopes:admin'])->group(function () {
+    Route::group(['middleware' => ['auth:api', 'scopes:admin'] ], function () {
 
         Route::post('signout', [AdminController::class, 'signOut']);
     });

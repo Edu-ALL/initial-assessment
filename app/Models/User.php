@@ -25,6 +25,12 @@ class User extends Authenticatable
         'full_name',
         'email',
         'phone_number',
+        'type',
+        'password'
+    ];
+
+    protected $hidden = [
+        'password'
     ];
 
     public $timestamps = false;

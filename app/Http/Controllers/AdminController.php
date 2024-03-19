@@ -3,22 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function signIn(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        $incomingRequest = $request->only(['email', 'password']);
+
+        $validator = Validator::make($incomingRequest, [
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()->all()]);
+        
+
         # check if email has exist on db
-        if (!$admin = Admin::where('email', $request->email)->first()) {
+        if (!$admin = User::where('email', $request->email)->first()) {
 
             return response()->json([
                 'success' => false,
@@ -26,7 +34,6 @@ class AdminController extends Controller
             ], 500);
 
         }
-
 
         # check if the password is match
         if (!Hash::check($request->password, $admin->password)) {
@@ -37,7 +44,6 @@ class AdminController extends Controller
             ], 500);
 
         }
-
 
         # generate token
         $token = $admin->createToken('Access-EduAll-Assessment', ['admin'])->accessToken;

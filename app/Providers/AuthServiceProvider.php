@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         //
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -22,12 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $this->registerPolicies();
+
         Passport::tokensCan([
             'client' => 'Can access initial assessment',
             'admin' => 'Can access dashboard admin'
         ]);
-
-        Passport::setDefaultScope(['client']);
 
         Passport::tokensExpireIn(now()->addDays(15));
         Passport::refreshTokensExpireIn(now()->addDays(30));
