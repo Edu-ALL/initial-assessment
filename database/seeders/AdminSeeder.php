@@ -17,14 +17,16 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $seeds = [
-            'id' => Str::uuid(),
-            'name' => 'Admin IA',
+            'uuid' => Str::uuid(),
+            'ticket_id' => null,
+            'full_name' => 'Admin IA',
             'email' => 'admin@edu-all.com',
+            'phone_number' => fake()->phoneNumber(),
+            'type' => 1,
             'password' => Hash::make('12345678'),
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ];
 
-        DB::table('admin')->insert($seeds);
+        DB::table('users')->insert($seeds);
     }
 }

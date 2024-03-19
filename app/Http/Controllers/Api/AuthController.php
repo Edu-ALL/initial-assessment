@@ -28,20 +28,24 @@ class AuthController extends Controller
         $validator = Validator::make($incomingRequest, $rules);
         
         # threw error if validation fails
-        if ($validator->fails()) {
-            return Redirect::back()->withError('Cannot process the request.');
-        }
+        if ($validator->fails()) 
+            return response()->json(['error' => 'Cannot process the request.']);
+        
 
         # collect the validated request
         $validated = $request->collect();
 
-        $response = $this->getClientInfo($validated['ticket_no']);
+        try {
+            $response = $this->getClientInfo($validated['ticket_no']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
         
         # variable response contains the response we got from the CRM http
         $data = $response['response'];
 
         # variable user contains User model which will created if does not exist
-        $user = $response['model'];
+        $user = $response['user'];
 
         # generate token
         $token = $user->createToken('Access-EduAll-Assessment', ['client'])->accessToken;
@@ -81,11 +85,7 @@ class AuthController extends Controller
 
         # catch when sending the request to $endpoints failed
         if ($response->failed()) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Cannot process the request.'
-            ]);
+            throw new Exception('Cannot process the request. Please try another ticket number.');
         }
         
         # catch the success if request to $endpoints failed but not giving 500 error code
@@ -93,7 +93,6 @@ class AuthController extends Controller
             return $response;
 
         $data = $response->collect('data');
-
 
         if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
 
@@ -104,13 +103,21 @@ class AuthController extends Controller
             $user->full_name =  $data['client']['full_name'];
             $user->email = $data['client']['email'];
             $user->phone_number = $data['client']['phone'];
+            $user->state = $data['client']['address']['state'];
+            $user->city = $data['client']['address']['city'];
+            $user->address = $data['client']['address']['address'];
+            $user->school = $data['client']['education']['school'];
+            $user->grade = $data['client']['education']['grade'];
+            $user->destination = json_encode($data['client']['country']);
+            $user->is_vip = $data['client']['is_vip'];
+            $user->took_ia = $data['client']['took_initial_assessment'];
             $user->created_at = Carbon::now();
             $user->save();
         }
 
         return [
             'response' => $data,
-            'model' => $user
+            'user' => $user
         ];
     }
 

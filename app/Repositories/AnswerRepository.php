@@ -274,4 +274,55 @@ class AnswerRepository implements AnswerRepositoryInterface
 
         return $point;
     }
+
+    public function checklistQuest($user_id)
+    {
+        $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
+            ->leftjoin('category', 'category.id', '=', 'questions.category_id')
+            ->select(DB::raw('SUM(user_points.point) as point'), 'name')
+            ->where('user_id', $user_id)
+            ->where('questions.category_id', '>', 4) # Only quest
+            ->groupBy('name')
+            ->get();
+
+        $result = [
+            'Exploration' => false,
+            'Profile Building' => false,
+            'Academic Profiling' => false,
+            'Writing' => false,
+            'Sponsor (fun quest)' => false,
+        ];
+
+        if ($userPoints->count() > 0) {
+            foreach ($userPoints as $key => $userPoint) {
+                switch ($userPoint->name) {
+                    case 'Exploration':
+                        $result[$userPoint['name']] = $userPoint['point'] == 2 ? true : false;
+                        break;
+
+                    case 'Profile Building':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Academic Profiling':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Writing':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    case 'Sponsor (fun quest)':
+                        $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
+                        break;
+
+                    default:
+                        $result[$userPoint['name']] = false;
+                        break;
+                }
+            }
+        }
+
+        return $result;
+    }
 }
