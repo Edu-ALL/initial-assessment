@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\AnswerRepositoryInterface;
+use App\Interfaces\QuestionRepositoryInterface;
 use App\Models\Token;
 use App\Models\User;
 use Exception;
@@ -16,6 +18,15 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    private AnswerRepositoryInterface $answerRepository;
+    private QuestionRepositoryInterface $questionRepository;
+
+    public function __construct(AnswerRepositoryInterface $answerRepository, QuestionRepositoryInterface $questionRepository)
+    {
+        $this->answerRepository = $answerRepository;
+        $this->questionRepository = $questionRepository;
+    }
+
     # sign In using ticket number
     public function signIn(Request $request)
     {
@@ -26,7 +37,7 @@ class AuthController extends Controller
         $incomingRequest = $request->only(['ticket_no']);
 
         $validator = Validator::make($incomingRequest, $rules);
-        
+
         # threw error if validation fails
         if ($validator->fails()) 
             return response()->json(['error' => 'Cannot process the request.']);
@@ -35,12 +46,7 @@ class AuthController extends Controller
         # collect the validated request
         $validated = $request->collect();
 
-        try {
-            $response = $this->getClientInfo($validated['ticket_no']);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
-        
+        $response = $this->getClientInfo($validated['ticket_no']);
         # variable response contains the response we got from the CRM http
         $data = $response['response'];
 
@@ -50,24 +56,26 @@ class AuthController extends Controller
         # generate token
         $token = $user->createToken('Access-EduAll-Assessment', ['client'])->accessToken;
         $data['token'] = $token;
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Access granted',
             'data' => $data
         ]);
-        
     }
 
     public function checkAuth(Request $request)
     {
+        $user = auth()->guard('api')->user();
+
         $ticketId = $request->user()->ticket_id;
 
         # send request to get data client using ticket id from crm
         $response = $this->getClientInfo($ticketId);
-        $data = $response['response']; 
+        $data = $response['response'];
 
         //! data quest should be added into variable $data
+        $data['quest'] = $this->answerRepository->checklistQuest($user->id);
 
         return response()->json([
             'success' => true,
@@ -87,9 +95,9 @@ class AuthController extends Controller
         if ($response->failed()) {
             throw new Exception('Cannot process the request. Please try another ticket number.');
         }
-        
+
         # catch the success if request to $endpoints failed but not giving 500 error code
-        if ($response['success'] === false) 
+        if ($response['success'] === false)
             return $response;
 
         $data = $response->collect('data');
@@ -127,20 +135,17 @@ class AuthController extends Controller
 
             # revoke the access token
             $request->user()->token()->revoke();
-
         } catch (Exception $e) {
 
             return response()->json([
                 'success' => false,
                 'message' => "We've encountered an issue that prevents us from continuing the process further."
             ], 500);
-
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Signed out'
         ]);
-
     }
 }

@@ -1,47 +1,132 @@
 <script setup>
-import { ref } from 'vue'
+import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import ApiService from '@/services/ApiService'
+import { ref, watch } from 'vue'
 
-const mission = ref()
+const done = ref(false)
+const formData = ref()
+const loading = ref(false)
+
+const inputData = ref([
+  {
+    answer: [{
+      id: null,
+      question_id: 29,
+      sub_question_id: null,
+      answer_descriptive: null,
+      score: null,
+    }],
+  },
+])
+
+
+const submit = async () => {
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    handleSubmit()
+  }
+}
+
+const handleSubmit = async () => {
+  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  if (confirmed) {
+    // Lakukan pengiriman data
+    loading.value = true
+    try {
+      const res = await ApiService.post('answer/9', inputData.value)
+      if(res.success) {
+        getAnswer()
+      } else {
+        showNotif('error', res.message)
+      }
+      loading.value = false
+    } catch (error) {
+      console.error(error)
+      loading.value = false
+    }
+  }
+}
+
+const getAnswer = async () => {
+  try {
+    const res = await ApiService.get('answer/9')
+
+    if (res.success && res.data.length>0) {
+      done.value = true
+    } else {
+      done.value = false
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+watch(() => {
+  getAnswer()
+})
 </script>
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle>
+    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
       <VIcon
-        icon="bx-check-circle"
+        :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
-        color="success"
       />
       Sponsor Area
     </VExpansionPanelTitle>
-    <VExpansionPanelText>
-      <VAlert color="warning">
-        <VAlertTitle>
-          <p class="my-0">
-            Just like the saying “work hard, play hard”, take time and refresh at our collaborator booths outside!
-          </p>
-        </VAlertTitle>
-      </VAlert>
+    <VExpansionPanelText v-if="!done">
+      <VForm
+        ref="formData"
+        validate-on="input"
+        fast-fail
+        :disabled="loading"
+        @submit.prevent="submit"
+      >
+        <VAlert color="warning">
+          <VAlertTitle>
+            <p class="my-0">
+              Just like the saying “work hard, play hard”, take time and refresh at our collaborator booths outside!
+            </p>
+          </VAlertTitle>
+        </VAlert>
 
       
-      <VDivider class="my-3" />
+        <VDivider class="my-3" />
 
-      <ol class="ms-5 my-3">
-        <li>
-          Tell us what booth you visited!
+        <ol class="ms-5 my-3">
+          <li>
+            Tell us what booth you visited!
           
-          <VTextarea
-            label="Answer"
-            density="compact"
-            class="mt-3"
-          />
-        </li>
-      </ol>
+            <VTextarea
+              v-model="inputData[0].answer[0].answer_descriptive"
+              label="Answer"
+              density="compact"
+              class="mt-3"
+            />
+          </li>
+        </ol>
 
-      <div class="w-100 d-flex justify-center mt-4">
-        <VBtn color="secondary">
-          Submit
-        </VBtn>
+        <div class="w-100 d-flex justify-center mt-4">
+          <VBtn
+            color="secondary"
+            type="submit"
+            :loading="loading"
+          >
+            <VIcon
+              icon="bx-save"
+              color="white"
+              class="me-3"
+            />
+            Submit
+          </VBtn>
+        </div>
+      </vform>
+    </VExpansionPanelText>
+    <VExpansionPanelText v-if="done">
+      <div class="bg-warning px-4 py-4 rounded">
+        <h4>You have successfully submitted this data</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

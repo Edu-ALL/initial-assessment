@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AssessmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('{any?}', function() {
-    return view('application');
-})->where('any', '.*');
+// Route::get('{any?}', function () {
+//     return view('application');
+// })->where('any', '.*');
+
+// Route::get('report', [AssessmentController::class, 'getReport']);

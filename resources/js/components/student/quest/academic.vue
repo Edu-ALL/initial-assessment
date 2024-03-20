@@ -45,8 +45,6 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
-  console.log(inputData.value)
-
   const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
   if (confirmed) {
     // Lakukan pengiriman data
@@ -71,7 +69,7 @@ const resetRadio = () => {
   const mission_choosed = mission.value
 
   if(mission_choosed==1) {
-    inputData.value[1].answer[0].answer_descriptive = null
+    inputData.value[1].answer[0].score = null
   } else {
     inputData.value[0].answer = []
   }
@@ -106,7 +104,7 @@ watch(() => {
       />
       Academic Area
     </VExpansionPanelTitle>
-    <VExpansionPanelText>
+    <VExpansionPanelText v-if="!done">
       <VForm
         ref="formData"
         validate-on="input"
@@ -166,7 +164,7 @@ watch(() => {
                 </p>
               
                 <VTextField
-                  v-model="inputData[0].answer[0].answer_descriptive"
+                  v-model="inputData[0].answer[0].score"
                   label="Score"
                   density="compact"
                   type="number"
