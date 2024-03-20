@@ -1,10 +1,11 @@
 <script setup>
 import { showNotif } from '@/helper/notification'
+import { verifyAuth } from '@/helper/verifyAuth'
 import router from '@/router'
 import ApiService from '@/services/ApiService'
 import JwtService from '@/services/JwtService'
 import UserService from '@/services/UserService'
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 
 
 const props = defineProps({ 'ticket': String })
@@ -49,6 +50,12 @@ const submit = async () => {
     isValidate.value = true
   }
 }
+
+onBeforeMount(() => {
+  if(verifyAuth().isAuthenticated.value)  {
+    router.push({ name: 'dashboard' })
+  }
+})
 
 onMounted(() => {
   if(props.ticket) {

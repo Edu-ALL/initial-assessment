@@ -9,7 +9,6 @@ const getRank = async () => {
     const res = await ApiService.get('ranking')
 
     result.value = res
-    console.log(res)
   } catch(error) {
     console.log(error)
   }

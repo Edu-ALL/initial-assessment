@@ -1,12 +1,15 @@
 <script setup>
-import JwtService from '@/services/JwtService'
+import UserService from '@/services/UserService'
 import illustrationJohnDark from '@images/cards/illustration-john-dark.png'
 import illustrationJohnLight from '@images/cards/illustration-john-light.png'
+import { ref } from 'vue'
 import { useTheme } from 'vuetify'
 import { VCardText } from 'vuetify/lib/components/index.mjs'
 
 const { global } = useTheme()
 const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrationJohnDark : illustrationJohnLight)
+
+const user = ref(UserService.getUser())
 </script>
 
 <template>
@@ -25,16 +28,14 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
             order-sm="1"
           >
             <VCardItem>
-              <VCardTitle class="text-md-h5 text-primary">
-                Congratulations { Name }! 🎉
-              </VCardTitle>
+              <h3>
+                Congratulations {{ user.client.full_name }}! 🎉
+              </h3>
             </VCardItem>
 
             <VCardText>
               <span>
-                Thank you for completing the questionnaire 🤩.
-                <br>
-                Check your results by clicking the button below.
+                Thank you for completing the questionnaire. Check your results by clicking the button below.
               </span>
               <br>
               <VBtn
@@ -49,7 +50,7 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 
           <VCol
             cols="12"
-            sm="4"
+            sm="1"
             order="1"
             order-sm="2"
             class="text-center"
@@ -57,7 +58,7 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
             <img
               :src="illustrationJohn"
               :height="$vuetify.display.xs ? '150' : '175'"
-              :class="$vuetify.display.xs ? 'mt-6 mb-n2' : 'position-absolute mt-10 me-10'"
+              :class="$vuetify.display.xs ? 'mt-6 mb-n2' : 'position-absolute mt-10'"
               class="john-illustration flip-in-rtl"
             >
           </VCol>
@@ -66,7 +67,6 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 
       <VCard>
         <VCardText>
-          {{ JwtService.getToken() }}
           <h3>Notes</h3>
         </VCardText>
       </VCard>
