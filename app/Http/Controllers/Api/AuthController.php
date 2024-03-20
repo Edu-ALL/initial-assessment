@@ -79,7 +79,6 @@ class AuthController extends Controller
         $response = $this->getClientInfo($ticketId);
         $data = $response['response'];
 
-        //! data quest should be added into variable $data
         $data['quest'] = $this->answerRepository->checklistQuest($user->id);
 
         return response()->json([

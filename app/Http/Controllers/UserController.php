@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Helper\LoggerController;
+use App\Interfaces\AnswerRepositoryInterface;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    protected AnswerRepositoryInterface $answerRepository;
+
+    public function __construct(AnswerRepositoryInterface $answerRepository)
+    {
+        $this->answerRepository = $answerRepository;
+    }
+
     public function index()
     {
         (new LoggerController)->accessing_warning('get User List');
@@ -44,14 +53,11 @@ class UserController extends Controller
 
             
             # query to get quest completeness status
-            //! using the functions that made by fauzan
-
+            $user['quest'] = $this->answerRepository->checklistQuest($user->id);
 
         }
 
-        # check if the user has filled the initial assessment
-        $filled_ia = '';
-
+        
         return response()->json([
             'success' => true,
             'message' => $message,
