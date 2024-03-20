@@ -9,10 +9,12 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\Report;
 use App\Models\SubQuestion;
 use App\Models\User;
 use App\Models\UserPoint;
 use App\Repositories\AnswerRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -48,7 +50,7 @@ class AssessmentController extends Controller
         $collectionAnswer = new Collection;
         $collectionAnswer = collect($answers);
 
-        $user = User::find(1);
+        $user = auth()->guard('api')->user();
 
         DB::beginTransaction();
         try {
@@ -108,7 +110,7 @@ class AssessmentController extends Controller
             $question_withSQ = Question::has('sub_questions')->with(['sub_questions.answers'])->get();
             $question_withoutSQ = Question::doesntHave('sub_questions')->with(['answers'])->get();
 
-            $user = User::find(1);
+            $user = auth()->guard('api')->user();
 
             $merge = $question_withSQ->merge($question_withoutSQ);
 
@@ -225,7 +227,7 @@ class AssessmentController extends Controller
 
     public function getRanking(Request $request)
     {
-        $user = User::find(1);
+        $user = auth()->guard('api')->user();
 
         $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
             ->leftjoin('category', 'category.id', '=', 'questions.category_id')
@@ -290,78 +292,185 @@ class AssessmentController extends Controller
         $sorted =  $new_points->sortBy('point');
 
         return $sorted->values()->all();
-
-
-        // $counted = [];
-        // foreach (array_count_values($points) as $key => $value) {
-        //     $counted[$key] = $value;
-        // }
-
-
-        // $new_points = [];
-        // $is_duplicate = false;
-
-        // $counted = array_count_values($points);
-
-        // $duplicateValue = null;
-
-        // foreach ($counted as $val => $count) {
-        //     if ($count > 1) {
-        //         $duplicateValue = $val;
-        //     }
-        // }
-
-        // $keysDuplicate = array_keys($points, $duplicateValue);
-
-        // foreach ($points as $key => $point) {
-        //     $is_duplicate = false;
-        //     $new_points[$key] = $point;
-        //     foreach ($keysDuplicate as $keyDuplicate) {
-        //         if ($key == $keyDuplicate) {
-        //             $is_duplicate = true;
-        //         }
-        //     }
-
-        //     if ($is_duplicate) {
-        //         $new_points[$key] = $point + $defaultRank[$key];
-        //     }
-        // }
-
-        // $sorted = collect($new_points);
-
-        // $sorted = $sorted->sort();
-
-        // return $sorted;
     }
 
     public function getReport(Request $request)
     {
-        $user = User::find(1);
-        $result = [];
 
-        $userPoint = UserPoint::with('question', 'question.category')->where('user_id', $user->id)->get();
+        $user = auth()->guard('api')->user();
 
-        // $userPointCategory = $userPoint->where('')
+        $reports =  Report::with(['category', 'improvement_reports', 'improvement_reports.sub_improvement_reports'])->where('category_id', '<', 5)->get();
 
-        $majors = $userPoint->where('sub_question_id', 1)->sum('point');
-        $daily_schedules = $userPoint->where('question_id', 2)->sum('point');
-        $goals = $userPoint->whereIn('sub_question_id', [3, 4])->sum('point');
-        $dream_country = $userPoint->where('question_id', 6)->sum('point');
-        $competition = $userPoint->where('sub_question_id', 5)->sum('point');
-        $internship = $userPoint->where('sub_question_id', 6)->sum('point');
-        $voluntering = $userPoint->where('sub_question_id', 7)->sum('point');
-        $school_club = $userPoint->where('sub_question_id', 8)->sum('point');
-        $out_of_school = $userPoint->where('sub_question_id', 9)->sum('point');
+        $reports = $reports->map(function ($report) use ($user) {
+            $checkSurpass = $this->checkReport($report->category_id, $user->id);
+            if ($checkSurpass == 500) {
+                return 500;
+            }
+            $data = [
+                'id' => $report->id,
+                'category_id' => $report->category_id,
+                'surpass' => $report->surpass,
+                'heading_improvement' => $report->heading_improvement,
+                'category_name' => $report->category->name,
+                'is_surpass' => $checkSurpass['surpass'],
+            ];
 
-        $result['majors'] = isset($majors) && $majors < 2 ? true : false;
-        $result['daily_shedules'] = isset($daily_schedules) && $daily_schedules < 5 ? true : false;
-        $result['goals'] = isset($goals) && $goals < 3 ? true : false;
-        $result['dream_country'] = isset($dream_country) && $dream_country < 0 ? true : false;
-        $result['competition'] = isset($competition) && $competition == 1 ? true : false;
-        $result['internship'] = isset($internship) && $internship == 1 ? true : false;
-        $result['voluntering'] = isset($voluntering) && $voluntering == 1 ? true : false;
-        $result['school_club'] = isset($school_club) && $school_club < 1 ? true : false;
-        $result['out_of_school'] = isset($out_of_school) && $out_of_school < 2 ? true : false;
+            if ($report->improvement_reports()->count() > 0) {
+                $improvement_reports = $report->improvement_reports;
+                $improvement_reports = $improvement_reports->map(function ($improvement_report) use ($report, $user) {
+                    $checkReport = $this->checkReport($report->category_id, $user->id, $improvement_report->question_id, $improvement_report->sub_question_id);
+                    if ($checkReport == 500) {
+                        return 500;
+                    }
+                    $format_improvement_report  = [
+                        'id' => $improvement_report->id,
+                        'report_id' => $improvement_report->report_id,
+                        'question_id' => $improvement_report->question_id,
+                        'sub_question_id' => $improvement_report->sub_question_id,
+                        'improvement' => $improvement_report->improvement,
+                        'is_improvement' => $checkReport['main_improvement'],
+                    ];
+
+                    if ($improvement_report->sub_improvement_reports()->count() > 0) {
+                        $sub_improvement_reports = $improvement_report->sub_improvement_reports;
+                        $sub_improvement_reports = $sub_improvement_reports->map(function ($sub_improvement_report) use ($checkReport) {
+                            $format_sub_improvement_report = [
+                                'id' => $sub_improvement_report->id,
+                                'improvement_report_id' => $sub_improvement_report->improvement_report_id,
+                                'improvement' => $sub_improvement_report->improvement,
+                                'is_improvement' => $checkReport['sub_improvement'],
+                            ];
+
+                            return $format_sub_improvement_report;
+                        });
+                        $format_improvement_report['sub_improvement_reports'] = $sub_improvement_reports;
+                    }
+                    return $format_improvement_report;
+                });
+                $data['improvement_reports'] = $improvement_reports;
+            }
+
+            return $data;
+        });
+
+
+        if (in_array(500, $reports->toArray())) {
+            return response()->json([
+                'success' => false,
+                'message' => "Data answer not found",
+            ], 500);
+        }
+
+
+        $pdf = Pdf::loadView('report.report', ['reports' => $reports, 'user' => $user]);
+        return $pdf->download('report.pdf');
+    }
+
+    protected function checkReport($category_id, $user_id, $question_id = null, $sub_question_id = null)
+    {
+        $result = ['surpass' => false, 'main_improvement' => false, 'sub_improvement' => false];
+
+        $userPointByCategory = UserPoint::where('user_id', $user_id)->whereHas('question', function ($query) use ($category_id) {
+            $query->where('category_id', $category_id);
+        })->get();
+
+        if (count($userPointByCategory) == 0) {
+            $result = 500;
+        }
+
+        if ($question_id != null || $sub_question_id != null) {
+
+            $userPoint = UserPoint::where('user_id', $user_id)->get();
+
+            if (count($userPoint) > 0) {
+
+                switch ($category_id) {
+                    case 1:
+                        $result['surpass'] = $userPointByCategory->sum('point') >= 20 ? true : false;
+                        break;
+
+                    case 2:
+                        $result['surpass'] = $userPointByCategory->sum('point') >= 18 ? true : false;
+                        break;
+
+                    case 3:
+                        $result['surpass'] = $userPointByCategory->sum('point') >= 18 ? true : false;
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+
+                switch ($question_id) {
+                    case $question_id = 2:
+                        $result['main_improvement'] = $userPoint->where('question_id', 2)->sum('point') < 5 ? true : false;
+                        break;
+
+                    case $question_id = 5:
+                        $result['main_improvement'] = $userPoint->where('question_id', 5)->sum('point') < 3 ? true : false;
+                        break;
+
+                    case $question_id = 6:
+                        $result['main_improvement'] = $userPoint->where('question_id', 6)->sum('point') < 1 ? true : false;
+                        break;
+
+                    case $question_id = 9:
+                        $result['main_improvement'] = $userPoint->where('question_id', 9)->sum('point') == 0 ? true : false;
+                        break;
+
+                    case $question_id = 10:
+                        $result['main_improvement'] = $userPoint->where('question_id', 10)->sum('point') == 0 ? true : false;
+                        break;
+
+                    case $question_id = 14:
+                        $result['main_improvement'] = $userPoint->where('question_id', 14)->avg('point') == 1 || $userPoint->where('question_id', 14)->sum('point') == 0 ? true : false;
+                        break;
+
+                    case $question_id = 18:
+                        $result['main_improvement'] = $userPoint->whereIn('question_id', [18, 19])->sum('point') < 3 ? true : false;
+                        break;
+
+                    case $question_id = 20:
+                        $result['main_improvement'] = $userPoint->where('question_id', 20)->sum('point') == 5 ? true : false;
+                        break;
+                }
+
+                if ($sub_question_id != null) {
+                    switch ($sub_question_id) {
+                        case 1:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 1)->sum('point') < 2 ? true : false;
+                            break;
+
+                        case 5:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 5)->sum('point') == 1 ? true : false;
+                            break;
+
+                        case 6:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 6)->sum('point') == 1 ? true : false;
+                            break;
+
+                        case 7:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 7)->sum('point') == 2 ? true : false;
+                            break;
+
+                        case 8:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 8)->sum('point') < 1 ? true : false;
+                            break;
+
+                        case 9:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 9)->sum('point') < 2 ? true : false;
+                            break;
+
+                        case 10:
+                            $result['main_improvement'] = $userPoint->where('sub_question_id', 10)->sum('point') == 0 ? true : false;
+                            break;
+                    }
+                }
+            } else {
+                $result = 500;
+            }
+        }
 
         return $result;
     }
