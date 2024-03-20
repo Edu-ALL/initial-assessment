@@ -24,14 +24,14 @@ Route::middleware(['auth:api', 'scopes:client'])->group(function () {
 
     Route::get('check', [AuthController::class, 'checkAuth']);
     Route::post('signout', [AuthController::class, 'signOut']);
+    Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
+    Route::post('answer/{category}', [AssessmentController::class, 'storeAnswer']);
+    Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
+    Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
+    Route::get('ranking', [AssessmentController::class, 'getRanking']);
+    Route::get('report', [AssessmentController::class, 'getReport']);
 });
 
-Route::post('answer/{category}', [AssessmentController::class, 'storeAnswer']);
-Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
-Route::get('question/{category}', [AssessmentController::class, 'getQuestion']);
-Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
-Route::get('ranking', [AssessmentController::class, 'getRanking']);
-Route::get('report', [AssessmentController::class, 'getReport']);
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
