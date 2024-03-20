@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -173,6 +173,11 @@ return [
          * Repository Service Providers...
          */
         App\Providers\RepositoryServiceProvider::class,
+
+        /*
+         * Logging Service Providers... 
+         */
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
 
     ])->toArray(),
 

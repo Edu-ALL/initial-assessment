@@ -39,14 +39,19 @@ class AuthController extends Controller
         $validator = Validator::make($incomingRequest, $rules);
 
         # threw error if validation fails
-        if ($validator->fails()) 
+        if ($validator->fails())
             return response()->json(['error' => 'Cannot process the request.']);
-        
+
 
         # collect the validated request
         $validated = $request->collect();
 
-        $response = $this->getClientInfo($validated['ticket_no']);
+        try {
+            $response = $this->getClientInfo($validated['ticket_no']);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+
         # variable response contains the response we got from the CRM http
         $data = $response['response'];
 
@@ -74,7 +79,6 @@ class AuthController extends Controller
         $response = $this->getClientInfo($ticketId);
         $data = $response['response'];
 
-        //! data quest should be added into variable $data
         $data['quest'] = $this->answerRepository->checklistQuest($user->id);
 
         return response()->json([
