@@ -348,6 +348,9 @@ watch(() => {
               <VDivider class="my-3" />
               <VRow>
                 <VCol cols="4">
+                  <small>
+                    The maximum score is 9
+                  </small>
                   <VTextField
                     v-model="inputData[3].answer[0].score"
                     type="number"
@@ -355,13 +358,15 @@ watch(() => {
                     density="compact"
                     min="0"
                     max="9"
+                    class="mt-3"
+                    :rules="rules.maxScore_9"
                     :disabled="radioData.radio1=='no'"
                   />
-                  <small>
-                    The maximum score is 9
-                  </small>
                 </VCol>
                 <VCol cols="4">
+                  <small>
+                    The maximum score is 120
+                  </small>
                   <VTextField
                     v-model="inputData[4].answer[0].score"
                     type="number"
@@ -369,13 +374,15 @@ watch(() => {
                     density="compact"
                     min="0"
                     max="120"
+                    class="mt-3"
+                    :rules="rules.maxScore_120"
                     :disabled="radioData.radio1=='no'"
                   />
-                  <small>
-                    The maximum score is 120
-                  </small>
                 </VCol>
                 <VCol cols="4">
+                  <small>
+                    The maximum score is 1600
+                  </small>
                   <VTextField
                     v-model="inputData[5].answer[0].score"
                     type="number"
@@ -383,11 +390,10 @@ watch(() => {
                     density="compact"
                     min="400"
                     max="1600"
+                    class="mt-3"
+                    :rules="rules.maxScore_1600"
                     :disabled="radioData.radio1=='no'"
                   />
-                  <small>
-                    The maximum score is 1600
-                  </small>
                 </VCol>
               </VRow>
             </div>

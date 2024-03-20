@@ -7,7 +7,7 @@ import Intro from '@/components/student/assessment/intro.vue'
 import ProfileBuilding from '@/components/student/assessment/profile-building.vue'
 import Writing from '@/components/student/assessment/writing.vue'
 
-const step = ref(1)
+const step = ref(6)
 
 const checkStep = value => {
   step.value = value

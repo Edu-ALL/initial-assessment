@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('{any?}', function () {
-//     return view('application');
-// })->where('any', '.*');
-
 // Route::get('report', [AssessmentController::class, 'getReport']);
+
+Route::get('{any?}', function () {
+    return view('application');
+})->where('any', '.*');

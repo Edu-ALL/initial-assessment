@@ -1,3 +1,25 @@
+<script setup>
+import ApiService from '@/services/ApiService'
+import { watch } from 'vue'
+
+const result = ref()
+
+const getRank = async () => {
+  try {
+    const res = await ApiService.get('ranking')
+
+    result.value = res
+    console.log(res)
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+watch(() => {
+  getRank()
+})
+</script>
+
 <template>
   <!-- Intro  -->
   <VCard>
@@ -15,19 +37,38 @@
       </p>
 
       <ul class="ms-5 mb-5">
-        <li>
-          Embark first to the exploration area! Discover more about yourself and how it’ll be vital in shaping your future.
+        <li
+          v-for="item, index in result"
+          :key="index"
+          class="my-3"
+        >
+          <span v-if="index==0">
+            Embark first
+          </span>
+          <span v-if="index==1">
+            Second, 
+          </span>
+          <span v-if="index==2">
+            Third, 
+          </span>
+          <span v-if="index==3">
+            Fourth, 
+          </span>
+
+          <span v-if="item.category=='Exploration'">
+            to the <strong>exploration area!</strong>  Discover more about yourself and how it’ll be vital in shaping your future.
+          </span>
+          <span v-if="item.category=='Profile Building'">
+            move on to find out more about the <strong>profile-building area!</strong> Identify what aspects you can hone to stand out more in an ever-growing competitive landscape.
+          </span>
+          <span v-if="item.category=='Academic'">
+            change your course to the <strong>academic area!</strong> Consult your current scores and understand strategies on how to upgrade your academic profile.  
+          </span>
+          <span v-if="item.category=='Writing'">
+            understand yourself better in the <strong>writing area!</strong> Delve deeper into what style of writing you’ll specifically need to master and what personal experiences you can utilize towards that goal.
+          </span>
         </li>
-        <li>
-          Second, move on to find out more about the profile-building area! Identify what aspects you can hone to stand out more in an ever-growing competitive landscape.
-        </li>
-        <li>
-          Third, change your course to the academic area! Consult your current scores and understand strategies on how to upgrade your academic profile. 
-        </li>
-        <li>
-          Fourth, understand yourself better in the writing area! Delve deeper into what style of writing you’ll specifically need to master and what personal experiences you can utilize towards that goal.
-        </li>
-        <li>
+        <li class="my-3">
           End the journey by refreshing your mind at one of our collaborator booths!
         </li>
       </ul>
