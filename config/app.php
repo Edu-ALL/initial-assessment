@@ -174,6 +174,11 @@ return [
          */
         App\Providers\RepositoryServiceProvider::class,
 
+        /*
+         * Logging Service Providers... 
+         */
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+
     ])->toArray(),
 
     /*
