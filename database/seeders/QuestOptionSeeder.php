@@ -22,7 +22,7 @@ class QuestOptionSeeder extends Seeder
             'title_of_answer' => null,
             'option_answer' => 'One*t Test',
             'reference_to' => null,
-            'point' => 1
+            'point' => 2
         ];
 
         $indexOption++;
