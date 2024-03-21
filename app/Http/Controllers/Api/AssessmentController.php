@@ -49,7 +49,7 @@ class AssessmentController extends Controller
         }
 
         $answers;
-        $nullArray = array_keys($answers, []);
+        $nullArray = array_keys($answers, null);
 
         if (count($nullArray) > 0) {
             foreach ($nullArray as $value) {
@@ -178,7 +178,7 @@ class AssessmentController extends Controller
                             }
                         }
                     } else {
-                        $optionDetail[$key][] = [];
+                        $optionDetail[$key][] = null;
                     }
                     $response[] = [
                         'answer' => $optionDetail[$key]
@@ -213,7 +213,7 @@ class AssessmentController extends Controller
                                 }
                             }
                         } else {
-                            $optionDetail['s' . $sub_question->id][] = [];
+                            $optionDetail['s' . $sub_question->id][] = null;
                         }
                         $response[] = [
                             'answer' => $optionDetail['s' . $sub_question->id]
