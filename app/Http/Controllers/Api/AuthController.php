@@ -104,8 +104,7 @@ class AuthController extends Controller
 
         # catch the success if request to $endpoints failed but not giving 500 error code
         if ($response['success'] === false)
-            return $response;
-
+            throw new Exception($response['message']);
 
 
         $data = $response->collect('data')->map(function ($value) {
