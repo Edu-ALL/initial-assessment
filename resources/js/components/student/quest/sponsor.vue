@@ -1,5 +1,6 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { ref, watch } from 'vue'
 
@@ -98,12 +99,13 @@ watch(() => {
         <ol class="ms-5 my-3">
           <li>
             Tell us what booth you visited!
-          
+            <span style="color:red">*</span> 
             <VTextarea
               v-model="inputData[0].answer[0].answer_descriptive"
               label="Answer"
               density="compact"
               class="mt-3"
+              :rules="rules.required"
             />
           </li>
         </ol>

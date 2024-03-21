@@ -1,5 +1,6 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { ref, watch } from 'vue'
 
@@ -139,12 +140,13 @@ watch(() => {
             >
               <li class="mb-3">
                 Tell us what makes both these essays different?
-
+                <span style="color:red">*</span> 
                 <VTextarea
                   v-model="inputData[0].answer[0].answer_descriptive"
                   label="Answer"
                   density="compact"
                   class="mt-3"
+                  :rules="rules.required"
                 />
               </li>
             </ol>
@@ -160,12 +162,13 @@ watch(() => {
             >
               <li>
                 Tell us what makes both these essays different?
-              
+                <span style="color:red">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
                   density="compact"
                   class="mt-3"
+                  :rules="rules.required"
                 />
               </li>
             </ol>

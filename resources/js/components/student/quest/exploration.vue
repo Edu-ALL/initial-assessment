@@ -1,5 +1,6 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { ref, watch } from 'vue'
 
@@ -147,14 +148,12 @@ watch(() => {
                   href="https://www.mynextmove.org/explore/ip"
                   target="_blank"
                   rel="noopener noreferrer"
-                >ONE*T test</a>
+                >ONE*T test.</a>  <span style="color:red">*</span> 
               </li>
               <li>
-                <p>
-                  After finishing you have to write your score!
-                </p>
-              
-                <VRow>
+                After finishing you have to write your score!
+                <span style="color:red">*</span> 
+                <VRow class="mt-3">
                   <VCol
                     v-for="item, index in inputData[0].answer"
                     :key="index"
@@ -163,6 +162,7 @@ watch(() => {
                     <VTextField
                       v-model="inputData[0].answer[index].answer_descriptive"
                       :label="item.option_answer"
+                      :rules="rules.required"
                       density="compact"
                     />
                   </VCol>
@@ -182,24 +182,26 @@ watch(() => {
               class="ms-4 my-3"
             >
               <li class="mb-3">
-                Speaker Name
+                Speaker Name <span style="color:red">*</span>
                 <VRadioGroup v-model="inputData[1].answer[0]">
                   <VRadio
                     v-for="item in options['option22-29']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
+                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[1].answer[0]">
                 Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
-
+                <span style="color:red">*</span>
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Reflection"
                   density="compact"
                   class="mt-3"
+                  :rules="rules.required"
                 />
               </li>
             </ol>

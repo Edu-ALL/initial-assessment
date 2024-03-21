@@ -1,5 +1,6 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { ref, watch } from 'vue'
 
@@ -148,26 +149,27 @@ watch(() => {
             >
               <li class="mb-3">
                 Choose one option
-
+                <span style="color:red">*</span> 
                 <VRadioGroup v-model="inputData[0].answer[0]">
                   <VRadio
                     v-for="item in options['option25']"
                     :key="item"
                     :label="item.option_answer"
                     :value="item"
+                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[0].answer[0]">
-                <p>
-                  When chosen, they can insert their score
-                </p>
-              
+                When chosen, they can insert their score
+                <span style="color:red">*</span> 
+
                 <VTextField
                   v-model="inputData[0].answer[0].score"
                   label="Score"
                   density="compact"
                   type="number"
+                  :rules="rules.required"
                 />
               </li>
             </ol>
@@ -185,12 +187,13 @@ watch(() => {
             >
               <li>
                 What major are you planning to go to based on your consultation and your subject selection?
-
+                <span style="color:red">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
                   density="compact"
                   class="mt-3"
+                  :rules="rules.required"
                 />
               </li>
             </ol>

@@ -1,5 +1,6 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { ref, watch } from 'vue'
 
@@ -142,6 +143,7 @@ watch(() => {
             >
               <li class="mb-3">
                 Which NGO representative did you meet? 
+                <span style="color:red">*</span> 
 
                 <VRadioGroup v-model="inputData[0].answer[0]">
                   <VRadio
@@ -149,17 +151,19 @@ watch(() => {
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
+                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[0].answer[0]">
                 How do you think you can use your skills and/or interests to contribute to their causes?
-              
+                <span style="color:red">*</span> 
                 <VTextarea
                   v-model="inputData[0].answer[0].answer_descriptive"
                   label="Description"
                   density="compact"
                   class="mt-3"
+                  :rules="required"
                 />
               </li>
             </ol>
@@ -178,24 +182,26 @@ watch(() => {
             >
               <li class="mb-3">
                 What topic did you learn about in this area?
-
+                <span style="color:red">*</span> 
                 <VRadioGroup v-model="inputData[1].answer[0]">
                   <VRadio
                     v-for="item in options['option24-33']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
+                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[1].answer[0]">
                 From your observation, what potential project can you think of?
-              
+                <span style="color:red">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Description"
                   density="compact"
                   class="mt-3"
+                  :rules="required"
                 />
               </li>
             </ol>
