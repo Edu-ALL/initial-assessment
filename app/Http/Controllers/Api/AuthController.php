@@ -118,7 +118,9 @@ class AuthController extends Controller
                 $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
             }
 
+
             $value['took_quest'] = $user != null ? $user->took_quest : 0;
+
 
             return $value;
         });
