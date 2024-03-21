@@ -89,6 +89,8 @@ class AuthController extends Controller
 
     private function getClientInfo($ticket_no)
     {
+        $user = auth()->guard('api')->user();
+
         # can be customized depends on the endpoint
         $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$ticket_no}";
 
@@ -104,7 +106,17 @@ class AuthController extends Controller
         if ($response['success'] === false)
             return $response;
 
-        $data = $response->collect('data');
+
+        $data = $response->collect('data')->map(function ($value) use ($user) {
+
+            if (array_key_exists('took_initial_assessment', $value)) {
+                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($user->id) ? 1 : 0;
+            }
+
+            return $value;
+            
+        });
+
 
         if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
 
@@ -126,6 +138,9 @@ class AuthController extends Controller
             $user->created_at = Carbon::now();
             $user->save();
         }
+
+        
+        # manipulate the user took_initial_assessment
 
         return [
             'response' => $data,
