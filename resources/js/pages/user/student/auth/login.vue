@@ -30,20 +30,14 @@ const submit = async () => {
       })
 
       if(!res.success) {
+        form.value.ticket_id = ""
         showNotif('error', res.message, 'bottom-end')
       } else {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
         
-        if(res.data.client.is_vip) {
-          router.push({ name: 'quest' })
-        } else {
-          router.push({ name: 'assessment' })
-        }
+        window.location.reload()
         
-        setTimeout(() => {
-          showNotif('success', 'You`ve successfully logged in', 'bottom-end')
-        }, 1000)
       }
       loading.value = false
     } catch (error) {
@@ -56,20 +50,29 @@ const submit = async () => {
   }
 }
 
-onBeforeMount(() => {
-  if(verifyAuth().isAuthenticated.value)  {
-    router.push({ name: 'dashboard' })
-  }
-})
-
 onMounted(() => {
+  // Check Ticket Number 
   if(props.ticket) {
     form.value.ticket_id = props.ticket
   }
   
+  // Skeleton Loader 
   setTimeout(() => {
     sk_loading.value=false
   }, 2000)
+
+  // Check User 
+  if(UserService.getUser()) {
+    if(UserService.getUser().client.is_vip) {
+      router.push({ name: 'quest' })
+    } else {
+      router.push({ name: 'assessment' })
+    }
+          
+    setTimeout(() => {
+      showNotif('success', 'You`ve successfully logged in', 'bottom-end')
+    }, 1000)
+  }
 })
 </script>
 

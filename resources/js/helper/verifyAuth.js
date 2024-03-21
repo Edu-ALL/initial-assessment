@@ -11,6 +11,7 @@ export const verifyAuth = () => {
       ApiService.get('check').then(data => {
         UserService.saveUser(data.data)
       }).catch(error => {
+        UserService.destroyUser()
         JwtService.destroyToken()
         console.error(error)
       })
