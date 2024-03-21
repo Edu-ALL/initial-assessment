@@ -91,7 +91,7 @@ class AuthController extends Controller
         ]);
     }
 
-    private function getClientInfo($ticket_no, $user)
+    private function getClientInfo($ticket_no, $user = null)
     {
 
         # can be customized depends on the endpoint
@@ -112,11 +112,13 @@ class AuthController extends Controller
 
         $data = $response->collect('data')->map(function ($value) use ($user) {
 
+            $userId = $user !== NULL ? $user->id : $value['id'];
+
             if (array_key_exists('took_initial_assessment', $value)) {
-                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($value['id']) ? 1 : 0;
+                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
             }
 
-            $value['took_quest'] = $user->took_quest;
+            $value['took_quest'] = $user != null ? $user->took_quest : 0;
 
             return $value;
         });
