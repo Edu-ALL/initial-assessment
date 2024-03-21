@@ -297,72 +297,79 @@ class AssessmentController extends Controller
     public function getReport(Request $request)
     {
 
-        $user = auth()->guard('api')->user();
+        try {
+            $user = auth()->guard('api')->user();
 
-        $reports =  Report::with(['category', 'improvement_reports', 'improvement_reports.sub_improvement_reports'])->where('category_id', '<', 5)->get();
+            $reports =  Report::with(['category', 'improvement_reports', 'improvement_reports.sub_improvement_reports'])->where('category_id', '<', 5)->get();
 
-        $reports = $reports->map(function ($report) use ($user) {
-            $checkSurpass = $this->checkReport($report->category_id, $user->id);
-            if ($checkSurpass == 500) {
-                return 500;
+            $reports = $reports->map(function ($report) use ($user) {
+                $checkSurpass = $this->checkReport($report->category_id, $user->id);
+                if ($checkSurpass == 500) {
+                    return 500;
+                }
+                $data = [
+                    'id' => $report->id,
+                    'category_id' => $report->category_id,
+                    'surpass' => $report->surpass,
+                    'heading_improvement' => $report->heading_improvement,
+                    'category_name' => $report->category->name,
+                    'is_surpass' => $checkSurpass['surpass'],
+                ];
+
+                if ($report->improvement_reports()->count() > 0) {
+                    $improvement_reports = $report->improvement_reports;
+                    $improvement_reports = $improvement_reports->map(function ($improvement_report) use ($report, $user) {
+                        $checkReport = $this->checkReport($report->category_id, $user->id, $improvement_report->question_id, $improvement_report->sub_question_id);
+                        if ($checkReport == 500) {
+                            return 500;
+                        }
+                        $format_improvement_report  = [
+                            'id' => $improvement_report->id,
+                            'report_id' => $improvement_report->report_id,
+                            'question_id' => $improvement_report->question_id,
+                            'sub_question_id' => $improvement_report->sub_question_id,
+                            'improvement' => $improvement_report->improvement,
+                            'is_improvement' => $checkReport['main_improvement'],
+                        ];
+
+                        if ($improvement_report->sub_improvement_reports()->count() > 0) {
+                            $sub_improvement_reports = $improvement_report->sub_improvement_reports;
+                            $sub_improvement_reports = $sub_improvement_reports->map(function ($sub_improvement_report) use ($checkReport) {
+                                $format_sub_improvement_report = [
+                                    'id' => $sub_improvement_report->id,
+                                    'improvement_report_id' => $sub_improvement_report->improvement_report_id,
+                                    'improvement' => $sub_improvement_report->improvement,
+                                    'is_improvement' => $checkReport['sub_improvement'],
+                                ];
+
+                                return $format_sub_improvement_report;
+                            });
+                            $format_improvement_report['sub_improvement_reports'] = $sub_improvement_reports;
+                        }
+                        return $format_improvement_report;
+                    });
+                    $data['improvement_reports'] = $improvement_reports;
+                }
+
+                return $data;
+            });
+
+
+            if (in_array(500, $reports->toArray())) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Data answer not found",
+                ], 500);
             }
-            $data = [
-                'id' => $report->id,
-                'category_id' => $report->category_id,
-                'surpass' => $report->surpass,
-                'heading_improvement' => $report->heading_improvement,
-                'category_name' => $report->category->name,
-                'is_surpass' => $checkSurpass['surpass'],
-            ];
 
-            if ($report->improvement_reports()->count() > 0) {
-                $improvement_reports = $report->improvement_reports;
-                $improvement_reports = $improvement_reports->map(function ($improvement_report) use ($report, $user) {
-                    $checkReport = $this->checkReport($report->category_id, $user->id, $improvement_report->question_id, $improvement_report->sub_question_id);
-                    if ($checkReport == 500) {
-                        return 500;
-                    }
-                    $format_improvement_report  = [
-                        'id' => $improvement_report->id,
-                        'report_id' => $improvement_report->report_id,
-                        'question_id' => $improvement_report->question_id,
-                        'sub_question_id' => $improvement_report->sub_question_id,
-                        'improvement' => $improvement_report->improvement,
-                        'is_improvement' => $checkReport['main_improvement'],
-                    ];
-
-                    if ($improvement_report->sub_improvement_reports()->count() > 0) {
-                        $sub_improvement_reports = $improvement_report->sub_improvement_reports;
-                        $sub_improvement_reports = $sub_improvement_reports->map(function ($sub_improvement_report) use ($checkReport) {
-                            $format_sub_improvement_report = [
-                                'id' => $sub_improvement_report->id,
-                                'improvement_report_id' => $sub_improvement_report->improvement_report_id,
-                                'improvement' => $sub_improvement_report->improvement,
-                                'is_improvement' => $checkReport['sub_improvement'],
-                            ];
-
-                            return $format_sub_improvement_report;
-                        });
-                        $format_improvement_report['sub_improvement_reports'] = $sub_improvement_reports;
-                    }
-                    return $format_improvement_report;
-                });
-                $data['improvement_reports'] = $improvement_reports;
-            }
-
-            return $data;
-        });
-
-
-        if (in_array(500, $reports->toArray())) {
+            $pdf = Pdf::loadView('report.report', ['reports' => $reports, 'user' => $user]);
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => "Data answer not found",
+                'message' => "failed to download report IA " . $e->getMessage()
             ], 500);
         }
 
-
-        $pdf = Pdf::loadView('report.report', ['reports' => $reports, 'user' => $user]);
         return $pdf->download('report.pdf');
     }
 
