@@ -5,7 +5,9 @@ import ProfileBuilding from '@/components/student/quest/profile-building.vue'
 import Sponsor from '@/components/student/quest/sponsor.vue'
 import Writing from '@/components/student/quest/writing.vue'
 import { confirmBeforeSubmit } from '@/helper/notification'
+import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
+import UserService from '@/services/UserService'
 import { ref, watch } from 'vue'
 
 const result = ref()
@@ -29,7 +31,16 @@ const submitQuest = async () => {
   if (confirmed) {
     // Lakukan pengiriman data
     try {
-      console.log('try')
+      const res = await ApiService.post('took_quest', {
+        took_quest: 1,
+      })
+
+      if(res.success) {
+        verifyAuth().checkMe()
+        window.location.reload()
+      } else {
+        showNotif('error', res.message)
+      }
     } catch (error) {
       console.error(error)
     }
@@ -59,7 +70,7 @@ watch(() => {
       </div> 
     </section>
    
-    <section v-if="result && !loading">
+    <section v-if="result && !loading && UserService.getUser().client.took_quest==0">
       <VCard
         color="primary"
         class="mb-3"
@@ -78,7 +89,6 @@ watch(() => {
           </p>
         </VCardText>
       </VCard>
-    
       <VExpansionPanels>
         <div
           v-for="item, index in result"
@@ -101,6 +111,22 @@ watch(() => {
           I have finished the quest!
         </VBtn>
       </div>
+    </section>
+
+    <section v-if="result && !loading && UserService.getUser().client.took_quest==1">
+      <VCard color="primary">
+        <VCardText>
+          <h2 class="mb-5 text-white">
+            Congratulations,
+          </h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, dicta minus veritatis atque perferendis, libero cumque numquam tenetur consequuntur magnam adipisci sed, voluptates hic obcaecati. Maiores exercitationem asperiores excepturi facilis?
+          </p>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam dolorem, molestias, dolore eum fugiat voluptatem ducimus facere alias qui rem vero dicta consequuntur quis porro eveniet at odio debitis nam.
+          </p>
+        </VCardText>
+      </VCard>
     </section>
   </div>
 </template>

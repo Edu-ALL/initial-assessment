@@ -1,10 +1,12 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
+import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
+import UserService from '@/services/UserService'
 import { ref, watch } from 'vue'
 
-const done = ref(false)
+const done = ref(UserService.getUser().quest['Writing'])
 const formData = ref()
 const mission = ref(1)
 const loading = ref(false)
@@ -48,7 +50,8 @@ const handleSubmit = async () => {
     try {
       const res = await ApiService.post('answer/8', inputData.value)
       if(res.success) {
-        getAnswer()
+        verifyAuth().checkMe()
+        done.value = true
       } else {
         showNotif('error', res.message)
       }
@@ -83,10 +86,6 @@ const getAnswer = async () => {
     console.error(error)
   }
 }
-
-watch(() => {
-  getAnswer()
-})
 </script>
 
 <template>

@@ -89,72 +89,45 @@ const user = ref(UserService.getUser())
             side="center"
           >
             <VTimelineItem
-              dot-color="primary"
+              v-for="item,index in user.quest"
+              :key="index"
+              :dot-color="item ? 'success':'primary'"
               size="small"
             >
+              <!-- Exploration -->
               <div class="d-flex">
-                <strong class="me-4">1</strong>
-                <div>
+                <strong class="me-4">
+                  <VIcon
+                    :icon="item ? 'bx-check':'bx-question-mark'"
+                    :color="item ? 'success':'primary'"
+                  />
+                </strong>
+                <div v-if="index=='Exploration'">
                   <strong>Exploration Area</strong>
                   <div class="text-caption">
                     Discover more about yourself and how it’ll be vital in shaping your future.
                   </div>
                 </div>
-              </div>
-            </VTimelineItem>
-
-            <VTimelineItem
-              dot-color="dark"
-              size="small"
-            >
-              <div class="d-flex">
-                <strong class="me-4">2</strong>
-                <div>
+                <div v-if="index=='Profile Building'">
                   <strong>Profile Building Area</strong>
                   <div class="text-caption">
                     Identify what aspects you can hone to stand out more in an ever-growing competitive landscape.
                   </div>
                 </div>
-              </div>
-            </VTimelineItem>
-
-            <VTimelineItem
-              dot-color="primary"
-              size="small"
-            >
-              <div class="d-flex">
-                <strong class="me-4">3</strong>
-                <div>
-                  <strong>Academic Area</strong>
+                <div v-if="index=='Academic Profiling'">
+                  <strong>Academic Profiling Area</strong>
                   <div class="text-caption">
                     Consult your current scores and understand strategies on how to upgrade your academic profile. 
                   </div>
                 </div>
-              </div>
-            </VTimelineItem>
-
-            <VTimelineItem
-              dot-color="primary"
-              size="small"
-            >
-              <div class="d-flex">
-                <strong class="me-4">4</strong>
-                <div>
+                <div v-if="index=='Writing'">
                   <strong>Writing Area</strong>
                   <div class="text-caption">
                     Delve deeper into what style of writing you’ll specifically need to master and what personal experiences you can utilize towards that goal.
                   </div>
                 </div>
-              </div>
-            </VTimelineItem>
 
-            <VTimelineItem
-              dot-color="primary"
-              size="small"
-            >
-              <div class="d-flex">
-                <strong class="me-4">5</strong>
-                <div>
+                <div v-if="index=='Sponsor'">
                   <strong>Sponsor Area</strong>
                   <div class="text-caption">
                     End the journey by refreshing your mind at one of our collaborator booths!
