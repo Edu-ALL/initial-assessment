@@ -142,7 +142,7 @@ class OptionSeeder extends Seeder
 
 
         # seeds for options no 3
-        $options_no_3 = ['Hard-working', 'Creative', 'Adaptive', 'Empathetic', 'Resilient', 'Meticulous', 'Honest', 'Love to learn', 'Others (long answer)'];
+        $options_no_3 = ['Hard-working', 'Creative', 'Adaptive', 'Empathetic', 'Resilient', 'Meticulous', 'Honest', 'Love to learn', 'Others'];
         foreach ($options_no_3 as $key => $value) {
 
             $seeds[$indexOption] = [
@@ -159,7 +159,7 @@ class OptionSeeder extends Seeder
         }
 
         # seeds for options no 4
-        $options_no_4 = ['Procrastinate', 'Impatient', 'Careless', 'Irresponsible', 'Insecure', 'Stubborn', 'Pessimistic', 'Ignorant', 'Others (long answer)'];
+        $options_no_4 = ['Procrastinate', 'Impatient', 'Careless', 'Irresponsible', 'Insecure', 'Stubborn', 'Pessimistic', 'Ignorant', 'Others'];
         foreach ($options_no_4 as $key => $value) {
 
             $seeds[$indexOption] = [
