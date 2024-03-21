@@ -9,7 +9,7 @@ import { ref } from 'vue'
 const user = ref(UserService.getUser())
 
 const logout = () => {
-  showNotif('info', 'You`ve successfully logout', 'bottom-end')
+  showNotif('success', 'You`ve successfully logout', 'bottom-end')
   setTimeout(() => {
     JwtService.destroyToken()
     router.push({ name: 'login' })
