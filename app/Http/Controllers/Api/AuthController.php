@@ -39,9 +39,9 @@ class AuthController extends Controller
         $validator = Validator::make($incomingRequest, $rules);
 
         # threw error if validation fails
-        if ($validator->fails()) 
+        if ($validator->fails())
             return response()->json(['error' => 'Cannot process the request.']);
-        
+
 
         # collect the validated request
         $validated = $request->collect();
@@ -54,8 +54,8 @@ class AuthController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
-        
-        
+
+
         # variable response contains the response we got from the CRM http
         $data = $response['response'];
 
@@ -119,7 +119,6 @@ class AuthController extends Controller
             }
 
             return $value;
-            
         });
 
         if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
@@ -143,7 +142,7 @@ class AuthController extends Controller
             $user->save();
         }
 
-        
+
         # manipulate the user took_initial_assessment
 
         return [
