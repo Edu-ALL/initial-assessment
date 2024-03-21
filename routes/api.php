@@ -46,7 +46,9 @@ Route::prefix('admin')->group(function () {
     Route::group(['middleware' => ['auth:api', 'scopes:admin'] ], function () {
 
         Route::get('get/clients', [UserController::class, 'index']);
+        Route::get('get/client/{client_uuid}', [UserController::class, 'show']);
 
         Route::post('signout', [AdminController::class, 'signOut']);
+        
     });
 });

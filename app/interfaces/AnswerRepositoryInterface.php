@@ -6,4 +6,6 @@ interface AnswerRepositoryInterface
 {
     public function syncAnswer($user, $category_id, $answerDetails);
     public function checklistQuest($user_id);
+
+    public function haveFilledInitialAssessment($userId);
 }

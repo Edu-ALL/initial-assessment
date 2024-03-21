@@ -49,8 +49,18 @@ class User extends Authenticatable
         return $this->hasMany(Answer::class, 'user_id', 'id');
     }
 
-    // public function answers()
-    // {
-    //     return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id')->using(Answer::class)->withPivot('answer_descriptive')->withTimestamps();
-    // }
+    public function answers_many()
+    {
+        return $this->belongsToMany(Option::class, 'user_question_answers', 'user_id', 'answer_id');
+    }
+
+    public function question_many()
+    {
+        return $this->belongsToMany(Question::class, 'user_question_answers', 'user_id', 'answer_id');
+    }
+
+    public function sub_question_many()
+    {
+        return $this->belongsToMany(SubQuestion::class, 'user_question_answers', 'user_id', 'answer_id');
+    }
 }
