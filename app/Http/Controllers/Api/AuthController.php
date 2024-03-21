@@ -49,7 +49,10 @@ class AuthController extends Controller
         try {
             $response = $this->getClientInfo($validated['ticket_no']);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
         }
         
         
