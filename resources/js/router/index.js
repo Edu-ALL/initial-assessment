@@ -96,11 +96,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const verify = verifyAuth()
 
-  console.log(verify.isAuthenticated.value)
-
-
-  // verify auth token before each page change
-
   if(to.meta.middleware == "auth") {
     if (verify.isAuthenticated.value) {
       verify.checkMe()

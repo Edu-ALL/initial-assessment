@@ -10,7 +10,7 @@ import { onBeforeMount, onMounted, ref } from 'vue'
 
 const props = defineProps({ 'ticket': String })
 
-
+const sk_loading = ref(true)
 const formData = ref(null)
 
 const isValidate = ref(false)
@@ -66,12 +66,32 @@ onMounted(() => {
   if(props.ticket) {
     form.value.ticket_id = props.ticket
   }
+  
+  setTimeout(() => {
+    sk_loading.value=false
+  }, 2000)
 })
 </script>
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
+    <!-- Skeleton Loader  -->
+    <VRow
+      v-if="sk_loading"
+      class="justify-center"
+    >
+      <VCol cols="3">
+        <VSkeletonLoader
+          class="mx-auto border"
+          type="image, article, paragraph, button"
+          elevation="12"
+        />
+      </VCol>
+    </VRow>
+
+    <!-- Content  -->
     <VCard
+      v-if="!sk_loading"
       class="auth-card pa-4 pt-7"
       max-width="500"
     >
