@@ -1,3 +1,4 @@
+import { verifyAuth } from '@/helper/verifyAuth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -7,6 +8,9 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('../layouts/default.vue'),
+      meta: {
+        middleware: "auth",
+      },
       children: [
         {
           path: 'dashboard',
@@ -31,6 +35,7 @@ const router = createRouter({
       children: [
         {
           path: 'login',
+          name: 'login',
           props: route => ({
             ticket: route.query.ticket,
           }),
@@ -44,6 +49,9 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../layouts/admin-default.vue'),
+      meta: {
+        middleware: "auth",
+      },
       children: [
         {
           path: 'dashboard',
@@ -83,6 +91,22 @@ const router = createRouter({
       component: () => import('../pages/error/404.vue'),
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const verify = verifyAuth()
+
+  if(to.meta.middleware == "auth") {
+    if (verify.isAuthenticated.value) {
+      verify.checkMe()
+      next()
+    } else {
+      next({ name: "login" })
+    }
+  } else {
+    next()
+  }
+
 })
 
 export default router

@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::group(['middleware' => ['auth:api', 'scopes:client'] ], function () {
+Route::group(['middleware' => ['auth:api', 'scopes:client']], function () {
 
     Route::get('check', [AuthController::class, 'checkAuth']);
     Route::post('signout', [AuthController::class, 'signOut']);
@@ -43,9 +43,10 @@ Route::prefix('admin')->group(function () {
 
     Route::post('signin', [AdminController::class, 'signIn']);
 
-    Route::group(['middleware' => ['auth:api', 'scopes:admin'] ], function () {
+    Route::group(['middleware' => ['auth:api', 'scopes:admin']], function () {
 
         Route::get('get/clients', [UserController::class, 'index']);
+        Route::get('get/client/{client_uuid}', [UserController::class, 'show']);
 
         Route::post('signout', [AdminController::class, 'signOut']);
     });

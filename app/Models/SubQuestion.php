@@ -20,6 +20,11 @@ class SubQuestion extends Model
         'maximum_answer'
     ];
 
+    public function scopeWithAndWhereHas($query, $relation, $constraint){
+        return $query->whereHas($relation, $constraint)
+                     ->with([$relation => $constraint]);
+    }
+
     public function question()
     {
         return $this->belongsTo(Question::class, 'question_id', 'id');

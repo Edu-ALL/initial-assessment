@@ -6,16 +6,20 @@ import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
 import { useTheme } from 'vuetify'
 
+
 // Components
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
+import UserService from '@/services/UserService'
 
 const vuetifyTheme = useTheme()
 
 const upgradeBanner = computed(() => {
   return vuetifyTheme.global.name.value === 'light' ? upgradeBannerLight : upgradeBannerDark
 })
+
+const user = UserService.getUser()
 </script>
 
 <template>
@@ -36,7 +40,7 @@ const upgradeBanner = computed(() => {
           style="user-select: none;"
         >
           <!-- 👉 Search Trigger button -->
-          <h3>Welcome Name 👋🏻</h3>
+          <h3>Welcome {{ user.client.full_name }} 👋🏻</h3>
         </div>
 
         <VSpacer />
@@ -63,6 +67,7 @@ const upgradeBanner = computed(() => {
         }"
       />
       <VerticalNavLink
+        v-if="!user.client.is_vip"
         :item="{
           title: 'Assessment',
           icon: 'bx-notepad',

@@ -32,4 +32,18 @@ class LoggerController extends Controller
             'request' => $request
         ]);
     }
+
+    public function error($function_names, $error)
+    {
+        Log::error("Failed to {$function_names} | {$error['message']} | {$error['file']} on line {$error['error_line']}", [
+            'user' => $this->user,
+        ]);
+    }
+
+    public function success($function_names)
+    {
+        Log::info("User {$function_names} successfully", [
+            'user' => $this->user
+        ]);
+    }
 }

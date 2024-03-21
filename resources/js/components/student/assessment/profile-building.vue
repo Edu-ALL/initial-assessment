@@ -298,7 +298,8 @@ const submit = async () => {
 
 const handleSubmit = async () => {
   loading.value = true
-  resetRadio()
+  resetRadio('radio1')
+  resetRadio('radio2')
   try {
     const res = await ApiService.post('answer/2', inputData.value)
     if(res.success) {
@@ -530,10 +531,7 @@ watch(() => {
                 A personal project combines your passion and the skills you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
               </small>
 
-              <VRadioGroup
-                v-model="radioData.radio1"
-                @change="resetRadio('radio1')"
-              >
+              <VRadioGroup v-model="radioData.radio1">
                 <VRadio
                   label="Yes"
                   value="yes"
@@ -605,10 +603,7 @@ watch(() => {
                 A research project is a detailed study where you look closely at a specific topic, question, or problem to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
               </small>
 
-              <VRadioGroup
-                v-model="radioData.radio2"
-                @change="resetRadio('radio2')"
-              >
+              <VRadioGroup v-model="radioData.radio2">
                 <VRadio
                   label="Yes"
                   value="yes"

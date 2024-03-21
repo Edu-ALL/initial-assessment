@@ -1,5 +1,20 @@
 <script setup>
+import { showNotif } from '@/helper/notification'
+import router from '@/router'
+import JwtService from '@/services/JwtService'
+import UserService from '@/services/UserService'
 import avatar1 from '@images/avatars/avatar-1.png'
+import { ref } from 'vue'
+
+const user = ref(UserService.getUser())
+
+const logout = () => {
+  showNotif('info', 'You`ve successfully logout', 'bottom-end')
+  setTimeout(() => {
+    JwtService.destroyToken()
+    router.push({ name: 'login' })
+  }, 1000)
+}
 </script>
 
 <template>
@@ -48,29 +63,31 @@ import avatar1 from '@images/avatars/avatar-1.png'
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              Student Name
+              {{ user.client.full_name }}
             </VListItemTitle>
           </VListItem>
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link>
+          <!--
+            <VListItem link>
             <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-user"
-                size="22"
-              />
+            <VIcon
+            class="me-2"
+            icon="bx-user"
+            size="22"
+            />
             </template>
 
             <VListItemTitle>Profile</VListItemTitle>
-          </VListItem>
+            </VListItem> 
+          -->
 
           <!-- Divider -->
-          <VDivider class="my-2" />
+          <!-- <VDivider class="my-2" /> -->
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="logout">
             <template #prepend>
               <VIcon
                 class="me-2"

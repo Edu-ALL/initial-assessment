@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\LoggerController;
 use App\Interfaces\AnswerRepositoryInterface;
 use App\Interfaces\QuestionRepositoryInterface;
 use App\Models\Answer;
@@ -36,6 +37,7 @@ class AssessmentController extends Controller
 
     public function storeAnswer(Request $request)
     {
+
         $category_id = $request->category;
         $answers = [];
         foreach ($request->all() as $request1) {
@@ -49,6 +51,8 @@ class AssessmentController extends Controller
         $answers;
         $collectionAnswer = new Collection;
         $collectionAnswer = collect($answers);
+        
+        (new LoggerController)->trying_warning('store answer', $collectionAnswer);
 
         $user = auth()->guard('api')->user();
 
@@ -61,13 +65,20 @@ class AssessmentController extends Controller
         } catch (Exception $e) {
 
             DB::rollBack();
-            Log::error('Store Answer failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+
+            (new LoggerController)->error('store answer', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'error_line' => $e->getLine()
+            ]);
+            
             return response()->json([
                 'success' => false,
                 'message' => "Store answer failed " . $e
             ]);
         }
 
+        (new LoggerController)->success('stored answer');
 
         return response()->json([
             'success' => true,
@@ -79,6 +90,8 @@ class AssessmentController extends Controller
 
     public function getQuestion(Request $request)
     {
+        (new LoggerController)->accessing_warning('get questions');
+
         $category_id = $request->category;
 
         try {
@@ -88,7 +101,12 @@ class AssessmentController extends Controller
             DB::commit();
         } catch (Exception $e) {
 
-            Log::error('Get question failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+            (new LoggerController)->error('get questions', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'error_line' => $e->getLine()
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => "get question failed " . $e
@@ -104,6 +122,9 @@ class AssessmentController extends Controller
 
     public function getAnswer(Request $request)
     {
+
+        (new LoggerController)->accessing_warning('get answer');
+
         $response = $optionDetail = [];
 
         try {
@@ -186,7 +207,13 @@ class AssessmentController extends Controller
 
             DB::commit();
         } catch (Exception $e) {
-            Log::error('Get answer failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+
+            (new LoggerController)->error('get answer', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'error_line' => $e->getLine()
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => "get answer failed " . $e
@@ -202,6 +229,8 @@ class AssessmentController extends Controller
 
     public function getSubOption(Request $request)
     {
+        (new LoggerController)->accessing_warning('get sub option');
+
         $curriculum = $request->curriculum;
 
         try {
@@ -211,7 +240,12 @@ class AssessmentController extends Controller
             DB::commit();
         } catch (Exception $e) {
 
-            Log::error('Get sub option failed | ' . $e->getMessage() . ' | ' . $e->getFile() . ' on line ' . $e->getLine());
+            (new LoggerController)->error('get sub option', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'error_line' => $e->getLine()
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => "get sub option failed " . $e
@@ -227,6 +261,8 @@ class AssessmentController extends Controller
 
     public function getRanking(Request $request)
     {
+        (new LoggerController)->accessing_warning('get ranking');
+
         $user = auth()->guard('api')->user();
 
         $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
@@ -296,6 +332,7 @@ class AssessmentController extends Controller
 
     public function getReport(Request $request)
     {
+        (new LoggerController)->trying_warning('download report');
 
         try {
             $user = auth()->guard('api')->user();
@@ -375,6 +412,8 @@ class AssessmentController extends Controller
 
     protected function checkReport($category_id, $user_id, $question_id = null, $sub_question_id = null)
     {
+        (new LoggerController)->accessing_warning('check report');
+
         $result = ['surpass' => false, 'main_improvement' => false, 'sub_improvement' => false];
 
         $userPointByCategory = UserPoint::where('user_id', $user_id)->whereHas('question', function ($query) use ($category_id) {

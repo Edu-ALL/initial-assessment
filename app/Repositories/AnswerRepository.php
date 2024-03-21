@@ -4,9 +4,11 @@ namespace App\Repositories;
 
 use App\Interfaces\AnswerRepositoryInterface;
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\SubQuestion;
+use App\Models\User;
 use App\Models\UserClient;
 use App\Models\UserPoint;
 use Illuminate\Support\Collection;
@@ -324,5 +326,28 @@ class AnswerRepository implements AnswerRepositoryInterface
         }
 
         return $result;
+    }
+
+    public function haveFilledInitialAssessment($userId)
+    {
+        
+        $categories = Category::where('id', '<=', 4)->pluck('id')->toArray();
+        # query to get the information about 
+        # is the user has filled in the initial assessment form?
+        $filled = User::where('id', $userId);
+        
+        $i = 1;
+        while ($i <= count($categories)) {
+
+            $filled = $filled->whereHas('answers.question', function ($query) use ($i) {
+
+                $query->where('category_id', $i);
+
+            });
+
+        $i++;
+        }
+
+        return $filled = $filled->exists();
     }
 }
