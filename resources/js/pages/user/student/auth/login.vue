@@ -34,8 +34,13 @@ const submit = async () => {
       } else {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
-        router.push({ name: 'assessment' })
-
+        
+        if(res.data.client.is_vip) {
+          router.push({ name: 'quest' })
+        } else {
+          router.push({ name: 'assessment' })
+        }
+        
         setTimeout(() => {
           showNotif('success', 'You`ve successfully logged in', 'bottom-end')
         }, 1000)

@@ -96,6 +96,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const verify = verifyAuth()
 
+  console.log(verify.isAuthenticated.value)
+
 
   // verify auth token before each page change
 

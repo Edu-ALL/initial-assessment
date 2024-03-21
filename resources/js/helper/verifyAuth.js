@@ -6,14 +6,14 @@ import { ref } from "vue"
 export const verifyAuth = () => {
   const isAuthenticated = ref(!!JwtService.getToken())
 
-  const checkMe = async () => {
-    try {
-      const res = await ApiService.get('check')
-      
-      UserService.saveUser(res.data)
-    } catch (error) {
-      JwtService.destroyToken()
-      console.log(error)
+  const checkMe = () => {
+    if(JwtService.getToken()) {
+      ApiService.get('check').then(data => {
+        UserService.saveUser(data.data)
+      }).catch(error => {
+        JwtService.destroyToken()
+        console.error(error)
+      })
     }
   }
 
