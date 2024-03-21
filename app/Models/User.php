@@ -33,6 +33,7 @@ class User extends Authenticatable
         'destination',
         'is_vip',
         'took_ia',
+        'took_quest',
         'type',
         'password',
     ];

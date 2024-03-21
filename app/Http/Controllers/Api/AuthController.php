@@ -80,7 +80,7 @@ class AuthController extends Controller
         $ticketId = $request->user()->ticket_id;
 
         # send request to get data client using ticket id from crm
-        $response = $this->getClientInfo($ticketId, $user->id);
+        $response = $this->getClientInfo($ticketId, $user);
         $data = $response['response'];
 
         $data['quest'] = $this->answerRepository->checklistQuest($user->id);
@@ -91,7 +91,7 @@ class AuthController extends Controller
         ]);
     }
 
-    private function getClientInfo($ticket_no, $userId = null)
+    private function getClientInfo($ticket_no, $user = null)
     {
 
         # can be customized depends on the endpoint
@@ -110,13 +110,17 @@ class AuthController extends Controller
             throw new Exception($response['message']);
 
 
-        $data = $response->collect('data')->map(function ($value) use ($userId) {
+        $data = $response->collect('data')->map(function ($value) use ($user) {
 
-            $userId = $userId !== NULL ? $userId : $value['id'];
+            $userId = $user !== NULL ? $user->id : $value['id'];
 
             if (array_key_exists('took_initial_assessment', $value)) {
                 $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
             }
+
+
+            $value['took_quest'] = $user != null ? $user->took_quest : 0;
+
 
             return $value;
         });

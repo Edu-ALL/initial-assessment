@@ -9,7 +9,9 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -35,13 +37,12 @@ class UserController extends Controller
         # adding the filled_ia & quest completeness
         foreach ($users as $user) {
 
-            
+
             $user['filled_ia'] = $this->answerRepository->haveFilledInitialAssessment($user->id) ? 1 : 0;
 
-            
+
             # query to get quest completeness status
             $user['quest'] = $this->answerRepository->checklistQuest($user->id);
-
         }
 
 
@@ -70,7 +71,7 @@ class UserController extends Controller
             'destination' => json_decode($user->destination),
             'created_at' => $user->created_at
         ];
-    
+
         $questionAnswerExploration = $this->getQuestionAnswerByCategory(1, $user);
         $questionAnswerProfileBuilding = $this->getQuestionAnswerByCategory(2, $user);
         $questionAnswerAcademic = $this->getQuestionAnswerByCategory(3, $user);
@@ -86,18 +87,16 @@ class UserController extends Controller
 
             ]
         ]);
-
     }
 
-    private function getQuestionAnswerByCategory($category_id, $user) 
+    private function getQuestionAnswerByCategory($category_id, $user)
     {
         # get the questions & answer for exploration    
         $questions = Question::with('sub_questions')->where('category_id', $category_id)->orderBy('id', 'ASC')->get();
 
         $category_name = $this->getCategoryName($category_id);
 
-        foreach ($questions as $question) 
-        {
+        foreach ($questions as $question) {
 
             if ($question->sub_questions->count() > 0) {
 
@@ -110,11 +109,9 @@ class UserController extends Controller
                             return $value->option->option_answer;
                         })
                     ];
-
                 }
 
                 continue;
-
             }
 
             $mapped_answers[$category_name][] = [
@@ -124,7 +121,6 @@ class UserController extends Controller
                     return $value->option->option_answer;
                 })
             ];
-
         }
 
         return $mapped_answers;
@@ -134,5 +130,41 @@ class UserController extends Controller
     {
         $category = Category::find($category_id);
         return $category->name;
+    }
+
+    public function updateTookQuest(Request $request)
+    {
+        $user = auth()->guard('api')->user();
+
+        $rules = [
+            'took_quest' => 'required|in:0,1',
+        ];
+
+        $incomingRequest = $request->only(['took_quest']);
+
+        $validator = Validator::make($incomingRequest, $rules);
+
+        # threw error if validation fails
+        if ($validator->fails())
+            return response()->json(['error' => 'Cannot process the request.']);
+
+        # collect the validated request
+        $validated = $request->collect();
+
+        // return gettype($validated->toArray());
+        try {
+            $user = User::where('id', $user->id)->update($validated->toArray());
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully update took quest',
+            // 'data' => $user
+        ]);
     }
 }

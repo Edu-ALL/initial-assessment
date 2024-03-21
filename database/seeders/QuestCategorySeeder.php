@@ -31,7 +31,7 @@ class QuestCategorySeeder extends Seeder
                 'description' => 'Find out what essay can get you accepted into exceptional universities!'
             ],
             [
-                'name' => 'Sponsor (fun quest)',
+                'name' => 'Sponsor',
                 'description' => 'Just like the saying “work hard, play hard”, take time and refresh at our collaborator booths outside!'
             ],
         ];
