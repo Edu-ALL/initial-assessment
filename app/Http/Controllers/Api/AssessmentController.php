@@ -145,7 +145,7 @@ class AssessmentController extends Controller
 
             $questions = $merge->where('category_id', $request->category)->sortBy('id');
 
-            $a = Answer::where('user_id', $user->id)->whereHas('question', function ($query) use ($request) {
+            $checkAnswer = Answer::where('user_id', $user->id)->whereHas('question', function ($query) use ($request) {
                 $query->where('category_id', $request->category);
             })->get();
 
@@ -222,7 +222,7 @@ class AssessmentController extends Controller
                 }
             }
 
-            if ($a->count() == 0)
+            if ($checkAnswer->count() == 0)
                 $response = [];
             DB::commit();
         } catch (Exception $e) {

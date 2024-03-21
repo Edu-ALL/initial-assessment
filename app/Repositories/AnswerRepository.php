@@ -292,7 +292,7 @@ class AnswerRepository implements AnswerRepositoryInterface
             'Profile Building' => false,
             'Academic Profiling' => false,
             'Writing' => false,
-            'Sponsor (fun quest)' => false,
+            'Sponsor' => false,
         ];
 
         if ($userPoints->count() > 0) {
@@ -314,7 +314,7 @@ class AnswerRepository implements AnswerRepositoryInterface
                         $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
                         break;
 
-                    case 'Sponsor (fun quest)':
+                    case 'Sponsor':
                         $result[$userPoint['name']] = $userPoint['point'] == 1 ? true : false;
                         break;
 
@@ -330,22 +330,21 @@ class AnswerRepository implements AnswerRepositoryInterface
 
     public function haveFilledInitialAssessment($userId)
     {
-        
+
         $categories = Category::where('id', '<=', 4)->pluck('id')->toArray();
         # query to get the information about 
         # is the user has filled in the initial assessment form?
         $filled = User::where('id', $userId);
-        
+
         $i = 1;
         while ($i <= count($categories)) {
 
             $filled = $filled->whereHas('answers.question', function ($query) use ($i) {
 
                 $query->where('category_id', $i);
-
             });
 
-        $i++;
+            $i++;
         }
 
         return $filled = $filled->exists();
