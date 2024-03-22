@@ -336,6 +336,10 @@ const resetRadio = radio => {
 }
 
 watch(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
   getOptions()
   getAnswer()
 })

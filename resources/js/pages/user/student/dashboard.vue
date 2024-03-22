@@ -77,7 +77,7 @@ const user = ref(UserService.getUser())
       md="6"
     >
       <VCard>
-        <VCardTitle class="my-2 bg-primary">
+        <VCardTitle class="my-2 bg-primary d-flex justify-between">
           <h4 class="text-white text-center">
             Your Quest
           </h4>

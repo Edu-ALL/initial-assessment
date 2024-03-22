@@ -143,6 +143,10 @@ const checkOtherOption = (i, field) => { // i dari index answer | field dari oth
 
 
 watch(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
   getOptions()
   getAnswer()
 })
