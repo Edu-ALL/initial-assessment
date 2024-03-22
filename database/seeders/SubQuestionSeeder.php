@@ -232,30 +232,30 @@ class SubQuestionSeeder extends Seeder
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
-            [
-                'id' => 19,
-                'question_id' => 13,
-                'title' => "I don't know",
-                'description' => null,
-                'question_type' => 'optional',
-                'answer_type' => 'description',
-                'point_type' => 'score',
-                'total_point' => 6,
-                'minimum_answer' => 1,
-                'maximum_answer' => 2
-            ],
-            [
-                'id' => 20,
-                'question_id' => 13,
-                'title' => "I know",
-                'description' => null,
-                'question_type' => 'optional',
-                'answer_type' => 'description',
-                'point_type' => 'sub_question',
-                'total_point' => 12,
-                'minimum_answer' => 1,
-                'maximum_answer' => 1
-            ],
+            // [
+            //     'id' => 19,
+            //     'question_id' => 13,
+            //     'title' => "I don't know",
+            //     'description' => null,
+            //     'question_type' => 'optional',
+            //     'answer_type' => 'description',
+            //     'point_type' => 'score',
+            //     'total_point' => 6,
+            //     'minimum_answer' => 1,
+            //     'maximum_answer' => 2
+            // ],
+            // [
+            //     'id' => 20,
+            //     'question_id' => 13,
+            //     'title' => "I know",
+            //     'description' => null,
+            //     'question_type' => 'optional',
+            //     'answer_type' => 'description',
+            //     'point_type' => 'sub_question',
+            //     'total_point' => 12,
+            //     'minimum_answer' => 1,
+            //     'maximum_answer' => 1
+            // ],
 
             [
                 'id' => 21,

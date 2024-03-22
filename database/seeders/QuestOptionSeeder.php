@@ -108,6 +108,23 @@ class QuestOptionSeeder extends Seeder
             $indexOption++;
         }
 
+        #no 13
+        #Initial Assessment
+        $option_no_13 = ["I don't know", "I know"];
+        $point_no_13 = [6, 12];
+        foreach ($option_no_13 as $key => $value) {
+            $seeds[$indexOption] = [
+                'id' => $indexOption,
+                'question_id' => 13,
+                'sub_question_id' => null,
+                'title_of_answer' => null,
+                'option_answer' => $value,
+                'reference_to' => null,
+                'point' => $point_no_13[$key]
+            ];
+
+            $indexOption++;
+        }
 
 
         DB::table('options')->insert($seeds);
