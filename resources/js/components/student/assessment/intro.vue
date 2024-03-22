@@ -12,7 +12,7 @@ const checkStep = value => {
   <!-- Intro  -->
   <VCard color="primary">
     <VCardTitle class="mb-4">
-      <h3 class="text-white">
+      <h3 class="text-white text-wrap text-xl text-md-h5 mt-4">
         <strong>
           Initial Assessment
         </strong>

@@ -1,9 +1,12 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
+import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
+import UserService from '@/services/UserService'
 import { ref, watch } from 'vue'
 
-const done = ref(false)
+const done = ref(UserService.getUser().quest['Exploration'])
 const formData = ref()
 const mission = ref(1)
 const options = ref()
@@ -48,7 +51,8 @@ const handleSubmit = async () => {
     try {
       const res = await ApiService.post('answer/5', inputData.value)
       if(res.success) {
-        getAnswer()
+        verifyAuth().checkMe()
+        done.value = true
       } else {
         showNotif('error', res.message)
       }
@@ -72,23 +76,8 @@ const resetRadio = () => {
   }
 }
 
-const getAnswer = async () => {
-  try {
-    const res = await ApiService.get('answer/5')
-
-    if (res.success && res.data.length>0) {
-      done.value = true
-    } else {
-      done.value = false
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 watch(() => {
   getOptions()
-  getAnswer()
 })
 </script>
 
@@ -147,14 +136,12 @@ watch(() => {
                   href="https://www.mynextmove.org/explore/ip"
                   target="_blank"
                   rel="noopener noreferrer"
-                >ONE*T test</a>
+                >ONE*T test.</a>  <span style="color:red">*</span> 
               </li>
               <li>
-                <p>
-                  After finishing you have to write your score!
-                </p>
-              
-                <VRow>
+                After finishing you have to write your score!
+                <span style="color:red">*</span> 
+                <VRow class="mt-3">
                   <VCol
                     v-for="item, index in inputData[0].answer"
                     :key="index"
@@ -163,6 +150,7 @@ watch(() => {
                     <VTextField
                       v-model="inputData[0].answer[index].answer_descriptive"
                       :label="item.option_answer"
+                      :rules="rules.required"
                       density="compact"
                     />
                   </VCol>
@@ -182,24 +170,26 @@ watch(() => {
               class="ms-4 my-3"
             >
               <li class="mb-3">
-                Speaker Name
+                Speaker Name <span style="color:red">*</span>
                 <VRadioGroup v-model="inputData[1].answer[0]">
                   <VRadio
                     v-for="item in options['option22-29']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
+                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[1].answer[0]">
                 Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
-
+                <span style="color:red">*</span>
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Reflection"
                   density="compact"
                   class="mt-3"
+                  :rules="rules.required"
                 />
               </li>
             </ol>

@@ -1,9 +1,12 @@
 <script setup>
 import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
+import { rules } from '@/helper/rules'
+import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
+import UserService from '@/services/UserService'
 import { ref, watch } from 'vue'
 
-const done = ref(false)
+const done = ref(UserService.getUser().quest['Sponsor'])
 const formData = ref()
 const loading = ref(false)
 
@@ -36,7 +39,8 @@ const handleSubmit = async () => {
     try {
       const res = await ApiService.post('answer/9', inputData.value)
       if(res.success) {
-        getAnswer()
+        verifyAuth().checkMe()
+        done.value = true
       } else {
         showNotif('error', res.message)
       }
@@ -47,24 +51,6 @@ const handleSubmit = async () => {
     }
   }
 }
-
-const getAnswer = async () => {
-  try {
-    const res = await ApiService.get('answer/9')
-
-    if (res.success && res.data.length>0) {
-      done.value = true
-    } else {
-      done.value = false
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-watch(() => {
-  getAnswer()
-})
 </script>
 
 <template>
@@ -98,12 +84,13 @@ watch(() => {
         <ol class="ms-5 my-3">
           <li>
             Tell us what booth you visited!
-          
+            <span style="color:red">*</span> 
             <VTextarea
               v-model="inputData[0].answer[0].answer_descriptive"
               label="Answer"
               density="compact"
               class="mt-3"
+              :rules="rules.required"
             />
           </li>
         </ol>
