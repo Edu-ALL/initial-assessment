@@ -30,10 +30,10 @@ Route::group(['middleware' => ['auth:api', 'scopes:client']], function () {
     Route::get('answer/{category}', [AssessmentController::class, 'getAnswer']);
     Route::get('sub_option/{curriculum}', [AssessmentController::class, 'getSubOption']);
     Route::get('ranking', [AssessmentController::class, 'getRanking']);
-    Route::get('report', [AssessmentController::class, 'getReport']);
     Route::post('took_quest', [UserController::class, 'updateTookQuest']);
 });
 
+Route::get('report/{user}', [AssessmentController::class, 'getReport']);
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
