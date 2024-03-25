@@ -112,14 +112,17 @@ class AuthController extends Controller
 
         $data = $response->collect('data')->map(function ($value) use ($user) {
 
-            $userId = $user !== NULL ? $user->id : $value['id'];
+            $userId = $user !== NULL ? $user->id : null;
+
+            if (array_key_exists('id', $value)) {
+                $value['id'] =  $userId;
+            }
 
             if (array_key_exists('took_initial_assessment', $value)) {
                 $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                $value['took_quest'] = $user != null ? $user->took_quest : 0;
             }
 
-
-            $value['took_quest'] = $user != null ? $user->took_quest : 0;
 
 
             return $value;
