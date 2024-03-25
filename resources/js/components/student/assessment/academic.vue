@@ -92,8 +92,8 @@ const inputData = ref(
         {
           id: null,
           question_id: 13,
-          sub_question_4d: 21,
-          answer_descri5tive: null,
+          sub_question_id: 21,
+          answer_descriptive: null,
           score: null,
         },
       ],

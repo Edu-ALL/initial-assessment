@@ -1,4 +1,5 @@
 <script setup>
+import ApiService from '@/services/ApiService'
 import UserService from '@/services/UserService'
 import illustrationJohnDark from '@images/cards/illustration-john-dark.png'
 import illustrationJohnLight from '@images/cards/illustration-john-light.png'
@@ -10,6 +11,10 @@ const { global } = useTheme()
 const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrationJohnDark : illustrationJohnLight)
 
 const user = ref(UserService.getUser())
+
+const downloadPdf = async () => {
+  
+}
 </script>
 
 <template>
@@ -19,7 +24,10 @@ const user = ref(UserService.getUser())
       cols="12"
       md="6"
     >
-      <VCard class="text-center text-sm-start mb-4">
+      <VCard
+        v-if="user.client.took_initial_assessment"
+        class="text-center text-sm-start mb-4"
+      >
         <VRow no-gutters>
           <VCol
             cols="12"
@@ -42,6 +50,7 @@ const user = ref(UserService.getUser())
                 variant="tonal"
                 class="mt-4"
                 size="small"
+                @click="downloadPdf"
               >
                 Download Result
               </VBtn>
@@ -76,17 +85,31 @@ const user = ref(UserService.getUser())
       cols="12"
       md="6"
     >
-      <VCard>
-        <VCardTitle class="my-2 bg-primary d-flex justify-between">
-          <h4 class="text-white text-center">
-            Your Quest
-          </h4>
+      <VCard style="background:blue">
+        <VCardTitle class="my-2 text-white">
+          <div class="d-flex justify-between align-center w-100">
+            <span class="w-100">
+              Your Quest
+            </span>
+            <div class="cursor-pointer text-white">
+              <VTooltip
+                activator="parent"
+                location="start"
+              >
+                Download Quest Result
+              </VTooltip>
+              <VIcon icon="bx-download" />
+            </div>
+          </div>
         </VCardTitle>
         <VDivider />
-        <VCardText>
+        <VCardText
+          class="text-dark"
+          style="background:white"
+        >
           <VTimeline
             align="start"
-            side="center"
+            side="end"
           >
             <VTimelineItem
               v-for="item,index in user.quest"

@@ -12,6 +12,7 @@ const logout = () => {
   showNotif('success', 'You`ve successfully logout', 'bottom-end')
   setTimeout(() => {
     JwtService.destroyToken()
+    UserService.destroyUser()
     router.push({ name: 'login' })
   }, 1000)
 }
@@ -31,7 +32,7 @@ const logout = () => {
       color="primary"
       variant="tonal"
     >
-      <VImg :src="avatar1" />
+      <VIcon icon="bx-user" />
 
       <!-- SECTION Menu -->
       <VMenu
@@ -56,7 +57,7 @@ const logout = () => {
                     color="primary"
                     variant="tonal"
                   >
-                    <VImg :src="avatar1" />
+                    <VIcon icon="bx-user" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
