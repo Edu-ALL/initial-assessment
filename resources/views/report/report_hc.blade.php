@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         .content {
             font-size: 12px !important;
@@ -17,14 +16,17 @@
             list-style-type: lower-latin;
         }
 
-        .surpass,
-        .improvement {
+        .header {
             page-break-before: always;
         }
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <img src="{{ public_path('img/pdf/edu-all-header.webp') }}" width="auto" height="50px" style="margin-left: 50px; margin-top: 50px;">
+
+    </div>
 
     {{-- Start Surpass --}}
     <div class="surpass-0 section-title text-center mt-5">
@@ -660,8 +662,7 @@
                 </p>
                 <p>
                     For TOEFL you can access their resources and register for the official test at
-                    <a
-                        href="https://www.ets.org/toefl/test-takers/ibt/about.html">https://www.ets.org/toefl/test-takers/ibt/about.html</a>
+                    <a href="https://www.ets.org/toefl/test-takers/ibt/about.html">https://www.ets.org/toefl/test-takers/ibt/about.html</a>
                 </p>
                 <p>
                     While for IELTS, applying for the official test has to be done through external agents. In
@@ -671,12 +672,10 @@
                     IDP:
                     <a href="https://ielts.idp.com/indonesia/test-dates">https://ielts.idp.com/indonesia/test-dates</a>
                     IALF:
-                    <a
-                        href="https://www.ialf.edu/ielts-test-dates-locations-in-indonesia/">https://www.ialf.edu/ielts-test-dates-locations-in-indonesia/</a>
+                    <a href="https://www.ialf.edu/ielts-test-dates-locations-in-indonesia/">https://www.ialf.edu/ielts-test-dates-locations-in-indonesia/</a>
 
                     The British Council:
-                    <a
-                        href="https://www.britishcouncilfoundation.id/en/exam/ielts">https://www.britishcouncilfoundation.id/en/exam/ielts</a>
+                    <a href="https://www.britishcouncilfoundation.id/en/exam/ielts">https://www.britishcouncilfoundation.id/en/exam/ielts</a>
 
                 </p>
 
@@ -874,8 +873,7 @@
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
 </body>
 

@@ -55,7 +55,8 @@
 
                 <div class="content mt-3 ms-5">
                     <p>
-                        Hi {{ $user->full_name }}
+                        {{-- Hi {{ $user->full_name }} --}}
+                        Hi Name
                     </p>
 
                     {!! $report['heading_improvement'] !!}
