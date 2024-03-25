@@ -1,5 +1,5 @@
 <div class="category">
-    <div class="text-center mt-3 mb-4">
+    <div class="text-center mb-4">
         <h5>Writing</h5>
     </div>
 

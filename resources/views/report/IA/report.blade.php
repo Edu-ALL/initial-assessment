@@ -10,7 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         @page {
-            margin-top: 150px !important;
+            margin-top: 125px !important;
             /* create space for header */
             margin-bottom: 100px !important;
             /* create space for footer */
@@ -25,7 +25,7 @@
 
         header {
             height: auto;
-            margin-top: -150px;
+            margin-top: -125px;
             /* top: 0; */
         }
 
@@ -57,7 +57,7 @@
 
         {{-- <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
         style="position:absolute; left:8%; top:32.5%; z-index:-999;"> --}}
-        <img src="{{ public_path('img/pdf/edu-all-watermark.png') }}" width="85%"
+        <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
             style="position:absolute; left:8%; top:25%; z-index:-999;opacity: 0.04;">
     </header>
 
