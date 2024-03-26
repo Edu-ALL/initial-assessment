@@ -82,8 +82,8 @@ class AuthController extends Controller
         # send request to get data client using ticket id from crm
         $response = $this->getClientInfo($ticketId, $user);
         $data = $response['response'];
+        $data['token'] = $request->bearerToken();
 
-        $data['quest'] = $this->answerRepository->checklistQuest($user->id);
 
         return response()->json([
             'success' => true,
@@ -149,7 +149,24 @@ class AuthController extends Controller
             $user->save();
         }
 
+        $data = $response->collect('data')->map(function ($value) use ($user) {
 
+            $userId = $user !== NULL ? $user->id : null;
+
+            if (array_key_exists('id', $value)) {
+                $value['id'] =  $userId;
+            }
+
+            if (array_key_exists('took_initial_assessment', $value)) {
+                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                $value['took_quest'] = $user != null ? $user->took_quest : 0;
+            }
+
+
+            return $value;
+        });
+
+        $data['quest'] = $this->answerRepository->checklistQuest($user->id);
         # manipulate the user took_initial_assessment
 
         return [
