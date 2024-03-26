@@ -13,7 +13,9 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 const user = ref(UserService.getUser())
 
 const downloadPdf = async () => {
-  
+  const id = user.value.client?.id
+
+  window.open('/api/report/'+id, '_blank')
 }
 </script>
 

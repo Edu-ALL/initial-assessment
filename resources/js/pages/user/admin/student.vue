@@ -1,4 +1,7 @@
 <script setup>
+import ApiService from "@/services/ApiService"
+import { computed, onMounted, ref } from "vue"
+
 const desserts = [
   {
     dessert: 'Frozen Yogurt',
@@ -36,6 +39,30 @@ const desserts = [
     protein: 4,
   },
 ]
+
+const student = ref([])
+
+const getData =  async () => {
+  try {
+    const res = await ApiService.get('admin/get/clients')
+    
+    student.value = res.data
+  } catch(error) {
+    console.error(error)
+  }
+}
+
+
+const questCount = (data, status) => {
+  return Object.values(data).filter(value => value === status).length
+}
+
+
+
+
+onMounted(() => {
+  getData()
+})
 </script>
 
 <template>
@@ -68,7 +95,7 @@ const desserts = [
               School Name
             </th>
             <th>
-              Graduation Year
+              Grade
             </th>
             <th>
               Initial Assessment
@@ -82,31 +109,40 @@ const desserts = [
           
         <tbody>
           <tr
-            v-for="item in desserts"
-            :key="item.dessert"
+            v-for="item in student"
+            :key="item"
           >
             <td>
-              {{ item.dessert }}
+              {{ item.full_name }}
             </td>
             <td class="text-center">
-              {{ item.calories }}
+              {{ item.school }}
             </td>
             <td class="text-center">
-              {{ item.fat }}
+              {{ item.grade > 12 ? 'Not High School' : item.grade }}
             </td>
             <td class="text-center">
-              <VIcon
-                icon="bx-message-square-check"
-                color="success"
-              />
+              <div class="d-flex justify-center">
+                <div>
+                  <VTooltip
+                    activator="parent"
+                    location="left"
+                  >
+                    {{ item.filled_ia==1 ? 'Completed':'Not Yet' }}
+                  </VTooltip>
+                  <VIcon
+                    :icon="item.filled_ia==1 ? 'bx-message-square-check' : 'bx-x'"
+                    :style="item.filled_ia==1?'color:green':'color:red'"
+                  />
+                </div>
+              </div>
             </td>
             <td class="text-center">
               <div class="d-flex justify-center gap-3">
                 <div>
                   <VTooltip
-                    color="success"
                     activator="parent"
-                    location="top"
+                    location="left"
                   >
                     Success
                   </VTooltip>
@@ -114,13 +150,13 @@ const desserts = [
                     icon="bx-message-square-check"
                     color="success"
                   />
-                  2
+                  {{ questCount(item.quest, true) }}
                 </div>
                 <div>
                   <VTooltip
                     color="success"
                     activator="parent"
-                    location="top"
+                    location="right"
                   >
                     Not Yet
                   </VTooltip>
@@ -128,7 +164,7 @@ const desserts = [
                     icon="bx-message-square-x"
                     style="color: red;"
                   />
-                  2
+                  {{ questCount(item.quest, false) }}
                 </div>
               </div>
             </td>

@@ -7,11 +7,22 @@ export const rules = {
       return true
     },
   ],
+  email: [
+    value => !!value || 'Email is required',
+    value => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value) || 'Email must be valid',
+  ],
   maxLength_3: [
     value => {
       if (value?.length <= 3) return true
       
       return 'This field has a maximum of 3 options'
+    },
+  ],
+  minLength_8: [
+    value => {
+      if (value?.length >= 8) return true
+      
+      return 'This field has a minimum of 8 characters'
     },
   ],
   not_zero: [
