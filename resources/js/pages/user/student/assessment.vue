@@ -84,4 +84,22 @@ onMounted(() => {
 html {
   scroll-behavior: smooth;
 }
+
+ol li {
+  margin-bottom: 5px;
+}
+
+ol[type="A"] {
+  margin-left: 0px !important;
+  font-size: 14px !important;
+  margin-top: -10px !important;
+}
+
+ol[type="A"] li {
+  color: blue;
+}
+
+ol[type="A"] div {
+  color: rgb(75, 75, 75);
+}
 </style>

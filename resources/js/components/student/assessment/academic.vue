@@ -356,8 +356,12 @@ watch(() => {
               </VRadioGroup>
 
               <VDivider class="my-3" />
-              <VRow>
-                <VCol cols="4">
+              <VRow class="my-3">
+                <VCol
+                  md="4"
+                  cols="12" 
+                  style="padding:5px !important"
+                >
                   <small>
                     The maximum score is 9
                   </small>
@@ -373,7 +377,11 @@ watch(() => {
                     :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
-                <VCol cols="4">
+                <VCol
+                  md="4"
+                  cols="12" 
+                  style="padding:5px !important"
+                >
                   <small>
                     The maximum score is 120
                   </small>
@@ -389,7 +397,11 @@ watch(() => {
                     :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
-                <VCol cols="4">
+                <VCol
+                  md="4"
+                  cols="12" 
+                  style="padding:5px !important"
+                >
                   <small>
                     The maximum score is 1600
                   </small>

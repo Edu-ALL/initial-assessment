@@ -101,7 +101,7 @@ onMounted(() => {
       v-if="sk_loading"
       class="justify-center"
     >
-      <VCol cols="4">
+      <VCol md="4">
         <VSkeletonLoader
           class="mx-auto border"
           type="image, article, paragraph, button"
@@ -149,7 +149,6 @@ onMounted(() => {
                 title="Ticket Number"
                 type="text"
                 length="4"
-                divider="-"
                 :loading="loading"
                 :error="isValidate"
               />

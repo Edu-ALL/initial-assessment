@@ -114,6 +114,7 @@ watch(() => {
             label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "
             :value="1"
           />
+          <VDivider class="my-2" />
           <VRadio
             label="Get to understand more about your dreams! Participate in a sharing session!"
             :value="2"
@@ -141,11 +142,13 @@ watch(() => {
               <li>
                 After finishing you have to write your score!
                 <span style="color:red">*</span> 
-                <VRow class="mt-3">
+                <VRow class="my-3">
                   <VCol
                     v-for="item, index in inputData[0].answer"
                     :key="index"
-                    cols="4"
+                    md="4"
+                    cols="6"
+                    style="padding:5px !important"
                   >
                     <VTextField
                       v-model="inputData[0].answer[index].score"
@@ -216,7 +219,7 @@ watch(() => {
     </VExpansionPanelText>
     <VExpansionPanelText v-if="done">
       <div class="bg-warning px-4 py-4 rounded">
-        <h4>You have successfully submitted this data</h4>
+        <h4>You have completed this mission!</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

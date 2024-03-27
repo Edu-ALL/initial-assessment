@@ -399,9 +399,3 @@ watch(() => {
     </VForm>
   </VCard>
 </template>
-
-<style>
-ol li {
-  margin-bottom: 5px;
-}
-</style>

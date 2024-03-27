@@ -8,10 +8,13 @@ import { confirmBeforeSubmit } from '@/helper/notification'
 import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
 import UserService from '@/services/UserService'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import illustrationJohn from '@images/cards/illustration-john-light.png'
 
 const result = ref()
 const loading = ref(false)
+const user = ref(UserService.getUser())
+const is_completed = ref(false)
 
 const getRank = async () => {
   loading.value = true
@@ -36,7 +39,8 @@ const submitQuest = async () => {
       })
 
       if(res.success) {
-        verifyAuth().checkMe()
+        await verifyAuth().checkMe()
+
         window.location.reload()
       } else {
         showNotif('error', res.message)
@@ -47,7 +51,14 @@ const submitQuest = async () => {
   }
 }
 
+const checkQuest = () => {
+  const quest = user.value.quest
+  
+  is_completed.value = Object.values(quest).every(value => value === true)
+}
+
 watch(() => {
+  checkQuest()
   getRank()
 })
 </script>
@@ -70,7 +81,7 @@ watch(() => {
       </div> 
     </section>
    
-    <section v-if="result && !loading && UserService.getUser().client.took_quest==0">
+    <section v-if="result && !loading && user.client.took_quest==0">
       <VCard
         color="primary"
         class="mb-3"
@@ -112,21 +123,82 @@ watch(() => {
         </VBtn>
       </div>
     </section>
-
-    <section v-if="result && !loading && UserService.getUser().client.took_quest==1">
-      <VCard color="primary">
+    
+    <section v-if="result && !loading && user.client.took_quest==1">
+      <VCard class="position-relative overflow-hidden">
         <VCardText>
-          <h2 class="mb-5 text-white">
-            Congratulations,
+          <h2
+            class="mb-md-8 mb-5"
+            style="line-height:1.2;"
+          >
+            {{ is_completed ? 'Congratulations on finishing ALL the quest missions!' : 'Congratulations on Completing the Quest.' }}
           </h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, dicta minus veritatis atque perferendis, libero cumque numquam tenetur consequuntur magnam adipisci sed, voluptates hic obcaecati. Maiores exercitationem asperiores excepturi facilis?
+          <p v-if="!is_completed">
+            Claim your reward now! 
           </p>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam dolorem, molestias, dolore eum fugiat voluptatem ducimus facere alias qui rem vero dicta consequuntur quis porro eveniet at odio debitis nam.
-          </p>
+          <VBtn
+            v-if="!is_completed"
+            color="secondary"
+            class="mb-md-7 mb-5"
+          >
+            Get Your Free Personalized Report
+          </VBtn>
+          
+          <div :style="$vuetify.display.xs ? 'max-width:70%' :'max-width:60%'">
+            <h3 class="mb-2">
+              What’s Next?
+            </h3>
+            <p v-if="is_completed">
+              Head over to the EduALL booth to earn:
+              <ul class="ms-5">
+                <li class="my-2">
+                  Your own personalized uni application progress report
+                </li>
+                <li class="my-2">
+                  Quest completer exclusive prize (limited)
+                </li>
+                <li class="my-2">
+                  Expert guidance from our mentors
+                </li>
+                <li class="my-2">
+                  Raffle ticket to win EduALL Community Empowerment Program in Bali
+                </li>
+              </ul>
+            </p>
+            <p v-else>
+              If you need further assistance in understanding your report, 
+              stop by the EduALL booth to receive expert guidance from our mentors!
+            </p>
+          </div>
+
+          <img
+            :src="illustrationJohn"
+            alt="EduALL Quest"
+            class="position-absolute"
+            :width="$vuetify.display.xs ? '55%' : '28%'"
+            style="bottom:-5%; right:-10%"
+          >
         </VCardText>
       </VCard>
     </section>
   </div>
 </template>
+
+<style lang="scss">
+ol li {
+  margin-bottom: 5px;
+}
+
+ol[type="I"] {
+  margin-left: 0px !important;
+  font-size: 14px !important;
+}
+
+ol[type="A"] li {
+  color: blue;
+}
+
+ol[type="A"] div {
+  color: rgb(75, 75, 75);
+}
+</style>

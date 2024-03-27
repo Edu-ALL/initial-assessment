@@ -122,6 +122,7 @@ const getAnswer = async () => {
             label="Compare the US and UK/Asia essays"
             :value="1"
           />
+          <VDivider class="my-2" />
           <VRadio
             label="Compare the AI and handmade essays"
             :value="2"
@@ -192,7 +193,7 @@ const getAnswer = async () => {
     </VExpansionPanelText>
     <VExpansionPanelText v-if="done">
       <div class="bg-warning px-4 py-4 rounded">
-        <h4>You have successfully submitted this data</h4>
+        <h4>You have completed this mission!</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

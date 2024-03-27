@@ -113,6 +113,7 @@ watch(() => {
             label="Visit an NGO booth and be inspired to help out (encourage NGO to also create a small activity)"
             :value="1"
           />
+          <VDivider class="my-2" />
           <VRadio
             label="Participate in STEM+ activities to gauge what interests you!"
             :value="2"
@@ -219,7 +220,7 @@ watch(() => {
     </VExpansionPanelText>
     <VExpansionPanelText v-if="done">
       <div class="bg-warning px-4 py-4 rounded">
-        <h4>You have successfully submitted this data</h4>
+        <h4>You have completed this mission!</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

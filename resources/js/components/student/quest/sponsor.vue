@@ -113,7 +113,7 @@ const handleSubmit = async () => {
     </VExpansionPanelText>
     <VExpansionPanelText v-if="done">
       <div class="bg-warning px-4 py-4 rounded">
-        <h4>You have successfully submitted this data</h4>
+        <h4>You have completed this mission!</h4>
       </div>
     </VExpansionPanelText>
   </VExpansionPanel>

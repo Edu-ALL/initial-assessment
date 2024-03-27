@@ -195,7 +195,10 @@ watch(() => {
             How confident are you in expressing yourself through non-academic writing (such as stories, journals)?
             <span style="color:red">*</span>
             <VRow>
-              <VCol cols="5">
+              <VCol
+                md="5"
+                cols="12"
+              >
                 <VSlider
                   v-model="inputData[1].answer[0].score"
                   :max="5"
@@ -215,7 +218,10 @@ watch(() => {
             How confident are you in expressing yourself through academic writing (such as essays and journals)?
             <span style="color:red">*</span>
             <VRow>
-              <VCol cols="5">
+              <VCol
+                md="5"
+                cols="12"
+              >
                 <VSlider
                   v-model="inputData[2].answer[0].score"
                   :max="5"
@@ -234,7 +240,7 @@ watch(() => {
           <li class="my-5">
             Have you done any of these activities related to writing?
             <ol
-              type="I"
+              type="A"
               class="ms-4"
             >
               <li class="my-3">

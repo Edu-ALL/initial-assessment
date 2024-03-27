@@ -395,16 +395,24 @@ watch(() => {
                 <VRow
                   v-for="i in inputData[0].answer"
                   :key="i"
-                  class="mt-1"
+                  class="mt-1 mb-2"
                 >
-                  <VCol md="9">
+                  <VCol
+                    md="9"
+                    cols="12"
+                    style="padding:5px !important"
+                  >
                     <VTextField
                       v-model="i.answer_descriptive"
                       density="compact"
                       label="Competition Name"
                     />
                   </VCol>
-                  <VCol md="3">
+                  <VCol
+                    md="3"
+                    cols="12"
+                    style="padding:5px !important"
+                  >
                     <VSelect
                       v-model="i.id"
                       :item-props="itemProps"
@@ -427,16 +435,24 @@ watch(() => {
                 <VRow
                   v-for="i in inputData[1].answer"
                   :key="i"
-                  class="mt-1"
+                  class="mt-1 mb-2"
                 >
-                  <VCol md="9">
+                  <VCol
+                    style="padding:5px !important"
+                    cols="12"
+                    md="9"
+                  >
                     <VTextField
                       v-model="i.answer_descriptive"
                       density="compact"
                       label="Company Name"
                     />
                   </VCol>
-                  <VCol md="3">
+                  <VCol
+                    style="padding:5px !important"
+                    cols="12"
+                    md="3"
+                  >
                     <VTextField
                       v-model="i.score"
                       type="number"
@@ -452,11 +468,13 @@ watch(() => {
                 <label>
                   How many volunteering opportunities have you joined?
                 </label>
-                <VRow class="mt-2">
+                <VRow class="my-2">
                   <VCol
                     v-for="i in inputData[2].answer"
                     :key="i"
                     md="6"
+                    cols="12" 
+                    style="padding:5px !important"
                   >
                     <VTextField
                       v-model="i.answer_descriptive"
@@ -471,11 +489,13 @@ watch(() => {
                 <label>
                   How many school clubs have you done?
                 </label>
-                <VRow class="mt-2">
+                <VRow class="my-2">
                   <VCol
                     v-for="i in inputData[3].answer"
                     :key="i"
                     md="6"
+                    cols="12" 
+                    style="padding:5px !important"
                   >
                     <VTextField
                       v-model="i.answer_descriptive"
@@ -490,11 +510,13 @@ watch(() => {
                 <label>
                   How many out-of-school activities have you done? (e.g coding/robotic/ cooking classes)
                 </label>
-                <VRow class="mt-2">
+                <VRow class="my-2">
                   <VCol
                     v-for="i in inputData[4].answer"
                     :key="i"
                     md="6"
+                    cols="12" 
+                    style="padding:5px !important"
                   >
                     <VTextField
                       v-model="i.answer_descriptive"
@@ -509,11 +531,13 @@ watch(() => {
                 <label>
                   How many summer/winter programs have you attended?
                 </label>
-                <VRow class="mt-2">
+                <VRow class="my-2">
                   <VCol
                     v-for="i in inputData[5].answer"
                     :key="i"
                     md="6"
+                    cols="12" 
+                    style="padding:5px !important"
                   >
                     <VTextField
                       v-model="i.answer_descriptive"
