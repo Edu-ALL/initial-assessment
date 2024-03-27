@@ -36,7 +36,7 @@ const upgradeBanner = computed(() => {
           style="user-select: none;"
         >
           <!-- 👉 Search Trigger button -->
-          <h3>Welcome Name 👋🏻</h3>
+          <h3>Welcome 👋🏻</h3>
         </div>
 
         <VSpacer />

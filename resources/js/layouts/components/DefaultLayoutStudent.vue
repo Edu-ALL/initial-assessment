@@ -40,7 +40,7 @@ const user = UserService.getUser()
           style="user-select: none;"
         >
           <!-- 👉 Search Trigger button -->
-          <h3>Welcome {{ user.client.full_name }} 👋🏻</h3>
+          <h3>Welcome {{ user.client?.full_name }} 👋🏻</h3>
         </div>
 
         <VSpacer />
