@@ -15,6 +15,10 @@ const getRank = async () => {
 }
 
 watch(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
   getRank()
 })
 </script>
@@ -79,7 +83,7 @@ watch(() => {
       <div class="d-flex w-100 justify-center mt-10">
         <RouterLink :to="{name:'quest'}">
           <VBtn color="secondary">
-            [Start Your Quest Here!]
+            Start Your Quest Here!
           </VBtn>
         </RouterLink>
       </div>

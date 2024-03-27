@@ -71,7 +71,7 @@ const resetRadio = () => {
     inputData.value[1].answer = []
   } else {
     for (let index = 0; index < 6; index++) {
-      inputData.value[0].answer[index].answer_descriptive = null      
+      inputData.value[0].answer[index].score = null      
     }
   }
 }
@@ -148,7 +148,7 @@ watch(() => {
                     cols="4"
                   >
                     <VTextField
-                      v-model="inputData[0].answer[index].answer_descriptive"
+                      v-model="inputData[0].answer[index].score"
                       :label="item.option_answer"
                       :rules="rules.required"
                       density="compact"
@@ -171,13 +171,15 @@ watch(() => {
             >
               <li class="mb-3">
                 Speaker Name <span style="color:red">*</span>
-                <VRadioGroup v-model="inputData[1].answer[0]">
+                <VRadioGroup
+                  v-model="inputData[1].answer[0]" 
+                  :rules="rules.required"
+                >
                   <VRadio
                     v-for="item in options['option22-29']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
-                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>

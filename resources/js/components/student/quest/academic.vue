@@ -138,13 +138,15 @@ watch(() => {
               <li class="mb-3">
                 Choose one option
                 <span style="color:red">*</span> 
-                <VRadioGroup v-model="inputData[0].answer[0]">
+                <VRadioGroup
+                  v-model="inputData[0].answer[0]" 
+                  :rules="rules.required"
+                >
                   <VRadio
                     v-for="item in options['option25']"
                     :key="item"
                     :label="item.option_answer"
                     :value="item"
-                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
@@ -154,6 +156,7 @@ watch(() => {
 
                 <VTextField
                   v-model="inputData[0].answer[0].score"
+                  class="mt-3"
                   label="Score"
                   density="compact"
                   type="number"

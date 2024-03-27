@@ -1,5 +1,5 @@
 <script setup>
-import { showNotif } from '@/helper/notification'
+import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
 import { defineEmits, watch } from 'vue'
@@ -113,22 +113,29 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
-  loading.value = true
-  try {
-    const res = await ApiService.post('answer/4', inputData.value)
-    if(res.success) {
-      checkStep(6)
-    } else {
-      showNotif('error', res.message, 'bottom-end')
+  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  if(confirmed) {
+    loading.value = true
+    try {
+      const res = await ApiService.post('answer/4', inputData.value)
+      if(res.success) {
+        checkStep(6)
+      } else {
+        showNotif('error', res.message, 'bottom-end')
+      }
+      loading.value = false
+    } catch (error) {
+      showNotif('error', error, 'bottom-end')
+      loading.value = false
     }
-    loading.value = false
-  } catch (error) {
-    showNotif('error', error, 'bottom-end')
-    loading.value = false
   }
 }
 
 watch(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
   getOptions()
   getAnswer()
 })
@@ -269,7 +276,7 @@ watch(() => {
           @click="checkStep(4)"
         >
           <VIcon icon="bx-chevron-left" />
-          <span class="me-2">Writing</span>
+          <span class="me-2">Academic</span>
         </VBtn>
 
         <VBtn

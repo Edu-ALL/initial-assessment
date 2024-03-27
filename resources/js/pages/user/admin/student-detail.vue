@@ -1,12 +1,18 @@
 <script setup>
+import { showNotif } from '@/helper/notification'
+import router from '@/router'
+import ApiService from '@/services/ApiService'
 import Assessment from '@/views/pages/student/assessment.vue'
 import Quest from '@/views/pages/student/quest.vue'
-import avatar1 from '@images/avatars/avatar-1.png'
+import avatar from '@images/avatars/avatar.png'
+import { onMounted } from 'vue'
+import moment from 'moment'
 
 const route = useRoute()
 
-const avatarImg = avatar1
+const avatarImg = avatar
 
+const loading = ref(false)
 const activeTab = ref(route.params.tab)
 
 // tabs
@@ -22,64 +28,110 @@ const tabs = [
     tab: 'quest',
   },
 ]
+
+const client = ref([])
+
+const getData = async () => {
+  const  id = route.params.id
+
+  loading.value=true
+  try {
+    
+    const res = await ApiService.get('admin/get/client/'+id)
+
+    if(res.success) {
+      client.value = res.data
+    } else {
+      router.push({ name: 'student' })
+      showNotif('error', 'Student Not Found!', 'bottom-end')
+    }
+    loading.value=false
+  } catch(error) {
+    router.push({ name: 'student' })
+
+    showNotif('error', 'Something Error!', 'bottom-end')
+  }
+}
+
+onMounted(() => {
+  getData()
+})
 </script>
 
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Account Details">
+      <VCard v-if="!loading">
+        <VCardTitle class="mb-3 border-b">
+          <RouterLink :to="({name:'student'})">
+            <VIcon
+              icon="bx-left-arrow-alt"
+              class="me-2"
+              style="color:black"
+            />
+          </RouterLink>
+          Account Details
+        </VCardTitle>
         <VCardText>
           <VRow>
             <VCol md="3">
               <!-- 👉 Avatar -->
-              <VAvatar
-                rounded="lg"
-                size="85%"
-                class="me-6"
-                :image="avatarImg"
-              />
+              <div class="d-flex justify-center align-center">
+                <img
+                  :src="avatarImg"
+                  alt=""
+                  width="50%"
+                >
+              </div>
             </VCol>
             <VCol md="9">
               <VRow>
                 <VCol md="6">
                   <small class="text-muted">Full Name</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.full_name }}
                   </p>
                   <VDivider />
                 </VCol>
                 <VCol md="6">
                   <small class="text-muted">Email</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.email ? client.user.email : '-' }}
                   </p>
                   <VDivider />
                 </VCol>
                 <VCol md="6">
                   <small class="text-muted">Phone Number</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.phone_number ? client.user.phone_number : '-' }}
                   </p>
                   <VDivider />
                 </VCol>
                 <VCol md="6">
                   <small class="text-muted">School Name</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.school ? client.user.school : '-' }}
+                  </p>
+                  <VDivider />
+                </VCol>
+                <VCol md="3">
+                  <small class="text-muted">Grade</small>
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.grade ? client.user.grade : '-' }}
                   </p>
                   <VDivider />
                 </VCol>
                 <VCol md="6">
-                  <small class="text-muted">Graduation Year</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <small class="text-muted">Destination Country</small>
+                  <p class="mb-1 text-secondary">
+                    {{ client.user?.destination ? client.user.destination.join(', ') : '-' }}
                   </p>
                   <VDivider />
                 </VCol>
-                <VCol md="6">
+                <VCol md="3">
                   <small class="text-muted">Joined At</small>
-                  <p class="mb-1">
-                    Lorem Ipsum
+                  <p class="mb-1 text-secondary">
+                    {{ moment(client.user?.created_at).format('LL') }}
                   </p>
                   <VDivider />
                 </VCol>
@@ -112,7 +164,7 @@ const tabs = [
           >
             <!-- Assessment -->
             <VWindowItem value="assessment">
-              <Assessment />
+              <Assessment :data="client.answer" />
             </VWindowItem>
   
             <!-- Quest -->
@@ -125,6 +177,12 @@ const tabs = [
           </VWindow>
         </VCardText>
       </VCard>
+
+      <VSkeletonLoader
+        v-if="loading"
+        class="mx-auto border"
+        type="avatar, heading, paragraph, table"
+      />
     </VCol>
   </VRow>
 </template>

@@ -134,13 +134,15 @@ watch(() => {
                 Which NGO representative did you meet? 
                 <span style="color:red">*</span> 
 
-                <VRadioGroup v-model="inputData[0].answer[0]">
+                <VRadioGroup
+                  v-model="inputData[0].answer[0]" 
+                  :rules="rules.required"
+                >
                   <VRadio
                     v-for="item in options['option23-31']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
-                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
@@ -152,7 +154,7 @@ watch(() => {
                   label="Description"
                   density="compact"
                   class="mt-3"
-                  :rules="required"
+                  :rules="rules.required"
                 />
               </li>
             </ol>
@@ -172,13 +174,15 @@ watch(() => {
               <li class="mb-3">
                 What topic did you learn about in this area?
                 <span style="color:red">*</span> 
-                <VRadioGroup v-model="inputData[1].answer[0]">
+                <VRadioGroup
+                  v-model="inputData[1].answer[0]" 
+                  :rules="rules.required"
+                >
                   <VRadio
                     v-for="item in options['option24-33']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
-                    :rules="rules.required"
                   />
                 </VRadioGroup>
               </li>
@@ -190,7 +194,7 @@ watch(() => {
                   label="Description"
                   density="compact"
                   class="mt-3"
-                  :rules="required"
+                  :rules="rules.required"
                 />
               </li>
             </ol>

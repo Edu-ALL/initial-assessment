@@ -6,6 +6,7 @@ import Exploration from '@/components/student/assessment/exploration.vue'
 import Intro from '@/components/student/assessment/intro.vue'
 import ProfileBuilding from '@/components/student/assessment/profile-building.vue'
 import Writing from '@/components/student/assessment/writing.vue'
+import UserService from '@/services/UserService'
 import { onMounted, ref } from 'vue'
 
 const step = ref(1)
@@ -22,6 +23,10 @@ const checkEmit = value => {
 
 onMounted(() => {
   setTimeout(() => {
+    if(UserService.getUser().client.took_initial_assessment == 1) {
+      step.value=6
+    }
+    
     loading.value=false
   }, 1000)
 })
@@ -74,3 +79,9 @@ onMounted(() => {
     </section>
   </div>
 </template>
+
+<style lang="scss">
+html {
+  scroll-behavior: smooth;
+}
+</style>

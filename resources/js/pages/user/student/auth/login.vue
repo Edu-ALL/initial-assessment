@@ -35,7 +35,6 @@ const submit = async () => {
       } else {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
-        
         window.location.reload()
         
       }
@@ -47,6 +46,34 @@ const submit = async () => {
 
   } else {
     isValidate.value = true
+  }
+}
+
+const checkUser = () => {
+  const user = UserService.getUser()
+
+  if(user) {
+    if(user.client?.is_vip || user.client?.education?.grade<7) {
+      if(user.client?.took_quest) {
+        router.push({ name: 'dashboard' })
+      } else {
+        router.push({ name: 'quest' })
+      }
+  
+    } else {
+      if(user.client?.took_initial_assessment==1 && user.client?.took_quest==0 ) {
+        router.push({ name: 'quest' })
+      } else if(user.client?.took_initial_assessment==1 && user.client?.took_quest==1) {
+        router.push({ name: 'dashboard' })
+      } else {
+        router.push({ name: 'assessment' })
+      }
+  
+    }
+            
+    setTimeout(() => {
+      showNotif('success', 'You`ve successfully logged in', 'bottom-end')
+    }, 1000)
   }
 }
 
@@ -62,17 +89,8 @@ onMounted(() => {
   }, 2000)
 
   // Check User 
-  if(UserService.getUser()) {
-    if(UserService.getUser().client.is_vip) {
-      router.push({ name: 'quest' })
-    } else {
-      router.push({ name: 'assessment' })
-    }
-          
-    setTimeout(() => {
-      showNotif('success', 'You`ve successfully logged in', 'bottom-end')
-    }, 1000)
-  }
+  checkUser()
+  
 })
 </script>
 
@@ -83,7 +101,7 @@ onMounted(() => {
       v-if="sk_loading"
       class="justify-center"
     >
-      <VCol cols="3">
+      <VCol cols="4">
         <VSkeletonLoader
           class="mx-auto border"
           type="image, article, paragraph, button"

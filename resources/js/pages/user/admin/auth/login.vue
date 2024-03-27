@@ -1,4 +1,13 @@
 <script setup>
+import { showNotif } from "@/helper/notification"
+import { rules } from "@/helper/rules"
+import router from "@/router"
+import ApiService from "@/services/ApiService"
+import JwtService, { getToken } from "@/services/JwtService"
+import { onMounted } from "vue"
+
+const formData = ref()
+
 const form = ref({
   email: '',
   password: '',
@@ -6,6 +15,42 @@ const form = ref({
 })
 
 const isPasswordVisible = ref(false)
+const loading = ref(false)
+
+const submit = async () => {
+
+  const { valid } = await formData.value.validate()
+
+  if (valid) {
+    loading.value =true
+    try {
+      const res = await ApiService.post('admin/signin', form.value)
+
+      if(!res.success) {
+        form.value.email = ""
+        form.value.password = ""
+        showNotif('error', res.message, 'bottom-end')
+      } else {
+        JwtService.saveToken(res.data.token)
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+        
+      }
+      loading.value = false
+    } catch (error) {
+      showNotif('error', error, 'bottom-end')
+      loading.value = false
+    }
+  } 
+}
+
+onMounted(() => {
+  if(JwtService.getToken()) {
+    router.push({ name: 'admin-dashboard' })
+  }
+})
 </script>
 
 <template>
@@ -17,12 +62,12 @@ const isPasswordVisible = ref(false)
       <div class="d-flex justify-center mb-10 mt-5">
         <img
           src="@images/eduall/eduall.png"
-          alt=""
+          alt="EduALL"
         >
       </div>
 
       <VCardText class="pt-2">
-        <h5 class="text-h5 mb-1">
+        <h5 class="text-h5 mb-7 text-center">
           Welcome to EduALL Assessment Dashboard! 👋🏻
         </h5>
         <p class="mb-0">
@@ -31,16 +76,22 @@ const isPasswordVisible = ref(false)
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="$router.push('/admin/dashboard')">
+        <VForm
+          ref="formData"
+          validate-on="input"
+          fast-fail
+          :disabled="loading"
+          @submit.prevent="submit"
+        >
           <VRow>
             <!-- email -->
             <VCol cols="12">
               <VTextField
                 v-model="form.email"
                 autofocus
-                placeholder="johndoe@email.com"
                 label="Email"
                 type="email"
+                :rules="rules.email"
               />
             </VCol>
 
@@ -52,6 +103,7 @@ const isPasswordVisible = ref(false)
                 placeholder="············"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
+                :rules="rules.minLength_8"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
 
@@ -61,13 +113,6 @@ const isPasswordVisible = ref(false)
                   v-model="form.remember"
                   label="Remember me"
                 />
-
-                <RouterLink
-                  class="text-primary ms-2 mb-1"
-                  to="javascript:void(0)"
-                >
-                  Forgot Password?
-                </RouterLink>
               </div>
 
               <!-- login button -->

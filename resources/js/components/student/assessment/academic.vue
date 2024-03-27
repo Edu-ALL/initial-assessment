@@ -74,10 +74,15 @@ const inputData = ref(
     {
       answer: [
         {
-          id: null,
-          question_id: 13,
-          sub_question_id: 20,
-          answer_descriptive: null,
+          id: 258, 
+          question_id: 13, 
+          sub_question_id: null, 
+          reference_to: null, 
+          title_of_answer: 
+          null, 
+          option_answer: "I know", 
+          point: 12, 
+          answer_descriptive: null, 
           score: null,
         },
       ],
@@ -86,7 +91,7 @@ const inputData = ref(
       answer: [
         {
           id: null,
-          question_id: 14,
+          question_id: 13,
           sub_question_id: 21,
           answer_descriptive: null,
           score: null,
@@ -185,6 +190,10 @@ const handleSubmit = async () => {
 }
 
 watch(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
   getOptions()
   getAnswer()
 })
@@ -265,14 +274,15 @@ watch(() => {
               What were your last report grades?
               <span style="color:red">*</span>
 
-              <VRadioGroup v-model="inputData[2].answer[0].sub_question_id">
+              <VRadioGroup
+                v-if="options && options['option13']"
+                v-model="inputData[2].answer[0]"
+              >
                 <VRadio
-                  label="Yes"
-                  :value="20"
-                />
-                <VRadio
-                  label="I don't know"
-                  :value="19"
+                  v-for="item in options['option13']"
+                  :key="item"
+                  :label="item.option_answer"
+                  :value="item"
                 />
               </VRadioGroup>
 
@@ -280,7 +290,7 @@ watch(() => {
 
               <!-- Detail Score  -->
               <!-- If Answer I Know  -->
-              <section v-if="inputData[2].answer[0].sub_question_id==20">
+              <section v-if="inputData[2].answer[0].id==258">
                 <VRow
                   v-for="item in inputData[1].answer"
                   :key="item"
@@ -315,7 +325,7 @@ watch(() => {
               </section>
 
               <!-- If Answer I Dont Know  -->
-              <section v-if="inputData[2].answer[0].sub_question_id==19">
+              <section v-if="inputData[2].answer[0].id==257">
                 <VTextField
                   v-model="inputData[2].answer[0].score"
                   label="Average Score"

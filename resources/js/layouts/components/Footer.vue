@@ -1,7 +1,7 @@
 <template>
-  <div class="h-100 d-flex align-center justify-space-between">
+  <div class="h-100 d-flex align-center justify-md-start justify-center">
     <!-- 👉 Footer: left content -->
-    <span class="d-flex align-center">
+    <span class="d-flex align-center justify-center">
       &copy;
       {{ new Date().getFullYear() }}
       Made With

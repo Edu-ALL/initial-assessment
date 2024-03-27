@@ -50,7 +50,7 @@ const router = createRouter({
       path: '/admin',
       component: () => import('../layouts/admin-default.vue'),
       meta: {
-        middleware: "auth",
+        middleware: "admin",
       },
       children: [
         {
@@ -79,6 +79,7 @@ const router = createRouter({
       children: [
         {
           path: 'login',
+          name: 'admin-login',
           component: () => import('../pages/user/admin/auth/login.vue'),
         },
       ],
@@ -102,6 +103,12 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({ name: "login" })
+    }
+  } else if (to.meta.middleware == "admin") {
+    if (verify.isAuthenticated.value) {
+      next()
+    } else {
+      next({ name: "admin-login" })
     }
   } else {
     next()

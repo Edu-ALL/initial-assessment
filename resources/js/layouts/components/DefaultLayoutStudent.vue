@@ -36,7 +36,7 @@ const user = UserService.getUser()
         </IconBtn>
 
         <div
-          class="d-flex align-center"
+          class="d-md-flex align-center d-none"
           style="user-select: none;"
         >
           <!-- 👉 Search Trigger button -->
@@ -67,7 +67,7 @@ const user = UserService.getUser()
         }"
       />
       <VerticalNavLink
-        v-if="!user.client.is_vip"
+        v-if="!user.client?.is_vip && user.client?.education?.grade>=7"
         :item="{
           title: 'Assessment',
           icon: 'bx-notepad',
@@ -83,23 +83,6 @@ const user = UserService.getUser()
       />
     </template>
 
-    <template #after-vertical-nav-items>
-      <!-- 👉 illustration -->
-      <a
-        href="https://themeselection.com/item/sneat-vuetify-vuejs-laravel-admin-template"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="margin-left: 7px;"
-      >
-        <img
-          :src="upgradeBanner"
-          alt="upgrade-banner"
-          transition="scale-transition"
-          class="upgrade-banner mx-auto"
-          style="max-width: 230px;"
-        >
-      </a>
-    </template>
 
     <!-- 👉 Pages -->
     <slot />
