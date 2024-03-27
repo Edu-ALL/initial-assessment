@@ -77,13 +77,25 @@ class UserController extends Controller
         $questionAnswerAcademic = $this->getQuestionAnswerByCategory(3, $user);
         $questionAnswerWriting = $this->getQuestionAnswerByCategory(4, $user);
 
-        $mapped_answers = array_merge($questionAnswerExploration, $questionAnswerProfileBuilding, $questionAnswerAcademic, $questionAnswerWriting);
+        $questExploration = $this->getQuestionAnswerByCategory(5, $user);
+        $questProfileBuilding = $this->getQuestionAnswerByCategory(6, $user);
+        $questAcademic = $this->getQuestionAnswerByCategory(7, $user);
+        $questWriting = $this->getQuestionAnswerByCategory(8, $user);
+        $questSponsor = $this->getQuestionAnswerByCategory(9, $user);
+
+        $mapped_answers_IA = array_merge($questionAnswerExploration, $questionAnswerProfileBuilding, $questionAnswerAcademic, $questionAnswerWriting);
+
+        $mapped_answers_Quest = array_merge($questExploration, $questProfileBuilding, $questAcademic, $questWriting, $questSponsor);
+
+        $data['IA'] = $mapped_answers_IA;
+        $data['Quest'] = $mapped_answers_Quest;
 
         return response()->json([
             'success' => true,
             'data' => [
                 'user' => $mapped_user,
-                'answer' => $mapped_answers
+                'IA' => $mapped_answers_IA,
+                'Quest' => $mapped_answers_Quest
 
             ]
         ]);
@@ -101,25 +113,35 @@ class UserController extends Controller
             if ($question->sub_questions->count() > 0) {
 
                 foreach ($question->sub_questions as $sub_question) {
+                    $userAnswer = Answer::where('user_id', $user->id)->where('sub_question_id', $sub_question->id)->get();
 
                     $mapped_answers[$category_name][] = [
                         'question' => $question->title,
                         'sub_question' => $sub_question->title,
-                        'answer' => Answer::with('option')->where('user_id', $user->id)->where('sub_question_id', $sub_question->id)->get()->map(function ($value) {
-                            return $value->option->option_answer;
-                        })
+                        'answer' => [
+                            'option' => $userAnswer->map(function ($value) {
+                                return isset($value->option) ? $value->option->option_answer : null;
+                            }),
+                            'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
+                            'score' => $userAnswer->pluck('score')->toArray()
+                        ]
                     ];
                 }
 
                 continue;
             }
 
+            $userAnswer = Answer::with('option')->where('user_id', $user->id)->where('question_id', $question->id)->get();
             $mapped_answers[$category_name][] = [
                 'question' => $question->title,
                 'sub_question' => null,
-                'answer' => Answer::with('option')->where('user_id', $user->id)->where('question_id', $question->id)->get()->map(function ($value) {
-                    return $value->option->option_answer;
-                })
+                'answer' => [
+                    'option' => $userAnswer->map(function ($value) {
+                        return isset($value->option) ? $value->option->option_answer : null;
+                    }),
+                    'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
+                    'score' => $userAnswer->pluck('score')->toArray()
+                ]
             ];
         }
 
