@@ -16,12 +16,13 @@
 
         <ul>
             <b>
-                <li>Realistic:</li>
-                <li>Investigative:</li>
-                <li>Artistic:</li>
-                <li>Social:</li>
-                <li>Enterprising:</li>
-                <li>Conventional:</li>
+                <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
+                <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}
+                </li>
+                <li>Artistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][2] : null }}</li>
+                <li>Social: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][3] : null }}</li>
+                <li>Enterprising: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][4] : null }}</li>
+                <li>Conventional: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][5] : null }}</li>
             </b>
         </ul>
 

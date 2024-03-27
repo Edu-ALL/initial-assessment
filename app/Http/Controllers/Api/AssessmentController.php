@@ -404,6 +404,12 @@ class AssessmentController extends Controller
             if (count($userPoints) >= 0) {
                 switch ($category->id) {
                     case 1:
+                        $major = Answer::with('option')->where('user_id', $user_id)->where('sub_question_id', 1)->get();
+                        $country = Answer::with('option')->where('user_id', $user_id)->where('question_id', 6)->get();
+                        $university = Answer::where('user_id', $user_id)->where('question_id', 7)->get();
+                        $result[1]['major'] = implode(', ', $major->pluck('option.option_answer')->toArray());
+                        $result[1]['country'] = implode(', ', $country->pluck('option.option_answer')->toArray());
+                        $result[1]['university'] = implode(', ', $university->pluck('answer_descriptive')->toArray());
                         $result[1]['is_surpass'] = $userPoints->sum('point') >= 20 ? true : false;
                         $result[1][1] = $userPoints->where('sub_question_id', 1)->sum('point') < 2 ? true : false;
                         $result[1][2] = $userPoints->where('question_id', 2)->sum('point') < 5 ? true : false;
@@ -438,6 +444,7 @@ class AssessmentController extends Controller
                 $result[$category->id] = 500;
             }
         }
+
 
         return $result;
     }
@@ -496,6 +503,11 @@ class AssessmentController extends Controller
             if (count($userPoints) >= 0) {
                 switch ($category->id) {
                     case 5:
+                        $onet = Answer::with('option')->where('user_id', $user_id)->where('question_id', 21)->get();
+                        $result[1]['onet'] = $onet->map(function ($value) {
+                            return isset($value->option) ? $value->score : null;
+                        });
+
                         $result[1][1] = $userPoints->where('question_id', 21)->sum('point') == 2 ? true : false;
                         $result[1][2] = $userPoints->where('question_id', 22)->sum('point') == 2 ? true : false;
                         break;
