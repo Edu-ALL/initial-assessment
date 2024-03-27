@@ -1,6 +1,11 @@
 <script setup>
-const route = useRoute()
+import { watch } from "vue"
 
+const props = defineProps({
+  data: Object,
+})
+
+const route = useRoute()
 const activeTab = ref(route.params.tab)
 
 // tabs
@@ -27,8 +32,10 @@ const tabs = [
   },
 ]
 
+const questions = ref(props.data['Exploration'])
+
 const checkAssessment = tab => {
-  console.log(tab)
+  questions.value = props.data[tab]
 }
 </script>
 
@@ -71,8 +78,8 @@ const checkAssessment = tab => {
         <VTab
           v-for="item in tabs"
           :key="item.icon"
-          :value="item.tab"
-          @click="checkAssessment(item.tab)"
+          :value="item.title"
+          @click="checkAssessment(item.title)"
         >
           <VIcon
             size="20"
@@ -102,14 +109,24 @@ const checkAssessment = tab => {
         </thead>
         <tbody>
           <tr
-            v-for="item in 10"
-            :key="item"
+            v-for="item, index in questions"
+            :key="index"
           >
-            <td class="text-center">
-              {{ item }}
+            <td
+              class="text-center"
+              width="1%"
+            >
+              {{ index + 1 }}
             </td>
-            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis quas quisquam, tenetur enim aliquam accusantium odit officiis sequi corporis</td>
-            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo sint minus consectetur quisquam quibusdam provident architecto facere optio temporibus eius voluptates dolorem qui officia fugit, quaerat animi natus doloribus reiciendis?</td>
+            <td width="60%">
+              {{ item.question }} <br>
+              <small class="text-secondary">
+                {{ item.sub_question }}
+              </small>
+            </td>
+            <td>
+              {{ item.answer.length > 0 ? item.answer : '-' }}
+            </td>
           </tr>
         </tbody>
       </VTable>

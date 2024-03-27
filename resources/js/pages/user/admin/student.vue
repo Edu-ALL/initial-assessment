@@ -169,7 +169,7 @@ onMounted(() => {
               </div>
             </td>
             <td class="text-center">
-              <RouterLink :to="{name:'student-detail',params:{id:2132}}"> 
+              <RouterLink :to="{name:'student-detail',params:{id:item.uuid}}"> 
                 <VTooltip
                   color="success"
                   activator="parent"
