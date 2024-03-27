@@ -5,14 +5,14 @@
 
     <div class="content">
 
-        @include('report.Quest.component.exploration')
         @if ($reports['checkListQuest']['Exploration'])
+            @include('report.Quest.component.exploration')
         @endif
-        @include('report.Quest.component.profile-building')
         @if ($reports['checkListQuest']['Profile Building'])
+            @include('report.Quest.component.profile-building')
         @endif
-        @include('report.Quest.component.academic-profiling')
         @if ($reports['checkListQuest']['Academic Profiling'])
+            @include('report.Quest.component.academic-profiling')
         @endif
         @if ($reports['checkListQuest']['Writing'])
             @include('report.Quest.component.writing')

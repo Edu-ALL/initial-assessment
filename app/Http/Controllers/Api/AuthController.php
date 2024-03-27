@@ -93,81 +93,115 @@ class AuthController extends Controller
 
     private function getClientInfo($ticket_no, $user = null)
     {
+        $checkUser = User::where('ticket_id', $ticket_no)->first();
 
-        # can be customized depends on the endpoint
-        $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$ticket_no}";
+        if (!isset($checkUser)) {
+            # can be customized depends on the endpoint
+            $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$ticket_no}";
 
-        # create 
-        $response = Http::get($endpoint);
+            # create 
+            $response = Http::get($endpoint);
 
-        # catch when sending the request to $endpoints failed
-        if ($response->failed()) {
-            throw new Exception('Cannot process the request. Please try another ticket number.');
+            # catch when sending the request to $endpoints failed
+            if ($response->failed()) {
+                throw new Exception('Cannot process the request. Please try another ticket number.');
+            }
+
+            # catch the success if request to $endpoints failed but not giving 500 error code
+            if ($response['success'] === false)
+                throw new Exception($response['message']);
+
+
+            $data = $response->collect('data')->map(function ($value) use ($user) {
+
+                $userId = $user !== NULL ? $user->id : null;
+
+                if (array_key_exists('id', $value)) {
+                    $value['id'] =  $userId;
+                }
+
+                if (array_key_exists('took_initial_assessment', $value)) {
+                    $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_quest'] = $user != null ? $user->took_quest : 0;
+                }
+
+
+
+                return $value;
+            });
+
+            if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
+
+                # insert user into edu all assessment db
+                $user = new User();
+                $user->uuid = Str::uuid();
+                $user->ticket_id = $data['clientevent']['ticket_id'];
+                $user->full_name =  $data['client']['full_name'];
+                $user->email = $data['client']['email'];
+                $user->phone_number = $data['client']['phone'];
+                $user->state = $data['client']['address']['state'];
+                $user->city = $data['client']['address']['city'];
+                $user->address = $data['client']['address']['address'];
+                $user->school = $data['client']['education']['school'];
+                $user->grade = $data['client']['education']['grade'];
+                $user->destination = json_encode($data['client']['country']);
+                $user->is_vip = $data['client']['is_vip'];
+                $user->took_ia = $data['client']['took_initial_assessment'];
+                $user->created_at = Carbon::now();
+                $user->save();
+            }
+
+            $data = $response->collect('data')->map(function ($value) use ($user) {
+
+                $userId = $user !== NULL ? $user->id : null;
+
+                if (array_key_exists('id', $value)) {
+                    $value['id'] =  $userId;
+                }
+
+                if (array_key_exists('took_initial_assessment', $value)) {
+                    $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_quest'] = $user != null ? $user->took_quest : 0;
+                }
+
+
+                return $value;
+            });
+
+            $data['quest'] = $this->answerRepository->checklistQuest($user->id);
+            # manipulate the user took_initial_assessment
+        } else {
+            $data['data'] = [
+                'client' => [
+                    'is_vip' => $checkUser->is_vip,
+                    'took_initial_assessment' => $checkUser->took_ia,
+                    'full_name' => $checkUser->full_name,
+                    'email' => $checkUser->email,
+                    'phone' => $checkUser->phone_number,
+                    'address' => [
+                        'state' => $checkUser->state,
+                        'city' => $checkUser->city,
+                        'address' => $checkUser->address,
+                    ],
+                    'education' => [
+                        'school' => $checkUser->school,
+                        'grade' => $checkUser->grade,
+                    ],
+                    'country' => $checkUser->destination != null ? $checkUser->destination : [
+                        null
+                    ],
+                    'took_quest' => $checkUser->took_quest
+                ],
+                'client_event' => [
+                    'id' => null,
+                    'ticket_id' => $checkUser->ticket_id
+                ]
+            ];
+
+            $data['quest'] = $this->answerRepository->checklistQuest($checkUser->id);
+
+            $user = $checkUser;
         }
-
-        # catch the success if request to $endpoints failed but not giving 500 error code
-        if ($response['success'] === false)
-            throw new Exception($response['message']);
-
-
-        $data = $response->collect('data')->map(function ($value) use ($user) {
-
-            $userId = $user !== NULL ? $user->id : null;
-
-            if (array_key_exists('id', $value)) {
-                $value['id'] =  $userId;
-            }
-
-            if (array_key_exists('took_initial_assessment', $value)) {
-                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
-                $value['took_quest'] = $user != null ? $user->took_quest : 0;
-            }
-
-
-
-            return $value;
-        });
-
-        if (!$user = User::where('ticket_id', $data['clientevent']['ticket_id'])->first()) {
-
-            # insert user into edu all assessment db
-            $user = new User();
-            $user->uuid = Str::uuid();
-            $user->ticket_id = $data['clientevent']['ticket_id'];
-            $user->full_name =  $data['client']['full_name'];
-            $user->email = $data['client']['email'];
-            $user->phone_number = $data['client']['phone'];
-            $user->state = $data['client']['address']['state'];
-            $user->city = $data['client']['address']['city'];
-            $user->address = $data['client']['address']['address'];
-            $user->school = $data['client']['education']['school'];
-            $user->grade = $data['client']['education']['grade'];
-            $user->destination = json_encode($data['client']['country']);
-            $user->is_vip = $data['client']['is_vip'];
-            $user->took_ia = $data['client']['took_initial_assessment'];
-            $user->created_at = Carbon::now();
-            $user->save();
-        }
-
-        $data = $response->collect('data')->map(function ($value) use ($user) {
-
-            $userId = $user !== NULL ? $user->id : null;
-
-            if (array_key_exists('id', $value)) {
-                $value['id'] =  $userId;
-            }
-
-            if (array_key_exists('took_initial_assessment', $value)) {
-                $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
-                $value['took_quest'] = $user != null ? $user->took_quest : 0;
-            }
-
-
-            return $value;
-        });
-
-        $data['quest'] = $this->answerRepository->checklistQuest($user->id);
-        # manipulate the user took_initial_assessment
 
         return [
             'response' => $data,
