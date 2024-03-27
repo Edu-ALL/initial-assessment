@@ -81,7 +81,7 @@ watch(() => {
       </div> 
     </section>
    
-    <section v-if="result && !loading && user.client.took_quest==0">
+    <section v-if="result && !loading && user.client?.took_quest==0">
       <VCard
         color="primary"
         class="mb-3"
@@ -124,7 +124,7 @@ watch(() => {
       </div>
     </section>
     
-    <section v-if="result && !loading && user.client.took_quest==1">
+    <section v-if="result && !loading && user.client?.took_quest==1">
       <VCard class="position-relative overflow-hidden">
         <VCardText>
           <h2

@@ -27,7 +27,7 @@ const downloadPdf = async () => {
       md="6"
     >
       <VCard
-        v-if="user.client.took_initial_assessment"
+        v-if="user.client?.took_initial_assessment"
         class="text-center text-sm-start mb-4"
       >
         <VRow no-gutters>
@@ -39,7 +39,7 @@ const downloadPdf = async () => {
           >
             <VCardItem>
               <h3>
-                Congratulations {{ user.client.full_name }}! 🎉
+                Congratulations {{ user.client?.full_name }}! 🎉
               </h3>
             </VCardItem>
 
