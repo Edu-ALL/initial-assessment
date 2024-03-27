@@ -441,4 +441,84 @@ class AssessmentController extends Controller
 
         return $result;
     }
+
+    public function getReportQuest(Request $request)
+    {
+        $validator = Validator::make($request->route()->parameters(), [
+            'user' => 'required|exists:users,id',
+        ]);
+
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()->all()]);
+
+
+        try {
+            // $user = auth()->guard('api')->user();
+            $user = User::find($request->user);
+
+
+            $reports = $this->checkReportQuest($user->id);
+
+            if (in_array(500, $reports)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Data answer not found",
+                ], 500);
+            }
+
+            $pdf = Pdf::loadView('report.Quest.report', ['reports' => $reports, 'user' => $user]);
+
+            // $pdf = Pdf::loadView('report.IA.report', ['reports' => $reports, 'user' => $user]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "failed to download report Quest " . $e->getMessage() . ' Line ' . $e->getLine()
+            ], 500);
+        }
+
+
+        // return $pdf->stream('report.pdf', array("Attachment" => false));
+        // exit(0);
+        return $pdf->download('report-quest.pdf');
+    }
+
+    protected function checkReportQuest($user_id)
+    {
+
+        $result['checkListQuest'] = $this->answerRepository->checklistQuest($user_id);
+
+        $categories = Category::where('id', '>', 4)->get();
+        foreach ($categories as $category) {
+            $userPoints = UserPoint::where('user_id', $user_id)->whereHas('question', function ($query) use ($category) {
+                $query->where('category_id', $category->id);
+            })->get();
+
+            if (count($userPoints) >= 0) {
+                switch ($category->id) {
+                    case 5:
+                        $result[1][1] = $userPoints->where('question_id', 21)->sum('point') == 2 ? true : false;
+                        $result[1][2] = $userPoints->where('question_id', 22)->sum('point') == 2 ? true : false;
+                        break;
+
+                    case 6:
+                        $result[2][1] = $userPoints->where('question_id', 23)->sum('point') == 1 ? true : false;
+                        $result[2][2] = $userPoints->where('question_id', 24)->sum('point') == 1 ? true : false;
+                        break;
+
+                    case 7:
+                        $result[3][1] = $userPoints->where('question_id', 25)->sum('point') == 1 ? true : false;
+                        $result[3][2] = $userPoints->where('question_id', 26)->sum('point') == 1 ? true : false;
+                        break;
+
+                    case 8:
+                        $result[4][1] = $userPoints->where('question_id', 27)->sum('point') == 1 ? true : false;
+                        $result[4][2] = $userPoints->where('question_id', 28)->sum('point') == 1 ? true : false;
+                }
+            } else {
+                $result[$category->id] = 500;
+            }
+        }
+
+        return $result;
+    }
 }
