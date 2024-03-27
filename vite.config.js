@@ -60,7 +60,6 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'public/dist',
     chunkSizeWarningLimit: 5000,
   },
   optimizeDeps: {
