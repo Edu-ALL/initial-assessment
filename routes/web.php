@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('report', [AssessmentController::class, 'getReport']);
+// Route::get('report_quest', [AssessmentController::class, 'getReportQuest']);
 
 Route::get('{any?}', function () {
     return view('application');
