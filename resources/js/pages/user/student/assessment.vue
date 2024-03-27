@@ -23,7 +23,7 @@ const checkEmit = value => {
 
 onMounted(() => {
   setTimeout(() => {
-    if(UserService.getUser().client.took_initial_assessment == 1) {
+    if(UserService.getUser().client?.took_initial_assessment == 1) {
       step.value=6
     }
     
