@@ -132,55 +132,75 @@
             {{-- Based on score --}}
             @if ($reports[3][2])
                 <div class="based-on-score">
-                    <div class="low-score">
-                        <p>
-                            With this score, there is a slight probability you can be accepted in some low-competitive
-                            universities (taking into account other aspects like your profile and essays are
-                            exceptional).
-                        </p>
-                        <p>
-                            However, it’s time to also be realistic and search for alternative options!
-                        </p>
-                        <p>
-                            Other choices that you can do is going to community college, doing a gap year, or taking
-                            foundation
-                            classes first before continuing on to university.
-                        </p>
-                        <p>
-                            Don’t worry! There are many benefits to this, not only are class sizes much smaller and the
-                            schedule
-                            is more flexible, but by doing this you will actually be more prepared for entering
-                            university
-                            later
-                            on.
-                        </p>
-                    </div>
-
-                    <div class="mid-score">
-                        <p>
-                            The score you have received is fairly decent and above average. With this score, it will be
-                            easier
-                            to apply for admission to normal universities/ colleges.
-                        </p>
-                    </div>
-
-                    <div class="high-score">
-                        <p>
-                            This is already considered a good score. It shows that you have worked hard to pass the IBDP
-                            or
-                            A-Level
-                            and you are an intelligent person. Although it is not a top-type result, you are still
-                            considered in
-                            the
-                            top 30% of all who completed the program. Keep on striving to maintain and improve these
-                            scores!
-                        </p>
-                    </div>
+                    <table class="table-detail">
+                        <tr>
+                            <th>Score</th>
+                            <th>Information</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Score IB: < 30 </p>
+                                        <p>
+                                            Score Cambridge: Hanya ada C kebawah
+                                        </p>
+                                        Score Kurnas: < 70 </td>
+                            <td>
+                                <p>
+                                    With this score, there is a slight probability you can be accepted in some
+                                    low-competitive universities (taking into account other aspects like your profile
+                                    and essays are exceptional).
+                                </p>
+                                <p>
+                                    However, it’s time to also be realistic and search for alternative options!
+                                </p>
+                                <p>
+                                    Other choices that you can do is going to community college, doing a gap year, or
+                                    taking foundation classes first before continuing on to university.
+                                </p>
+                                <p>
+                                    Don’t worry! There are many benefits to this, not only are class sizes much smaller
+                                    and the schedule is more flexible, but by doing this you will actually be more
+                                    prepared for entering university later on.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Score IB: 30 - 35 </p>
+                                <p>
+                                    Score Cambridge: Ada B and C (jadi BBC, ABC)
+                                </p>
+                                Score Kurnas: 70-85
+                            </td>
+                            <td>
+                                <p>
+                                    The score you have received is fairly decent and above average. With this score, it
+                                    will be easier to apply for admission to normal universities/ colleges.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Score IB: 34,5 </p>
+                                <p>
+                                    Score Cambridge: BBB
+                                </p>
+                                Score Kurnas: < 85 </td>
+                            <td>
+                                <p>
+                                    This is already considered a good score. It shows that you have worked hard to pass
+                                    the IBDP or A-Level and you are an intelligent person. Although it is not a top-type
+                                    result, you are still considered in the top 30% of all who completed the program.
+                                    Keep on striving to maintain and improve these scores!
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             @endif
 
             {{-- additional tips --}}
-            <div class="additional-tips">
+            <div class="additional-tips mt-3">
                 <ul class="list-lower-latin">
                     Some additional tips:
                     <li>

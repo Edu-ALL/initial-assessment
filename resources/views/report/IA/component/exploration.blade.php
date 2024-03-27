@@ -1,4 +1,4 @@
-<div class="category-0">
+<div class="category">
     <div class="text-center mt-3 mb-4">
         <h5>Exploration</h5>
     </div>

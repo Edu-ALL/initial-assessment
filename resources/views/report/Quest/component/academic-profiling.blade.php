@@ -218,7 +218,7 @@
                     section</b>, you consulted with our head of tutoring and came up with your own results as follows!
             </p>
 
-            <p>==JAWABAN MEREKA==</p>
+            <p><b><u>{{ $reports[3]['subject_selection'] }}</u></b></p>
 
             <P>
                 As you know, universities from the UK, Australia, and even from Asian countries take academic scores

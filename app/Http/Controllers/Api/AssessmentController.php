@@ -518,6 +518,9 @@ class AssessmentController extends Controller
                         break;
 
                     case 7:
+                        $subject_selection = Answer::where('user_id', $user_id)->where('question_id', 26)->first();
+                        $result[3]['subject_selection'] = isset($subject_selection) ? $subject_selection->answer_descriptive : '';
+
                         $result[3][1] = $userPoints->where('question_id', 25)->sum('point') == 1 ? true : false;
                         $result[3][2] = $userPoints->where('question_id', 26)->sum('point') == 1 ? true : false;
                         break;
