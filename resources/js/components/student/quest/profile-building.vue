@@ -17,7 +17,23 @@ const inputData = ref([
     answer: [],
   },
   {
+    answer: [{
+      id: null,
+      question_id: 23,
+      sub_question_id: 32,
+      answer_descriptive: "",
+    }],
+  },
+  {
     answer: [],
+  },
+  {
+    answer: [{
+      id: null,
+      question_id: 24,
+      sub_question_id: 34,
+      answer_descriptive: "",
+    }],
   },
 ])
 
@@ -67,9 +83,11 @@ const resetRadio = () => {
   const mission_choosed = mission.value
 
   if(mission_choosed==1) {
-    inputData.value[1].answer = []
+    inputData.value[2].answer = []
+    inputData.value[3].answer[0].answer_descriptive = null
   } else {
     inputData.value[0].answer = []
+    inputData.value[1].answer[0].answer_descriptive = null
   }
 }
 
@@ -147,11 +165,11 @@ watch(() => {
                   />
                 </VRadioGroup>
               </li>
-              <li v-if="inputData[0].answer[0]">
+              <li>
                 How do you think you can use your skills and/or interests to contribute to their causes?
                 <span style="color:red">*</span> 
                 <VTextarea
-                  v-model="inputData[0].answer[0].answer_descriptive"
+                  v-model="inputData[1].answer[0].answer_descriptive"
                   label="Description"
                   density="compact"
                   class="mt-3"
@@ -176,7 +194,7 @@ watch(() => {
                 What topic did you learn about in this area?
                 <span style="color:red">*</span> 
                 <VRadioGroup
-                  v-model="inputData[1].answer[0]" 
+                  v-model="inputData[2].answer[0]" 
                   :rules="rules.required"
                 >
                   <VRadio
@@ -187,11 +205,11 @@ watch(() => {
                   />
                 </VRadioGroup>
               </li>
-              <li v-if="inputData[1].answer[0]">
+              <li>
                 From your observation, what potential project can you think of?
                 <span style="color:red">*</span> 
                 <VTextarea
-                  v-model="inputData[1].answer[0].answer_descriptive"
+                  v-model="inputData[3].answer[0].answer_descriptive"
                   label="Description"
                   density="compact"
                   class="mt-3"

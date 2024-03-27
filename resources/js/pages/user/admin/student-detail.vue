@@ -2,8 +2,8 @@
 import { showNotif } from '@/helper/notification'
 import router from '@/router'
 import ApiService from '@/services/ApiService'
-import Assessment from '@/views/pages/student/assessment.vue'
-import Quest from '@/views/pages/student/quest.vue'
+import Assessment from '@/components/admin/assessment.vue'
+import Quest from '@/components/admin/quest.vue'
 import avatar from '@images/avatars/avatar.png'
 import { onMounted } from 'vue'
 import moment from 'moment'
@@ -164,7 +164,7 @@ onMounted(() => {
           >
             <!-- Assessment -->
             <VWindowItem value="assessment">
-              <Assessment :data="client.answer" />
+              <Assessment :data="client['IA']" />
             </VWindowItem>
   
             <!-- Quest -->
@@ -172,7 +172,7 @@ onMounted(() => {
               value="quest"
               class="pt-0"
             >
-              <Quest />
+              <Quest :data="client['Quest']" />
             </VWindowItem>
           </VWindow>
         </VCardText>

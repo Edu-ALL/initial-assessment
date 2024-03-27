@@ -19,6 +19,14 @@ const inputData = ref([
   {
     answer: [],
   },
+  {
+    answer: [{
+      id: null,
+      question_id: 22,
+      sub_question_id: 30,
+      answer_descriptive: "",
+    }],
+  },
 ])
 
 const getOptions =  async() => {
@@ -69,6 +77,7 @@ const resetRadio = () => {
 
   if(mission_choosed==1) {
     inputData.value[1].answer = []
+    inputData.value[2].answer[0].answer_descriptive = null
   } else {
     for (let index = 0; index < 6; index++) {
       inputData.value[0].answer[index].score = null      
@@ -186,11 +195,11 @@ watch(() => {
                   />
                 </VRadioGroup>
               </li>
-              <li v-if="inputData[1].answer[0]">
+              <li>
                 Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
                 <span style="color:red">*</span>
                 <VTextarea
-                  v-model="inputData[1].answer[0].answer_descriptive"
+                  v-model="inputData[2].answer[0].answer_descriptive"
                   label="Reflection"
                   density="compact"
                   class="mt-3"
