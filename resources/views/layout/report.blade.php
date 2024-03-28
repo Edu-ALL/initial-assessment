@@ -16,6 +16,34 @@
             /* create space for footer */
         }
 
+        @import url('https://fonts.cdnfonts.com/css/ambit');
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Ambit', sans-serif !important;
+        }
+
+        .category h5 {
+            font-family: 'Ambit', sans-serif !important;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+
+        p {
+            font-size: 11px !important;
+            margin-bottom: 8px !important;
+        }
+
+        ul li {
+            font-size: 11px !important;
+        }
+
         header,
         footer {
             position: fixed;
@@ -31,6 +59,7 @@
 
         footer {
             /* height: auto; */
+            left: -50px !important;
             margin-bottom: -100px !important;
             bottom: 0;
         }
@@ -47,19 +76,6 @@
             list-style-type: lower-roman;
         }
 
-        /* .category {
-            page-break-after: always;
-        }
-
-        .category:first-of-type {
-            page-break-before: avoid;
-        }
-
-        .category:last-of-type {
-            page-break-after: avoid;
-
-        } */
-
         table {
             border-collapse: collapse;
             margin-top: 10px;
@@ -67,8 +83,9 @@
 
         table tr td,
         th {
-            padding: 4px;
+            padding: 7px;
             line-height: 1.5;
+            font-size: 11px !important;
         }
 
         .table-detail th {
@@ -95,7 +112,7 @@
     </header>
 
     <footer>
-        <img src="{{ public_path('img/pdf/edu-all-footer.webp') }}" width="100%">
+        <img src="{{ public_path('img/pdf/edu-all-footer.webp') }}" width="120%">
     </footer>
 
     <main>

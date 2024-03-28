@@ -10,9 +10,9 @@ const checkStep = value => {
 
 <template>
   <!-- Intro  -->
-  <VCard color="primary">
+  <VCard style="border-bottom:10px solid #0000FF">
     <VCardTitle class="mb-4">
-      <h3 class="text-white text-wrap text-xl text-md-h5 mt-4">
+      <h3 class="text-wrap text-xl text-md-h5 mt-4">
         <strong>
           Initial Assessment
         </strong>

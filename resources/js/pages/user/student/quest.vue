@@ -57,6 +57,12 @@ const checkQuest = () => {
   is_completed.value = Object.values(quest).every(value => value === true)
 }
 
+const downloadPdf = () => {
+  const id = user.value.client?.id
+
+  window.open('/api/report_quest/'+id, '_blank')
+}
+
 watch(() => {
   checkQuest()
   getRank()
@@ -83,11 +89,11 @@ watch(() => {
    
     <section v-if="result && !loading && user.client?.took_quest==0">
       <VCard
-        color="primary"
+        style="border-bottom:10px solid #0000FF"
         class="mb-3"
       >
         <VCardTitle class="mb-4">
-          <h3 class="text-white text-wrap text-xl text-md-h5 mt-4">
+          <h3 class="text-wrap text-xl text-md-h5 mt-4 mb-2">
             <strong>
               Welcome to EduALL Quest: Your Path, Your Choice!
             </strong>
@@ -106,12 +112,27 @@ watch(() => {
           :key="index"
           class="w-100 my-1"
         >
-          <Exploration v-if="item.category=='Exploration'" />
-          <ProfileBuilding v-if="item.category=='Profile Building'" />
-          <Academic v-if="item.category=='Academic'" />
-          <Writing v-if="item.category=='Writing'" />
+          <Exploration
+            v-if="item.category=='Exploration'"
+            style="border-left:4px solid #0000FF"
+          />
+          <ProfileBuilding
+            v-if="item.category=='Profile Building'"
+            style="border-left:4px solid #0000FF"
+          />
+          <Academic
+            v-if="item.category=='Academic'"
+            style="border-left:4px solid #0000FF"
+          />
+          <Writing
+            v-if="item.category=='Writing'"
+            style="border-left:4px solid #0000FF"
+          />
         </div>
-        <Sponsor class="w-100 my-1" />
+        <Sponsor
+          class="w-100 my-1"
+          style="border-left:4px solid #0000FF"
+        />
       </VExpansionPanels>
   
       <div class="w-100 d-flex justify-center mt-8">
@@ -125,7 +146,10 @@ watch(() => {
     </section>
     
     <section v-if="result && !loading && user.client?.took_quest==1">
-      <VCard class="position-relative overflow-hidden">
+      <VCard
+        class="position-relative overflow-hidden"
+        style="border-bottom:10px solid #0000FF"
+      >
         <VCardText>
           <h2
             class="mb-md-8 mb-5"
@@ -140,6 +164,7 @@ watch(() => {
             v-if="!is_completed"
             color="secondary"
             class="mb-md-7 mb-5"
+            @click="downloadPdf"
           >
             Get Your Free Personalized Report
           </VBtn>
