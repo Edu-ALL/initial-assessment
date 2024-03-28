@@ -34,7 +34,7 @@ class QuestSubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'score',
-                'total_point' => 2,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 6
             ],
@@ -47,7 +47,7 @@ class QuestSubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'option',
                 'point_type' => 'sub_question',
-                'total_point' => 2,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 6
             ],
@@ -59,7 +59,7 @@ class QuestSubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'description',
-                'total_point' => 2,
+                'total_point' => 1,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
@@ -71,8 +71,8 @@ class QuestSubQuestionSeeder extends Seeder
                 'description' => NULL,
                 'question_type' => 'optional',
                 'answer_type' => 'option',
-                'point_type' => 'description',
-                'total_point' => 1,
+                'point_type' => 'no_point',
+                'total_point' => 0,
                 'minimum_answer' => 1,
                 'maximum_answer' => 3
             ],
