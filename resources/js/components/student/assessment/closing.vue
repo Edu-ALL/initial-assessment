@@ -25,7 +25,7 @@ watch(() => {
 
 <template>
   <!-- Intro  -->
-  <VCard>
+  <VCard style="border-bottom:10px solid #0000FF">
     <VCardText>
       <h2 class="mb-4">
         And thus the quiz has ended! 

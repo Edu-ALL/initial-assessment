@@ -160,14 +160,19 @@ watch(() => {
         <VDivider />
       </VCardTitle>
       <VCardText>
-        <div class="bg-primary px-3 py-3 rounded">
-          <h3 class="text-white mb-3">
-            How well can you explain yourself through writing?
-          </h3>
-          <p class="mb-0">
-            This area aims to prepare you on what will be expected of your university application essays, as they are the one way you get to show the university who you are beyond your academics—what your interests are, what your personality is like, and why you're a great fit for them.
-          </p>
-        </div>
+        <VCard
+          style="border-left:4px solid #0000FF"
+          class="mb-4"
+        >
+          <VCardText>
+            <h3 class="mb-3">
+              How well can you explain yourself through writing?
+            </h3>
+            <p class="mb-0">
+              This area aims to prepare you on what will be expected of your university application essays, as they are the one way you get to show the university who you are beyond your academics—what your interests are, what your personality is like, and why you're a great fit for them.
+            </p>
+          </VCardText>
+        </VCard>
 
         <ol
           type="1"

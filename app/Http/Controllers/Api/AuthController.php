@@ -175,7 +175,7 @@ class AuthController extends Controller
                 'client' => [
                     'id' => $checkUser->id,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
-                    'took_initial_assessment' => intval($checkUser->took_ia),
+                    'took_initial_assessment' => $this->answerRepository->haveFilledInitialAssessment($checkUser->id) ? 1 : 0,
                     'full_name' => $checkUser->full_name,
                     'email' => $checkUser->email,
                     'phone' => $checkUser->phone_number,

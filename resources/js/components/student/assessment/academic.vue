@@ -218,14 +218,19 @@ watch(() => {
         <VDivider />
       </VCardTitle>
       <VCardText>
-        <div class="bg-primary px-3 py-3 rounded mb-5">
-          <h3 class="text-white mb-3">
-            What subjects will be beneficial for your intended major?
-          </h3>
-          <p class="mb-0">
-            This area aims to understand better what academic profile you will need when applying to university, as they measure your understanding and analytical skill in specific subjects such as language, mathematics, science, social science, etc.
-          </p>
-        </div>
+        <VCard
+          style="border-left:4px solid #0000FF"
+          class="mb-4"
+        >
+          <VCardText>
+            <h3 class="mb-3">
+              What subjects will be beneficial for your intended major?
+            </h3>
+            <p class="mb-0">
+              This area aims to understand better what academic profile you will need when applying to university, as they measure your understanding and analytical skill in specific subjects such as language, mathematics, science, social science, etc.
+            </p>
+          </VCardText>
+        </VCard>
 
         <ol
           type="1"
@@ -294,8 +299,13 @@ watch(() => {
                 <VRow
                   v-for="item in inputData[1].answer"
                   :key="item"
+                  class="my-3"
                 >
-                  <VCol :cols="inputData[0].answer[0].id == 122 ? 8: 10">
+                  <VCol
+                    :md="inputData[0].answer[0].id == 122 ? 8: 10"
+                    cols="12"
+                    style="padding:5px !important"
+                  >
                     <VTextField
                       v-model="item.option_answer"
                       label="Subject"
@@ -305,7 +315,9 @@ watch(() => {
                   </VCol>
                   <VCol
                     v-if="inputData[0].answer[0].id == 122"
-                    cols="2"
+                    md="2"
+                    :cols="6"
+                    style="padding:5px !important"
                   >
                     <VSelect
                       v-model="item.answer_descriptive"
@@ -314,7 +326,11 @@ watch(() => {
                       :items="['HL','SL']"
                     />
                   </VCol>
-                  <VCol cols="2">
+                  <VCol
+                    md="2"
+                    :cols="inputData[0].answer[0].id == 122 ? 6: 12"
+                    style="padding:5px !important"
+                  >
                     <VTextField
                       v-model="item.score"
                       density="compact"

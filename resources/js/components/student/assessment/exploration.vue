@@ -171,15 +171,19 @@ watch(() => {
         <VDivider />
       </VCardTitle>
       <VCardText>
-        <div class="bg-primary px-3 py-3 rounded mb-5">
-          <h3 class="text-white mb-3">
-            How well have you explored yourself? 
-          </h3>
-          <p class="mb-0">
-            This area aims to understand your personality, values, interests, and skills/aptitudes that will help you develop your career plan and decide what is best for your future!
-          </p>
-        </div>
-
+        <VCard
+          style="border-left:4px solid #0000FF"
+          class="mb-4"
+        >
+          <VCardText>
+            <h3 class="mb-3">
+              How well have you explored yourself? 
+            </h3>
+            <p class="mb-0">
+              This area aims to understand your personality, values, interests, and skills/aptitudes that will help you develop your career plan and decide what is best for your future!
+            </p>
+          </VCardText>
+        </VCard>
         <ol
           type="1"
           class="ms-5"

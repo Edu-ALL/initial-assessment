@@ -46,8 +46,6 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
-  console.log(inputData.value)
-
   const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
   if (confirmed) {
     // Lakukan pengiriman data
@@ -202,6 +200,7 @@ watch(() => {
                 Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
                 <span style="color:red">*</span>
                 <VTextarea
+                  v-if="inputData[2].answer[0]"
                   v-model="inputData[2].answer[0].answer_descriptive"
                   label="Reflection"
                   density="compact"

@@ -2,179 +2,179 @@
     <div class="text-center mt-3 mb-4">
         <h5>Exploration</h5>
     </div>
-    {{-- @if ($reports[1][1]) --}}
-    <div class="onet">
-        <p>
-            Starting off with the exploration area, you took a profiler test called ONE*T which can help you
-            discover
-            the type of work activities and occupations that you might find exciting.
-        </p>
+    @if ($reports[1][1])
+        <div class="onet">
+            <p>
+                Starting off with the exploration area, you took a profiler test called ONE*T which can help you
+                discover
+                the type of work activities and occupations that you might find exciting.
+            </p>
 
-        <p>
-            <b>Based on your test</b> here were the result:
-        </p>
+            <p>
+                <b>Based on your test</b> here were the result:
+            </p>
 
-        <ul>
-            <b>
-                <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
-                <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}
-                </li>
-                <li>Artistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][2] : null }}</li>
-                <li>Social: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][3] : null }}</li>
-                <li>Enterprising: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][4] : null }}</li>
-                <li>Conventional: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][5] : null }}</li>
-            </b>
-        </ul>
+            <ul>
+                <b>
+                    <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
+                    <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}
+                    </li>
+                    <li>Artistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][2] : null }}</li>
+                    <li>Social: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][3] : null }}</li>
+                    <li>Enterprising: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][4] : null }}</li>
+                    <li>Conventional: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][5] : null }}</li>
+                </b>
+            </ul>
 
-        <p>
-            While this shows what you tend to gravitate towards, it shouldn’t limit you in exploring more about
-            yourself!
-        </p>
+            <p>
+                While this shows what you tend to gravitate towards, it shouldn’t limit you in exploring more about
+                yourself!
+            </p>
 
-        <table class="table-detail">
-            <tr>
-                <th></th>
-                <th>Realistic</th>
-                <th>Investigative</th>
-                <th>Artistic</th>
-                <th>Social</th>
-                <th>Enterprising</th>
-                <th>Conventional</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td>You are a practical and hands-on person who enjoys working with tools, machines, or physical
-                    activities.</td>
-                <td>You are an analytical and curious individual who enjoys solving problems through research and
-                    intellectual pursuits.</td>
-                <td>You are a creative and expressive person who enjoy using imagination and artistic skills</td>
-                <td>You are a compassionate and people-oriented person who enjoy helping and interacting with others
-                <td>You are an ambitious and persuasive individual who likes to lead and influence other people
-                </td>
-                <td>You are a detail-oriented and organized individual who likes to work with data, systems, and
-                    established procedures
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Personality
-                </td>
-                <td>
-                    modest, pratical, frank, mechanical
-                </td>
-                <td>
-                    analytical, independent, logical, scientific
-                </td>
-                <td>
-                    imaginative, intuitive, original
-                </td>
-                <td>
-                    helpful, sociable, supportive, empathic
-                </td>
-                <td>
-                    adventurous, energetic, assertive
-                </td>
-                <td>
-                    careful, orderly, systematic
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Values
-                </td>
-                <td>
-                    tradition, results, practicality
-                </td>
-                <td>
-                    knowledge, intellectual challenge
-                </td>
-                <td>
-                    aesthetics, self-expression, creativity
-                </td>
-                <td>
-                    helping others, cooperation, relationships
-                </td>
-                <td>
-                    achievement, power, recognition
-                </td>
-                <td>
-                    order, efficiency, accuracy
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Work Activity
-                </td>
-                <td>
-                    fixing/repairing things, building, operating machines
-                </td>
-                <td>
-                    collecting data, experimenting, doing research
-                </td>
-                <td>
-                    designing, creating original work, expressing
-                </td>
-                <td>
-                    teaching / guiding, counseling, providing service
-                </td>
-                <td>
-                    leading / managing, selling, negotiating
-                </td>
-                <td>
-                    organizing, following procedure, filing or keeping records
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Potential major
-                </td>
-                <td>
-                    engineering, agriculture, sport science
-                </td>
-                <td>
-                    computer science, biology, physics, chemistry, mathematics,
-                    economics, philosophy
-                </td>
-                <td>
-                    fine arts, graphic design, performing arts, music
-                </td>
-                <td>
-                    social work, psychology, medicine, education, hospitality
-                </td>
-                <td>
-                    law, business, communication, political science
-                </td>
-                <td>
-                    accounting, information system, finance
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Potential career path
-                </td>
-                <td>
-                    mechanic, carpenter, electrician, engineer
-                </td>
-                <td>
-                    researcher, scientist, programmer, analyst, consultant
-                </td>
-                <td>
-                    musician, designer, artist, writer, actor
-                </td>
-                <td>
-                    teacher, counselor, psychologist, doctor
-                </td>
-                <td>
-                    manager, lawyer, chief executives, salesperson
-                </td>
-                <td>
-                    accountant, financial analyst, actuary, banker, IT specialist
-                </td>
-            </tr>
-        </table>
+            <table class="table-detail">
+                <tr>
+                    <th></th>
+                    <th>Realistic</th>
+                    <th>Investigative</th>
+                    <th>Artistic</th>
+                    <th>Social</th>
+                    <th>Enterprising</th>
+                    <th>Conventional</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>You are a practical and hands-on person who enjoys working with tools, machines, or physical
+                        activities.</td>
+                    <td>You are an analytical and curious individual who enjoys solving problems through research and
+                        intellectual pursuits.</td>
+                    <td>You are a creative and expressive person who enjoy using imagination and artistic skills</td>
+                    <td>You are a compassionate and people-oriented person who enjoy helping and interacting with others
+                    <td>You are an ambitious and persuasive individual who likes to lead and influence other people
+                    </td>
+                    <td>You are a detail-oriented and organized individual who likes to work with data, systems, and
+                        established procedures
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Personality
+                    </td>
+                    <td>
+                        modest, pratical, frank, mechanical
+                    </td>
+                    <td>
+                        analytical, independent, logical, scientific
+                    </td>
+                    <td>
+                        imaginative, intuitive, original
+                    </td>
+                    <td>
+                        helpful, sociable, supportive, empathic
+                    </td>
+                    <td>
+                        adventurous, energetic, assertive
+                    </td>
+                    <td>
+                        careful, orderly, systematic
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Values
+                    </td>
+                    <td>
+                        tradition, results, practicality
+                    </td>
+                    <td>
+                        knowledge, intellectual challenge
+                    </td>
+                    <td>
+                        aesthetics, self-expression, creativity
+                    </td>
+                    <td>
+                        helping others, cooperation, relationships
+                    </td>
+                    <td>
+                        achievement, power, recognition
+                    </td>
+                    <td>
+                        order, efficiency, accuracy
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Work Activity
+                    </td>
+                    <td>
+                        fixing/repairing things, building, operating machines
+                    </td>
+                    <td>
+                        collecting data, experimenting, doing research
+                    </td>
+                    <td>
+                        designing, creating original work, expressing
+                    </td>
+                    <td>
+                        teaching / guiding, counseling, providing service
+                    </td>
+                    <td>
+                        leading / managing, selling, negotiating
+                    </td>
+                    <td>
+                        organizing, following procedure, filing or keeping records
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Potential major
+                    </td>
+                    <td>
+                        engineering, agriculture, sport science
+                    </td>
+                    <td>
+                        computer science, biology, physics, chemistry, mathematics,
+                        economics, philosophy
+                    </td>
+                    <td>
+                        fine arts, graphic design, performing arts, music
+                    </td>
+                    <td>
+                        social work, psychology, medicine, education, hospitality
+                    </td>
+                    <td>
+                        law, business, communication, political science
+                    </td>
+                    <td>
+                        accounting, information system, finance
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Potential career path
+                    </td>
+                    <td>
+                        mechanic, carpenter, electrician, engineer
+                    </td>
+                    <td>
+                        researcher, scientist, programmer, analyst, consultant
+                    </td>
+                    <td>
+                        musician, designer, artist, writer, actor
+                    </td>
+                    <td>
+                        teacher, counselor, psychologist, doctor
+                    </td>
+                    <td>
+                        manager, lawyer, chief executives, salesperson
+                    </td>
+                    <td>
+                        accountant, financial analyst, actuary, banker, IT specialist
+                    </td>
+                </tr>
+            </table>
 
 
-        {{-- <table border="0" class="table-detail">
+            {{-- <table border="0" class="table-detail">
             <tr>
                 <td colspan="5" align="center">
                     <b>Realistic</b>
@@ -381,8 +381,8 @@
                 </td>
             </tr>
         </table> --}}
-    </div>
-    {{-- @endif --}}
+        </div>
+    @endif
 
     @if ($reports[1][2])
         <div class="career-professionals mt-3">
