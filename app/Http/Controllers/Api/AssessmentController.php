@@ -484,6 +484,7 @@ class AssessmentController extends Controller
         }
 
 
+        // return view('report.Quest.report', ['reports' => $reports, 'user' => $user]);
         // return $pdf->stream('report.pdf', array("Attachment" => false));
         // exit(0);
         return $pdf->download('report-quest.pdf');

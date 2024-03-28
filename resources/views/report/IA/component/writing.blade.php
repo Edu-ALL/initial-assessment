@@ -1,6 +1,6 @@
 <div class="category">
-    <div class="text-center mb-4">
-        <h5>Writing</h5>
+    <div class="mt-4 mb-4">
+        <h5>D. Writing</h5>
     </div>
 
     @if ($reports[4]['is_surpass'])

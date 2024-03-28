@@ -1,6 +1,6 @@
 <div class="category">
-    <div class="text-center mb-4">
-        <h5>Profile Building</h5>
+    <div class="mt-4 mb-4">
+        <h5>B. Profile Building</h5>
     </div>
 
     @if ($reports[2][1])

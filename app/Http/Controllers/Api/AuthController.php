@@ -160,7 +160,7 @@ class AuthController extends Controller
                 }
 
                 if (array_key_exists('took_initial_assessment', $value)) {
-                    $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_initial_assessment'] = $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
                 }
 

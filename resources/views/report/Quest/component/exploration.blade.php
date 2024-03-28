@@ -1,6 +1,6 @@
 <div class="category">
-    <div class="text-center mt-3 mb-4">
-        <h5>Exploration</h5>
+    <div class="mt-3 mb-4">
+        <h5>A. Exploration</h5>
     </div>
     @if ($reports[1][1])
         <div class="onet">
@@ -173,221 +173,14 @@
                 </tr>
             </table>
 
-
-            {{-- <table border="0" class="table-detail">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Realistic</b>
-                    You are a practical and hands-on person who enjoys working with tools, machines, or physical
-                    activities.
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    modest, pratical,
-                    frank, mechanical
-                </td>
-                <td>
-                    tradition, results,
-                    practicality
-                </td>
-                <td>
-                    fixing/repairing
-                    things, building,
-                    operating machines
-                </td>
-                <td>
-                    engineering,
-                    agriculture, sport
-                    science
-                </td>
-                <td>
-                    mechanic, carpenter,
-                    electrician, engineer
-                </td>
-            </tr>
-        </table>
-
-        <table border="0" class="table-detail mt-3">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Investigative</b>
-                    You are an analytical and curious individual who enjoys solving problems through research and
-                    intellectual pursuits.
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    analytical, independent, logical, scientific
-                </td>
-                <td>
-                    knowledge, intellectual challenge
-                </td>
-                <td>
-                    collecting data, experimenting, doing research
-                </td>
-                <td>
-                    computer science, biology, physics, chemistry, mathematics, economics, philosophy
-                </td>
-                <td>
-                    researcher, scientist, programmer, analyst, consultant
-                </td>
-            </tr>
-        </table>
-
-        <table border="0" class="table-detail mt-3">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Artistic</b>
-                    You are a creative and expressive person who enjoy using imagination and artistic skills
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    imaginative, intuitive, original
-                </td>
-                <td>
-                    aesthetics, self-expression, creativity
-                </td>
-                <td>
-                    designing, creating original work, expressing
-                </td>
-                <td>
-                    fine arts, graphic design, performing arts, music
-                </td>
-                <td>
-                    musician, designer, artist, writer, actor
-                </td>
-            </tr>
-        </table>
-
-        <table border="0" class="table-detail mt-3">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Social</b>
-                    You are a compassionate and people-oriented person who enjoy helping and interacting with others
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    helpful, sociable, supportive, empathic
-                </td>
-                <td>
-                    helping others, cooperation, relationships
-                </td>
-                <td>
-                    teaching / guiding, counseling, providing service
-                </td>
-                <td>
-                    social work, psychology, medicine, education, hospitality
-                </td>
-                <td>
-                    teacher, counselor, psychologist, doctor
-                </td>
-            </tr>
-        </table>
-
-        <table border="0" class="table-detail mt-3">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Enterprising</b>
-                    You are an ambitious and persuasive individual who likes to lead and influence other people
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    adventurous, energetic, assertive
-                </td>
-                <td>
-                    achievement, power, recognition
-                </td>
-                <td>
-                    leading / managing, selling, negotiating
-                </td>
-                <td>
-                    law, business, communication, political science
-                </td>
-                <td>
-                    manager, lawyer, chief executives, salesperson
-                </td>
-            </tr>
-        </table>
-
-        <table border="0" class="table-detail mt-3">
-            <tr>
-                <td colspan="5" align="center">
-                    <b>Conventional</b>
-                    You are a detail-oriented and organized individual who likes to work with data, systems, and
-                    established procedures
-                </td>
-            </tr>
-            <tr>
-                <th>Personality</th>
-                <th>Values</th>
-                <th>Work Activity</th>
-                <th>Potential Major</th>
-                <th>Potential Career Path</th>
-            </tr>
-            <tr>
-                <td>
-                    careful, orderly, systematic
-                </td>
-                <td>
-                    order, efficiency, accuracy
-                </td>
-                <td>
-                    organizing, following procedure, filing or keeping records
-                </td>
-                <td>
-                    accounting, information system, finance
-                </td>
-                <td>
-                    accountant, financial analyst, actuary, banker, IT specialist
-                </td>
-            </tr>
-        </table> --}}
         </div>
     @endif
 
     @if ($reports[1][2])
         <div class="career-professionals mt-3">
             <p>
-                Starting off with the exploration area, you were able to participate in a sharing session with a career
+                Starting off with the exploration area, you were able to participate in a sharing session with a
+                career
                 professional!
             </p>
 
@@ -396,17 +189,20 @@
                     <th>Hilda</th>
                     <td>
                         <p>
-                            are Realistic Investigative, they focus on jobs surrounding working with tools, electrical
+                            are Realistic Investigative, they focus on jobs surrounding working with tools,
+                            electrical
                             drawings,
                             machines, or plants and animals. Also like to study and solve math or science problems.
                         </p>
 
                         <p>
-                            You might be interested in these professions: mechanic, carpenter, electrician, engineer,
+                            You might be interested in these professions: mechanic, carpenter, electrician,
+                            engineer,
                             researcher, scientist, programmer, analyst, consultant.
                         </p>
 
-                        If you want to know more about careers with this specific personality type you can click below
+                        If you want to know more about careers with this specific personality type you can click
+                        below
                         <a
                             href="https://www.onetonline.org/explore/interests/Realistic/Investigative/">https://www.onetonline.org/explore/interests/Realistic/Investigative/</a>
 
@@ -419,7 +215,8 @@
                             is Social Investigative, they focus on doing things to help people -- like, teaching,
                             nursing,
                             or
-                            giving first aid, providing information; but also like to understand and solve science and
+                            giving first aid, providing information; but also like to understand and solve science
+                            and
                             math
                             problems.
                         </p>
@@ -430,7 +227,8 @@
                             scientist, programmer, analyst, consultant
                         </p>
 
-                        If you want to know more about careers with this specific personality type you can click below
+                        If you want to know more about careers with this specific personality type you can click
+                        below
                         <a
                             href="https://www.onetonline.org/explore/interests/Investigative/Social/">https://www.onetonline.org/explore/interests/Investigative/Social/</a>
                     </td>
@@ -439,7 +237,8 @@
                     <th>Graphic Designer</th>
                     <td>
                         <p>
-                            are Artistic, they focus on doing creative activities like art, drama, crafts, dance, music,
+                            are Artistic, they focus on doing creative activities like art, drama, crafts, dance,
+                            music,
                             or
                             creative writing.
                         </p>
@@ -448,7 +247,8 @@
                             You might be interested in these professions: musician, designer, artist, writer, actor
                         </p>
 
-                        If you want to know more about careers with this specific personality type you can click below
+                        If you want to know more about careers with this specific personality type you can click
+                        below
                         <a
                             href="https://www.onetonline.org/explore/interests/Artistic/">https://www.onetonline.org/explore/interests/Artistic/</a>
 
@@ -473,7 +273,8 @@
                             specialist, manager, lawyer, chief executives, or salesperson
                         </p>
 
-                        If you want to know more about careers with this specific personality type you can click below
+                        If you want to know more about careers with this specific personality type you can click
+                        below
                         <a
                             href="https://www.onetonline.org/explore/interests/Enterprising/Conventional/">https://www.onetonline.org/explore/interests/Enterprising/Conventional/</a>
                     </td>
@@ -487,7 +288,8 @@
             </p>
 
             <p>
-                Hopefully, through sharing you can get a glimpse of what it’ll be like, and from that you can pinpoint
+                Hopefully, through sharing you can get a glimpse of what it’ll be like, and from that you can
+                pinpoint
                 the
                 next step for your future.
             </p>
