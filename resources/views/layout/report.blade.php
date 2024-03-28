@@ -47,7 +47,7 @@
             list-style-type: lower-roman;
         }
 
-        .category {
+        /* .category {
             page-break-after: always;
         }
 
@@ -58,7 +58,7 @@
         .category:last-of-type {
             page-break-after: avoid;
 
-        }
+        } */
 
         table {
             border-collapse: collapse;
@@ -91,7 +91,7 @@
         {{-- <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
         style="position:absolute; left:8%; top:32.5%; z-index:-999;"> --}}
         <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
-            style="position:absolute; left:8%; top:25%; z-index:-999;opacity: 0.04;">
+            style="position:absolute; left:8%; top:50%; z-index:-999;">
     </header>
 
     <footer>
