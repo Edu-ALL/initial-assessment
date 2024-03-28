@@ -67,7 +67,7 @@ const user = UserService.getUser()
         }"
       />
       <VerticalNavLink
-        v-if="!user.client?.is_vip && user.client?.education?.grade>=7"
+        v-if="user.client?.is_vip==0 && (user.client?.education?.grade>=7 || user.client?.education?.grade<=12)"
         :item="{
           title: 'Assessment',
           icon: 'bx-notepad',
