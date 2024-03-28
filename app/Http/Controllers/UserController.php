@@ -25,11 +25,16 @@ class UserController extends Controller
         $this->questionRepository = $questionRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         (new LoggerController)->accessing_warning('get User List');
 
-        $users = User::where('type', 0)->get();
+        $users = User::where('type', 0)->paginate(10);
+
+        if (isset($request->q) || $request->q != null) {
+            $users = User::where('type', 0)->where('full_name', 'like', '%' . $request->q . '%')->paginate(10);
+        }
+
         $message = $users->count() > 0 ? 'Users found' : 'No user found';
 
 
