@@ -20,12 +20,7 @@ const inputData = ref([
     answer: [],
   },
   {
-    answer: [{
-      id: null,
-      question_id: 22,
-      sub_question_id: 30,
-      answer_descriptive: "",
-    }],
+    answer: [],
   },
 ])
 
@@ -51,11 +46,12 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
+  console.log(inputData.value)
+
   const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
-    resetRadio()
     try {
       const res = await ApiService.post('answer/5', inputData.value)
       if(res.success) {
@@ -72,16 +68,22 @@ const handleSubmit = async () => {
   }
 }
 
-const resetRadio = () => {
+const changeRadio = () => {
   const mission_choosed = mission.value
 
   if(mission_choosed==1) {
+    getOptions()
     inputData.value[1].answer = []
-    inputData.value[2].answer[0].answer_descriptive = null
+    inputData.value[2].answer= []
   } else {
-    for (let index = 0; index < 6; index++) {
-      inputData.value[0].answer[index].score = null      
-    }
+    inputData.value[0].answer = []
+    inputData.value[1].answer = []
+    inputData.value[2].answer= [{
+      id: null,
+      question_id: 22,
+      sub_question_id: 30,
+      answer_descriptive: "",
+    }]
   }
 }
 
@@ -118,6 +120,7 @@ watch(() => {
         <VRadioGroup
           v-model="mission"
           class="mt-3"
+          @change="changeRadio"
         >
           <VRadio
             label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "

@@ -171,7 +171,7 @@ class AuthController extends Controller
             $data['quest'] = $this->answerRepository->checklistQuest($user->id);
             # manipulate the user took_initial_assessment
         } else {
-            $data['data'] = [
+            $data = [
                 'client' => [
                     'id' => $checkUser->id,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
