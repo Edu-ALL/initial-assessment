@@ -536,4 +536,19 @@ class AssessmentController extends Controller
 
         return $result;
     }
+
+    public function getReportSummary(Request $request)
+    {
+        $user = User::find($request->user);
+        $a = app('App\Http\Controllers\UserController')->show($user->uuid);
+
+        $result = [];
+        foreach ($a['data']['IA'] as $key => $Assessments) {
+            foreach ($Assessments as $key2 => $Assessment) {
+                # code...
+            }
+        }
+
+        return $a;
+    }
 }
