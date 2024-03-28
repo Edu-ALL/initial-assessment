@@ -173,8 +173,9 @@ class AuthController extends Controller
         } else {
             $data['data'] = [
                 'client' => [
-                    'is_vip' => $checkUser->is_vip,
-                    'took_initial_assessment' => $checkUser->took_ia,
+                    'id' => $checkUser->id,
+                    'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
+                    'took_initial_assessment' => intval($checkUser->took_ia),
                     'full_name' => $checkUser->full_name,
                     'email' => $checkUser->email,
                     'phone' => $checkUser->phone_number,
@@ -187,13 +188,13 @@ class AuthController extends Controller
                         'school' => $checkUser->school,
                         'grade' => $checkUser->grade,
                     ],
-                    'country' => $checkUser->destination != null ? $checkUser->destination : [
+                    'country' => $checkUser->destination != null ? json_decode($checkUser->destination) : [
                         null
                     ],
-                    'took_quest' => $checkUser->took_quest
+                    'took_quest' => intval($checkUser->took_quest)
                 ],
                 'client_event' => [
-                    'id' => null,
+                    'id' => $checkUser->id,
                     'ticket_id' => $checkUser->ticket_id
                 ]
             ];
