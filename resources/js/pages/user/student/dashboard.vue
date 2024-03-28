@@ -27,7 +27,7 @@ const downloadPdf = async () => {
       md="6"
     >
       <VCard
-        v-if="user.client?.took_initial_assessment"
+        v-if="user.client?.took_initial_assessment==1"
         class="text-center text-sm-start mb-4"
       >
         <VRow no-gutters>
