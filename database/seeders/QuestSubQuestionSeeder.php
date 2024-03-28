@@ -34,7 +34,7 @@ class QuestSubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'score',
-                'total_point' => 1,
+                'total_point' => 2,
                 'minimum_answer' => 1,
                 'maximum_answer' => 6
             ],
