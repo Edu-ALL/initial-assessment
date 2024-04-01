@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api', 'scopes:client']], function () {
 
 Route::get('report/{user}', [AssessmentController::class, 'getReport']);
 Route::get('report_quest/{user}', [AssessmentController::class, 'getReportQuest']);
+Route::get('report/{user}/summary', [AssessmentController::class, 'getReportSummary']);
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);

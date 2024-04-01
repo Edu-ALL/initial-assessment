@@ -5,7 +5,24 @@
 
     @if ($reports[4]['is_surpass'])
         <div class="surpass">
-
+            <p>
+                Having confidence in your writing is a great start! Being confident can translate well into your writing
+                as
+                it showcases your ability to articulate your thoughts, experiences, and aspirations through writing and
+                can
+                set you apart in the application process. This skill acts as a bridge, connecting your past achievements
+                with your future potential, allowing admission officers to see the depth of your character and
+                intellect.
+            </p>
+            <p>
+                Therefore, it's important to continuously invest time in refining your writing even more. Whether
+                through
+                reading broadly, engaging in diverse writing practices, or seeking constructive feedback, each step you
+                take
+                to improve your writing opens new doors to expressing your unique story and vision. Remember, in the
+                competitive realm of university admissions, your written words hold the power to leave a lasting
+                impression.
+            </p>
         </div>
     @else
         <div class="improvement">

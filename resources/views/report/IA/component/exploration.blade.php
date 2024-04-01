@@ -11,19 +11,15 @@
 
             <table>
                 <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>Major</td>
+                    <td width="30px">Major</td>
                     <td>: {{ $reports[1]['major'] }}</td>
                 </tr>
                 <tr>
-                    <td>Country</td>
+                    <td width="30px">Country</td>
                     <td>: {{ $reports[1]['country'] }}</td>
                 </tr>
                 <tr>
-                    <td>University</td>
+                    <td width="30px">University</td>
                     <td>: {{ $reports[1]['university'] }}</td>
                 </tr>
             </table>

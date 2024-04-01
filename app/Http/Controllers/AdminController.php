@@ -23,7 +23,7 @@ class AdminController extends Controller
 
         if ($validator->fails())
             return response()->json(['error' => $validator->errors()->all()]);
-        
+
 
         # check if email has exist on db
         if (!$admin = User::where('email', $request->email)->first()) {
@@ -32,7 +32,6 @@ class AdminController extends Controller
                 'success' => false,
                 'message' => 'Admin does not exist.'
             ], 500);
-
         }
 
         # check if the password is match
@@ -42,22 +41,43 @@ class AdminController extends Controller
                 'success' => false,
                 'message' => 'The provided credentials do not match our records. '
             ], 500);
-
         }
 
         # generate token
         $token = $admin->createToken('Access-EduAll-Assessment', ['admin'])->accessToken;
-        
+
         $admin_name = $admin->name;
+
+        $data =  [
+            'id' => $admin->id,
+            'is_vip' => false,
+            'full_name' => $admin_name,
+            'email' => $admin->email,
+            'phone' => $admin->phone_number,
+            'address' => [
+                'state' => $admin->state,
+                'city' => $admin->city,
+                'address' => $admin->address,
+            ],
+            'education' => [
+                'school' => $admin->school,
+                'grade' => $admin->grade,
+            ],
+            'country' => $admin->destination != null ? json_decode($admin->destination) : [
+                null
+            ],
+            'took_quest' => intval($admin->took_quest),
+            'type' => 1
+        ];
 
         return response()->json([
             'success' => true,
             'message' => "Welcome back, {$admin_name}",
             'data' => [
+                'client' => $data,
                 'token' => $token,
             ]
         ]);
-
     }
 
     public function signOut(Request $request)
@@ -66,14 +86,12 @@ class AdminController extends Controller
 
             # revoke the access token
             $request->user()->token()->revoke();
-
         } catch (Exception $e) {
 
             return response()->json([
                 'success' => false,
                 'message' => "We've encountered an issue that prevents us from continuing the process further."
             ], 500);
-
         }
 
         return response()->json([
