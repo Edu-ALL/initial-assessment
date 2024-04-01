@@ -62,7 +62,6 @@ const logout = () => {
                 </VBadge>
               </VListItemAction>
             </template>
-
             <VListItemTitle class="font-weight-semibold">
               {{ user.client?.full_name }}
             </VListItemTitle>

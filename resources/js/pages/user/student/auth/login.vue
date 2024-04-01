@@ -5,7 +5,7 @@ import router from '@/router'
 import ApiService from '@/services/ApiService'
 import JwtService from '@/services/JwtService'
 import UserService from '@/services/UserService'
-import { onBeforeMount, onMounted, ref } from 'vue'
+import { computed, onBeforeMount, onMounted, ref } from 'vue'
 
 
 const props = defineProps({ 'ticket': String })

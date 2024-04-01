@@ -20,6 +20,7 @@ const upgradeBanner = computed(() => {
 
 <template>
   <VerticalNavLayout>
+    {{ user }}
     <!-- 👉 navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">

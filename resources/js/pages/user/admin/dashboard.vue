@@ -1,4 +1,6 @@
 <script setup>
+import JwtService from '@/services/JwtService'
+import UserService from '@/services/UserService'
 import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
 import AnalyticsFinanceTabs from '@/views/dashboard/AnalyticsFinanceTab.vue'
 import AnalyticsOrderStatistics from '@/views/dashboard/AnalyticsOrderStatistics.vue'
@@ -11,6 +13,9 @@ import chart from '@images/cards/chart-success.png'
 import card from '@images/cards/credit-card-primary.png'
 import paypal from '@images/cards/paypal-error.png'
 import wallet from '@images/cards/wallet-info.png'
+import { onMounted, ref } from 'vue'
+
+const user = ref(UserService.getUser())
 </script>
 
 <template>

@@ -4,6 +4,7 @@ import { rules } from "@/helper/rules"
 import router from "@/router"
 import ApiService from "@/services/ApiService"
 import JwtService, { getToken } from "@/services/JwtService"
+import UserService from "@/services/UserService"
 import { onMounted } from "vue"
 
 const formData = ref()
@@ -32,6 +33,8 @@ const submit = async () => {
         showNotif('error', res.message, 'bottom-end')
       } else {
         JwtService.saveToken(res.data.token)
+        UserService.saveUser(res.data)
+        console.log(res.data)
 
         setTimeout(() => {
           window.location.reload()

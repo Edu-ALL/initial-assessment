@@ -162,8 +162,11 @@ watch(() => {
                   >
                     <VTextField
                       v-model="inputData[0].answer[index].score"
+                      type="number"
+                      min="0"
+                      max="40"
                       :label="item.option_answer"
-                      :rules="rules.required"
+                      :rules="[...rules.required,...rules.maxScore_40]"
                       density="compact"
                     />
                   </VCol>
