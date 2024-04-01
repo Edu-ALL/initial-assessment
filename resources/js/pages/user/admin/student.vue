@@ -2,53 +2,24 @@
 import ApiService from "@/services/ApiService"
 import { computed, onMounted, ref } from "vue"
 
-const desserts = [
-  {
-    dessert: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-  {
-    dessert: 'Ice cream sandwich',
-    calories: 237,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-  {
-    dessert: 'Eclair',
-    calories: 262,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-  {
-    dessert: 'Cupcake',
-    calories: 305,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-  {
-    dessert: 'Gingerbread',
-    calories: 356,
-    fat: 6,
-    carbs: 24,
-    protein: 4,
-  },
-]
-
+const page=ref(1)
+const search=ref(null)
 const student = ref([])
+const loading = ref(false)
 
 const getData =  async () => {
+  loading.value=true
   try {
-    const res = await ApiService.get('admin/get/clients')
-    
+    const p = page.value>1 ? '?page='+page.value : '?page=1'
+    const q = search.value ? '&q='+search.value : ''
+
+    const res = await ApiService.get('admin/get/clients' + p + q)
+
     student.value = res.data
+    loading.value = false
   } catch(error) {
     console.error(error)
+    loading.value = false
   }
 }
 
@@ -56,8 +27,6 @@ const getData =  async () => {
 const questCount = (data, status) => {
   return Object.values(data).filter(value => value === status).length
 }
-
-
 
 
 onMounted(() => {
@@ -73,6 +42,7 @@ onMounted(() => {
           Student List
         </div>
         <VTextField
+          v-model="search"
           label="Search"
           prepend-inner-icon="mdi-magnify"
           density="compact"
@@ -80,12 +50,19 @@ onMounted(() => {
           hide-details
           single-line
           :style="{ width: '30%' }"
+          @update:model-value="getData"
         />
       </div>
       <VDivider />
     </VCardTitle>
     <VCardText>
-      <VTable>
+      <!-- Loader  -->
+      <VSkeletonLoader
+        v-if="loading"
+        type="table"
+      />
+
+      <VTable v-if="!loading">
         <thead>
           <tr>
             <th class="text-uppercase">
@@ -109,7 +86,7 @@ onMounted(() => {
           
         <tbody>
           <tr
-            v-for="item in student"
+            v-for="item in student.data"
             :key="item"
           >
             <td>
@@ -185,7 +162,13 @@ onMounted(() => {
       </VTable>
       <VDivider />
       <div class="d-flex justify-end mt-4">
-        <VPagination :length="4" />
+        <VPagination
+          v-if="student.last_page>0"
+          v-model="page"
+          :total-visible="7"
+          :length="student.last_page"
+          @update:model-value="getData"
+        />
       </div>
     </VCardText>
   </VCard>

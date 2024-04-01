@@ -46,7 +46,7 @@ class AdminController extends Controller
         # generate token
         $token = $admin->createToken('Access-EduAll-Assessment', ['admin'])->accessToken;
 
-        $admin_name = $admin->name;
+        $admin_name = $admin->full_name;
 
         $data =  [
             'id' => $admin->id,

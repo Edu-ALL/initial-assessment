@@ -39,6 +39,13 @@ export const rules = {
       return true
     },
   ],
+  maxScore_40: [
+    value => {
+      if (value > 40) return 'The score cannot be more than the maximum score (40)'
+  
+      return true
+    },
+  ],
   maxScore_120: [
     value => {
       if (value > 120) return 'The score cannot be more than the maximum score'

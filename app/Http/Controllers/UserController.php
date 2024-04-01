@@ -64,6 +64,7 @@ class UserController extends Controller
 
         # mapping user info
         $mapped_user = [
+            'id' => $user->id,
             'ticket_id' => $user->ticket_id,
             'full_name' => $user->full_name,
             'email' => $user->email,
@@ -74,6 +75,8 @@ class UserController extends Controller
             'school' => $user->school,
             'grade' => $user->grade,
             'destination' => json_decode($user->destination),
+            'took_ia' => $this->answerRepository->haveFilledInitialAssessment($user->id) ? 1 : 0,
+            'took_quest' => $user->took_quest,
             'created_at' => $user->created_at
         ];
 

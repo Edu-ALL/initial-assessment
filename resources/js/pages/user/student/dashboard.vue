@@ -17,6 +17,12 @@ const downloadPdf = async () => {
 
   window.open('/api/report/'+id, '_blank')
 }
+
+const downloadQuestPdf = async () => {
+  const id = user.value.client?.id
+
+  window.open('/api/report_quest/'+id, '_blank')
+}
 </script>
 
 <template>
@@ -93,7 +99,11 @@ const downloadPdf = async () => {
             <span class="w-100">
               Your Quest
             </span>
-            <div class="cursor-pointer text-white">
+            <div
+              v-if="user.client?.took_quest==1"
+              class="cursor-pointer text-white"
+              @click="downloadQuestPdf"
+            >
               <VTooltip
                 activator="parent"
                 location="start"

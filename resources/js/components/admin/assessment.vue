@@ -2,6 +2,8 @@
 import { watch } from "vue"
 
 const props = defineProps({
+  id: Number,
+  took_ia: Number,
   data: Object,
 })
 
@@ -37,23 +39,44 @@ const questions = ref(props.data['Exploration'])
 const checkAssessment = tab => {
   questions.value = props.data[tab]
 }
+
+const downloadPdf = type => {
+  if(type=='result') {
+    window.open('/api/report/'+props.id, '_blank')
+  }
+}
 </script>
 
 <template>
-  <VCard>
+  <VCard v-if="took_ia==1">
     <VCardTitle>
       <div class="d-flex justify-between align-center w-100">
         <span class="w-100">
           Assessment
         </span>
-        <div class="cursor-pointer text-primary">
-          <VTooltip
-            activator="parent"
-            location="start"
+        <div>
+          <VBtn
+            color="primary"
+            density="comfortable"
+            class="mx-1"
+            @click="downloadPdf('result')"
           >
-            Download Assessment Result
-          </VTooltip>
-          <VIcon icon="bx-download" />
+            <VIcon
+              icon="bx-download"
+              class="me-2"
+            /> Result
+          </VBtn>
+          <VBtn
+            color="secondary"
+            density="comfortable"
+            class="mx-1"
+            @click="downloadPdf('summary')"
+          >
+            <VIcon
+              icon="bx-download"
+              class="me-2"
+            /> Summary
+          </VBtn>
         </div>
       </div>
     </VCardTitle>
@@ -143,6 +166,12 @@ const checkAssessment = tab => {
         </tbody>
       </VTable>
     </VCardText>
+  </VCard>
+
+  <VCard v-else>
+    <VCardTitle>
+      Did not make an assessment.
+    </VCardTitle>
   </VCard>
 </template>
 

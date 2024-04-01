@@ -4,6 +4,7 @@ import { rules } from "@/helper/rules"
 import router from "@/router"
 import ApiService from "@/services/ApiService"
 import JwtService, { getToken } from "@/services/JwtService"
+import UserService from "@/services/UserService"
 import { onMounted } from "vue"
 
 const formData = ref()
@@ -32,11 +33,8 @@ const submit = async () => {
         showNotif('error', res.message, 'bottom-end')
       } else {
         JwtService.saveToken(res.data.token)
-
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
-        
+        UserService.saveUser(res.data)
+        window.location.reload()
       }
       loading.value = false
     } catch (error) {
@@ -47,7 +45,7 @@ const submit = async () => {
 }
 
 onMounted(() => {
-  if(JwtService.getToken()) {
+  if(JwtService.getToken() && UserService.getUser().client?.type==1) {
     router.push({ name: 'admin-dashboard' })
   }
 })
