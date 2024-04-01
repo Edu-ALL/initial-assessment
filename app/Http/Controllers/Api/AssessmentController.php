@@ -544,6 +544,11 @@ class AssessmentController extends Controller
         $jsonAnswers = app('App\Http\Controllers\UserController')->show($user->uuid);
         $userAnswers = json_decode($jsonAnswers->content(), true);
 
-        return view('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
+        $pdf = Pdf::loadView('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
+
+        // return $pdf->stream('report.pdf', array("Attachment" => false));
+        // exit(0);
+
+        return $pdf->download('report-summary.pdf');
     }
 }
