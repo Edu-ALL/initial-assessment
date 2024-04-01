@@ -75,13 +75,13 @@ const downloadPdf = type => {
             <VIcon
               icon="bx-download"
               class="me-2"
-            /> Summary
+            /> Recap
           </VBtn>
         </div>
       </div>
     </VCardTitle>
     <VDivider />
-    <VCardText>      
+    <VCardText> 
       <VTabs
         v-model="activeTab"
         show-arrows
@@ -104,17 +104,15 @@ const downloadPdf = type => {
       <VTable
         height="500px"
         fixed-header
+        style="border:1px solid #dedede"
       >
         <thead>
           <tr style="background:blue">
-            <th class="text-left">
+            <th style="border:1px solid #f7f2f2">
               No
             </th>
-            <th class="text-left">
-              Questions
-            </th>
-            <th class="text-left">
-              Answer
+            <th style="text-align:left !important">
+              Questions/Answer
             </th>
           </tr>
         </thead>
@@ -125,41 +123,97 @@ const downloadPdf = type => {
           >
             <td
               class="text-center"
-              width="1%"
+              width="2%"
+              style="border:1px solid #f7f2f2"
             >
               {{ index + 1 }}
             </td>
-            <td width="60%">
-              {{ item.question }} <br>
-              <small class="text-secondary">
-                {{ item.sub_question }}
-              </small>
-            </td>
-            <td>
-              <div
-                v-for="i, n in item.answer?.option"
-                :key="n"
+            <td
+              width="60%"
+              class="py-3"
+            >
+              <div class="text-secondary mb-1">
+                <VIcon
+                  icon="bx-tag-alt"
+                  color="disabled"
+                />
+                {{ item.question?.title }}
+              </div>
+
+
+              <ol
+                v-if="item.question?.sub_question.length>0"
+                type="A"
+                class="ms-11"
               >
-                <span
-                  v-if="item.answer?.descriptive[n]"
-                  class="text-capitalize"
+                <li
+                  v-for="sub in item.question?.sub_question"
+                  :key="sub"
+                  class="mb-3"
                 >
-                  {{ item.answer?.descriptive[n] }}&nbsp;
-                </span>
-                <span v-if="i">
-                  {{ item.answer?.option.length > 1 ? '-&nbsp;':'' }}
-                  {{ i }}
-                </span>
-                <span v-if="item.answer?.score[n] && item.answer?.option.length > 1">
-                  (
-                  {{ item.sub_question=='How many internships have you participated in?' ? 'Hours: ' :'Score: ' }}
-                  {{ item.answer?.score[n] }}
-                  )
-                </span>
-                <span v-if="item.answer?.score[n] && item.answer?.option.length==1">
-                  {{ item.sub_question=='How many internships have you participated in?' ? 'Hours: ' :'Score: ' }}
-                  {{ item.answer?.score[n] }}
-                </span>
+                  <span class="text-primary">
+                    {{ sub.title }}
+                  </span> <br>
+                  Answer: 
+
+                  <div
+                    v-for="i, n in sub.answer?.option"
+                    :key="n"
+                  >
+                    <span
+                      v-if="sub.answer?.descriptive[n]"
+                      class="text-capitalize"
+                    >
+                      {{ sub.answer?.descriptive[n] }}&nbsp;
+                    </span>
+                    <span v-if="i">
+                      {{ sub.answer?.option.length > 1 ? '-&nbsp;':'' }}
+                      {{ i }}
+                    </span>
+                    <span v-if="sub.answer?.score[n] && sub.answer?.option.length > 1">
+                      (
+                      {{ sub.title=='How many internships have you participated in?' ? 'Hours: ' :'Score: ' }}
+                      {{ sub.answer?.score[n] }}
+                      )
+                    </span>
+                    <span v-if="sub.answer?.score[n] && sub.answer?.option.length==1">
+                      {{ sub.title=='How many internships have you participated in?' ? 'Hours: ' :'Score: ' }}
+                      {{ sub.answer?.score[n] }}
+                    </span>
+                  </div>
+                </li>
+              </ol>
+
+              <div
+                v-else
+                class="ms-6"
+              >
+                Answer: 
+                <div
+                  v-for="i, n in item.question?.answer?.option"
+                  :key="n"
+                >
+                  <span
+                    v-if="item.question?.answer?.descriptive[n]"
+                    class="text-capitalize"
+                  >
+                    {{ item.question?.answer?.descriptive[n] }}&nbsp;
+                  </span>
+                  <span v-if="i">
+                    {{ item.question?.answer?.option.length > 1 ? '-&nbsp;':'' }}
+                    {{ i }}
+                  </span>
+                  <span v-if="item.question?.answer?.score[n] && item.question?.answer?.option.length > 1">
+                    (
+                    Score: 
+                    {{ item.question?.answer?.score[n] }}
+                    )
+                  </span>
+                  <span v-if="item.question?.answer?.score[n] && item.question?.answer?.option.length==1">
+                    Score: 
+                    {{ item.question?.answer?.score[n] }}
+                  </span>
+                </div>
               </div>
             </td>
           </tr>
