@@ -123,6 +123,7 @@ class AuthController extends Controller
                 if (array_key_exists('took_initial_assessment', $value)) {
                     $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
+                    $value['type'] = 0;
                 }
 
 
@@ -162,6 +163,7 @@ class AuthController extends Controller
                 if (array_key_exists('took_initial_assessment', $value)) {
                     $value['took_initial_assessment'] = $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
+                    $value['type'] = 0;
                 }
 
 
@@ -191,7 +193,8 @@ class AuthController extends Controller
                     'country' => $checkUser->destination != null ? json_decode($checkUser->destination) : [
                         null
                     ],
-                    'took_quest' => intval($checkUser->took_quest)
+                    'took_quest' => intval($checkUser->took_quest),
+                    'type' => 0
                 ],
                 'client_event' => [
                     'id' => $checkUser->id,
