@@ -72,6 +72,10 @@
             list-style-type: lower-latin;
         }
 
+        .list-upper-latin {
+            list-style-type: upper-latin;
+        }
+
         .list-lower-roman {
             list-style-type: lower-roman;
         }

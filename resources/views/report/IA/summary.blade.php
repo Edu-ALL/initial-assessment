@@ -20,7 +20,7 @@
                                 @foreach ($question['question']['sub_question'] as $sub_question)
                                     <li>
                                         {{ $sub_question['title'] }}
-                                        <ol>
+                                        <ul class="list-lower-roman">
                                             @for ($i = 0; $i < count($sub_question['answer']['option']); $i++)
                                                 @if (
                                                     $sub_question['answer']['option'][$i] != null ||
@@ -43,7 +43,7 @@
                                                     </li>
                                                 @endif
                                             @endfor
-                                        </ol>
+                                        </ul>
                                     </li>
                                 @endforeach
                             </ul>
