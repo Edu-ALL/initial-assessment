@@ -77,16 +77,25 @@ class UserController extends Controller
             'created_at' => $user->created_at
         ];
 
-        $questionAnswerExploration = $this->getQuestionAnswerByCategory(1, $user);
-        $questionAnswerProfileBuilding = $this->getQuestionAnswerByCategory(2, $user);
-        $questionAnswerAcademic = $this->getQuestionAnswerByCategory(3, $user);
-        $questionAnswerWriting = $this->getQuestionAnswerByCategory(4, $user);
+        $questions = Question::with(['category', 'sub_questions', 'answers', 'sub_questions.answers'])
+            ->whereHas('answers', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })
+            ->whereHas('sub_questions.answers', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->get();
 
-        $questExploration = $this->getQuestionAnswerByCategory(5, $user);
-        $questProfileBuilding = $this->getQuestionAnswerByCategory(6, $user);
-        $questAcademic = $this->getQuestionAnswerByCategory(7, $user);
-        $questWriting = $this->getQuestionAnswerByCategory(8, $user);
-        $questSponsor = $this->getQuestionAnswerByCategory(9, $user);
+
+        $questionAnswerExploration = $this->answerRepository->getQuestionAnswerByCategory(1, $user);
+        $questionAnswerProfileBuilding = $this->answerRepository->getQuestionAnswerByCategory(2, $user);
+        $questionAnswerAcademic = $this->answerRepository->getQuestionAnswerByCategory(3, $user);
+        $questionAnswerWriting = $this->answerRepository->getQuestionAnswerByCategory(4, $user);
+
+        $questExploration = $this->answerRepository->getQuestionAnswerByCategory(5, $user);
+        $questProfileBuilding = $this->answerRepository->getQuestionAnswerByCategory(6, $user);
+        $questAcademic = $this->answerRepository->getQuestionAnswerByCategory(7, $user);
+        $questWriting = $this->answerRepository->getQuestionAnswerByCategory(8, $user);
+        $questSponsor = $this->answerRepository->getQuestionAnswerByCategory(9, $user);
 
         $mapped_answers_IA = array_merge($questionAnswerExploration, $questionAnswerProfileBuilding, $questionAnswerAcademic, $questionAnswerWriting);
 
@@ -104,59 +113,6 @@ class UserController extends Controller
 
             ]
         ]);
-    }
-
-    private function getQuestionAnswerByCategory($category_id, $user)
-    {
-        # get the questions & answer for exploration    
-        $questions = Question::with('sub_questions')->where('category_id', $category_id)->orderBy('id', 'ASC')->get();
-
-        $category_name = $this->getCategoryName($category_id);
-
-        foreach ($questions as $question) {
-
-            if ($question->sub_questions->count() > 0) {
-
-                foreach ($question->sub_questions as $sub_question) {
-                    $userAnswer = Answer::where('user_id', $user->id)->where('sub_question_id', $sub_question->id)->get();
-
-                    $mapped_answers[$category_name][] = [
-                        'question' => $question->title,
-                        'sub_question' => $sub_question->title,
-                        'answer' => [
-                            'option' => $userAnswer->map(function ($value) {
-                                return isset($value->option) ? $value->option->option_answer : null;
-                            }),
-                            'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
-                            'score' => $userAnswer->pluck('score')->toArray()
-                        ]
-                    ];
-                }
-
-                continue;
-            }
-
-            $userAnswer = Answer::with('option')->where('user_id', $user->id)->where('question_id', $question->id)->get();
-            $mapped_answers[$category_name][] = [
-                'question' => $question->title,
-                'sub_question' => null,
-                'answer' => [
-                    'option' => $userAnswer->map(function ($value) {
-                        return isset($value->option) ? $value->option->option_answer : null;
-                    }),
-                    'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
-                    'score' => $userAnswer->pluck('score')->toArray()
-                ]
-            ];
-        }
-
-        return $mapped_answers;
-    }
-
-    private function getCategoryName($category_id)
-    {
-        $category = Category::find($category_id);
-        return $category->name;
     }
 
     public function updateTookQuest(Request $request)
