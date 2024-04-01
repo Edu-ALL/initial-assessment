@@ -34,12 +34,7 @@ const submit = async () => {
       } else {
         JwtService.saveToken(res.data.token)
         UserService.saveUser(res.data)
-        console.log(res.data)
-
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
-        
+        window.location.reload()
       }
       loading.value = false
     } catch (error) {
@@ -50,7 +45,7 @@ const submit = async () => {
 }
 
 onMounted(() => {
-  if(JwtService.getToken()) {
+  if(JwtService.getToken() && UserService.getUser().client?.type==1) {
     router.push({ name: 'admin-dashboard' })
   }
 })

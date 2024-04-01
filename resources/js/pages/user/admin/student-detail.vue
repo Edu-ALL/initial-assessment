@@ -164,7 +164,11 @@ onMounted(() => {
           >
             <!-- Assessment -->
             <VWindowItem value="assessment">
-              <Assessment :data="client['IA']" />
+              <Assessment
+                :id="client?.user?.id"
+                :took_ia="client?.user?.took_ia"
+                :data="client['IA']"
+              />
             </VWindowItem>
   
             <!-- Quest -->
@@ -172,7 +176,11 @@ onMounted(() => {
               value="quest"
               class="pt-0"
             >
-              <Quest :data="client['Quest']" />
+              <Quest
+                :id="client?.user?.id"
+                :took_quest="client?.user?.took_quest"
+                :data="client['Quest']"
+              />
             </VWindowItem>
           </VWindow>
         </VCardText>

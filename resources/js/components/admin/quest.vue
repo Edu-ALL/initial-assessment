@@ -1,5 +1,7 @@
 <script setup>
 const props = defineProps({
+  id: Number,
+  took_quest: Number,
   data: Object,
 })
 
@@ -40,23 +42,31 @@ const quest = ref(props.data['Exploration'])
 const checkQuest = tab => {
   quest.value = props.data[tab]
 }
+
+const downloadPdf = () => {
+  window.open('/api/report_quest/'+props.id, '_blank')
+}
 </script>
 
 <template>
-  <VCard>
+  <VCard v-if="took_quest==1">
     <VCardTitle>
       <div class="d-flex justify-between align-center w-100">
         <span class="w-100">
           Quest
         </span>
         <div class="cursor-pointer text-primary">
-          <VTooltip
-            activator="parent"
-            location="start"
-          >
-            Download Quest
-          </VTooltip>
-          <VIcon icon="bx-download" />
+          <VBtn
+            color="primary"
+            density="comfortable"
+            class="mx-1"
+            @click="downloadPdf"
+          >  
+            <VIcon
+              icon="bx-download"
+              class="me-2"
+            /> Result
+          </VBtn>
         </div>
       </div>
     </VCardTitle>
@@ -138,5 +148,11 @@ const checkQuest = tab => {
         </tbody>
       </VTable>
     </VCardText>
+  </VCard>
+
+  <VCard v-else>
+    <VCardTitle>
+      Did not make a quest.
+    </VCardTitle>
   </VCard>
 </template>
