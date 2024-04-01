@@ -43,6 +43,8 @@ const checkAssessment = tab => {
 const downloadPdf = type => {
   if(type=='result') {
     window.open('/api/report/'+props.id, '_blank')
+  } else {
+    window.open('/api/report/'+props.id+'/summary', '_blank')
   }
 }
 </script>
