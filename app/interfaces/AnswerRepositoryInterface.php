@@ -8,4 +8,6 @@ interface AnswerRepositoryInterface
     public function checklistQuest($user_id);
 
     public function haveFilledInitialAssessment($userId);
+
+    public function getQuestionAnswerByCategory($category_id, $user);
 }

@@ -9,8 +9,10 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserPoint;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -151,6 +153,46 @@ class UserController extends Controller
             'success' => true,
             'message' => 'Successfully update took quest',
             // 'data' => $user
+        ]);
+    }
+
+    public function dashboard()
+    {
+        try {
+            $users = User::where('type', 0)->get();
+
+            $userPoints =  UserPoint::leftjoin('questions', 'questions.id', '=', 'user_points.question_id')
+                ->leftjoin('category', 'category.id', '=', 'questions.category_id')
+                ->select(DB::raw('SUM(user_points.point) as point'), 'name', 'user_id')
+                ->where('questions.category_id', '>', 4) # Only quest
+                ->groupBy('name')
+                ->groupBy('user_id')
+                ->get();
+
+
+            $data = [
+                'user' => $users->count(),
+                'took_ia' => $users->where('took_ia', 1)->count(),
+                'took_quest' => $users->where('took_quest', 1)->count(),
+                'quest' => [
+                    'Exploration' => $userPoints->where('name', 'Exploration')->where('point', 2)->count(),
+                    'Profile Building' => $userPoints->where('name', 'Profile Building')->where('point', 1)->count(),
+                    'Academic Profiling' => $userPoints->where('name', 'Academic Profiling')->where('point', 1)->count(),
+                    'Writing' => $userPoints->where('name', 'Writing')->where('point', 1)->count(),
+                    'Sponsor' => $userPoints->where('name', 'Sponsor')->where('point', 1)->count(),
+                ]
+            ];
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully get data dashboard',
+            'data' => $data
         ]);
     }
 }

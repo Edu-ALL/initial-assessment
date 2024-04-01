@@ -541,15 +541,9 @@ class AssessmentController extends Controller
     public function getReportSummary(Request $request)
     {
         $user = User::find($request->user);
-        $a = app('App\Http\Controllers\UserController')->show($user->uuid);
+        $jsonAnswers = app('App\Http\Controllers\UserController')->show($user->uuid);
+        $userAnswers = json_decode($jsonAnswers->content(), true);
 
-        $result = [];
-        foreach ($a['data']['IA'] as $key => $Assessments) {
-            foreach ($Assessments as $key2 => $Assessment) {
-                # code...
-            }
-        }
-
-        return $a;
+        return view('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
     }
 }

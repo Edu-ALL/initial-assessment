@@ -13,6 +13,7 @@ use App\Models\UserClient;
 use App\Models\UserPoint;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use PDO;
 
 class AnswerRepository implements AnswerRepositoryInterface
 {
@@ -347,6 +348,87 @@ class AnswerRepository implements AnswerRepositoryInterface
             $i++;
         }
 
+        if ($filled->exists()) {
+            User::where('id', $userId)->update(['took_ia' => 1]);
+        } else {
+            User::where('id', $userId)->update(['took_ia' => 0]);
+        }
+
         return $filled = $filled->exists();
+    }
+
+    public function getQuestionAnswerByCategory($category_id, $user)
+    {
+        # get the questions & answer for exploration    
+        $questions = Question::with('sub_questions')->where('category_id', $category_id)->orderBy('id', 'ASC')->get();
+
+        $category_name = $this->getCategoryName($category_id);
+
+        foreach ($questions as $question) {
+
+            if ($question->sub_questions->count() > 0) {
+
+                $mapped_answers[$category_name][] = [
+                    'question' => [
+                        'title' => $question->title,
+                        'sub_question' =>
+                        $question->sub_questions->map(function ($value) use ($user) {
+                            $userAnswer = Answer::where('user_id', $user->id)->where('sub_question_id', $value->id)->get();
+
+                            return [
+                                'title' => $value->title,
+                                'answer' => [
+                                    'option' => $userAnswer->map(function ($value) {
+                                        return isset($value->option) ? $value->option->option_answer : null;
+                                    }),
+                                    'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
+                                    'score' => $userAnswer->pluck('score')->toArray()
+                                ]
+                            ];
+                        }),
+
+                    ],
+                ];
+
+                // foreach ($question->sub_questions as $sub_question) {
+                //     $userAnswer = Answer::where('user_id', $user->id)->where('sub_question_id', $sub_question->id)->get();
+
+                //     $mapped_answers[$category_name][] = [
+                //         'answer' => [
+                //             'option' => $userAnswer->map(function ($value) {
+                //                 return isset($value->option) ? $value->option->option_answer : null;
+                //             }),
+                //             'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
+                //             'score' => $userAnswer->pluck('score')->toArray()
+                //         ]
+                //     ];
+                // }
+
+                continue;
+            }
+
+            $userAnswer = Answer::with('option')->where('user_id', $user->id)->where('question_id', $question->id)->get();
+            $mapped_answers[$category_name][] = [
+                'question' => [
+                    'title' => $question->title,
+                    'sub_question' => [],
+                    'answer' => [
+                        'option' => $userAnswer->map(function ($value) {
+                            return isset($value->option) ? $value->option->option_answer : null;
+                        }),
+                        'descriptive' => $userAnswer->pluck('answer_descriptive')->toArray(),
+                        'score' => $userAnswer->pluck('score')->toArray()
+                    ]
+                ],
+            ];
+        }
+
+        return $mapped_answers;
+    }
+
+    private function getCategoryName($category_id)
+    {
+        $category = Category::find($category_id);
+        return $category->name;
     }
 }
