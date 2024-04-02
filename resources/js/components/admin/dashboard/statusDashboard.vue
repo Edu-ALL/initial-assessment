@@ -2,6 +2,10 @@
 import student from '@images/cards/student.png'
 import assessment from '@images/cards/assessment.png'
 import quest from '@images/cards/quest.png'
+
+defineProps({
+  data: Object,
+})
 </script>
 
 <template>
@@ -17,7 +21,7 @@ import quest from '@images/cards/quest.png'
               <h3 class="mb-3 text-disabled">
                 Student Total
               </h3>
-              <h1>120</h1>
+              <h1>{{ data?.user }}</h1>
             </div>
     
             <img
@@ -40,7 +44,7 @@ import quest from '@images/cards/quest.png'
               <h3 class="mb-3 text-disabled">
                 Initial Assessment
               </h3>
-              <h1>120</h1>
+              <h1>{{ data?.took_ia }}</h1>
             </div>
     
             <img
@@ -63,7 +67,7 @@ import quest from '@images/cards/quest.png'
               <h3 class="mb-3 text-disabled">
                 Take a Quest
               </h3>
-              <h1>120</h1>
+              <h1>{{ data?.took_quest }}</h1>
             </div>
     
             <img

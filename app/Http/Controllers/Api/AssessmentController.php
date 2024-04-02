@@ -546,6 +546,7 @@ class AssessmentController extends Controller
 
         $pdf = Pdf::loadView('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
 
+        // return view('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
         // return $pdf->stream('report.pdf', array("Attachment" => false));
         // exit(0);
 

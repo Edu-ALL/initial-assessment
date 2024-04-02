@@ -250,10 +250,24 @@ watch(() => {
               :rules="rules.required"
               @update:model-value="getSubOption"
             />
+
+            <VTextField
+              v-if="inputData[0].answer[0]?.id==127"
+              v-model="inputData[0].answer[0].answer_descriptive"
+              label="Curriculum Name"
+              density="compact"
+              min="0"
+              max="9"
+              class="mt-3"
+              :rules="rules.required"
+            />
           </li>
 
           <!-- Question 2  -->
-          <li class="my-5">
+          <li
+            v-if="inputData[0].answer[0]?.id!=127"
+            class="my-5"
+          >
             What is your current subject selection?
             <span style="color:red">*</span> <br>
             <small>
@@ -274,7 +288,10 @@ watch(() => {
           </li>
 
           <!-- Question 3  -->
-          <li class="my-5">
+          <li
+            v-if="inputData[0].answer[0]?.id!=127"
+            class="my-5"
+          >
             <div class="mb-3">
               What were your last report grades?
               <span style="color:red">*</span>

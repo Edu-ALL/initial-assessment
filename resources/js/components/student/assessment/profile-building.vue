@@ -386,7 +386,6 @@ watch(() => {
           <li class="my-5">
             <div class="mb-3">
               What activities have you done?
-              <span style="color:red">*</span>
             </div>
             <ol
               type="A"
@@ -561,7 +560,7 @@ watch(() => {
               Have you ever created a personal project? 
               <span style="color:red">*</span> <br>
               <small>
-                A personal project combines your passion and the skills you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
+                A personal project <b>combines your passion and the skills</b> you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
               </small>
 
               <VRadioGroup v-model="radioData.radio1">
@@ -633,7 +632,7 @@ watch(() => {
               Have you ever conducted a research project?
               <span style="color:red">*</span> <br>
               <small>
-                A research project is a detailed study where you look closely at a specific topic, question, or problem to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
+                A research project is <b>a detailed study where you look closely at a specific topic, question, or problem</b>  to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
               </small>
 
               <VRadioGroup v-model="radioData.radio2">

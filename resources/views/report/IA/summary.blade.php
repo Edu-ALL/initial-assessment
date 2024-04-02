@@ -8,9 +8,9 @@
             dd($userAnswers);
         @endphp --}}
         @foreach ($userAnswers as $key => $category)
-            <h5>
+            <p style="font-size: 1.2em !important; font-weight:bold">
                 {{ $key }}
-            </h5>
+            </p>
             <ol>
                 @foreach ($category as $question)
                     <li>

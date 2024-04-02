@@ -55,7 +55,7 @@ const submit = async () => {
 const handleSubmit = async () => {
   console.log(inputData.value)
 
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true

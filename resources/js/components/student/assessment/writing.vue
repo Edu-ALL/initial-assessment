@@ -113,7 +113,7 @@ const submit = async () => {
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you want to submit your answers?')
   if(confirmed) {
     loading.value = true
     try {
@@ -197,7 +197,7 @@ watch(() => {
 
           <!-- Question 2  -->
           <li class="my-5">
-            How confident are you in expressing yourself through non-academic writing (such as stories, journals)?
+            How confident are you in expressing yourself through <b>non-academic writing</b> (such as stories, journals)?
             <span style="color:red">*</span>
             <VRow>
               <VCol
@@ -220,7 +220,7 @@ watch(() => {
 
           <!-- Question 3  -->
           <li class="my-5">
-            How confident are you in expressing yourself through academic writing (such as essays and journals)?
+            How confident are you in expressing yourself through <b>academic writing</b> (such as essays and journals)?
             <span style="color:red">*</span>
             <VRow>
               <VCol

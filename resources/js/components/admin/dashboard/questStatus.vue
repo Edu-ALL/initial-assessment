@@ -5,9 +5,13 @@ import Sponsor from '@images/cards/sponsor.png'
 import Exploration from '@images/cards/exploration.png'
 import ProfileBuilding from '@images/cards/profile-building.png'
 
+const props = defineProps({
+  data: Object,
+})
+
 const quests = [
   {
-    total: 12,
+    total: props.data?.quest['Exploration'],
     subtitle: 'Take a Quest',
     title: 'Interest Exploration',
     icon: Exploration,
@@ -15,13 +19,13 @@ const quests = [
   },
   {
     subtitle: 'Take a Quest',
-    total: 20,
+    total: props.data?.quest['Profile Building'],
     title: 'Profile Building',
     icon: ProfileBuilding,
     color: 'primary',
   },
   {
-    total: 30,
+    total: props.data?.quest['Academic Profiling'],
     subtitle: 'Take a Quest',
     title: 'Academic',
     icon: Academic,
@@ -29,14 +33,14 @@ const quests = [
   },
   {
     subtitle: 'Take a Quest',
-    total: 20,
+    total: props.data?.quest['Writing'],
     title: 'Writing',
     icon: Writing,
     color: 'success',
   },
   {
     subtitle: 'Take a Quest',
-    total: 15,
+    total: props.data?.quest['Sponsor'],
     title: 'Sponsor',
     icon: Sponsor,
     color: 'primary',

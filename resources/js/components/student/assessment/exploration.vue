@@ -165,7 +165,7 @@ watch(() => {
       <VCardTitle class="mb-4">
         <h3>
           <strong>
-            Exploration
+            Interest Exploration
           </strong>
         </h3>
         <VDivider />
@@ -200,7 +200,7 @@ watch(() => {
             >
               <li class="mb-3">
                 <label>
-                  Academic (general majors)
+                  Academic interests (You can pick more than one)
                   <span style="color:red">*</span>
                 </label>
                 <VSelect
@@ -218,7 +218,7 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Non-academic
+                  Non-academic (You can pick more than one)
                   <span style="color:red">*</span>
                 </label>
                 <VSelect
@@ -240,7 +240,7 @@ watch(() => {
           <!-- Question 2 -->
           <li>
             <div class="mb-3">
-              What is your daily schedule? (can pick more than one)
+              What is your daily schedule? (You can pick more than one)
               <span style="color:red">*</span>
             </div>
             <VSelect
@@ -260,7 +260,7 @@ watch(() => {
           <!-- Question 3 -->
           <li>
             <div class="mb-3">
-              What do you identify as your strengths? (can pick more than one) 
+              What do you identify as your strengths? (You can pick more than one) 
               <span style="color:red">*</span>
             </div>
             
@@ -289,7 +289,7 @@ watch(() => {
           <!-- Question 4 -->
           <li>
             <div class="mb-3">
-              What do you identify as your weaknesses? (can pick more than one)
+              What do you identify as your weaknesses? (You can pick more than one)
               <span style="color:red">*</span>
             </div>
             <VSelect
@@ -325,7 +325,7 @@ watch(() => {
             >
               <li class="mb-3">
                 <label>
-                  Academic
+                  Academic (for example: achieve a minimum A-level score of AAB)
                 </label>
                 <VTextarea
                   v-model="inputData[5].answer[0].answer_descriptive"
@@ -335,7 +335,7 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Personal (for example your dream job)
+                  Personal (for example: your dream job)
                 </label>
                 <VTextarea
                   v-model="inputData[6].answer[0].answer_descriptive"
@@ -349,7 +349,7 @@ watch(() => {
           <!-- Question 6 -->
           <li>
             <div class="mb-3">
-              Where is your dream country to study in? (Can pick more than one)
+              Where is your dream country to study in? (You can pick more than one)
             </div>
             <VSelect
               v-model="inputData[7].answer"

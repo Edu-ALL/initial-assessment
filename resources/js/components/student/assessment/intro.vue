@@ -32,7 +32,7 @@ const checkStep = value => {
       </p>
       <ul class="ps-5 mb-3">
         <li>
-          Chill and read each question at your own pace.
+          Read each question at your own pace.
         </li>
         <li>
           Be super honest with your answers – just go with what feels right.
