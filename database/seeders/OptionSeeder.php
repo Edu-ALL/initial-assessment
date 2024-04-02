@@ -142,7 +142,7 @@ class OptionSeeder extends Seeder
 
 
         # seeds for options no 3
-        $options_no_3 = ['Hard-working', 'Creative', 'Adaptive', 'Empathetic', 'Resilient', 'Meticulous', 'Honest', 'Love to learn', 'Others'];
+        $options_no_3 = ['Hard-working', 'Creative', 'Adaptive', 'Empathetic', 'Resilient', 'Meticulous', 'Honest', 'Love to learn'];
         foreach ($options_no_3 as $key => $value) {
 
             $seeds[$indexOption] = [
@@ -157,6 +157,8 @@ class OptionSeeder extends Seeder
 
             $indexOption++;
         }
+
+        $indexOption++;
 
         # seeds for options no 4
         $options_no_4 = ['Procrastinate', 'Impatient', 'Careless', 'Irresponsible', 'Insecure', 'Stubborn', 'Pessimistic', 'Ignorant', 'Others'];
@@ -175,7 +177,7 @@ class OptionSeeder extends Seeder
             $indexOption++;
         }
 
-        $options_no_6 = ['US', 'UK', 'HK', 'Singapore', 'Japan', 'China, Korea', 'EU (Netherlands, Germany, etc.)'];
+        $options_no_6 = ['United States of America', 'United Kingdom', 'Hong Kong', 'Singapore', 'Japan', 'China', 'European Union (Netherlands, Germany, etc.)'];
         foreach ($options_no_6 as $key => $value) {
 
             $seeds[$indexOption] = [
@@ -299,7 +301,7 @@ class OptionSeeder extends Seeder
             $indexOption++;
         }
 
-        $options_no_17 = ['Research reports', 'Descriptive texts', 'Argumentative texts', 'Narrative texts', 'Journals', 'Self-reflection', 'Others'];
+        $options_no_17 = ['Research reports', 'Descriptive texts', 'Argumentative texts', 'Narrative texts', 'Journals', 'Self-reflection'];
         foreach ($options_no_17 as $key => $value) {
 
             $seeds[$indexOption] = [
@@ -314,6 +316,8 @@ class OptionSeeder extends Seeder
 
             $indexOption++;
         }
+
+        $indexOption++;
 
         #No 18
         for ($i = 1; $i < 6; $i++) {
@@ -345,6 +349,42 @@ class OptionSeeder extends Seeder
             ];
 
             $indexOption++;
+        }
+
+        $newIndex = 259;
+        # Additional option no 1b
+        $add_major_na = ['Carpentry'];
+        foreach ($add_major_na as $key => $value) {
+            $seeds[$indexOption] = [
+                'id' => $newIndex,
+                'question_id' => 1,
+                'sub_question_id' => 2,
+                'title_of_answer' => null,
+                'option_answer' => $value,
+                'reference_to' => null,
+                'point' => 0
+            ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
+        # Additional option no 6
+        $add_options_no_6 = ['Korea', 'Australia'];
+        foreach ($add_options_no_6 as $key => $value) {
+
+            $seeds[$indexOption] = [
+                'id' => $newIndex,
+                'question_id' => 6,
+                'sub_question_id' => null,
+                'title_of_answer' => null,
+                'option_answer' => $value,
+                'reference_to' => null,
+                'point' => 1
+            ];
+
+            $indexOption++;
+            $newIndex++;
         }
 
 
