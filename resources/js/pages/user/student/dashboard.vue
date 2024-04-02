@@ -12,10 +12,14 @@ const illustrationJohn = computed(() => global.name.value === 'dark' ? illustrat
 
 const user = ref(UserService.getUser())
 
-const downloadPdf = async () => {
+const downloadPdf = async type => {
   const id = user.value.client?.id
+  if(type=='result') {
+    window.open('/api/report/'+id, '_blank')
+  } else {
+    window.open('/api/report/'+id+'/summary', '_blank')
+  }
 
-  window.open('/api/report/'+id, '_blank')
 }
 
 const downloadQuestPdf = async () => {
@@ -55,12 +59,19 @@ const downloadQuestPdf = async () => {
               </span>
               <br>
               <VBtn
-                variant="tonal"
                 class="mt-4"
                 size="small"
-                @click="downloadPdf"
+                @click="downloadPdf('result')"
               >
                 Download Result
+              </VBtn>
+              <VBtn
+                color="secondary"
+                class="mt-4 ms-2"
+                size="small"
+                @click="downloadPdf('recap')"
+              >
+                Your Recap
               </VBtn>
             </VCardText>
           </VCol>
