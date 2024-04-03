@@ -55,7 +55,7 @@ const downloadQuestPdf = async () => {
 
             <VCardText>
               <span>
-                Thank you for completing the questionnaire. Check your results by clicking the button below.
+                Thank you for completing the assessment. Check your results by clicking the button below.
               </span>
               <br> <br>
               <VBtn
@@ -65,14 +65,16 @@ const downloadQuestPdf = async () => {
               >
                 Your Personalized Report
               </VBtn>
-              <VBtn
+              <!--
+                <VBtn
                 color="secondary"
                 class="my-1"
                 size="small"
                 @click="downloadPdf('recap')"
-              >
+                >
                 Your Answers
-              </VBtn>
+                </VBtn> 
+              -->
             </VCardText>
           </VCol>
 
@@ -111,14 +113,14 @@ const downloadQuestPdf = async () => {
             </span>
             <div
               v-if="user.client?.took_quest==1"
-              class="cursor-pointer"
+              class="cursor-pointer btn btn-primary"
               @click="downloadQuestPdf"
             >
               <VTooltip
                 activator="parent"
                 location="start"
               >
-                Download Quest Result
+                Download
               </VTooltip>
               <VIcon icon="bx-download" />
             </div>

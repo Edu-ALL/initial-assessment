@@ -41,12 +41,12 @@ watch(() => {
       />
 
       <div
-        class="px-5"
+        class="px-5 mt-8"
         style="border-left:5px solid #FED017"
       >
-        <h3 class="mb-3">
+        <h2 class="mb-3">
           How to get it?
-        </h3>
+        </h2>
         <p>
           Based on your answers, we have created a customized journey for you to follow:
         </p>

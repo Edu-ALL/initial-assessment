@@ -289,10 +289,14 @@ const itemProps = item => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
@@ -394,7 +398,7 @@ watch(() => {
               <!-- Sub 1  -->
               <li class="mb-3">
                 <label>
-                  How many competitions have you won or participated in? 
+                  List the competitions you won or participated in. Please specify the level (international, national, school)
                 </label>
                 <VRow
                   v-for="i in inputData[0].answer"
@@ -434,7 +438,7 @@ watch(() => {
               <!-- Sub 2  -->
               <li class="mb-3">
                 <label>
-                  How many internships have you participated in? Please state the duration of your internship.
+                  List the internships you have participated in. Please state the duration of your internship.
                 </label>
                 <VRow
                   v-for="i in inputData[1].answer"
@@ -470,7 +474,7 @@ watch(() => {
               <!-- Sub 3  -->
               <li class="mb-3">
                 <label>
-                  How many volunteering opportunities have you joined?
+                  List the volunteering opportunities you have participated in.
                 </label>
                 <VRow class="my-2">
                   <VCol
@@ -491,7 +495,7 @@ watch(() => {
               <!-- Sub 4 -->
               <li class="mb-3">
                 <label>
-                  How many school clubs have you done?
+                  List the school clubs you have participated in.
                 </label>
                 <VRow class="my-2">
                   <VCol
@@ -512,7 +516,7 @@ watch(() => {
               <!-- Sub 5  -->
               <li class="mb-3">
                 <label>
-                  How many out-of-school activities have you done? (e.g coding/robotic/ cooking classes)
+                  List any out-of-school activities you do. (e.g coding/robotic/ cooking classes)
                 </label>
                 <VRow class="my-2">
                   <VCol
@@ -533,7 +537,7 @@ watch(() => {
               <!-- Sub 6  -->
               <li class="mb-3">
                 <label>
-                  How many summer/winter programs have you attended?
+                  List any summer/winter programs you have attended.
                 </label>
                 <VRow class="my-2">
                   <VCol

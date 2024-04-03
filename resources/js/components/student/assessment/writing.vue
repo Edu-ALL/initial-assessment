@@ -105,10 +105,14 @@ const itemProps = item => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
@@ -212,7 +216,6 @@ watch(() => {
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>
@@ -235,7 +238,6 @@ watch(() => {
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>

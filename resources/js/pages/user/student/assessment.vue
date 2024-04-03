@@ -9,7 +9,7 @@ import Writing from '@/components/student/assessment/writing.vue'
 import UserService from '@/services/UserService'
 import { onMounted, ref } from 'vue'
 
-const step = ref(1)
+const step = ref(4)
 
 const loading = ref(true)
 
@@ -28,7 +28,7 @@ onMounted(() => {
     }
     
     loading.value=false
-  }, 1000)
+  }, 500)
 })
 </script> 
 

@@ -2,7 +2,7 @@
 import { showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
-import { defineEmits, watch } from 'vue'
+import { defineEmits, ref, watch } from 'vue'
 
 const emits = defineEmits(['step'])
 
@@ -107,10 +107,14 @@ const itemProps = item => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
@@ -204,6 +208,7 @@ watch(() => {
                   <span style="color:red">*</span>
                 </label>
                 <VSelect
+                  ref="academic"
                   v-model="inputData[0].answer"
                   :item-props="itemProps"
                   :items="options && options['option1-1'] ? options['option1-1'] : ''"
@@ -218,7 +223,7 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Non-academic (You can pick more than one)
+                  Non-academic interests (You can pick more than one)
                   <span style="color:red">*</span>
                 </label>
                 <VSelect

@@ -34,10 +34,14 @@ const inputData = ref([
 
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
