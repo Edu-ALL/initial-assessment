@@ -67,7 +67,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 5,
                 'question_id' => 8,
-                'title' => 'How many competitions have you won or participated in?',
+                'title' => 'List the competitions you won or participated in?',
                 'description' => 'Please specify the level (international, national, school)',
                 'question_type' => 'optional',
                 'answer_type' => 'description',
@@ -79,7 +79,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 6,
                 'question_id' => 8,
-                'title' => 'How many internships have you participated in?',
+                'title' => 'List the internships you have participated in.',
                 'description' => 'Please state the duration of your internship.',
                 'question_type' => 'optional',
                 'answer_type' => 'description',
@@ -91,7 +91,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 7,
                 'question_id' => 8,
-                'title' => 'How many volunteering opportunities have you joined?',
+                'title' => 'List the volunteering opportunities you have participated in.',
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
@@ -103,7 +103,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 8,
                 'question_id' => 8,
-                'title' => 'How many school clubs have you done?',
+                'title' => 'List the school clubs you have participated in.',
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
@@ -115,7 +115,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 9,
                 'question_id' => 8,
-                'title' => 'How many out-of-school activities have you done?',
+                'title' => 'List any out-of-school activities you do.',
                 'description' => '(e.g coding/robotic/ cooking classes)',
                 'question_type' => 'optional',
                 'answer_type' => 'description',
@@ -127,7 +127,7 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 10,
                 'question_id' => 8,
-                'title' => 'How many summer/winter programs have you attended?',
+                'title' => 'List any summer/winter programs you have attended.',
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
