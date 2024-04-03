@@ -10,6 +10,7 @@ import ApiService from '@/services/ApiService'
 import UserService from '@/services/UserService'
 import { onMounted, ref, watch } from 'vue'
 import illustrationJohn from '@images/cards/illustration-john-light.png'
+import router from '@/router'
 
 const result = ref()
 const loading = ref(false)
@@ -30,7 +31,7 @@ const getRank = async () => {
 }
 
 const submitQuest = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to finishing the Quest?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have finished the quest?')
   if (confirmed) {
     // Lakukan pengiriman data
     try {
@@ -58,9 +59,10 @@ const checkQuest = () => {
 }
 
 const downloadPdf = () => {
-  const id = user.value.client?.id
+  // const id = user.value.client?.id
+  // window.open('/api/report_quest/'+id, '_blank')
 
-  window.open('/api/report_quest/'+id, '_blank')
+  router.push({ name: 'dashboard' })
 }
 
 watch(() => {
@@ -89,16 +91,15 @@ watch(() => {
    
     <section v-if="result && !loading && user.client?.took_quest==0">
       <VCard
-        style="border-bottom:10px solid #0000FF"
+        style="border-bottom:10px solid rgb(var(--v-theme-primary))"
         class="mb-3"
       >
-        <VCardTitle class="mb-4">
-          <h3 class="text-wrap text-xl text-md-h5 mt-4 mb-2">
+        <VCardTitle>
+          <h5 class="text-wrap text-xl text-md-h5 mt-4 mb-2">
             <strong>
               Welcome to EduALL Quest: Your Path, Your Choice!
             </strong>
-          </h3>
-          <VDivider />
+          </h5>
         </VCardTitle>
         <VCardText>
           <p>
@@ -114,24 +115,24 @@ watch(() => {
         >
           <Exploration
             v-if="item.category=='Exploration'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <ProfileBuilding
             v-if="item.category=='Profile Building'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <Academic
             v-if="item.category=='Academic'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <Writing
             v-if="item.category=='Writing'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
         </div>
         <Sponsor
           class="w-100 my-1"
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
         />
       </VExpansionPanels>
   
@@ -148,14 +149,14 @@ watch(() => {
     <section v-if="result && !loading && user.client?.took_quest==1">
       <VCard
         class="position-relative overflow-hidden"
-        style="border-bottom:10px solid #0000FF"
+        style="border-bottom:10px solid rgb(var(--v-theme-primary))"
       >
         <VCardText>
           <h2
             class="mb-md-8 mb-5"
             style="line-height:1.2;"
           >
-            {{ is_completed ? 'Congratulations on finishing ALL the quest missions!' : 'Congratulations on Completing the Quest.' }}
+            {{ is_completed ? 'Congratulations '+ user.client?.full_name +' on finishing ALL the quest missions!' : 'Congratulations '+user.client?.full_name +' on Completing the Quest.' }}
           </h2>
           <p v-if="!is_completed">
             Claim your reward now! 
@@ -173,11 +174,20 @@ watch(() => {
             <h3 class="mb-2">
               What’s Next?
             </h3>
+            
             <p v-if="is_completed">
               Head over to the EduALL booth to earn:
               <ul class="ms-5">
                 <li class="my-2">
-                  Your own personalized uni application progress report
+                  Claim your own personalized uni application progress report
+                  <VBtn
+                    density="compact"
+                    color="primary"
+                    class="mt-2 d-block"
+                    @click="downloadPdf"
+                  >
+                    Get Your Free Personalized Report
+                  </VBtn>
                 </li>
                 <li class="my-2">
                   Quest completer exclusive prize (limited)
@@ -220,10 +230,10 @@ ol[type="I"] {
 }
 
 ol[type="A"] li {
-  color: blue;
+  color: rgb(var(--v-theme-primary));
 }
 
 ol[type="A"] div {
-  color: rgb(75, 75, 75);
+  color: rgb(var(--v-theme-primary));
 }
 </style>

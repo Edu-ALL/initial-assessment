@@ -105,15 +105,19 @@ const itemProps = item => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you want to submit your answers?')
   if(confirmed) {
     loading.value = true
     try {
@@ -161,7 +165,7 @@ watch(() => {
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -197,8 +201,8 @@ watch(() => {
 
           <!-- Question 2  -->
           <li class="my-5">
-            How confident are you in expressing yourself through non-academic writing (such as stories, journals)?
-            <span style="color:red">*</span>
+            How confident are you in expressing yourself through <b>non-academic writing</b> (such as stories, journals)?
+            <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
               <VCol
                 md="5"
@@ -212,7 +216,6 @@ watch(() => {
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>
@@ -220,8 +223,8 @@ watch(() => {
 
           <!-- Question 3  -->
           <li class="my-5">
-            How confident are you in expressing yourself through academic writing (such as essays and journals)?
-            <span style="color:red">*</span>
+            How confident are you in expressing yourself through <b>academic writing</b> (such as essays and journals)?
+            <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
               <VCol
                 md="5"
@@ -235,7 +238,6 @@ watch(() => {
                   step="1"
                   tick-size="5"
                   class="mt-3"
-                  :rules="rules.not_zero"
                 />
               </VCol>
             </VRow>

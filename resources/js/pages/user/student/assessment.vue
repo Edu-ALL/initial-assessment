@@ -28,7 +28,7 @@ onMounted(() => {
     }
     
     loading.value=false
-  }, 1000)
+  }, 500)
 })
 </script> 
 
@@ -96,10 +96,10 @@ ol[type="A"] {
 }
 
 ol[type="A"] li {
-  color: blue;
+  color: rgb(var(--v-theme-primary));
 }
 
 ol[type="A"] div {
-  color: rgb(75, 75, 75);
+  color: rgb(var(--v-theme-primary));
 }
 </style>

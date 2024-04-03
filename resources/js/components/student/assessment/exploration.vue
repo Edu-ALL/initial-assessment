@@ -2,7 +2,7 @@
 import { showNotif } from '@/helper/notification'
 import { rules } from '@/helper/rules'
 import ApiService from '@/services/ApiService'
-import { defineEmits, watch } from 'vue'
+import { defineEmits, ref, watch } from 'vue'
 
 const emits = defineEmits(['step'])
 
@@ -107,10 +107,14 @@ const itemProps = item => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
@@ -165,14 +169,14 @@ watch(() => {
       <VCardTitle class="mb-4">
         <h3>
           <strong>
-            Exploration
+            Interest Exploration
           </strong>
         </h3>
         <VDivider />
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -192,7 +196,7 @@ watch(() => {
           <li>
             <div class="mb-3">
               What are your current interests?
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <ol
               type="A"
@@ -200,10 +204,11 @@ watch(() => {
             >
               <li class="mb-3">
                 <label>
-                  Academic (general majors)
-                  <span style="color:red">*</span>
+                  Academic interests (You can pick more than one)
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
                 <VSelect
+                  ref="academic"
                   v-model="inputData[0].answer"
                   :item-props="itemProps"
                   :items="options && options['option1-1'] ? options['option1-1'] : ''"
@@ -218,8 +223,8 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Non-academic
-                  <span style="color:red">*</span>
+                  Non-academic interests (You can pick more than one)
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
                 <VSelect
                   v-model="inputData[1].answer"
@@ -240,8 +245,8 @@ watch(() => {
           <!-- Question 2 -->
           <li>
             <div class="mb-3">
-              What is your daily schedule? (can pick more than one)
-              <span style="color:red">*</span>
+              What is your daily schedule? (You can pick more than one)
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VSelect
               v-model="inputData[2].answer"
@@ -260,8 +265,8 @@ watch(() => {
           <!-- Question 3 -->
           <li>
             <div class="mb-3">
-              What do you identify as your strengths? (can pick more than one) 
-              <span style="color:red">*</span>
+              What do you identify as your strengths? (You can pick more than one) 
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             
             <VSelect
@@ -289,8 +294,8 @@ watch(() => {
           <!-- Question 4 -->
           <li>
             <div class="mb-3">
-              What do you identify as your weaknesses? (can pick more than one)
-              <span style="color:red">*</span>
+              What do you identify as your weaknesses? (You can pick more than one)
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VSelect
               v-model="inputData[4].answer"
@@ -325,7 +330,7 @@ watch(() => {
             >
               <li class="mb-3">
                 <label>
-                  Academic
+                  Academic (for example: achieve a minimum A-level score of AAB)
                 </label>
                 <VTextarea
                   v-model="inputData[5].answer[0].answer_descriptive"
@@ -335,7 +340,7 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Personal (for example your dream job)
+                  Personal (for example: your dream job)
                 </label>
                 <VTextarea
                   v-model="inputData[6].answer[0].answer_descriptive"
@@ -349,7 +354,7 @@ watch(() => {
           <!-- Question 6 -->
           <li>
             <div class="mb-3">
-              Where is your dream country to study in? (Can pick more than one)
+              Where is your dream country to study in? (You can pick more than one)
             </div>
             <VSelect
               v-model="inputData[7].answer"

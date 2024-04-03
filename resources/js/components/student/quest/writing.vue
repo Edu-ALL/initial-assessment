@@ -34,15 +34,19 @@ const inputData = ref([
 
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
@@ -140,7 +144,7 @@ const getAnswer = async () => {
             >
               <li class="mb-3">
                 Tell us what makes both these essays different?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[0].answer[0].answer_descriptive"
                   label="Answer"
@@ -154,7 +158,7 @@ const getAnswer = async () => {
           </li>
 
           <li v-if="mission==2">
-            Compare the AI and handmade essays
+            Compare the AI and human-written essays
           
             <ol
               type="I"
@@ -162,7 +166,7 @@ const getAnswer = async () => {
             >
               <li>
                 Tell us what makes both these essays different?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
@@ -183,10 +187,10 @@ const getAnswer = async () => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </vform>

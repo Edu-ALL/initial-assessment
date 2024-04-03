@@ -45,17 +45,21 @@ const getOptions =  async() => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
 const handleSubmit = async () => {
   console.log(inputData.value)
 
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
@@ -160,7 +164,7 @@ watch(() => {
             >
               <li class="mb-3">
                 Which NGO representative did you meet? 
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
 
                 <VRadioGroup
                   v-model="inputData[0].answer[0]" 
@@ -176,7 +180,7 @@ watch(() => {
               </li>
               <li>
                 How do you think you can use your skills and/or interests to contribute to their causes?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Description"
@@ -201,7 +205,7 @@ watch(() => {
             >
               <li class="mb-3">
                 What topic did you learn about in this area?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VRadioGroup
                   v-model="inputData[2].answer[0]" 
                   :rules="rules.required"
@@ -216,7 +220,7 @@ watch(() => {
               </li>
               <li>
                 From your observation, what potential project can you think of?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[3].answer[0].answer_descriptive"
                   label="Description"
@@ -237,10 +241,10 @@ watch(() => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </VForm>

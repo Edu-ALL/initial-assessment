@@ -40,15 +40,19 @@ const getOptions =  async() => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
@@ -138,7 +142,7 @@ watch(() => {
             >
               <li class="mb-3">
                 Choose one option
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VRadioGroup
                   v-model="inputData[0].answer[0]" 
                   :rules="rules.required"
@@ -153,7 +157,7 @@ watch(() => {
               </li>
               <li v-if="inputData[0].answer[0]">
                 When chosen, they can insert their score
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
 
                 <VTextField
                   v-model="inputData[0].answer[0].score"
@@ -179,7 +183,7 @@ watch(() => {
             >
               <li>
                 What major are you planning to go to based on your consultation and your subject selection?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
@@ -200,10 +204,10 @@ watch(() => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </VForm>

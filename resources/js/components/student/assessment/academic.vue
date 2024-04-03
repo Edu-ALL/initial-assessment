@@ -166,10 +166,14 @@ const resetRadio = radio => {
 
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
@@ -219,7 +223,7 @@ watch(() => {
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -239,7 +243,7 @@ watch(() => {
           <!-- Question 1 -->
           <li class="my-5">
             What curriculum does your school use?
-            <span style="color:red">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span>
             <VSelect
               v-model="inputData[0].answer[0]"
               :item-props="itemProps"
@@ -250,12 +254,26 @@ watch(() => {
               :rules="rules.required"
               @update:model-value="getSubOption"
             />
+
+            <VTextField
+              v-if="inputData[0].answer[0]?.id==127"
+              v-model="inputData[0].answer[0].answer_descriptive"
+              label="Curriculum Name"
+              density="compact"
+              min="0"
+              max="9"
+              class="mt-3"
+              :rules="rules.required"
+            />
           </li>
 
           <!-- Question 2  -->
-          <li class="my-5">
+          <li
+            v-if="inputData[0].answer[0]?.id!=127"
+            class="my-5"
+          >
             What is your current subject selection?
-            <span style="color:red">*</span> <br>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
             <small>
               The curriculum that appears refers to the answer in question number 1
             </small>
@@ -274,10 +292,13 @@ watch(() => {
           </li>
 
           <!-- Question 3  -->
-          <li class="my-5">
+          <li
+            v-if="inputData[0].answer[0]?.id!=127"
+            class="my-5"
+          >
             <div class="mb-3">
               What were your last report grades?
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
 
               <VRadioGroup
                 v-if="options && options['option13']"
@@ -355,7 +376,7 @@ watch(() => {
           <li class="my-5">
             <div class="mb-3">
               Have you done any standardized tests?
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
 
               <VRadioGroup
                 v-model="radioData.radio1"
@@ -441,7 +462,7 @@ watch(() => {
           <li class="my-5">
             <div class="mb-3">
               Do you feel like you need help in your academics?
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
 
               <VRadioGroup
                 v-model="inputData[6].answer[0].answer_descriptive"

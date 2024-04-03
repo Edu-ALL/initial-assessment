@@ -11,9 +11,15 @@ const user = ref(UserService.getUser())
 const logout = () => {
   showNotif('success', 'You`ve successfully logout', 'bottom-end')
   setTimeout(() => {
+
+    if(UserService.getUser().client?.type==1) {
+      router.push({ name: 'admin-login' })
+    } else {
+      router.push({ name: 'login' })
+    }
+
     JwtService.destroyToken()
     UserService.destroyUser()
-    router.push({ name: 'login' })
   }, 1000)
 }
 </script>

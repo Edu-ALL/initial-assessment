@@ -38,15 +38,19 @@ const getOptions =  async() => {
 }
 
 const submit = async () => {
-  const { valid } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
     handleSubmit()
+  } else {
+    const element = document.getElementById(errors[0].id)
+    
+    element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure to submitting data?')
+  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
@@ -147,11 +151,11 @@ watch(() => {
                   href="https://www.mynextmove.org/explore/ip"
                   target="_blank"
                   rel="noopener noreferrer"
-                >ONE*T test.</a>  <span style="color:red">*</span> 
+                >ONE*T test.</a>  <span style="color: rgb(var(--v-theme-error))">*</span> 
               </li>
               <li>
                 After finishing you have to write your score!
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VRow class="my-3">
                   <VCol
                     v-for="item, index in inputData[0].answer"
@@ -186,7 +190,7 @@ watch(() => {
               class="ms-4 my-3"
             >
               <li class="mb-3">
-                Speaker Name <span style="color:red">*</span>
+                Speaker Name <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VRadioGroup
                   v-model="inputData[1].answer[0]" 
                   :rules="rules.required"
@@ -201,7 +205,7 @@ watch(() => {
               </li>
               <li>
                 Reflect on what you just learned! Let us know what was the most valuable lesson you obtained from them?
-                <span style="color:red">*</span>
+                <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VTextarea
                   v-if="inputData[2].answer[0]"
                   v-model="inputData[2].answer[0].answer_descriptive"
@@ -223,10 +227,10 @@ watch(() => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </VForm>

@@ -55,24 +55,26 @@ const downloadQuestPdf = async () => {
 
             <VCardText>
               <span>
-                Thank you for completing the questionnaire. Check your results by clicking the button below.
+                Thank you for completing the assessment. Check your results by clicking the button below.
               </span>
-              <br>
+              <br> <br>
               <VBtn
-                class="mt-4"
+                class="my-1 me-2"
                 size="small"
                 @click="downloadPdf('result')"
               >
-                Download Result
+                Your Personalized Report
               </VBtn>
-              <VBtn
+              <!--
+                <VBtn
                 color="secondary"
-                class="mt-4 ms-2"
+                class="my-1"
                 size="small"
                 @click="downloadPdf('recap')"
-              >
-                Your Recap
-              </VBtn>
+                >
+                Your Answers
+                </VBtn> 
+              -->
             </VCardText>
           </VCol>
 
@@ -93,43 +95,39 @@ const downloadQuestPdf = async () => {
         </VRow>
       </VCard>
 
-      <VCard>
-        <VCardText>
-          <h3>Notes</h3>
-        </VCardText>
-      </VCard>
+      <VSkeletonLoader
+        type="image@2"
+        class="shadow"
+      />
     </VCol>
 
     <VCol
       cols="12"
       md="6"
     >
-      <VCard style="background:blue">
-        <VCardTitle class="my-2 text-white">
+      <VCard style="border-bottom:5px solid #1414FF;">
+        <VCardTitle class="my-1">
           <div class="d-flex justify-between align-center w-100">
             <span class="w-100">
-              Your Quest
+              Report Activity
             </span>
             <div
               v-if="user.client?.took_quest==1"
-              class="cursor-pointer text-white"
+              class="cursor-pointer btn btn-primary"
               @click="downloadQuestPdf"
             >
               <VTooltip
                 activator="parent"
                 location="start"
               >
-                Download Quest Result
+                Download
               </VTooltip>
               <VIcon icon="bx-download" />
             </div>
           </div>
         </VCardTitle>
         <VDivider />
-        <VCardText
-          class="text-dark"
-          style="background:white"
-        >
+        <VCardText class="text-dark">
           <VTimeline
             align="start"
             side="end"
@@ -174,7 +172,7 @@ const downloadQuestPdf = async () => {
                 </div>
 
                 <div v-if="index=='Sponsor'">
-                  <strong>Sponsor Area</strong>
+                  <strong>Collaborator Area</strong>
                   <div class="text-caption">
                     End the journey by refreshing your mind at one of our collaborator booths!
                   </div>
