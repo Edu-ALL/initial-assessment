@@ -1,7 +1,4 @@
 <div class="category">
-    <div class="mt-3 mb-4">
-        <h5>A. Interest Exploration</h5>
-    </div>
     @if ($reports[1][1])
         <div class="onet">
             <p>
@@ -13,7 +10,7 @@
                 <b>Based on your test</b> here were the result:
             </p>
 
-            <ul>
+            <ul class="mb-3">
                 <b>
                     <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
                     <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}

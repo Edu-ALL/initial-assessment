@@ -1,8 +1,4 @@
 <div class="category">
-    <div class="mt-4 mb-4">
-        <h5>{{ !$reports['checkListQuest']['Exploration'] ? 'A' : 'B' }}. Profile-Building</h5>
-    </div>
-
     @if ($reports[2][1])
         <div class="ngo">
             <p>
@@ -11,7 +7,7 @@
                 various social causes, such as the following:
             </p>
 
-            <ul class="list-lower-latin">
+            <ul class="list-lower-latin mb-3">
                 <li>
                     Environment
                 </li>

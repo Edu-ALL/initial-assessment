@@ -1,20 +1,4 @@
 <div class="category">
-    <div class="mt-4 mb-4">
-        @if (
-            $reports['checkListQuest']['Exploration'] &&
-                $reports['checkListQuest']['Profile Building'] &&
-                $reports['checkListQuest']['Academic Profiling']
-        )
-            <h5>C. Academic</h5>
-        @elseif(
-            (!$reports['checkListQuest']['Exploration'] && $reports['checkListQuest']['Profile Building']) ||
-                ($reports['checkListQuest']['Exploration'] && !$reports['checkListQuest']['Profile Building']))
-            <h5>B. Academic</h5>
-        @elseif(!$reports['checkListQuest']['Exploration'] && !$reports['checkListQuest']['Profile Building'])
-            <h5>A. Academic</h5>
-        @endif
-    </div>
-
     @if ($reports[3][1])
         <div class="standard-test">
             <p>
@@ -40,42 +24,26 @@
                 </p>
 
                 <table class="table-detail text-center" style="margin-left: auto; margin-right:auto">
-                    <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>March</td>
-                            <td>Mar 9, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>May</td>
-                            <td>May 4, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>June</td>
-                            <td>June 1, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>August</td>
-                            <td>August 24, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>October</td>
-                            <td>October 5, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>November</td>
-                            <td>November 2, 2024</td>
-                        </tr>
-                        <tr>
-                            <td>December</td>
-                            <td>December 7, 2024</td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th class="bckg-color-table">Month</th>
+                        <td>March</td>
+                        <td>May</td>
+                        <td>June</td>
+                        <td>August</td>
+                        <td>October</td>
+                        <td>November</td>
+                        <td>December</td>
+                    </tr>
+                    <tr>
+                        <th class="bckg-color-table">Date</th>
+                        <td>Mar 9, 2024</td>
+                        <td>May 4, 2024</td>
+                        <td>June 1, 2024</td>
+                        <td>August 24, 2024</td>
+                        <td>October 5, 2024</td>
+                        <td>November 2, 2024</td>
+                        <td>December 7, 2024</td>
+                    </tr>
                 </table>
 
                 <p class="mt-3">
@@ -85,30 +53,20 @@
                 </p>
 
                 <table class="table-detail text-center" style="margin-left: auto; margin-right:auto">
-                    <thead>
-                        <tr>
-                            <th>Score</th>
-                            <th>Percentile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1600</td>
-                            <td><b>Top Score</b></td>
-                        </tr>
-                        <tr>
-                            <td>1520</td>
-                            <td>99th</td>
-                        </tr>
-                        <tr>
-                            <td>1350</td>
-                            <td>90th</td>
-                        </tr>
-                        <tr>
-                            <td>1210</td>
-                            <td>75th</td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th class="bckg-color-table">Percentile</th>
+                        <td><b>Top Score</b></td>
+                        <td>99th</td>
+                        <td>90th</td>
+                        <td>75th</td>
+                    </tr>
+                    <tr>
+                        <th class="bckg-color-table">Score</th>
+                        <td>1600</td>
+                        <td>1520</td>
+                        <td>1350</td>
+                        <td>1210</td>
+                    </tr>
                 </table>
 
                 <p class="mt-3">
