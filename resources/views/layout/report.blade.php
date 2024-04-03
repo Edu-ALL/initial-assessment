@@ -36,12 +36,12 @@
 
 
         p {
-            font-size: 11px !important;
-            margin-bottom: 8px !important;
+            font-size: 11px;
+            margin-bottom: 8px;
         }
 
         ul li {
-            font-size: 11px !important;
+            font-size: 12px !important;
         }
 
         header,
@@ -68,6 +68,13 @@
             font-size: 12px !important;
         }
 
+        .content h1 {
+            font-family: 'Ambit', sans-serif !important;
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 30px;
+        }
+
         .list-lower-latin {
             list-style-type: lower-latin;
         }
@@ -78,6 +85,13 @@
 
         .list-lower-roman {
             list-style-type: lower-roman;
+        }
+
+        .quest-list>li::marker,
+        .quest-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
         table {
@@ -92,13 +106,33 @@
             font-size: 11px !important;
         }
 
+        table>thead {
+            background-color: #0000FF;
+        }
+
         .table-detail th {
-            border: 2px solid #252525;
+            border: 2px solid #7272ff;
         }
 
         .table-detail td,
         th {
-            border: 2px solid #252525;
+            border: 2px solid #7272ff;
+        }
+
+        .fw-bold {
+            font-weight: bold;
+        }
+
+        .bckg-color-table {
+            background-color: #0000FF;
+            text-align: center;
+            color: white;
+        }
+
+        .bckg-color-table-ylw {
+            background-color: #0000FF;
+            text-align: center;
+            color: white;
         }
     </style>
 </head>

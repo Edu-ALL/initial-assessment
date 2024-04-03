@@ -4,12 +4,14 @@
 @section('body')
 
     <div class="content">
+        <h1 class="text-center">
+            <u>PERSONALIZED ASSESSMENT REPORT</u>
+        </h1>
         <p>
-            Hi {{ $user->full_name }} Thank you for sharing your details with us.
+            Hi {{ $user->full_name }}!
         </p>
         <p>
-            We have made a special & personalized report to help you know what to do for your future educational
-            journey!
+            Here is your personalized report to help you know what you can do next in your educational journey!
         </p>
 
         @include('report.IA.component.exploration')

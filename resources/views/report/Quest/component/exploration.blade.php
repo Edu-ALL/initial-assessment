@@ -1,20 +1,16 @@
 <div class="category">
-    <div class="mt-3 mb-4">
-        <h5>A. Exploration</h5>
-    </div>
     @if ($reports[1][1])
         <div class="onet">
             <p>
                 Starting off with the exploration area, you took a profiler test called ONE*T which can help you
-                discover
-                the type of work activities and occupations that you might find exciting.
+                discover the type of work activities and occupations that you might find exciting.
             </p>
 
             <p>
                 <b>Based on your test</b> here were the result:
             </p>
 
-            <ul>
+            <ul class="mb-3">
                 <b>
                     <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
                     <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}
@@ -27,6 +23,12 @@
             </ul>
 
             <p>
+                <b>
+                    Your most dominant personality type is [Highest 1], [Highest 2], and [Highest 3].
+                </b>
+            </p>
+
+            <p>
                 While this shows what you tend to gravitate towards, it shouldn’t limit you in exploring more about
                 yourself!
             </p>
@@ -34,21 +36,22 @@
             <table class="table-detail">
                 <tr>
                     <th></th>
-                    <th>Realistic</th>
-                    <th>Investigative</th>
-                    <th>Artistic</th>
-                    <th>Social</th>
-                    <th>Enterprising</th>
-                    <th>Conventional</th>
+                    <th class="bckg-color-table">Realistic</th>
+                    <th class="bckg-color-table">Investigative</th>
+                    <th class="bckg-color-table">Artistic</th>
+                    <th class="bckg-color-table">Social</th>
+                    <th class="bckg-color-table">Enterprising</th>
+                    <th class="bckg-color-table">Conventional</th>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td class="bckg-color-table fw-bold">Profile</td>
                     <td>You are a practical and hands-on person who enjoys working with tools, machines, or physical
                         activities.</td>
                     <td>You are an analytical and curious individual who enjoys solving problems through research and
                         intellectual pursuits.</td>
                     <td>You are a creative and expressive person who enjoy using imagination and artistic skills</td>
                     <td>You are a compassionate and people-oriented person who enjoy helping and interacting with others
+                    </td>
                     <td>You are an ambitious and persuasive individual who likes to lead and influence other people
                     </td>
                     <td>You are a detail-oriented and organized individual who likes to work with data, systems, and
@@ -56,7 +59,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="bckg-color-table fw-bold">
                         Personality
                     </td>
                     <td>
@@ -79,7 +82,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="bckg-color-table fw-bold">
                         Values
                     </td>
                     <td>
@@ -102,7 +105,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="bckg-color-table fw-bold">
                         Work Activity
                     </td>
                     <td>
@@ -125,7 +128,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="bckg-color-table fw-bold">
                         Potential major
                     </td>
                     <td>
@@ -149,7 +152,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td class="bckg-color-table fw-bold">
                         Potential career path
                     </td>
                     <td>
@@ -179,104 +182,113 @@
     @if ($reports[1][2])
         <div class="career-professionals mt-3">
             <p>
-                Starting off with the exploration area, you were able to participate in a sharing session with a
-                career
-                professional!
+                Based on the professional you picked, you can see what profile their careers are in and what you might
+                be interested in the future.
             </p>
 
             <table class="table-detail">
                 <tr>
-                    <th>Hilda</th>
+                    <th class="bckg-color-table fw-bold">Hilda</th>
                     <td>
                         <p>
-                            are Realistic Investigative, they focus on jobs surrounding working with tools,
-                            electrical
-                            drawings,
-                            machines, or plants and animals. Also like to study and solve math or science problems.
+                            Hilda is the Head Of Research And Development at Java Fresh (PT Nusantara Segar Global).
                         </p>
 
                         <p>
-                            You might be interested in these professions: mechanic, carpenter, electrician,
-                            engineer,
+                            <u>Her occupational code is Realistic Investigative</u>. They focus on jobs surrounding
+                            working
+                            with tools, electrical drawings, machines, or plants and animals. They also like to study
+                            and solve math or science problems.
+                        </p>
+
+                        <p>
+                            <b>You might be interested in these professions:</b> mechanic, carpenter, electrician,
+                            engineer, researcher, scientist, programmer, analyst, consultant.
+                        </p>
+                        <p>
+                            If you want to know more about careers with this specific personality type you can click
+                            below
+                            <a
+                                href="https://www.onetonline.org/explore/interests/Realistic/Investigative/">https://www.onetonline.org/explore/interests/Realistic/Investigative/</a>
+                        </p>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="bckg-color-table fw-bold">Dr Angelina Vanessa</th>
+                    <td>
+                        <p>Dr Vanessa is the head of Revociety.</p>
+                        <p>
+                            <u>Her occupational code is Social Investigative</u>. They focus on doing things to help
+                            people --
+                            like teaching, nursing, or giving first aid, providing information; but also like to
+                            understand and solve science and math problems.
+                        </p>
+
+                        <p>
+                            <b>You might be interested in these professions:</b> teacher, counselor, psychologist,
+                            doctor,
                             researcher, scientist, programmer, analyst, consultant.
                         </p>
 
-                        If you want to know more about careers with this specific personality type you can click
-                        below
-                        <a
-                            href="https://www.onetonline.org/explore/interests/Realistic/Investigative/">https://www.onetonline.org/explore/interests/Realistic/Investigative/</a>
+                        <p>
+                            If you want to know more about careers with this specific personality type you can click
+                            below
+                            <a
+                                href="https://www.onetonline.org/explore/interests/Investigative/Social/">https://www.onetonline.org/explore/interests/Investigative/Social/</a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="bckg-color-table fw-bold">Renardi Oetomo</th>
+                    <td>
+                        <p>
+                            Renardi Oetomo is a graphic designer at Shopee.
+                        </p>
+                        <p>
+                            <u>Her occupational code is Artistic</u>. They focus on doing creative activities like art,
+                            drama,
+                            crafts, dance, music, or creative writing.
+                        </p>
+
+                        <p>
+                            <b>You might be interested in these professions:</b> musician, designer, artist, writer,
+                            actor.
+                        </p>
+
+                        <p>
+                            If you want to know more about careers with this specific personality type you can click
+                            below
+                            <a
+                                href="https://www.onetonline.org/explore/interests/Artistic/">https://www.onetonline.org/explore/interests/Artistic/</a>
+                        </p>
 
                     </td>
                 </tr>
                 <tr>
-                    <th>Dr Vanessa</th>
+                    <th class="bckg-color-table fw-bold">Brenda Chia</th>
                     <td>
                         <p>
-                            is Social Investigative, they focus on doing things to help people -- like, teaching,
-                            nursing,
-                            or
-                            giving first aid, providing information; but also like to understand and solve science
-                            and
-                            math
-                            problems.
+                            Brenda Chia is the CEO of PT X.
+                        </p>
+                        <p>
+                            Her occupational code is <u>Enterprising Conventional</u>. They focus on leading and
+                            persuading
+                            people, and to sell things and ideas, valuing success in business. They also prefer working
+                            with written records and numbers in a systematic, orderly way.
                         </p>
 
                         <p>
-                            You might be interested in these professions: teacher, counselor, psychologist, doctor,
-                            researcher,
-                            scientist, programmer, analyst, consultant
-                        </p>
-
-                        If you want to know more about careers with this specific personality type you can click
-                        below
-                        <a
-                            href="https://www.onetonline.org/explore/interests/Investigative/Social/">https://www.onetonline.org/explore/interests/Investigative/Social/</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Graphic Designer</th>
-                    <td>
-                        <p>
-                            are Artistic, they focus on doing creative activities like art, drama, crafts, dance,
-                            music,
-                            or
-                            creative writing.
+                            <b>You might be interested in these professions:</b> accountant, financial analyst, actuary,
+                            banker, IT specialist, manager, lawyer, chief executives, or salesperson
                         </p>
 
                         <p>
-                            You might be interested in these professions: musician, designer, artist, writer, actor
+                            If you want to know more about careers with this specific personality type you can click
+                            below
+                            <a
+                                href="https://www.onetonline.org/explore/interests/Enterprising/Conventional/">https://www.onetonline.org/explore/interests/Enterprising/Conventional/</a>
                         </p>
-
-                        If you want to know more about careers with this specific personality type you can click
-                        below
-                        <a
-                            href="https://www.onetonline.org/explore/interests/Artistic/">https://www.onetonline.org/explore/interests/Artistic/</a>
-
-                    </td>
-                </tr>
-                <tr>
-                    <th>Brenda Chia</th>
-                    <td>
-                        <p>
-                            are Enterprising Conventional, they focus on leading and persuading people, and to sell
-                            things
-                            and
-                            ideas, valuing success in business. They also prefer working with written records and
-                            numbers in
-                            a
-                            systematic, orderly way.
-                        </p>
-
-                        <p>
-                            You might be interested in these professions: accountant, financial analyst, actuary,
-                            banker, IT
-                            specialist, manager, lawyer, chief executives, or salesperson
-                        </p>
-
-                        If you want to know more about careers with this specific personality type you can click
-                        below
-                        <a
-                            href="https://www.onetonline.org/explore/interests/Enterprising/Conventional/">https://www.onetonline.org/explore/interests/Enterprising/Conventional/</a>
                     </td>
                 </tr>
             </table>

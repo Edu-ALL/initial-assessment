@@ -67,21 +67,21 @@
         </div>
     @else
         <div class="improvement">
+            <p>
+                It seems you haven’t spent time building your profile. Let’s list down what activities you can do to
+                boost your profile!
+            </p>
             @if ($reports[2][1])
                 <div class="competition">
                     <p>
-                        Participating in competitions showcases your ambition and drive to excel in a specific area. It
-                        helps
-                        develop your skills under pressure and can highlight your achievements on a national or
-                        international
-                        level.
+                        <b><u>Competitions:</u></b> Participating in competitions showcases your ambition and drive to
+                        excel in a specific area. It helps develop your skills under pressure and can highlight your
+                        achievements on a national or international level.
                     </p>
 
                     <p>
-                        Note that there are a wide variety of competitions which are not limited to just academic
-                        subjects
-                        like
-                        olympiads. Understand your abilities and branch out by doing competitions such as:
+                        Note that there is a wide variety of competitions which are not limited to just academic
+                        subjects like olympiads. Understand your abilities and branch out by doing competitions such as:
                     </p>
 
                     <ol>
@@ -102,18 +102,16 @@
             @if ($reports[2][2])
                 <div class="internship">
                     <p>
-                        Internships provide hands-on experience in your field of interest, allowing you to apply
-                        academic
-                        knowledge in real-world settings. They are crucial for understanding workplace dynamics,
-                        building
-                        professional networks, and enhancing your resume with practical experience.
+                        <b><u>Internships:</u></b> Internships provide hands-on experience in your field of interest,
+                        allowing you to apply academic knowledge in real-world settings. They are crucial for
+                        understanding workplace dynamics, building professional networks, and enhancing your resume with
+                        practical experience.
                     </p>
 
                     <p>
                         Remember! The point of an internship is to expose you to a professional setting. Thus whether
-                        the
-                        size
-                        of the company and the amount of time done is small it will still be beneficial for you!
+                        the size of the company and the amount of time done is small it will still be beneficial for
+                        you!
                     </p>
                 </div>
             @endif
@@ -122,11 +120,10 @@
             @if ($reports[2][3])
                 <div class="volunteering">
                     <p>
-                        Volunteering demonstrates your commitment to community service and social responsibility. It
-                        helps
-                        develop empathy, teamwork, and leadership skills while contributing positively to society. It
-                        also
-                        broadens your perspective and can open up new areas of interest.
+                        <b><u>Volunteering:</u></b> Volunteering demonstrates your commitment to community service and
+                        social responsibility. It helps develop empathy, teamwork, and leadership skills while
+                        contributing positively to society. It also broadens your perspective and can open up new areas
+                        of interest.
                     </p>
 
                     <p>
@@ -135,6 +132,7 @@
                     </p>
 
                     <ul>
+                        For example:
                         <li>
                             Teaching academic subjects twice a week at an orphanage
                         </li>
@@ -152,14 +150,14 @@
             @if ($reports[2][4])
                 <div class="school-clubs">
                     <p>
-                        Involvement in school clubs indicates your ability to balance academic and extracurricular
-                        activities. It's an opportunity to pursue interests outside of the traditional curriculum.
+                        <b><u>School Clubs:</u></b> Involvement in school clubs indicates your ability to balance
+                        academic and extracurricular activities. It's an opportunity to pursue interests outside of the
+                        traditional curriculum.
                     </p>
                     <p>
                         In some schools, you can create your own club if there are enough people interested in joining!
-                        Through these school clubs, you can also initiate external activities which show your commitment
-                        to
-                        upgrading your profile.
+                        Through these school clubs, you can also initiate external activities that show your commitment
+                        to upgrading your profile.
                     </p>
                     <ul>
                         Examples:
@@ -167,7 +165,7 @@
                             Participating in tournaments with your school sports club or debate club
                         </li>
                         <li>
-                            Going to entrepreneurship club and making a collaborative business
+                            Going to an entrepreneurship club and making a collaborative business
                         </li>
                     </ul>
                 </div>
@@ -178,11 +176,10 @@
             @if ($reports[2][5])
                 <div class="out-of-school">
                     <p>
-                        Engaging in out-of-school activities showcases your initiative to seek personal growth
-                        opportunities
-                        beyond the classroom. It reflects a well-rounded character, time management skills, and the
-                        ability
-                        to pursue passions independently.
+                        <b><u>Out-of-school Activities:</u></b> Engaging in out-of-school activities showcases your
+                        initiative to seek personal growth opportunities beyond the classroom. It reflects a
+                        well-rounded character, time management skills, and the ability to pursue passions
+                        independently.
                     </p>
 
                     <ul>
@@ -194,7 +191,7 @@
                             Going to art clubs and creating crafts or performing shows
                         </li>
                         <li>
-                            Attending cooking club and contributing to a food bank
+                            Attending a cooking club and contributing to a food bank
                         </li>
                     </ul>
                 </div>
@@ -205,15 +202,15 @@
             @if ($reports[2][6])
                 <div class="summer">
                     <p>
-                        Participating in summer or winter educational programs demonstrates your eagerness to use breaks
-                        productively for further learning. These programs can offer intensive learning experiences,
-                        exposure
-                        to new cultures, and opportunities to explore subjects in depth.
+                        <b><u>Summer/Winter School:</u></b> Participating in summer or winter educational programs
+                        demonstrates your eagerness to use breaks productively for further learning. These programs can
+                        offer intensive learning experiences, exposure to new cultures, and opportunities to explore
+                        subjects in depth.
                     </p>
 
                     <p>
                         Don’t forget, it’s important to take a look into what the program offers so it can be useful for
-                        your CV. For example, focusing on
+                        your CV. For example, you can focus on
                     </p>
 
                     <ol>
@@ -238,11 +235,9 @@
             @if ($reports[2][7])
                 <div class="personal-project">
                     <p>
-                        Undertaking personal projects shows self-motivation and the ability to work independently. It's
-                        a
-                        chance to explore interests deeply, solve problems creatively, and potentially innovate or
-                        create
-                        something unique.
+                        <b><u>Personal Projects:</u></b> Undertaking personal projects shows self-motivation and the
+                        ability to work independently. It's a chance to explore interests deeply, solve problems
+                        creatively, and potentially innovate or create something unique.
                     </p>
 
                     <ol>
@@ -251,10 +246,10 @@
                             Create an app that tackles a social issue
                         </li>
                         <li>
-                            Starting a small business, such as selling your own creations
+                            Start a small business, such as selling your own creations
                         </li>
                         <li>
-                            Designing a book or IG page that aims to bring awareness to a certain cause
+                            Design a book or a social media page that aims to bring awareness to a certain cause
                         </li>
                     </ol>
                 </div>
@@ -265,19 +260,18 @@
             @if ($reports[2][8])
                 <div class="research-project">
                     <p>
-                        Engaging in research projects, especially those that lead to publication or presentation,
-                        underscores your commitment to academic inquiry and contribution to your field of study. It
-                        develops
-                        critical thinking, and analytical skills, and can significantly enhance your academic profile.
+                        <b><u>Research Projects:</u></b> Engaging in research projects, especially those that lead to
+                        publication or presentation, underscores your commitment to academic inquiry and contribution to
+                        your field of study. It develops critical thinking, and analytical skills, and can significantly
+                        enhance your academic profile.
                     </p>
                     <p>
                         Remember, research doesn’t always have to be scientific! It can encompass various subjects, all
-                        you
-                        need to do is cater the research question to the topic you want to investigate.
+                        you need to do is cater the research question to the topic you want to investigate.
                     </p>
 
                     <ol>
-                        For example, analyzing:
+                        For example, you can analyze the following:
                         <li>
                             Financial situations in different countries
                         </li>

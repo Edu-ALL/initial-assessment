@@ -386,7 +386,7 @@ class AssessmentController extends Controller
 
         // return $pdf->stream('report.pdf', array("Attachment" => false));
         // exit(0);
-        return $pdf->download('report-IA.pdf');
+        return $pdf->download('Personalized Assessment Report - ' . $user->full_name . '.pdf');
     }
 
 
@@ -466,6 +466,26 @@ class AssessmentController extends Controller
 
             $reports = $this->checkReportQuest($user->id);
 
+            // $reports[1][1] = true;
+            // $reports[1][2] = true;
+            // $reports[2][1] = true;
+            // $reports[2][2] = true;
+            // $reports[3][1] = true;
+            // $reports[3][2] = true;
+            // $reports[4][1] = true;
+            // $reports[4][2] = true;
+            // $reports['checkListQuest']['Exploration'] = false;
+            // $reports['checkListQuest']['Profile Building'] = true;
+            // $reports['checkListQuest']['Academic Profiling'] = true;
+            // $reports['checkListQuest']['Writing'] = false;
+            // $reports[1]['onet'][0] = 80;
+            // $reports[1]['onet'][1] = 80;
+            // $reports[1]['onet'][2] = 80;
+            // $reports[1]['onet'][3] = 80;
+            // $reports[1]['onet'][4] = 80;
+            // $reports[1]['onet'][5] = 80;
+            // $reports[3]['subject_selection'] = 'Jawaban';
+
             if (in_array(500, $reports)) {
                 return response()->json([
                     'success' => false,
@@ -487,7 +507,7 @@ class AssessmentController extends Controller
         // return view('report.Quest.report', ['reports' => $reports, 'user' => $user]);
         // return $pdf->stream('report.pdf', array("Attachment" => false));
         // exit(0);
-        return $pdf->download('report-quest.pdf');
+        return $pdf->download('Activity Report - ' . $user->full_name . '.pdf');
     }
 
     protected function checkReportQuest($user_id)

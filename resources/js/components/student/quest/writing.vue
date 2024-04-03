@@ -158,7 +158,7 @@ const getAnswer = async () => {
           </li>
 
           <li v-if="mission==2">
-            Compare the AI and handmade essays
+            Compare the AI and human-written essays
           
             <ol
               type="I"

@@ -1,18 +1,13 @@
 <div class="category">
-    <div class="mt-4 mb-4">
-        <h5>B. Profile Building</h5>
-    </div>
-
     @if ($reports[2][1])
         <div class="ngo">
             <p>
                 <b>You then moved on to the profile building section</b>, where you were able to meet several
-                Non-Governmental
-                Organizations (NGO)! There are a huge amount of NGOs in Indonesia that delve into various social causes,
-                such as the following:
+                Non-Governmental Organizations (NGO)! There are a huge amount of NGOs in Indonesia that delve into
+                various social causes, such as the following:
             </p>
 
-            <ul class="list-lower-latin">
+            <ul class="list-lower-latin mb-3">
                 <li>
                     Environment
                 </li>
@@ -26,18 +21,16 @@
 
             <p>
                 Today, we spotlighted a few NGOs that center around children, education, and healthcare aligning with
-                our
-                company EduALL. <b>Which one did you pick?</b>
+                our company EduALL. <b>Which one did you pick?</b>
             </p>
 
             <table class="table-detail">
                 <tr>
-                    <th>Revociety</th>
+                    <th class="bckg-color-table fw-bold">Revociety</th>
                     <td>
                         <p>
                             Revociety aims to become an innovative and trusted social company in providing services both
-                            in
-                            terms of education and health for people who need help and enabling people to be
+                            in terms of education and health for people who need help and enabling people to be
                             self-sufficient.
                         </p>
 
@@ -54,14 +47,16 @@
                             </li>
                         </ul>
 
-                        CP: dr. Vanessa (081291428874)
-                        <br>
-                        Social media: <a href="https://revociety.org/">https://revociety.org/</a>
+                        <p>
+                            CP: dr. Vanessa (081291428874)
+                            <br>
+                            Social media: <a href="https://revociety.org/">https://revociety.org/</a>
+                        </p>
 
                     </td>
                 </tr>
                 <tr>
-                    <th>Rumah Sahabat</th>
+                    <th class="bckg-color-table fw-bold">Rumah Sahabat</th>
                     <td>
                         <p>
                             Rumah Sahabat aims to provide assistance and protection services for every child who is a
@@ -86,27 +81,28 @@
                             </li>
                         </ul>
 
-
-                        CP: Kak Heni (081318406833)
-                        <br>
-                        Social media:
-                        <br>
-                        <a href="https://www.instagram.com/rumah_singgah_sahabat">https://www.instagram.com/rumah_singgah_sahabat
-                        </a>
-                        <br>
-                        <a href="https://rumahsahabat.org/">https://rumahsahabat.org/</a>
+                        <p>
+                            CP: Kak Heni (081318406833)
+                            <br>
+                            Social media:
+                            <br>
+                            <a href="https://www.instagram.com/rumah_singgah_sahabat">https://www.instagram.com/rumah_singgah_sahabat
+                            </a>
+                            <br>
+                            <a href="https://rumahsahabat.org/">https://rumahsahabat.org/</a>
+                        </p>
 
 
                     </td>
                 </tr>
                 <tr>
-                    <th>Anak Harapan Indonesia</th>
+                    <th class="bckg-color-table fw-bold">Anak Harapan Indonesia</th>
                     <td>
                         <p>
                             Anak Harapan Indonesia seeks to address poverty by empowering underprivileged children and
                             families through effective education and building a community. Currently, they have a
-                            learning
-                            centre in West Jakarta and focus on literacy for elementary and junior high school students.
+                            learning centre in West Jakarta and focus on literacy for elementary and junior high school
+                            students.
                         </p>
 
                         <ul class="list-lower-latin">
@@ -125,25 +121,22 @@
                         </ul>
 
 
-                        CP:
-                        <br>
-                        Social media: <a href=" https://www.instagram.com/ahaindonesia">
-                            https://www.instagram.com/ahaindonesia
-                        </a>
+                        <p>
+                            CP: Kak Santi (089628088913)
+                            <br>
+                            Social media: <a href=" https://www.instagram.com/ahaindonesia">
+                                https://www.instagram.com/ahaindonesia
+                            </a>
+                        </p>
 
                     </td>
                 </tr>
 
             </table>
 
-            <p>
+            <p style="margin-top: 15px">
                 From these NGOs, you can see how they operate as a non-profit organization and use it as an inspiration
-                for
-                your personal projects.
-            </p>
-
-            <p>
-                To support these causes, you can do various volunteering activities, for example:
+                for your volunteering activities. Some examples that support the cause are as follows:
             </p>
 
             <ol>
@@ -163,10 +156,8 @@
     @if ($reports[2][2])
         <div class="stem">
             <p>
-                <b>You then moved on to the profile building section</b>,
-                you were able to meet several interesting companies that specialize in Science, Technology, Engineering,
-                and
-                Mathematics (STEM)!
+                <b>you were able to meet several interesting companies that specialize in Science, Technology,
+                    Engineering, and Mathematics (STEM)!
             </p>
             <p>
                 <b>Which one were you interested in?</b>
@@ -174,21 +165,18 @@
 
             <table class="table-detail">
                 <tr>
-                    <th>Inspira Academy</th>
+                    <th class="bckg-color-table fw-bold">Inspira Academy</th>
                     <td>
                         <p>
                             Inspira Academy specializes in courses, workshops, and programs that are designed to help
-                            people
-                            learn about 3D printing and how to use it for creative purposes. Inspira Academy believes
-                            that
-                            learning how to use design software and operate a 3D printer is a skill that is in high
-                            demand
-                            in the workforce and that through 3D printing students learn how to think critically and
-                            creatively.
+                            people learn about 3D printing and how to use it for creative purposes. Inspira Academy
+                            believes that learning how to use design software and operate a 3D printer is a skill that
+                            is in high demand in the workforce and that through 3D printing students learn how to think
+                            critically and creatively.
                         </p>
 
                         <ul class="list-lower-latin">
-                            Programs and services:
+                            Programs and services they provide:
                             <li>
                                 Inspira Factory (cloud 3D printing services)
                             </li>
@@ -202,14 +190,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Makeblock</th>
+                    <th class="bckg-color-table fw-bold">Makeblock</th>
                     <td>
                         <p>
                             Makeblock specializes in developing educational robots, mechanical building platforms, and
-                            STEM
-                            education solutions. By integrating technology into education, Makeblock seeks to prepare
-                            students for the future digital world, encouraging them to become inventors, designers, and
-                            creators.
+                            STEM education solutions. By integrating technology into education, Makeblock seeks to
+                            prepare students for the future digital world, encouraging them to become inventors,
+                            designers, and creators.
                         </p>
 
                         <ul class="list-lower-latin">
@@ -225,8 +212,7 @@
                             </li>
                             <li>
                                 Educational software that introduces users to programming, engineering, and
-                                problem-solving
-                                skills in a hands-on, interactive way.
+                                problem-solving skills in a hands-on, interactive way.
                             </li>
                         </ul>
 
@@ -234,9 +220,6 @@
                         <br>
                         <a href="https://www.instagram.com/makeblockid/">https://www.instagram.com/makeblockid/
                         </a>
-                        <br>
-                        <a href="https://rumahsahabat.org/">https://rumahsahabat.org/</a>
-
 
                     </td>
                 </tr>
@@ -245,14 +228,14 @@
 
             <br>
             <p>
-                …you were able to see how you can implement a simple personal project to boost your uni profile!
+                In addition, you were able to see how you can implement a simple personal project to boost your uni
+                profile!
             </p>
             <p>
-                For example, our EduALL mentee who made a vertical hydroponic, as he plans to major in engineering.
-            </p>
-            <p>
-                You can try it out too! <a
-                    href="https://www.youtube.com/watch?v=tmpPLiECCFU">https://www.youtube.com/watch?v=tmpPLiECCFU </a>
+                For example, our EduALL mentee who made a vertical hydroponic, as he plans to major in engineering. You
+                can try it out too! DIY: Vertical Hydroponic Farming at Home
+                <br>
+                <a href="https://www.youtube.com/watch?v=tmpPLiECCFU">https://www.youtube.com/watch?v=tmpPLiECCFU </a>
             </p>
             <p>
                 <b>Did you get any inspiration from them? </b>
