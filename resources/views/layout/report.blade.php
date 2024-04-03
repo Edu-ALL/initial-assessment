@@ -36,12 +36,12 @@
 
 
         p {
-            font-size: 11px !important;
+            font-size: 12px !important;
             margin-bottom: 8px !important;
         }
 
         ul li {
-            font-size: 11px !important;
+            font-size: 12px !important;
         }
 
         header,
@@ -68,6 +68,13 @@
             font-size: 12px !important;
         }
 
+        .content h1 {
+            font-family: 'Ambit', sans-serif !important;
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 30px;
+        }
+
         .list-lower-latin {
             list-style-type: lower-latin;
         }
@@ -89,7 +96,11 @@
         th {
             padding: 7px;
             line-height: 1.5;
-            font-size: 11px !important;
+            font-size: 12px !important;
+        }
+
+        table>thead {
+            background-color: #00FFFF;
         }
 
         .table-detail th {
@@ -99,6 +110,20 @@
         .table-detail td,
         th {
             border: 2px solid #252525;
+        }
+
+        .fw-bold {
+            font-weight: bold;
+        }
+
+        .bckg-color-table {
+            background-color: #00FFFF;
+            text-align: center;
+        }
+
+        .bckg-color-table-ylw {
+            background-color: #00FFFF;
+            text-align: center;
         }
     </style>
 </head>

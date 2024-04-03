@@ -4,6 +4,14 @@
 @section('body')
 
     <div class="content">
+        <h1 class="text-center">
+            <u>ACTIVITY REPORT</u>
+        </h1>
+
+        <p>
+            <b>Let’s recap what you have learned today from the quest!
+            </b>
+        </p>
 
         @if ($reports['checkListQuest']['Exploration'])
             @include('report.Quest.component.exploration')
