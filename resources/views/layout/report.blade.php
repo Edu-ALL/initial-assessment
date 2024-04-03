@@ -36,8 +36,8 @@
 
 
         p {
-            font-size: 12px !important;
-            margin-bottom: 8px !important;
+            font-size: 11px;
+            margin-bottom: 8px;
         }
 
         ul li {
@@ -87,6 +87,13 @@
             list-style-type: lower-roman;
         }
 
+        .quest-list>li::marker,
+        .quest-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
         table {
             border-collapse: collapse;
             margin-top: 10px;
@@ -96,20 +103,20 @@
         th {
             padding: 7px;
             line-height: 1.5;
-            font-size: 12px !important;
+            font-size: 11px !important;
         }
 
         table>thead {
-            background-color: #00FFFF;
+            background-color: #0000FF;
         }
 
         .table-detail th {
-            border: 2px solid #252525;
+            border: 2px solid #7272ff;
         }
 
         .table-detail td,
         th {
-            border: 2px solid #252525;
+            border: 2px solid #7272ff;
         }
 
         .fw-bold {
@@ -117,13 +124,15 @@
         }
 
         .bckg-color-table {
-            background-color: #00FFFF;
+            background-color: #0000FF;
             text-align: center;
+            color: white;
         }
 
         .bckg-color-table-ylw {
             background-color: #FFFF00;
             text-align: center;
+            color: white;
         }
     </style>
 </head>

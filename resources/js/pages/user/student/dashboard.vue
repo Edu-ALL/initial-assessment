@@ -111,9 +111,13 @@ const downloadQuestPdf = async () => {
             <span class="w-100">
               Report Activity
             </span>
-            <div
+
+            <VBtn
               v-if="user.client?.took_quest==1"
-              class="cursor-pointer btn btn-primary"
+              density="compact"
+              color="primary"
+              class="px-2"
+              style="min-width: 10px !important;"
               @click="downloadQuestPdf"
             >
               <VTooltip
@@ -122,8 +126,11 @@ const downloadQuestPdf = async () => {
               >
                 Download
               </VTooltip>
-              <VIcon icon="bx-download" />
-            </div>
+              <VIcon
+                icon="bx-download"
+                class="py-1"
+              />
+            </VBtn>
           </div>
         </VCardTitle>
         <VDivider />
