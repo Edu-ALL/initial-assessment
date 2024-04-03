@@ -46,7 +46,7 @@ class OptionSeeder extends Seeder
 
 
         # seeds for options no 1b
-        $major_na = ['Sports', 'Music, Singing', 'Creative Art', 'Public Speaking', 'Debate', 'Robotic, Coding', 'Cooking', 'Reading and writing'];
+        $major_na = ['Sports and Athletics', 'Music, Singing', 'Creative Art', 'Public Speaking', 'Debate', 'Robotic, Coding', 'Cooking and Baking', 'Reading and writing'];
         foreach ($major_na as $key => $value) {
             $seeds[$indexOption] = [
                 'id' => $indexOption,
@@ -77,68 +77,6 @@ class OptionSeeder extends Seeder
 
             $indexOption++;
         }
-
-        // $seeds = [
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'School',
-        //         'point' => 1
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Tutoring',
-        //         'point' => 1
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Clubs (after school activities)',
-        //         'point' => 1
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Volunteering',
-        //         'point' => 2
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Internship',
-        //         'point' => 3
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Competition preparation',
-        //         'point' => 2
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Helping family business/do family errands',
-        //         'point' => 2
-        //     ],
-        //     [
-        //         'question_id' => 2,
-        //         'sub_question_id' => null,
-        //         'title_of_answer' => null,
-        //         'option_answer' => 'Personal development (hobbies)',
-        //         'point' => 2
-        //     ],
-        // ];
-
-
-
 
 
         # seeds for options no 3
@@ -227,17 +165,17 @@ class OptionSeeder extends Seeder
         }
 
         # no 12
-        $group_0 = ['Studies in Language and Literature', 'Language Acquisition', 'Individuals and Societies', 'Sciences', 'Mathematics', 'The Arts', 'Core Components'];
+        $group_0 = ['Studies in Language and Literature', 'Language Acquisition', 'Individuals and Societies', 'Sciences', 'Mathematics', 'The Arts'];
         $group_1 = ['Sciences', 'Mathematics', 'Humanities and Social Sciences', 'Languages', 'Arts and Design', 'Technology and Vocational', 'Physical Education'];
 
 
         $subject0_0 = ['Literature', 'Language and Literature', 'Literature and Performance'];
         $subject0_1 = ['Language B', 'Language ab initio', 'Classical Languages'];
-        $subject0_2 = ['Business Management, Economics', 'Geography', 'Global Politics', 'History', 'Information Technology in a Global Society', 'Philosophy', 'Psychology', 'Social and Cultural Anthropology', 'Environmental Systems and Societies', 'World Religions'];
-        $subject0_3 = ['Biology', 'Chemistry', 'Physics', 'Computer Science', 'Design Technology', 'Environmental Systems and Societies', 'Sports', 'Exercise', 'Health Science'];
-        $subject0_4 = ['Mathematics: Analysis and Approaches', 'Mathematics: Applications', 'Interpretation'];
+        $subject0_2 = ['Business Management', 'Economics', 'Geography', 'Global Politics', 'History', 'Information Technology in a Global Society', 'Philosophy', 'Psychology', 'Social and Cultural Anthropology', 'Environmental Systems and Societies', 'World Religions'];
+        $subject0_3 = ['Biology', 'Chemistry', 'Physics', 'Computer Science', 'Design Technology', 'Sports, Exercise, and Health Science'];
+        $subject0_4 = ['Mathematics: Analysis and Approaches', 'Mathematics: Applications and Interpretation'];
         $subject0_5 = ['Visual Arts', 'Music', 'Theatre', 'Dance', 'Film'];
-        $subject0_6 = ['Theory of Knowledge (TOK)', 'Extended Essay (EE)', 'Creativity', 'Activity', 'Service (CAS)'];
+        // $subject0_6 = ['Theory of Knowledge (TOK)', 'Extended Essay (EE)', 'Creativity', 'Activity', 'Service (CAS)'];
 
         $subject1_0 = ['Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Marine Science', 'Psychology'];
         $subject1_1 = ['Mathematics', 'Further Mathematics'];
@@ -267,6 +205,8 @@ class OptionSeeder extends Seeder
                 }
             }
         }
+        $indexOption += 8;
+        // '11'
 
         foreach ($subject2_0 as $key => $value) {
             $seeds[$indexOption] =
@@ -353,7 +293,9 @@ class OptionSeeder extends Seeder
 
         $newIndex = 259;
         # Additional option no 1b
-        $add_major_na = ['Carpentry'];
+        $add_major_na = [
+            'Carpentry', 'Gardening', 'Hiking and Camping', 'Photography', 'Traveling', 'Video Gaming', 'Watching Movies and TV Shows', 'Fitness and Exercise', 'Collecting', 'Board Games and Puzzles', 'Fashion and Beauty', 'Volunteering and Community Service', 'Astronomy', 'Model United Nations', 'Animal Welfare', 'Music Bands or Orchestras', 'Chess', 'Business and Entrepreneurship'
+        ];
         foreach ($add_major_na as $key => $value) {
             $seeds[$indexOption] = [
                 'id' => $newIndex,
@@ -387,6 +329,43 @@ class OptionSeeder extends Seeder
             $newIndex++;
         }
 
+
+        # additional subject IB no 12
+        $add_subject_ib_no_12 = ['Standard Mathematics', 'Extended Mathematics'];
+        foreach ($add_subject_ib_no_12 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $newIndex,
+                    'question_id' => 12,
+                    'sub_question_id' => null,
+                    'title_of_answer' => 'Mathematics',
+                    'option_answer' => $value,
+                    'reference_to' => 'IB',
+                    'point' => 0
+                ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
+
+        # additional subject cambridge no 12
+        $add_subject_cambridge_no_12 = ['English General Paper'];
+        foreach ($add_subject_cambridge_no_12 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $newIndex,
+                    'question_id' => 12,
+                    'sub_question_id' => null,
+                    'title_of_answer' => 'Languages',
+                    'option_answer' => $value,
+                    'reference_to' => 'Cambridge',
+                    'point' => 0
+                ];
+
+            $indexOption++;
+            $newIndex++;
+        }
 
 
         DB::table('options')->insert($seeds);
