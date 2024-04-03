@@ -122,7 +122,7 @@
         }
 
         .bckg-color-table-ylw {
-            background-color: #00FFFF;
+            background-color: #FFFF00;
             text-align: center;
         }
     </style>

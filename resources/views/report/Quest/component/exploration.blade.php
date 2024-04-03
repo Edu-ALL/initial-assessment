@@ -15,19 +15,52 @@
 
             <ul>
                 <b>
-                    <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0] : null }}</li>
-                    <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][1] : null }}
+                    @if (isset($reports[1]['onet']))
+                        @foreach ($reports[1]['onet'] as $onets)
+                            @foreach ($onets as $key => $onet)
+                                <li>{{ $key }}: {!! $onet !!} </li>
+                            @endforeach
+                        @endforeach
+                    @endif
+                    {{-- <li>Realistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0]['Realistic'] : null }}</li>
+                    <li>Investigative: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0]['Investigative'] : null }}
                     </li>
-                    <li>Artistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][2] : null }}</li>
-                    <li>Social: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][3] : null }}</li>
-                    <li>Enterprising: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][4] : null }}</li>
-                    <li>Conventional: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][5] : null }}</li>
+                    <li>Artistic: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0]['Artistic'] : null }}</li>
+                    <li>Social: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0]['Social'] : null }}</li>
+                    <li>Enterprising: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][0]['Enterprising'] : null }}
+                    </li>
+                    <li>Conventional: {{ isset($reports[1]['onet']) ? $reports[1]['onet'][5]['Conventional'] : null }}
+                    </li> --}}
                 </b>
             </ul>
 
             <p>
                 <b>
-                    Your most dominant personality type is [Highest 1], [Highest 2], and [Highest 3].
+                    Your most dominant personality type is
+                    @php
+                        $i = 0;
+                    @endphp
+                    @if (isset($reports[1]['onet']))
+                        @foreach ($reports[1]['onet'] as $onets)
+                            @foreach ($onets as $key => $onet)
+                                @if ($i < 3)
+                                    {{ $key }}
+                                    @switch($i)
+                                        @case(0)
+                                            ,
+                                        @break
+
+                                        @case(1)
+                                            , and
+                                        @break
+                                    @endswitch
+                                @endif
+                                @php
+                                    $i++;
+                                @endphp
+                            @endforeach
+                        @endforeach
+                    @endif
                 </b>
             </p>
 
