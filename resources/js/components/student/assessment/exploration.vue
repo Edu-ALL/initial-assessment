@@ -176,7 +176,7 @@ watch(() => {
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -196,7 +196,7 @@ watch(() => {
           <li>
             <div class="mb-3">
               What are your current interests?
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <ol
               type="A"
@@ -205,7 +205,7 @@ watch(() => {
               <li class="mb-3">
                 <label>
                   Academic interests (You can pick more than one)
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
                 <VSelect
                   ref="academic"
@@ -224,7 +224,7 @@ watch(() => {
               <li class="mb-3">
                 <label>
                   Non-academic interests (You can pick more than one)
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
                 <VSelect
                   v-model="inputData[1].answer"
@@ -246,7 +246,7 @@ watch(() => {
           <li>
             <div class="mb-3">
               What is your daily schedule? (You can pick more than one)
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VSelect
               v-model="inputData[2].answer"
@@ -266,7 +266,7 @@ watch(() => {
           <li>
             <div class="mb-3">
               What do you identify as your strengths? (You can pick more than one) 
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             
             <VSelect
@@ -295,7 +295,7 @@ watch(() => {
           <li>
             <div class="mb-3">
               What do you identify as your weaknesses? (You can pick more than one)
-              <span style="color:red">*</span>
+              <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VSelect
               v-model="inputData[4].answer"

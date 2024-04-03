@@ -165,7 +165,7 @@ watch(() => {
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -202,7 +202,7 @@ watch(() => {
           <!-- Question 2  -->
           <li class="my-5">
             How confident are you in expressing yourself through <b>non-academic writing</b> (such as stories, journals)?
-            <span style="color:red">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
               <VCol
                 md="5"
@@ -224,7 +224,7 @@ watch(() => {
           <!-- Question 3  -->
           <li class="my-5">
             How confident are you in expressing yourself through <b>academic writing</b> (such as essays and journals)?
-            <span style="color:red">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
               <VCol
                 md="5"

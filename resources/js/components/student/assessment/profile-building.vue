@@ -369,7 +369,7 @@ watch(() => {
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -562,7 +562,7 @@ watch(() => {
           <li class="my-5">
             <div class="mb-3">
               Have you ever created a personal project? 
-              <span style="color:red">*</span> <br>
+              <span style="color: rgb(var(--v-theme-error))">*</span> <br>
               <small>
                 A personal project <b>combines your passion and the skills</b> you've honed over the years, where you dedicate time and effort to achieve a goal, whether it's launching a business, writing a book, creating art, making a website, etc.
               </small>
@@ -586,7 +586,7 @@ watch(() => {
               >
                 <li v-if="radioData.radio1=='yes'">
                   In what field was your personal project in?
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[6].answer[0].answer_descriptive"
                     label="Answer"
@@ -596,7 +596,7 @@ watch(() => {
                 </li>
                 <li v-if="radioData.radio1=='yes'">
                   Please provide a brief description*
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[7].answer[0].answer_descriptive"
                     label="Answer"
@@ -634,7 +634,7 @@ watch(() => {
           <li class="my-5">
             <div class="mb-3">
               Have you ever conducted a research project?
-              <span style="color:red">*</span> <br>
+              <span style="color: rgb(var(--v-theme-error))">*</span> <br>
               <small>
                 A research project is <b>a detailed study where you look closely at a specific topic, question, or problem</b>  to learn more about it. You gather information, analyze it, and share your findings, for example a journal or essay.
               </small>
@@ -658,7 +658,7 @@ watch(() => {
               >
                 <li v-if="radioData.radio2 == 'yes'">
                   In what field was your research project in?
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[10].answer[0].answer_descriptive"
                     label="Answer"
@@ -668,7 +668,7 @@ watch(() => {
                 </li>
                 <li v-if="radioData.radio2 == 'yes'">
                   Please provide a brief description*
-                  <span style="color:red">*</span>
+                  <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[11].answer[0].answer_descriptive"
                     label="Answer"

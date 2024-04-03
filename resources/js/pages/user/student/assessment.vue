@@ -9,7 +9,7 @@ import Writing from '@/components/student/assessment/writing.vue'
 import UserService from '@/services/UserService'
 import { onMounted, ref } from 'vue'
 
-const step = ref(4)
+const step = ref(1)
 
 const loading = ref(true)
 
@@ -96,10 +96,10 @@ ol[type="A"] {
 }
 
 ol[type="A"] li {
-  color: blue;
+  color: rgb(var(--v-theme-primary));
 }
 
 ol[type="A"] div {
-  color: rgb(75, 75, 75);
+  color: rgb(var(--v-theme-primary));
 }
 </style>

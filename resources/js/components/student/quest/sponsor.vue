@@ -88,7 +88,7 @@ const handleSubmit = async () => {
         <ol class="ms-5 my-3">
           <li>
             Tell us what booth you visited!
-            <span style="color:red">*</span> 
+            <span style="color: rgb(var(--v-theme-error))">*</span> 
             <VTextarea
               v-model="inputData[0].answer[0].answer_descriptive"
               label="Answer"
@@ -107,10 +107,10 @@ const handleSubmit = async () => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </vform>

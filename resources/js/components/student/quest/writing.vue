@@ -144,7 +144,7 @@ const getAnswer = async () => {
             >
               <li class="mb-3">
                 Tell us what makes both these essays different?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[0].answer[0].answer_descriptive"
                   label="Answer"
@@ -166,7 +166,7 @@ const getAnswer = async () => {
             >
               <li>
                 Tell us what makes both these essays different?
-                <span style="color:red">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span> 
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
@@ -187,10 +187,10 @@ const getAnswer = async () => {
           >
             <VIcon
               icon="bx-save"
-              color="white"
+              color="on-secondary"
               class="me-3"
             />
-            Submit
+            Complete This Mission
           </VBtn>
         </div>
       </vform>

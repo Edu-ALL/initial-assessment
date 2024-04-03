@@ -25,7 +25,7 @@ watch(() => {
 
 <template>
   <!-- Intro  -->
-  <VCard style="border-top:10px solid #0000FF">
+  <VCard style="border-top:10px solid rgb(var(--v-theme-primary))">
     <VCardText>
       <h2 class="mb-4">
         And thus the quiz has ended! 
@@ -42,7 +42,7 @@ watch(() => {
 
       <div
         class="px-5 mt-8"
-        style="border-left:5px solid #FED017"
+        style="border-left:5px solid rgb(var(--v-theme-warning))"
       >
         <h2 class="mb-3">
           How to get it?

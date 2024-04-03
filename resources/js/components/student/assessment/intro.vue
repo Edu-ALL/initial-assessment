@@ -10,7 +10,7 @@ const checkStep = value => {
 
 <template>
   <!-- Intro  -->
-  <VCard style="border-bottom:10px solid #0000FF">
+  <VCard style="border-bottom:10px solid rgb(var(--v-theme-primary))">
     <VCardTitle class="mb-2">
       <h3 class="text-wrap text-xl text-md-h5 mt-4">
         <strong>

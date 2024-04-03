@@ -91,7 +91,7 @@ watch(() => {
    
     <section v-if="result && !loading && user.client?.took_quest==0">
       <VCard
-        style="border-bottom:10px solid #0000FF"
+        style="border-bottom:10px solid rgb(var(--v-theme-primary))"
         class="mb-3"
       >
         <VCardTitle>
@@ -115,24 +115,24 @@ watch(() => {
         >
           <Exploration
             v-if="item.category=='Exploration'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <ProfileBuilding
             v-if="item.category=='Profile Building'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <Academic
             v-if="item.category=='Academic'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
           <Writing
             v-if="item.category=='Writing'"
-            style="border-left:4px solid #0000FF"
+            style="border-left:4px solid rgb(var(--v-theme-primary))"
           />
         </div>
         <Sponsor
           class="w-100 my-1"
-          style="border-left:4px solid #0000FF"
+          style="border-left:4px solid rgb(var(--v-theme-primary))"
         />
       </VExpansionPanels>
   
@@ -149,7 +149,7 @@ watch(() => {
     <section v-if="result && !loading && user.client?.took_quest==1">
       <VCard
         class="position-relative overflow-hidden"
-        style="border-bottom:10px solid #0000FF"
+        style="border-bottom:10px solid rgb(var(--v-theme-primary))"
       >
         <VCardText>
           <h2
@@ -230,10 +230,10 @@ ol[type="I"] {
 }
 
 ol[type="A"] li {
-  color: blue;
+  color: rgb(var(--v-theme-primary));
 }
 
 ol[type="A"] div {
-  color: rgb(75, 75, 75);
+  color: rgb(var(--v-theme-primary));
 }
 </style>
