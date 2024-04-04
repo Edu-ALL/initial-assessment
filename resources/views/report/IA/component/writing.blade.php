@@ -1,7 +1,7 @@
 <div class="category">
-    <div class="mt-4 mb-4">
+    {{-- <div class="mt-4 mb-4">
         <h5>D. Writing</h5>
-    </div>
+    </div> --}}
 
     @if ($reports[4]['is_surpass'])
         <div class="surpass">
@@ -43,7 +43,7 @@
                         gradually increase the length and complexity of your writing as you become more comfortable.
                     </p>
 
-                    <ol>
+                    <ol style="font-size: 12px;">
                         For university essays, this can be implemented by:
                         <li>
                             creating a simple outline first

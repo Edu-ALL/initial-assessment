@@ -139,7 +139,7 @@
                 for your volunteering activities. Some examples that support the cause are as follows:
             </p>
 
-            <ol>
+            <ol style="font-size: 12px;">
                 <li>
                     Help maintain their social media accounts so they can spread more awareness
                 </li>
@@ -283,7 +283,7 @@
                 Real life projects from the above examples have been implemented by our mentees, where they integrated
                 STEM
                 with social aspects, check them out!
-            <ol>
+            <ol style="font-size: 12px;">
                 <li>
                     <a href="https://feeding-hands.com/">https://feeding-hands.com/</a>
                     created by <b>Ariana Budihartanto</b>: a non-profit that focuses on reducing food

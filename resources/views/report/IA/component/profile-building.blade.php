@@ -1,7 +1,7 @@
 <div class="category">
-    <div class="mt-4 mb-4">
+    {{-- <div class="mt-4 mb-4">
         <h5>B. Profile Building</h5>
-    </div>
+    </div> --}}
 
     @if ($reports[2]['is_surpass'])
         <div class="surpass">
@@ -32,7 +32,7 @@
                 </li>
             </ul>
 
-            <ol>
+            <ol style="font-size: 12px;">
                 Some tips to make your profile more robust:
                 <li>
                     Increasing activities that align with the major you want to pursue later on.
@@ -72,7 +72,7 @@
                 boost your profile!
             </p>
             @if ($reports[2][1])
-                <div class="competition">
+                <div class="competition mb-2">
                     <p>
                         <b><u>Competitions:</u></b> Participating in competitions showcases your ambition and drive to
                         excel in a specific area. It helps develop your skills under pressure and can highlight your
@@ -84,7 +84,7 @@
                         subjects like olympiads. Understand your abilities and branch out by doing competitions such as:
                     </p>
 
-                    <ol>
+                    <ol style="font-size: 12px;">
                         <li>
                             business pitching,
                         </li>
@@ -100,7 +100,7 @@
 
             {{-- Internship --}}
             @if ($reports[2][2])
-                <div class="internship">
+                <div class="internship mb-2">
                     <p>
                         <b><u>Internships:</u></b> Internships provide hands-on experience in your field of interest,
                         allowing you to apply academic knowledge in real-world settings. They are crucial for
@@ -118,7 +118,7 @@
 
             {{-- Volunteering --}}
             @if ($reports[2][3])
-                <div class="volunteering">
+                <div class="volunteering mb-2">
                     <p>
                         <b><u>Volunteering:</u></b> Volunteering demonstrates your commitment to community service and
                         social responsibility. It helps develop empathy, teamwork, and leadership skills while
@@ -148,7 +148,7 @@
 
             {{-- School Clubs --}}
             @if ($reports[2][4])
-                <div class="school-clubs">
+                <div class="school-clubs mb-2">
                     <p>
                         <b><u>School Clubs:</u></b> Involvement in school clubs indicates your ability to balance
                         academic and extracurricular activities. It's an opportunity to pursue interests outside of the
@@ -174,7 +174,7 @@
 
             {{-- Out of school --}}
             @if ($reports[2][5])
-                <div class="out-of-school">
+                <div class="out-of-school mb-2">
                     <p>
                         <b><u>Out-of-school Activities:</u></b> Engaging in out-of-school activities showcases your
                         initiative to seek personal growth opportunities beyond the classroom. It reflects a
@@ -200,7 +200,7 @@
 
             {{-- summer/winter --}}
             @if ($reports[2][6])
-                <div class="summer">
+                <div class="summer mb-2">
                     <p>
                         <b><u>Summer/Winter School:</u></b> Participating in summer or winter educational programs
                         demonstrates your eagerness to use breaks productively for further learning. These programs can
@@ -213,7 +213,7 @@
                         your CV. For example, you can focus on
                     </p>
 
-                    <ol>
+                    <ol style="font-size: 12px;">
                         <li>
                             Community service
                         </li>
@@ -233,14 +233,14 @@
 
             {{-- Personal project --}}
             @if ($reports[2][7])
-                <div class="personal-project">
+                <div class="personal-project mb-2">
                     <p>
                         <b><u>Personal Projects:</u></b> Undertaking personal projects shows self-motivation and the
                         ability to work independently. It's a chance to explore interests deeply, solve problems
                         creatively, and potentially innovate or create something unique.
                     </p>
 
-                    <ol>
+                    <ol style="font-size: 12px;">
                         Examples:
                         <li>
                             Create an app that tackles a social issue
@@ -258,7 +258,7 @@
 
             {{-- Research project --}}
             @if ($reports[2][8])
-                <div class="research-project">
+                <div class="research-project mb-2">
                     <p>
                         <b><u>Research Projects:</u></b> Engaging in research projects, especially those that lead to
                         publication or presentation, underscores your commitment to academic inquiry and contribution to
@@ -270,7 +270,7 @@
                         you need to do is cater the research question to the topic you want to investigate.
                     </p>
 
-                    <ol>
+                    <ol style="font-size: 12px;">
                         For example, you can analyze the following:
                         <li>
                             Financial situations in different countries

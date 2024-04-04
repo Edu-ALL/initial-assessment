@@ -368,6 +368,11 @@ class AssessmentController extends Controller
 
             $reports = $this->checkReport($user->id);
 
+            // $reports[1]['is_surpass'] = true;
+            // $reports[2]['is_surpass'] = true;
+            // $reports[3]['is_surpass'] = true;
+            // $reports[4]['is_surpass'] = true;
+
             if (in_array(500, $reports)) {
                 return response()->json([
                     'success' => false,
@@ -466,24 +471,24 @@ class AssessmentController extends Controller
 
             $reports = $this->checkReportQuest($user->id);
 
-            // $reports[1][1] = true;
+            // $reports[1][1] = false;
             // $reports[1][2] = true;
-            // $reports[2][1] = true;
+            // $reports[2][1] = false;
             // $reports[2][2] = true;
-            // $reports[3][1] = true;
+            // $reports[3][1] = false;
             // $reports[3][2] = true;
-            // $reports[4][1] = true;
+            // $reports[4][1] = false;
             // $reports[4][2] = true;
-            // $reports['checkListQuest']['Exploration'] = false;
+            // $reports['checkListQuest']['Exploration'] = true;
             // $reports['checkListQuest']['Profile Building'] = true;
             // $reports['checkListQuest']['Academic Profiling'] = true;
-            // $reports['checkListQuest']['Writing'] = false;
-            // $reports[1]['onet'][0] = 80;
-            // $reports[1]['onet'][1] = 80;
-            // $reports[1]['onet'][2] = 80;
-            // $reports[1]['onet'][3] = 80;
-            // $reports[1]['onet'][4] = 80;
-            // $reports[1]['onet'][5] = 80;
+            // $reports['checkListQuest']['Writing'] = true;
+            // $reports[1]['onet'][0]['Realistic'] = 40;
+            // $reports[1]['onet'][1]['Investigative'] = 35;
+            // $reports[1]['onet'][2]['Artistic'] = 30;
+            // $reports[1]['onet'][3]['Social'] = 20;
+            // $reports[1]['onet'][4]['Enterprising'] = 10;
+            // $reports[1]['onet'][5]['Conventional'] = 10;
             // $reports[3]['subject_selection'] = 'Jawaban';
 
             if (in_array(500, $reports)) {
@@ -524,10 +529,17 @@ class AssessmentController extends Controller
             if (count($userPoints) >= 0) {
                 switch ($category->id) {
                     case 5:
-                        $onet = Answer::with('option')->where('user_id', $user_id)->where('question_id', 21)->get();
-                        $result[1]['onet'] = $onet->map(function ($value) {
-                            return isset($value->option) ? $value->score : null;
+                        $onet = Answer::with('option')->where('user_id', $user_id)->where('question_id', 21)->orderBy('score', 'DESC')->get();
+                        $b = $onet->map(function ($value) {
+                            if (isset($value->option)) {
+                                return [
+                                    $value->option->option_answer => $value->score
+                                ];
+                            } else {
+                                return null;
+                            }
                         });
+                        $result[1]['onet'] = $b;
 
                         $result[1][1] = $userPoints->where('question_id', 21)->sum('point') == 2 ? true : false;
                         $result[1][2] = $userPoints->where('question_id', 22)->sum('point') == 2 ? true : false;

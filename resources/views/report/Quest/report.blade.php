@@ -16,7 +16,7 @@
         <ol type="A" style="margin-left: -20px" class="quest-list">
             @if ($reports['checkListQuest']['Exploration'])
                 <li class="mb-3">
-                    <div class="quest-title">
+                    <div class="quest-title fw-bold">
                         Interest Exploration
                     </div>
                     @include('report.Quest.component.exploration')
@@ -24,7 +24,7 @@
             @endif
             @if ($reports['checkListQuest']['Profile Building'])
                 <li class="mb-3">
-                    <div class="quest-title">
+                    <div class="quest-title fw-bold">
                         Profile-Building
                     </div>
                     @include('report.Quest.component.profile-building')
@@ -32,7 +32,7 @@
             @endif
             @if ($reports['checkListQuest']['Academic Profiling'])
                 <li class="mb-3">
-                    <div class="quest-title">
+                    <div class="quest-title fw-bold">
                         Academic
                     </div>
                     @include('report.Quest.component.academic-profiling')
@@ -40,7 +40,7 @@
             @endif
             @if ($reports['checkListQuest']['Writing'])
                 <li class="mb-3">
-                    <div class="quest-title">
+                    <div class="quest-title fw-bold">
                         Writing
                     </div>
                     @include('report.Quest.component.writing')
