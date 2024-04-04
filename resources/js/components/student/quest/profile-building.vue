@@ -116,7 +116,7 @@ watch(() => {
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
       />
-      Profile Building Area
+      Profile-Building Area
     </VExpansionPanelTitle>
     <VExpansionPanelText v-if="!done">
       <VForm

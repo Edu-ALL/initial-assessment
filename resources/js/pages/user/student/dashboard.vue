@@ -154,32 +154,32 @@ const downloadQuestPdf = async () => {
                   />
                 </strong>
                 <div v-if="index=='Exploration'">
-                  <strong>Exploration Area</strong>
+                  <strong>Interest Exploration Area</strong>
                   <div class="text-caption">
                     Discover more about yourself and how it’ll be vital in shaping your future.
                   </div>
                 </div>
                 <div v-if="index=='Profile Building'">
-                  <strong>Profile Building Area</strong>
+                  <strong>Profile-Building Area</strong>
                   <div class="text-caption">
                     Identify what aspects you can hone to stand out more in an ever-growing competitive landscape.
                   </div>
                 </div>
                 <div v-if="index=='Academic Profiling'">
-                  <strong>Academic Profiling Area</strong>
+                  <strong>Academic Enrichment Area</strong>
                   <div class="text-caption">
                     Consult your current scores and understand strategies on how to upgrade your academic profile. 
                   </div>
                 </div>
                 <div v-if="index=='Writing'">
-                  <strong>Writing Area</strong>
+                  <strong>Essay Writing Area</strong>
                   <div class="text-caption">
                     Delve deeper into what style of writing you’ll specifically need to master and what personal experiences you can utilize towards that goal.
                   </div>
                 </div>
 
                 <div v-if="index=='Sponsor'">
-                  <strong>Collaborator Area</strong>
+                  <strong>Industry Partners Area</strong>
                   <div class="text-caption">
                     End the journey by refreshing your mind at one of our collaborator booths!
                   </div>

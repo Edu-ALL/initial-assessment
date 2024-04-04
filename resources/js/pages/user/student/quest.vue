@@ -165,6 +165,7 @@ watch(() => {
             v-if="!is_completed"
             color="secondary"
             class="mb-md-7 mb-5"
+            style="white-space: pre-wrap !important;"
             @click="downloadPdf"
           >
             Get Your Free Personalized Report

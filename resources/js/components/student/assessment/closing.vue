@@ -71,7 +71,7 @@ watch(() => {
             </span>
             <span v-if="item.category=='Academic'">
               <div class="text-secondary text-decoration-underline font-weight-bold">
-                Academic Improvement Area 
+                Academic Enrichment  Area 
               </div>
               Consult your current scores.
             </span>
@@ -84,7 +84,7 @@ watch(() => {
           </li>
           <li class="my-3">
             <div class="text-secondary text-decoration-underline font-weight-bold">
-              Collaborator Area
+              Industry Partners Area
             </div>
             End your journey in a fun way with one of our collaborators.
           </li>
