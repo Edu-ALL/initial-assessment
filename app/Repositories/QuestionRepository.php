@@ -23,13 +23,13 @@ class QuestionRepository implements QuestionRepositoryInterface
         foreach ($questions as $question) {
             if ($question->sub_questions()->count() > 0) {
                 foreach ($question->sub_questions as $sub_question) {
-                    if (count($option = Option::where('sub_question_id', $sub_question->id)->get()) > 0) {
+                    if (count($option = Option::where('sub_question_id', $sub_question->id)->orderBy('option_answer', 'ASC')->get()) > 0) {
                         $mapping = $this->mappingOption($option);
                         $response['option' . $question->id . '-' . $sub_question->id] = $mapping;
                     }
                 }
             } else {
-                if (count($option = Option::where('question_id', $question->id)->get()) > 0) {
+                if (count($option = Option::where('question_id', $question->id)->orderBy('option_answer', 'ASC')->get()) > 0) {
                     $mapping = $this->mappingOption($option);
                     $response['option' . $question->id] = $mapping;
                 }

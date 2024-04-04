@@ -4,8 +4,7 @@
             <p>
                 <b>
                     And we come to our last step, an area that is at the forefront of many of your university
-                    applications,
-                    the writing section a.k.a essays!,
+                    applications, the writing section a.k.a essays!,
                 </b>
                 The admission essays for universities in different regions differ significantly and it’s
                 important to know the difference, as it is crucial for applicants to tailor their essays or
@@ -158,8 +157,7 @@
             <p>
                 <b>
                     And we come to our last step, an area that is at the forefront of many of your university
-                    applications,
-                    the writing section a.k.a essays!,
+                    applications, the writing section a.k.a essays!,
                 </b>
                 While you may not realize it, the difference between an AI-generated essay and one crafted by humans can
                 still be easily spotted! A few indicators that make them very distinguishable:

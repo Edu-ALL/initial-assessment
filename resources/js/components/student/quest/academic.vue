@@ -95,7 +95,7 @@ watch(() => {
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
       />
-      Academic Area
+      Academic Enrichment Area
     </VExpansionPanelTitle>
     <VExpansionPanelText v-if="!done">
       <VForm

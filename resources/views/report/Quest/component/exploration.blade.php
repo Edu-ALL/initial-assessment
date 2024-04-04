@@ -2,7 +2,7 @@
     @if ($reports[1][1])
         <div class="onet">
             <p>
-                Starting off with the exploration area, you took a profiler test called ONE*T which can help you
+                <b>To explore more about your interests,</b> you took a profiler test called ONE*T which can help you
                 discover the type of work activities and occupations that you might find exciting.
             </p>
 
@@ -215,13 +215,13 @@
     @if ($reports[1][2])
         <div class="career-professionals mt-3">
             <p>
-                Based on the professional you picked, you can see what profile their careers are in and what you might
-                be interested in the future.
+                <b>To explore more about your interests,</b> Based on the professional you picked, you can see what
+                profile their careers are in and what you might be interested in the future.
             </p>
 
             <table class="table-detail">
                 <tr>
-                    <th class="bckg-color-table fw-bold">Hilda</th>
+                    <th class="bckg-color-table fw-bold">Hilda Sucipto</th>
                     <td>
                         <p>
                             Hilda is the Head Of Research And Development at Java Fresh (PT Nusantara Segar Global).
@@ -229,9 +229,8 @@
 
                         <p>
                             <u>Her occupational code is Realistic Investigative</u>. They focus on jobs surrounding
-                            working
-                            with tools, electrical drawings, machines, or plants and animals. They also like to study
-                            and solve math or science problems.
+                            working with tools, electrical drawings, machines, or plants and animals. They also like to
+                            study and solve math or science problems.
                         </p>
 
                         <p>

@@ -228,7 +228,7 @@ watch(() => {
         >
           <VCardText>
             <h3 class="mb-3">
-              What subjects will be beneficial for your intended major?
+              What subjects will help you prepare for your intended major?
             </h3>
             <p class="mb-0">
               This area aims to understand better what academic profile you will need when applying to university, as they measure your understanding and analytical skill in specific subjects such as language, mathematics, science, social science, etc.

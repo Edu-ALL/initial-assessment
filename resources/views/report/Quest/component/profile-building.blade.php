@@ -2,7 +2,7 @@
     @if ($reports[2][1])
         <div class="ngo">
             <p>
-                <b>You then moved on to the profile building section</b>, where you were able to meet several
+                <b>You then moved on to the profile building section,</b> you met several
                 Non-Governmental Organizations (NGO)! There are a huge amount of NGOs in Indonesia that delve into
                 various social causes, such as the following:
             </p>
@@ -156,8 +156,8 @@
     @if ($reports[2][2])
         <div class="stem">
             <p>
-                <b>you were able to meet several interesting companies that specialize in Science, Technology,
-                    Engineering, and Mathematics (STEM)!
+                <b>You then moved on to the profile building section,</b> you met several interesting companies that
+                specialize in Science, Technology, Engineering, and Mathematics (STEM)!
             </p>
             <p>
                 <b>Which one were you interested in?</b>
@@ -243,7 +243,7 @@
             <p>
                 Some personal projects that you can implement in line with what they produce:
             </p>
-            <ul class="list-lower-latin">
+            <ul class="list-lower-latin mb-2">
                 <li>
                     Creating a prototype of any object you’re interested in developing with 3D printing, for example:
                     <ul class="list-lower-roman">

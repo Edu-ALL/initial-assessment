@@ -181,10 +181,10 @@ watch(() => {
         >
           <VCardText>
             <h3 class="mb-3">
-              How well have you explored yourself? 
+              How thoroughly have you engaged in self-exploration? 
             </h3>
             <p class="mb-0">
-              This area aims to understand your personality, values, interests, and skills/aptitudes that will help you develop your career plan and decide what is best for your future!
+              This part is all about getting a good handle on what makes you tick—your personality, values, interests, and talents. It's key for figuring out a career path that feels right and making smart moves for your future.
             </p>
           </VCardText>
         </VCard>
