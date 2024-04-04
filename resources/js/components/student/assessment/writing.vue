@@ -185,7 +185,7 @@ watch(() => {
           <!-- Question 1 -->
           <li class="my-5">
             What writing activities do you most often do at school? Choose 3 options.
-            <VSelect
+            <VAutocomplete
               v-model="inputData[0].answer"
               :item-props="itemProps"
               :items="options && options['option17'] ? options['option17'] : ''"
@@ -251,7 +251,9 @@ watch(() => {
               class="ms-4"
             >
               <li class="my-3">
-                Competitions
+                <label>
+                  Competitions
+                </label>
                 <VTextarea
                   v-model="inputData[3].answer[0].answer_descriptive"
                   density="compact"
@@ -260,7 +262,9 @@ watch(() => {
                 />
               </li>
               <li class="my-3">
-                Workshops
+                <label>
+                  Workshops
+                </label>
                 <VTextarea
                   v-model="inputData[4].answer[0].answer_descriptive"
                   density="compact"
@@ -269,7 +273,9 @@ watch(() => {
                 />
               </li>
               <li class="my-3">
-                Self-writing (journals, stories, etc.)
+                <label>
+                  Self-writing (journals, stories, etc.)
+                </label>
                 <VTextarea
                   v-model="inputData[5].answer[0].answer_descriptive"
                   density="compact"

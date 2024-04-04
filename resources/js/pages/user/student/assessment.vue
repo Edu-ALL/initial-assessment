@@ -28,6 +28,7 @@ onMounted(() => {
     }
     
     loading.value=false
+
   }, 500)
 })
 </script> 
@@ -95,11 +96,17 @@ ol[type="A"] {
   margin-top: -10px !important;
 }
 
-ol[type="A"] li {
+.v-label {
+  color: rgb(var(--v-theme-grey-500)) !important;
+}
+
+ol[type="A"] li::marker, 
+ol[type="A"] li label {
   color: rgb(var(--v-theme-primary));
 }
 
-ol[type="A"] div {
-  color: rgb(var(--v-theme-primary));
-}
+
+// ol[type="A"] div {
+//   color: rgb(var(--v-theme-primary));
+// }
 </style>

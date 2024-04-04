@@ -183,7 +183,8 @@ watch(() => {
                   <VBtn
                     density="compact"
                     color="primary"
-                    class="mt-2 d-block"
+                    class="mt-2 py-md-2 py-1"
+                    style="height: auto !important; white-space: pre-wrap !important;"
                     @click="downloadPdf"
                   >
                     Get Your Free Personalized Report
@@ -229,11 +230,12 @@ ol[type="I"] {
   font-size: 14px !important;
 }
 
-ol[type="A"] li {
+ol[type="A"] li::marker, 
+ol[type="A"] li label {
   color: rgb(var(--v-theme-primary));
 }
 
-ol[type="A"] div {
-  color: rgb(var(--v-theme-primary));
-}
+// ol[type="A"] div {
+//   color: rgb(var(--v-theme-primary));
+// }
 </style>

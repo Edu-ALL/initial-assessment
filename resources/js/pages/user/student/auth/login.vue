@@ -6,10 +6,11 @@ import ApiService from '@/services/ApiService'
 import JwtService from '@/services/JwtService'
 import UserService from '@/services/UserService'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
+import { useTheme } from 'vuetify'
 
 
 const props = defineProps({ 'ticket': String })
-
+const { global } = useTheme()
 const sk_loading = ref(true)
 const formData = ref(null)
 
@@ -78,6 +79,12 @@ const checkUser = () => {
 }
 
 onMounted(() => {
+  // Check Mode 
+  const mode = localStorage.getItem('mode')
+  if(mode) {
+    global.name.value=mode
+  }
+
   // Check Ticket Number 
   if(props.ticket) {
     form.value.ticket_id = props.ticket

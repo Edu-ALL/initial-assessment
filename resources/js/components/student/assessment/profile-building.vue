@@ -421,7 +421,7 @@ watch(() => {
                     cols="12"
                     style="padding:5px !important"
                   >
-                    <VSelect
+                    <VAutocomplete
                       v-model="i.id"
                       :item-props="itemProps"
                       :items="options && options['option8-5'] ? options['option8-5'] : ''"
@@ -585,7 +585,9 @@ watch(() => {
                 class="ms-4"
               >
                 <li v-if="radioData.radio1=='yes'">
-                  In what field was your personal project in?
+                  <label>
+                    In what field was your personal project in?
+                  </label>
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[6].answer[0].answer_descriptive"
@@ -595,7 +597,9 @@ watch(() => {
                   />
                 </li>
                 <li v-if="radioData.radio1=='yes'">
-                  Please provide a brief description*
+                  <label>
+                    Please provide a brief description*
+                  </label>
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[7].answer[0].answer_descriptive"
@@ -605,7 +609,9 @@ watch(() => {
                   />
                 </li>
                 <li v-if="radioData.radio1=='no'">
-                  Are you interested in conducting one?
+                  <label>
+                    Are you interested in conducting one?
+                  </label>
 
                   <VRadioGroup v-model="inputData[8].answer[0].answer_descriptive">
                     <VRadio
@@ -619,7 +625,9 @@ watch(() => {
                   </VRadioGroup>
                 </li>
                 <li v-if="radioData.radio1=='no'">
-                  If yes, in what topic do you want to develop a project?
+                  <label>
+                    If yes, in what topic do you want to develop a project?
+                  </label>
                   <VTextarea
                     v-model="inputData[9].answer[0].answer_descriptive"
                     label="Answer"
@@ -657,7 +665,9 @@ watch(() => {
                 class="ms-4"
               >
                 <li v-if="radioData.radio2 == 'yes'">
-                  In what field was your research project in?
+                  <label>
+                    In what field was your research project in?
+                  </label>
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[10].answer[0].answer_descriptive"
@@ -667,7 +677,9 @@ watch(() => {
                   />
                 </li>
                 <li v-if="radioData.radio2 == 'yes'">
-                  Please provide a brief description*
+                  <label>
+                    Please provide a brief description*
+                  </label>
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                   <VTextarea
                     v-model="inputData[11].answer[0].answer_descriptive"
@@ -677,7 +689,9 @@ watch(() => {
                   />
                 </li>
                 <li v-if="radioData.radio2 == 'no'">
-                  Are you interested in conducting one?
+                  <label>
+                    Are you interested in conducting one?
+                  </label>
                 
                   <VRadioGroup v-model="inputData[12].answer[0].answer_descriptive">
                     <VRadio
@@ -691,7 +705,9 @@ watch(() => {
                   </VRadioGroup>
                 </li>
                 <li v-if="radioData.radio2 == 'no'">
-                  If yes, in what topic do you want to develop a project?
+                  <label>
+                    If yes, in what topic do you want to develop a project?
+                  </label>
                   <VTextarea
                     v-model="inputData[13].answer[0].answer_descriptive"
                     label="Answer"

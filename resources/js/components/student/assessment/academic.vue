@@ -244,7 +244,7 @@ watch(() => {
           <li class="my-5">
             What curriculum does your school use?
             <span style="color: rgb(var(--v-theme-error))">*</span>
-            <VSelect
+            <VAutocomplete
               v-model="inputData[0].answer[0]"
               :item-props="itemProps"
               :items="options && options['option11'] ? options['option11'] : ''"
@@ -277,7 +277,7 @@ watch(() => {
             <small>
               The curriculum that appears refers to the answer in question number 1
             </small>
-            <VSelect
+            <VAutocomplete
               v-model="inputData[1].answer"
               label="Answer"
               density="compact"
@@ -340,7 +340,7 @@ watch(() => {
                     :cols="6"
                     style="padding:5px !important"
                   >
-                    <VSelect
+                    <VAutocomplete
                       v-model="item.answer_descriptive"
                       label="Level"
                       density="compact"

@@ -1,6 +1,8 @@
 <script setup>
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { useDisplay } from 'vuetify'
+import EduALL from '@images/eduall/eduall.png'
+import EduALLWhite from '@images/eduall/eduall-white.png'
+import { useDisplay, useTheme } from 'vuetify'
 
 const props = defineProps({
   tag: {
@@ -21,6 +23,7 @@ const props = defineProps({
   },
 })
 
+
 const { mdAndDown } = useDisplay()
 const refNav = ref()
 const route = useRoute()
@@ -28,6 +31,9 @@ const route = useRoute()
 watch(() => route.path, () => {
   props.toggleIsOverlayNavActive(false)
 })
+
+const { global } = useTheme()
+const logo = computed(() => global.name.value === 'dark' ? EduALLWhite : EduALL)
 
 const isVerticalNavScrolled = ref(false)
 const updateIsVerticalNavScrolled = val => isVerticalNavScrolled.value = val
@@ -59,7 +65,7 @@ const handleNavScroll = evt => {
         >
           <div class="d-flex justify-center mb-10 mt-5">
             <img
-              src="@images/eduall/eduall.png"
+              :src="logo"
               alt="EduALL Assessment"
               class="w-75"
             >

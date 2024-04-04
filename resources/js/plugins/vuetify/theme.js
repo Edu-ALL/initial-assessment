@@ -54,7 +54,7 @@ const theme = {
     dark: {
       dark: true,
       colors: {
-        'primary': '##D6D6FF',
+        'primary': '#D6D6FF',
         'on-primary': '#0000FF',
         'secondary': '#FFF',
         'on-secondary': '#000',
@@ -90,7 +90,7 @@ const theme = {
         'border-color': '#DBDBEB',
         'snackbar-background': '#DBDBEB',
         'snackbar-color': '#2B2C40',
-        'tooltip-background': '#464A65',
+        'tooltip-background': '#FFF',
         'tooltip-opacity': 0.9,
         'table-header-background': '#3A3E5B',
 

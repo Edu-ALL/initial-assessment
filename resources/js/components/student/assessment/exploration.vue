@@ -207,7 +207,7 @@ watch(() => {
                   Academic interests (You can pick more than one)
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
-                <VSelect
+                <VAutocomplete
                   ref="academic"
                   v-model="inputData[0].answer"
                   :item-props="itemProps"
@@ -226,7 +226,7 @@ watch(() => {
                   Non-academic interests (You can pick more than one)
                   <span style="color: rgb(var(--v-theme-error))">*</span>
                 </label>
-                <VSelect
+                <VAutocomplete
                   v-model="inputData[1].answer"
                   :item-props="itemProps"
                   :items="options && options['option1-2'] ? options['option1-2'] : ''"
@@ -248,7 +248,7 @@ watch(() => {
               What is your daily schedule? (You can pick more than one)
               <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
-            <VSelect
+            <VAutocomplete
               v-model="inputData[2].answer"
               :item-props="itemProps"
               :items="options && options['option2'] ? options['option2'] : ''"
@@ -269,7 +269,7 @@ watch(() => {
               <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             
-            <VSelect
+            <VAutocomplete
               v-model="inputData[3].answer"
               :item-props="itemProps"
               :items="options && options['option3'] ? options['option3'] : ''"
@@ -297,7 +297,7 @@ watch(() => {
               What do you identify as your weaknesses? (You can pick more than one)
               <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
-            <VSelect
+            <VAutocomplete
               v-model="inputData[4].answer"
               :item-props="itemProps"
               :items="options && options['option4'] ? options['option4'] : ''"
@@ -356,7 +356,7 @@ watch(() => {
             <div class="mb-3">
               Where is your dream country to study in? (You can pick more than one)
             </div>
-            <VSelect
+            <VAutocomplete
               v-model="inputData[7].answer"
               :item-props="itemProps"
               :items="options && options['option6'] ? options['option6'] : ''"
