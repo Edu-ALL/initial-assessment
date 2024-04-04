@@ -374,10 +374,10 @@ watch(() => {
         >
           <VCardText>
             <h3 class="mb-3">
-              Let’s see how many activities you’ve joined!
+              How have you been active outside of the classroom?
             </h3>
             <p class="mb-0">
-              This area aims to educate you on the importance of building your unique strengths and accumulating experiences, making you stand out in a competitive landscape and setting the stage for your success beyond high school! 
+              This section is designed to show you why it's crucial to develop your unique strengths and gather diverse experiences. It's all about helping you shine in a competitive world and laying a strong foundation for your success after high school.
             </p>
           </VCardText>
         </VCard>

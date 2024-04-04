@@ -245,7 +245,7 @@ watch(() => {
           <!-- Question 2 -->
           <li>
             <div class="mb-3">
-              What is your daily schedule? (You can pick more than one)
+              Select your typical daily routine! (You can pick more than one)
               <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VAutocomplete
