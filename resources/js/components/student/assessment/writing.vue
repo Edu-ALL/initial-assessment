@@ -170,7 +170,7 @@ watch(() => {
         >
           <VCardText>
             <h3 class="mb-3">
-              How well can you explain yourself through writing?
+              How well can you express yourself through writing?
             </h3>
             <p class="mb-0">
               This area aims to prepare you on what will be expected of your university application essays, as they are the one way you get to show the university who you are beyond your academics—what your interests are, what your personality is like, and why you're a great fit for them.

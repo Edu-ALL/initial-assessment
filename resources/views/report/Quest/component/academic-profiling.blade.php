@@ -3,7 +3,7 @@
         <div class="standard-test">
             <p>
                 <b>To get to know more on how to excel at your university admission process, you stopped at the academic
-                    section,</b>, here you took a short diagnostic test to see where you score on these standardized
+                    section,</b> here you took a short diagnostic test to see where you score on these standardized
                 tests, please note that these are only a small part of the tests and do not reflect your full abilities.
             </p>
 
@@ -12,7 +12,9 @@
             </p>
 
             <div class="sat">
-                <b>Scholastic Aptitude Test (SAT):</b>
+                <p>
+                    <b>Scholastic Aptitude Test (SAT):</b>
+                </p>
                 <p>
                     As you know the SAT test aims to measure a high school student's readiness for college through their
                     Mathematics, and Evidence-Based Reading and Writing (EBRW) abilities.
@@ -26,22 +28,34 @@
                 <table class="table-detail text-center" style="margin-left: auto; margin-right:auto">
                     <tr>
                         <th class="bckg-color-table">Month</th>
-                        <td>March</td>
-                        <td>May</td>
-                        <td>June</td>
-                        <td>August</td>
-                        <td>October</td>
-                        <td>November</td>
-                        <td>December</td>
+                        <th class="bckg-color-table">Date</th>
                     </tr>
                     <tr>
-                        <th class="bckg-color-table">Date</th>
+                        <td>March</td>
                         <td>Mar 9, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>May</td>
                         <td>May 4, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>June</td>
                         <td>June 1, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>August</td>
                         <td>August 24, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>October</td>
                         <td>October 5, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>November</td>
                         <td>November 2, 2024</td>
+                    </tr>
+                    <tr>
+                        <td>December</td>
                         <td>December 7, 2024</td>
                     </tr>
                 </table>
@@ -55,17 +69,23 @@
                 <table class="table-detail text-center" style="margin-left: auto; margin-right:auto">
                     <tr>
                         <th class="bckg-color-table">Percentile</th>
-                        <td><b>Top Score</b></td>
-                        <td>99th</td>
-                        <td>90th</td>
-                        <td>75th</td>
+                        <th class="bckg-color-table">Score</th>
                     </tr>
                     <tr>
-                        <th class="bckg-color-table">Score</th>
                         <td>1600</td>
+                        <td><b>Top Score</b></td>
+                    </tr>
+                    <tr>
                         <td>1520</td>
+                        <td>99th</td>
+                    </tr>
+                    <tr>
                         <td>1350</td>
+                        <td>90th</td>
+                    </tr>
+                    <tr>
                         <td>1210</td>
+                        <td>75th</td>
                     </tr>
                 </table>
 
@@ -76,8 +96,10 @@
             </div>
 
             <div class="ielts-toefl">
-                <b>International English Language Testing System (IELTS) & Test of English as a Foreign Language
-                    (TOEFL):</b>
+                <p>
+                    <b>International English Language Testing System (IELTS) & Test of English as a Foreign Language
+                        (TOEFL):</b>
+                </p>
                 <p>
                     As you may know, both the IELTS and TOEFL test are used to measure the English language ability of
                     non-native speakers wishing to enroll in English-speaking universities.
@@ -191,7 +213,7 @@
         <div class="subject-selection">
             <p>
                 <b>To get to know more on how to excel at your university admission process, you stopped at the academic
-                    section</b>, you consulted with our head of tutoring and came up with your own results as follows!
+                    section,</b> you consulted with our head of tutoring and came up with your own results as follows!
             </p>
 
             <p><b>Your Answer: <u>{{ $reports[3]['subject_selection'] }}</u></b></p>
@@ -208,7 +230,7 @@
                 <b>So what is the next step?</b>
             </p>
 
-            <ol>
+            <ol style="font-size: 12px;">
                 <li>
                     <p>
                         First, make sure what major grouping you want, it doesn’t have to be specific, but knowing in
@@ -222,18 +244,55 @@
                     </p>
                 </li>
                 <li>
-                    From there take time to check the academic entry requirements for that major on the official
-                    university website. If you still feel confused, email an admission officer to get more information.
-                    Better safe than sorry!
+                    <p>
+                        From there take time to check the academic entry requirements for that major on the official
+                        university website. If you still feel confused, email an admission officer to get more
+                        information.
+                        Better safe than sorry!
+                    </p>
                 </li>
                 <li>
-                    Be very careful as some universities are very strict and detailed with the subjects they ask for,
-                    such as for the IBDP curriculum asking if the applicant took Higher Level (HL) or Standard Level
-                    (SL) from their subjects,
+                    <p>
+                        Be very careful as some universities are very strict and detailed with the subjects they ask
+                        for,
+                        such as for the IBDP curriculum asking if the applicant took Higher Level (HL) or Standard Level
+                        (SL) from their subjects,
+                        <br>
+                        <br>
+                    </p>
                     <p>
                         Excerpt:
-
+                        <br>
+                        <b>
+                            Prerequisites
+                        </b>
+                        <br>
+                    <div style="font-size: 10px; !important">
+                        These are the subjects (with minimum scores) you must have completed to be eligible for entry to
+                        this course.
+                    </div>
                     </p>
+
+                    <table class="mb-2">
+                        <td style="border-left: 2px solid #467ecc; padding-left: 10px">
+                            <p>
+                                <b>A minimum grade of 4 in either Applications and interpretations HL, Analysis and
+                                    approaches
+                                    SL, or Analysis and approaches HL. A minimum grade of 4 in one of Biology, Chemistry
+                                    or
+                                    Physics at HL or SL.</b>
+                                <i>
+                                    For students with English as their second language a pass in
+                                    English B
+                                    at the required level will be accepted as satisfying the English prerequisite.
+                                    Except
+                                    where
+                                    specified, IB subjects must be passed to at least Grade 4 Standard or Higher Level.
+                                    Mathematical Studies is not deemed equivalent to VCE Mathematical Methods.
+                                </i>
+                            </p>
+                        </td>
+                    </table>
 
                     <p>
                         Or with the Cambridge curriculum asking if they took A levels or AS levels.
@@ -241,18 +300,50 @@
 
                     <p>
                         Excerpt:
+                        <br>
+                        <b>
+                            Prerequisites
+                        </b>
+                        <br>
+                    <div style="font-size: 10px; !important">
+                        These are the subjects (with minimum scores) you must have completed to be eligible for entry to
+                        this course.
+                    </div>
+                    </p>
 
+                    <table class="mb-2">
+                        <td style="border-left: 2px solid #467ecc; padding-left: 10px">
+                            <p>
+                                <b>Mathematics, one of Biology, Chemistry and Physics, and an approved A or AS Level
+                                    English
+                                    subject; or Both Mathematics and Further Mathematics, and an approved A or AS Level
+                                    English subject.</b>
+                                <i>
+                                    A minimum of three A Levels is required and a grade of at least C is required in
+                                    prerequisite subjects unless otherwise specified. Approved GCE AS and A Level
+                                    English
+                                    subjects are: General Paper, General Studies, English Language and Literature,
+                                    English
+                                    Literature, English Language. Singapore A Level subject Knowledge and Enquiry (H2)
+                                    is
+                                    also accepted. A grade of at least C is required to meet the University's English
+                                    language requirements.
+                                </i>
+                            </p>
+                        </td>
+                    </table>
+                </li>
+                <li>
+                    <p>
+                        Once that is done, be sure to also consult with your parents or counselor to see which is the
+                        best fit for your abilities and dreams.
                     </p>
                 </li>
                 <li>
-                    Once that is done, be sure to also consult with your parents or counselor to see which is the best
-                    fit
-                    for your abilities and dreams.
-                </li>
-                <li>
-                    With this you are now prepared from the beginning, and with the correct subjects it’s all about
-                    focusing
-                    on getting that great score. From there it’ll be smooth sailing!
+                    <p>
+                        With this you are now prepared from the beginning, and with the correct subjects it’s all about
+                        focusing on getting that great score. From there it’ll be smooth sailing!
+                    </p>
                 </li>
             </ol>
 

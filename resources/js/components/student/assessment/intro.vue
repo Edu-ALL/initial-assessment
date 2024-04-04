@@ -20,7 +20,7 @@ const checkStep = value => {
     </VCardTitle>
     <VCardText>
       <p>
-        Hey there! 🎓  Wondering if you're all set for the university application journey? This quiz is your personal launchpad to getting university-ready and we're here to help you figure out if you're ready to dive in. 
+        Hey there! 🎓  Wondering if you're all set for the university application journey? This quiz is your personal launchpad to getting university-ready and we're here to help you figure out if you're prepared to dive in. 
       </p>
       <ul class="ps-5 mb-4">
         <li>

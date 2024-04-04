@@ -4,7 +4,7 @@ import { rules } from '@/helper/rules'
 import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
 import UserService from '@/services/UserService'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const done = ref(UserService.getUser().quest['Writing'])
 const formData = ref()
@@ -99,7 +99,7 @@ const getAnswer = async () => {
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
       />
-      Writing Area
+      Essay Writing Area
     </VExpansionPanelTitle>
     <VExpansionPanelText v-if="!done">
       <VForm

@@ -4,7 +4,7 @@ import { rules } from '@/helper/rules'
 import { verifyAuth } from '@/helper/verifyAuth'
 import ApiService from '@/services/ApiService'
 import UserService from '@/services/UserService'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const done = ref(UserService.getUser().quest['Sponsor'])
 const formData = ref()
@@ -64,7 +64,7 @@ const handleSubmit = async () => {
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
       />
-      Sponsor Area
+      Industry Partners Area
     </VExpansionPanelTitle>
     <VExpansionPanelText v-if="!done">
       <VForm

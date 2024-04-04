@@ -10,14 +10,36 @@
         <p>
             Hi {{ $user->full_name }}!
         </p>
-        <p>
+        <p class="mb-3">
             Here is your personalized report to help you know what you can do next in your educational journey!
         </p>
 
-        @include('report.IA.component.exploration')
-        @include('report.IA.component.profile-building')
-        @include('report.IA.component.academic')
-        @include('report.IA.component.writing')
+        <ol type="A" style="margin-left: -20px" class="quest-list">
+            <li class="mb-3">
+                <div class="quest-title fw-bold">
+                    Interest Exploration
+                </div>
+                @include('report.IA.component.exploration')
+            </li>
+            <li class="mb-3">
+                <div class="quest-title fw-bold">
+                    Profile-Building
+                </div>
+                @include('report.IA.component.profile-building')
+            </li>
+            <li class="mb-3">
+                <div class="quest-title fw-bold">
+                    Academic
+                </div>
+                @include('report.IA.component.academic')
+            </li>
+            <li class="mb-3">
+                <div class="quest-title fw-bold">
+                    Writing
+                </div>
+                @include('report.IA.component.writing')
+            </li>
+        </ol>
 
     </div>
 

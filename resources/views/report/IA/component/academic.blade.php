@@ -1,7 +1,7 @@
 <div class="category">
-    <div class="mt-4 mb-4">
+    {{-- <div class="mt-4 mb-4">
         <h5>C. Academic</h5>
-    </div>
+    </div> --}}
 
     @if ($reports[3]['is_surpass'])
         <div class="surpass">

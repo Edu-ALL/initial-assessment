@@ -1,7 +1,7 @@
 <div class="category">
-    <div class="mt-3 mb-4">
-        <h5>A. INTEREST EXPLORATION</h5>
-    </div>
+    {{-- <div class="mt-3 mb-4">
+        <h5>A. Interest Exploration</h5>
+    </div> --}}
 
     @if ($reports[1]['is_surpass'])
         <div class="surpass">
@@ -40,19 +40,31 @@
 
             <p class="mt-2">
                 Here are your next steps:
-            <ol>
-                <li>Start working on your profile branding by crafting a comprehensive portrayal of yourself that
-                    highlights
-                    your academic achievements, extracurricular activities, skills, experiences, and personal qualities.
+            <ol style="font-size: 12px;">
+                <li>
+                    <p>
+                        Start working on your profile branding by crafting a comprehensive portrayal of yourself that
+                        highlights
+                        your academic achievements, extracurricular activities, skills, experiences, and personal
+                        qualities.
+                    </p>
                 </li>
-                <li>Delve deeper and investigate potential career paths, fields of study, and hobbies that align with
-                    your
-                    interests. This can involve reading articles, watching documentaries, attending workshops or
-                    seminars,
-                    and talking to professionals in various fields.
+                <li>
+                    <p>
+                        Delve deeper and investigate potential career paths, fields of study, and hobbies that align
+                        with
+                        your
+                        interests. This can involve reading articles, watching documentaries, attending workshops or
+                        seminars,
+                        and talking to professionals in various fields.
+                    </p>
                 </li>
-                <li>Be extra prepared by making curated university lists, that are realistic and tiered based on your
-                    ability. For example:
+                <li>
+                    <p>
+                        Be extra prepared by making curated university lists, that are realistic and tiered based on
+                        your
+                        ability. For example:
+                    </p>
                     <ul class="list-lower-latin">
                         <li>
                             <b>Reach:</b> Include Ivy League schools and others with notably low acceptance rates, where
@@ -166,7 +178,7 @@
                         Identifying your goals may seem daunting, but they are important as they can give you direction
                         and keep your motivation going as you know that you are aiming towards something.
                     </p>
-                    <ol>
+                    <ol style="font-size: 12px;">
                         How can we do that?
                         <li>
                             <b>Think About What You Like:</b> Ask yourself what you enjoy and where you want to be in
