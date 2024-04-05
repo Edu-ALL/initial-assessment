@@ -240,24 +240,20 @@ class AnswerRepository implements AnswerRepositoryInterface
             case 'IELTS':
                 if ($score <= 4 || $score == 0 || $score == null) {
                     $point = 1;
-                } else if ($score == 5) {
+                } else if ($score >= 5 && $score <= 7) {
                     $point = 2;
-                } else if ($score > 5 && $score <= 7) {
-                    $point = 3;
                 } else if ($score > 7 && $score <= 9) {
-                    $point = 4;
+                    $point = 3;
                 }
                 break;
 
             case 'TOEFL':
                 if ($score < 60 || $score == 0 || $score == null) {
                     $point = 1;
-                } else if ($score >= 60 && $score < 80) {
+                } else if ($score >= 60 && $score < 100) {
                     $point = 2;
-                } else if ($score >= 80 && $score < 100) {
-                    $point = 3;
                 } else if ($score >= 100 && $score <= 120) {
-                    $point = 4;
+                    $point = 3;
                 }
                 break;
 
@@ -265,12 +261,21 @@ class AnswerRepository implements AnswerRepositoryInterface
                 $point = 1;
                 if ($score < 1100 || $score == 0 || $score == null) {
                     $point = 1;
-                } else if ($score >= 1100 && $score < 1300) {
+                } else if ($score >= 1100 && $score < 1500) {
                     $point = 2;
-                } else if ($score >= 1300 && $score < 1500) {
-                    $point = 3;
                 } else if ($score >= 1500) {
-                    $point = 4;
+                    $point = 3;
+                }
+                break;
+
+            case 'ACT':
+                $point = 1;
+                if ($score < 16 || $score == 0 || $score == null) {
+                    $point = 1;
+                } else if ($score >= 16 && $score < 28) {
+                    $point = 2;
+                } else if ($score >= 28 && $score <= 36) {
+                    $point = 3;
                 }
                 break;
         }

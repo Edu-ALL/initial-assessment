@@ -42,7 +42,7 @@ class SubQuestionSeeder extends Seeder
                 'id' => 3,
                 'question_id' => 5,
                 'title' => 'Academic',
-                'description' => '(for example: achieve a minimum A-level score of AAB)',
+                'description' => '(for example: achieve a specific score, master a certain subject, increase accomplishments)',
                 'question_type' => 'optional',
                 'answer_type' => 'option',
                 'point_type' => 'sub_question',
@@ -53,8 +53,8 @@ class SubQuestionSeeder extends Seeder
             [
                 'id' => 4,
                 'question_id' => 5,
-                'title' => 'Personal (for example: your dream job)',
-                'description' => NULL,
+                'title' => 'Personal',
+                'description' => '(for example: improve skills, develop projects, participate in events)',
                 'question_type' => 'optional',
                 'answer_type' => 'option',
                 'point_type' => 'sub_question',
@@ -265,7 +265,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'standard_test',
-                'total_point' => 4,
+                'total_point' => 3,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
@@ -277,7 +277,7 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'standard_test',
-                'total_point' => 4,
+                'total_point' => 3,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
@@ -289,44 +289,59 @@ class SubQuestionSeeder extends Seeder
                 'question_type' => 'optional',
                 'answer_type' => 'description',
                 'point_type' => 'standard_test',
-                'total_point' => 4,
+                'total_point' => 3,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
 
+            // [
+            //     'id' => 24,
+            //     'question_id' => 20,
+            //     'title' => "Competitions",
+            //     'description' => null,
+            //     'question_type' => 'optional',
+            //     'answer_type' => 'description',
+            //     'point_type' => 'description',
+            //     'total_point' => 5,
+            //     'minimum_answer' => 1,
+            //     'maximum_answer' => 1
+            // ],
+            // [
+            //     'id' => 25,
+            //     'question_id' => 20,
+            //     'title' => "Workshops",
+            //     'description' => null,
+            //     'question_type' => 'optional',
+            //     'answer_type' => 'description',
+            //     'point_type' => 'description',
+            //     'total_point' => 5,
+            //     'minimum_answer' => 1,
+            //     'maximum_answer' => 1
+            // ],
+            // [
+            //     'id' => 26,
+            //     'question_id' => 20,
+            //     'title' => "Self-writing (journals, stories, etc.)",
+            //     'description' => null,
+            //     'question_type' => 'optional',
+            //     'answer_type' => 'description',
+            //     'point_type' => 'description',
+            //     'total_point' => 5,
+            //     'minimum_answer' => 1,
+            //     'maximum_answer' => 1
+            // ],
+
+
+            # additional
             [
-                'id' => 24,
-                'question_id' => 20,
-                'title' => "Competitions",
+                'id' => 37,
+                'question_id' => 14,
+                'title' => "ACT",
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'description',
-                'total_point' => 5,
-                'minimum_answer' => 1,
-                'maximum_answer' => 1
-            ],
-            [
-                'id' => 25,
-                'question_id' => 20,
-                'title' => "Workshops",
-                'description' => null,
-                'question_type' => 'optional',
-                'answer_type' => 'description',
-                'point_type' => 'description',
-                'total_point' => 5,
-                'minimum_answer' => 1,
-                'maximum_answer' => 1
-            ],
-            [
-                'id' => 26,
-                'question_id' => 20,
-                'title' => "Self-writing (journals, stories, etc.)",
-                'description' => null,
-                'question_type' => 'optional',
-                'answer_type' => 'description',
-                'point_type' => 'description',
-                'total_point' => 5,
+                'point_type' => 'standard_test',
+                'total_point' => 3,
                 'minimum_answer' => 1,
                 'maximum_answer' => 1
             ],
