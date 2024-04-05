@@ -362,16 +362,49 @@ class AssessmentController extends Controller
 
 
         try {
+            // $reports = $this->checkReport($user->id);
+
             // $user = auth()->guard('api')->user();
             $user = User::find($request->user);
+            $answer = Answer::with('option')->where('user_id', $user->id)->get();
+            $curri = $answer->where('question_id', 11)->first();
+            $academic_interests = $answer->where('sub_question_id', 1);
+            $non_academic_interests = $answer->where('sub_question_id', 2);
 
+            $ansCurri = null;
+            if (isset($curri)) {
+                $ansCurri = $curri->option->option_answer;
+                if ($curri->option->option_answer == 'Others') {
+                    $ansCurri = $curri->answer_descriptive;
+                }
+            }
 
-            $reports = $this->checkReport($user->id);
+            $reports['client'] = [
+                'name' => $user->full_name,
+                'grade' => $user->grade,
+                'school' => $user->school,
+                'curriculum' => $ansCurri,
+                'academic_interests' => implode(', ', $academic_interests->pluck('option.option_answer')->toArray()),
+                'non_academic_interests' => implode(', ', $non_academic_interests->pluck('option.option_answer')->toArray()),
+            ];
 
-            // $reports[1]['is_surpass'] = true;
-            // $reports[2]['is_surpass'] = true;
-            // $reports[3]['is_surpass'] = true;
-            // $reports[4]['is_surpass'] = true;
+            $categories = Category::where('id', '<', 5)->get();
+            foreach ($categories as $category) {
+                $userPoints = UserPoint::where('user_id', $user->id)->whereHas('question', function ($query) use ($category) {
+                    $query->where('category_id', $category->id);
+                })->get();
+
+                $reports['score'][$category->name] = $this->calcPercentage($category, $userPoints->sum('point'));
+            }
+
+            $totalPercentage = 0;
+            foreach ($reports['score'] as $key => $value) {
+                $totalPercentage += $value;
+            }
+
+            $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : $totalPercentage / 4;
+
+            return $reports;
 
             if (in_array(500, $reports)) {
                 return response()->json([
@@ -380,7 +413,7 @@ class AssessmentController extends Controller
                 ], 500);
             }
 
-            $pdf = Pdf::loadView('report.IA.report', ['reports' => $reports, 'user' => $user]);
+            $pdf = Pdf::loadView('report.IA.report', ['reports' => $reports, 'user' => $user])->setPaper('a4', 'landscape');
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -389,11 +422,28 @@ class AssessmentController extends Controller
         }
 
 
-        // return $pdf->stream('report.pdf', array("Attachment" => false));
-        // exit(0);
+        return $pdf->stream('report.pdf', array("Attachment" => false));
+        exit(0);
         return $pdf->download('Personalized Assessment Report - ' . $user->full_name . '.pdf');
     }
 
+    protected function calcPercentage($category, $point)
+    {
+        $maxPoint = 25;
+        $percentage = 0;
+        if ($point == 0 || $point == null) {
+            $point = 0;
+        } else {
+
+            if ($point >= $maxPoint) {
+                $percentage = 100;
+            } else {
+                $percentage = ($point / $maxPoint) * 100;
+            }
+        }
+
+        return $percentage;
+    }
 
     protected function checkReport($user_id)
     {
@@ -470,7 +520,6 @@ class AssessmentController extends Controller
 
 
             $reports = $this->checkReportQuest($user->id);
-
             // $reports[1][1] = false;
             // $reports[1][2] = true;
             // $reports[2][1] = false;
@@ -514,6 +563,7 @@ class AssessmentController extends Controller
         // exit(0);
         return $pdf->download('Activity Report - ' . $user->full_name . '.pdf');
     }
+
 
     protected function checkReportQuest($user_id)
     {

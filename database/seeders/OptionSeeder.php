@@ -99,7 +99,7 @@ class OptionSeeder extends Seeder
         $indexOption++;
 
         # seeds for options no 4
-        $options_no_4 = ['Procrastinate', 'Impatient', 'Careless', 'Irresponsible', 'Insecure', 'Stubborn', 'Pessimistic', 'Ignorant', 'Others'];
+        $options_no_4 = ['Procrastination', 'Impatience', 'Carelessness', 'Irresponsibility', 'Insecurity', 'Stubbornness', 'Pessimism', 'Ignorance'];
         foreach ($options_no_4 as $key => $value) {
 
             $seeds[$indexOption] = [
@@ -114,6 +114,8 @@ class OptionSeeder extends Seeder
 
             $indexOption++;
         }
+
+        $indexOption++;
 
         $options_no_6 = ['United States of America', 'United Kingdom', 'Hong Kong', 'Singapore', 'Japan', 'China', 'European Union (Netherlands, Germany, etc.)'];
         foreach ($options_no_6 as $key => $value) {
@@ -366,6 +368,25 @@ class OptionSeeder extends Seeder
             $indexOption++;
             $newIndex++;
         }
+
+        # option no 20
+        $option_no_20 = ['Yes', 'No'];
+        foreach ($option_no_20 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $newIndex,
+                    'question_id' => 12,
+                    'sub_question_id' => null,
+                    'title_of_answer' => null,
+                    'option_answer' => $value,
+                    'reference_to' => null,
+                    'point' => 0
+                ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
 
 
         DB::table('options')->insert($seeds);

@@ -29,7 +29,7 @@ class QuestionSeeder extends Seeder
             [ #2
                 'id' => 2,
                 'category_id' => 1,
-                'title' => 'What is your daily schedule?',
+                'title' => 'Select your typical daily routine!',
                 'description' => NULL,
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
@@ -53,8 +53,8 @@ class QuestionSeeder extends Seeder
             [ #4
                 'id' => 4,
                 'category_id' => 1,
-                'title' => 'What do you identify as your weaknesses?',
-                'description' => 'can pick more than one',
+                'title' => 'What do you identify as your areas of improvement?',
+                'description' => 'You can pick more than one',
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
                 'point_type' => 'no_point',
@@ -254,7 +254,7 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'option',
+                'point_type' => 'question',
                 'total_point' => 15,
                 'minimum_answer' => 1,
                 'maximum_answer' => 3
