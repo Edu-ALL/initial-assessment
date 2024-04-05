@@ -294,7 +294,7 @@ watch(() => {
           <!-- Question 4 -->
           <li>
             <div class="mb-3">
-              What do you identify as your weaknesses? (You can pick more than one)
+              What do you identify as your areas of improvement?* (You can pick more than one)
               <span style="color: rgb(var(--v-theme-error))">*</span>
             </div>
             <VAutocomplete
@@ -330,7 +330,7 @@ watch(() => {
             >
               <li class="mb-3">
                 <label>
-                  Academic (for example: achieve a minimum A-level score of AAB)
+                  Academic (for example: achieve a specific score, master a certain subject, increase accomplishments)
                 </label>
                 <VTextarea
                   v-model="inputData[5].answer[0].answer_descriptive"
@@ -340,7 +340,7 @@ watch(() => {
               </li>
               <li class="mb-3">
                 <label>
-                  Personal (for example: your dream job)
+                  Personal (for example: improve skills, develop projects, participate in events)
                 </label>
                 <VTextarea
                   v-model="inputData[6].answer[0].answer_descriptive"

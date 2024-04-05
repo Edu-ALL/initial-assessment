@@ -39,7 +39,6 @@ const getOptions =  async() => {
 }
 
 const tickLabels = ref ({
-  0: '0',
   1: '1',
   2: '2',
   3: '3',
@@ -58,7 +57,7 @@ const inputData = ref(
         question_id: 18,
         sub_question_id: null,
         answer_descriptive: "",
-        score: null,
+        score: 1,
       }],
     },
     {
@@ -67,32 +66,11 @@ const inputData = ref(
         question_id: 19,
         sub_question_id: null,
         answer_descriptive: "",
-        score: null,
+        score: 1,
       }],
     },
     {
-      answer: [{
-        id: null,
-        question_id: 20,
-        sub_question_id: 24,
-        answer_descriptive: "",
-      }],
-    },
-    {
-      answer: [{
-        id: null,
-        question_id: 20,
-        sub_question_id: 25,
-        answer_descriptive: "",
-      }],
-    },
-    {
-      answer: [{
-        id: null,
-        question_id: 20,
-        sub_question_id: 26,
-        answer_descriptive: "",
-      }],
+      answer: [],
     },
   ],
 )
@@ -210,6 +188,7 @@ watch(() => {
               >
                 <VSlider
                   v-model="inputData[1].answer[0].score"
+                  :min="1"
                   :max="5"
                   :ticks="tickLabels"
                   show-ticks="always"
@@ -232,6 +211,7 @@ watch(() => {
               >
                 <VSlider
                   v-model="inputData[2].answer[0].score"
+                  :min="1"
                   :max="5"
                   :ticks="tickLabels"
                   show-ticks="always"
@@ -246,44 +226,17 @@ watch(() => {
           <!-- Question 4  -->
           <li class="my-5">
             Have you done any of these activities related to writing?
-            <ol
-              type="A"
-              class="ms-4"
+            <VRadioGroup
+              v-model="inputData[3].answer[0]" 
+              :rules="rules.required"
             >
-              <li class="my-3">
-                <label>
-                  Competitions
-                </label>
-                <VTextarea
-                  v-model="inputData[3].answer[0].answer_descriptive"
-                  density="compact"
-                  label="Answer"
-                  class="mt-3"
-                />
-              </li>
-              <li class="my-3">
-                <label>
-                  Workshops
-                </label>
-                <VTextarea
-                  v-model="inputData[4].answer[0].answer_descriptive"
-                  density="compact"
-                  label="Answer"
-                  class="mt-3"
-                />
-              </li>
-              <li class="my-3">
-                <label>
-                  Self-writing (journals, stories, etc.)
-                </label>
-                <VTextarea
-                  v-model="inputData[5].answer[0].answer_descriptive"
-                  density="compact"
-                  label="Answer"
-                  class="mt-3"
-                />
-              </li>
-            </ol>
+              <VRadio
+                v-for="item in options && options['option20'] ? options['option20'] : ''"
+                :key="item"
+                :value="item"
+                :label="item.option_answer"
+              />
+            </VRadioGroup>
           </li>
         </ol>
       </VCardText>

@@ -5,17 +5,70 @@
 
 
     <div class="content">
-        {{-- <img src="{{ $reports['chartUrl'] }}" alt="">
+        <table class="table">
+            <tr>
+                <td>Name</td>
+                <td width="1%">:</td>
+                <td>{{ $reports['client']['name'] }}</td>
+            </tr>
+            <tr>
+                <td>Grade</td>
+                <td width="1%">:</td>
+                <td>{{ $reports['client']['grade'] }}</td>
+            </tr>
+            <tr>
+                <td>School</td>
+                <td width="1%">:</td>
+                <td>{{ $reports['client']['school'] }}</td>
+            </tr>
+        </table>
 
-        <img src="https://quickchart.io/chart?w=500&h=300&c=%7B%0A++++++++++++++++type%3A+%27horizontalBar%27%2C%0A++++++++++++++++data%3A+%7B%0A++++++++++++++++++labels%3A+%5B%27Exploration%27%2C+%27Profile+Building%27%2C+%27Academic%27%2C+%27Writing%27%5D%2C%0A++++++++++++++++++datasets%3A+%5B%0A++++++++++++++++++++%7B%0A++++++++++++++++++++++backgroundColor%3A+%5B%27%23ffd050%27%2C+%27%23ffd050%27%2C+%27%23ffd050%27%2C+%27%23ffd050%27%5D%2C%0A++++++++++++++++++++++data%3A+%5B0.3%2C+0.2%2C+0.4%2C+0.6%5D%2C%0A++++++++++++++++++++++barThickness%3A+30%2C%0A++++++++++++++++++++%7D%2C%0A++++++++++++++++++++%7B%0A++++++++++++++++++++++backgroundColor%3A+%5B%27%23fd5a3e%27%2C+%27%23fd5a3e%27%2C%27%23fd5a3e%27%2C+%27%23fd5a3e%27%5D%2C%0A++++++++++++++++++++++data%3A+%5B0.7%2C+0.8%2C+0.6%2C+0.4%5D%2C%0A++++++++++++++++++++++barThickness%3A+30%2C%0A++++++++++++++++++++%7D%2C%0A++++++++++++++++++%5D%2C%0A++++++++++++++++%7D%2C%0A++++++++++++++++options%3A+%7B%0A++++++++++++++++++legend%3A+%7B%0A++++++++++++++++++++display%3A+false%2C%0A++++++++++++++++++++position%3A+%27bottom%27%2C%0A++++++++++++++++++++labels%3A+%7B%0A++++++++++++++++++++++generateLabels%3A+%28chart%29+%3D%3E+%5B%0A++++++++++++++++++++++++%7B%0A++++++++++++++++++++++++++text%3A+%27Failed%27%2C%0A++++++++++++++++++++++++++fillStyle%3A+%27%23fd5a3e%27%2C%0A++++++++++++++++++++++++%7D%2C%0A++++++++++++++++++++++++%7B%0A++++++++++++++++++++++++++text%3A+%27Broken%27%2C%0A++++++++++++++++++++++++++fillStyle%3A+%27%23ffd050%27%2C%0A++++++++++++++++++++++++%7D%2C%0A++++++++++++++++++++++%5D%2C%0A++++++++++++++++++++%7D%2C%0A++++++++++++++++++%7D%2C%0A++++++++++++++++++scales%3A+%7B%0A++++++++++++++++++++xAxes%3A+%5B%0A++++++++++++++++++++++%7B%0A++++++++++++++++++++++++stacked%3A+true%2C%0A++++++++++++++++++++++++ticks%3A+%7B+min%3A+0%2C+max%3A+1%2C+display%3A+false+%7D%2C%0A++++++++++++++++++++++++gridLines%3A+%7B+display%3A+false+%7D%2C%0A++++++++++++++++++++++%7D%2C%0A++++++++++++++++++++%5D%2C%0A++++++++++++++++++++yAxes%3A+%5B%7B+stacked%3A+true%2C+gridLines%3A+%7B+drawBorder%3A+false+%7D+%7D%5D%2C%0A++++++++++++++++++%7D%2C%0A++++++++++++++++++plugins%3A+%7B%0A++++++++++++++++++++datalabels%3A+%7B%0A++++++++++++++++++++++display%3A+true%2C%0A++++++++++++++++++++++color%3A+%27%23fff%27%2C%0A++++++++++++++++++++++font%3A+%7B%0A++++++++++++++++++++++++style%3A+%27bold%27%2C%0A++++++++++++++++++++++%7D%2C%0A++++++++++++++++++++++formatter%3A+%28%29+%3D%3E+%7B%0A++++++++++++++++++++++++return+%271%27%3B%0A++++++++++++++++++++++%7D%2C%0A++++++++++++++++++++%7D%2C%0A++++++++++++++++++%7D%2C%0A++++++++++++++++%7D%2C%0A++++++++++++++%7D"
-            alt=""> --}}
-        <img src="https://quickchart.io/sandbox/#%7B%22chart%22%3A%22%7B%5Cr%5Cn%20%20type%3A%20'horizontalBar'%2C%5Cr%5Cn%20%20data%3A%20%7B%5Cr%5Cn%20%20%20%20labels%3A%20%5B'Exploration'%2C%20'Profile%20Building'%2C%20'Academic'%2C%20'Writing'%5D%2C%5Cr%5Cn%20%20%20%20datasets%3A%20%5B%5Cr%5Cn%20%20%20%20%20%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20backgroundColor%3A%20%5B'%23ffd050'%2C%20'%23ffd050'%2C%20'%23ffd050'%2C%20'%23ffd050'%5D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20data%3A%20%5B0.3%2C%200.2%2C%200.4%2C%200.6%5D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20barThickness%3A%2030%2C%5Cr%5Cn%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20backgroundColor%3A%20%5B'%23fd5a3e'%2C%20'%23fd5a3e'%2C'%23fd5a3e'%2C%20'%23fd5a3e'%5D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20data%3A%20%5B0.7%2C%200.8%2C%200.6%2C%200.4%5D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20barThickness%3A%2030%2C%5Cr%5Cn%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%5D%2C%5Cr%5Cn%20%20%7D%2C%5Cr%5Cn%20%20options%3A%20%7B%5Cr%5Cn%20%20%20%20legend%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20display%3A%20false%2C%5Cr%5Cn%20%20%20%20%20%20position%3A%20'bottom'%2C%5Cr%5Cn%20%20%20%20%20%20labels%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20generateLabels%3A%20(chart)%20%3D%3E%20%5B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20'Failed'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%20%20fillStyle%3A%20'%23fd5a3e'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%20%20text%3A%20'Broken'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%20%20fillStyle%3A%20'%23ffd050'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%5D%2C%5Cr%5Cn%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20scales%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20xAxes%3A%20%5B%5Cr%5Cn%20%20%20%20%20%20%20%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20stacked%3A%20true%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20ticks%3A%20%7B%20min%3A%200%2C%20max%3A%201%2C%20display%3A%20false%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20gridLines%3A%20%7B%20display%3A%20false%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%5D%2C%5Cr%5Cn%20%20%20%20%20%20yAxes%3A%20%5B%7B%20stacked%3A%20true%2C%20gridLines%3A%20%7B%20drawBorder%3A%20false%20%7D%20%7D%5D%2C%5Cr%5Cn%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20plugins%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20datalabels%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20display%3A%20true%2C%5Cr%5Cn%20%20%20%20%20%20%20%20color%3A%20'%23fff'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20font%3A%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20style%3A%20'bold'%2C%5Cr%5Cn%20%20%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%20%20formatter%3A%20()%20%3D%3E%20%7B%5Cr%5Cn%20%20%20%20%20%20%20%20%20%20return%20'1'%3B%5Cr%5Cn%20%20%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%20%20%7D%2C%5Cr%5Cn%20%20%20%20%7D%2C%5Cr%5Cn%20%20%7D%2C%5Cr%5Cn%7D%22%2C%22width%22%3A500%2C%22height%22%3A300%2C%22version%22%3A%222%22%2C%22backgroundColor%22%3A%22%23fff%22%7D"
-            alt="">
-
-        {{-- <button width="30%" class="btn-first">jhj</button>
-        <button width="30%" class="btn-mid">sad</button>
-        <button width="30%" class="btn-last">sad</button> --}}
-
+        <table class="table">
+            <tr>
+                <td width="20%">Interest Exploration</td>
+                <td>
+                    <div class="progress-chart">
+                        <div class="progress-chart-bar text-white text-center"
+                            style="width: {{ $reports['score']['Exploration'] }}% !important">
+                            {{ $reports['score']['Exploration'] }}%
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="20%">Profile Building</td>
+                <td>
+                    <div class="progress-chart">
+                        <div class="progress-chart-bar text-white text-center"
+                            style="width: {{ $reports['score']['Profile Building'] }}% !important">
+                            {{ $reports['score']['Profile Building'] }}%
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="20%">Academic</td>
+                <td>
+                    <div class="progress-chart">
+                        <div class="progress-chart-bar text-white text-center"
+                            style="width: {{ $reports['score']['Academic'] }}% !important">
+                            {{ $reports['score']['Academic'] }}%
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="20%">Writing</td>
+                <td>
+                    <div class="progress-chart">
+                        <div class="progress-chart-bar text-white text-center"
+                            style="width: {{ $reports['score']['Writing'] }}% !important">
+                            {{ $reports['score']['Writing'] }}%
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
 @endsection

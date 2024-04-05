@@ -91,7 +91,7 @@ const inputData = ref(
       answer: [
         {
           id: null,
-          question_id: 13,
+          question_id: 14,
           sub_question_id: 21,
           answer_descriptive: null,
           score: null,
@@ -115,6 +115,17 @@ const inputData = ref(
           id: null,
           question_id: 14,
           sub_question_id: 23,
+          answer_descriptive: null,
+          score: null,
+        },
+      ],
+    },
+    {
+      answer: [
+        {
+          id: null,
+          question_id: 14,
+          sub_question_id: 37,
           answer_descriptive: null,
           score: null,
         },
@@ -365,7 +376,7 @@ watch(() => {
               <section v-if="inputData[2].answer[0].id==257">
                 <VTextField
                   v-model="inputData[2].answer[0].score"
-                  label="Average Score"
+                  label="Total Grade/Score"
                   density="compact"
                 />
               </section>
@@ -395,7 +406,7 @@ watch(() => {
               <VDivider class="my-3" />
               <VRow class="my-3">
                 <VCol
-                  md="4"
+                  md="3"
                   cols="12" 
                   style="padding:5px !important"
                 >
@@ -415,7 +426,7 @@ watch(() => {
                   />
                 </VCol>
                 <VCol
-                  md="4"
+                  md="3"
                   cols="12" 
                   style="padding:5px !important"
                 >
@@ -435,7 +446,7 @@ watch(() => {
                   />
                 </VCol>
                 <VCol
-                  md="4"
+                  md="3"
                   cols="12" 
                   style="padding:5px !important"
                 >
@@ -454,6 +465,26 @@ watch(() => {
                     :disabled="radioData.radio1=='no'"
                   />
                 </VCol>
+                <VCol
+                  md="3"
+                  cols="12" 
+                  style="padding:5px !important"
+                >
+                  <small>
+                    The maximum score is 36
+                  </small>
+                  <VTextField
+                    v-model="inputData[6].answer[0].score"
+                    type="number"
+                    label="ACT"
+                    density="compact"
+                    min="400"
+                    max="36"
+                    class="mt-3"
+                    :rules="rules.maxScore_36"
+                    :disabled="radioData.radio1=='no'"
+                  />
+                </VCol>
               </VRow>
             </div>
           </li>
@@ -465,7 +496,7 @@ watch(() => {
               <span style="color: rgb(var(--v-theme-error))">*</span>
 
               <VRadioGroup
-                v-model="inputData[6].answer[0].answer_descriptive"
+                v-model="inputData[7].answer[0].answer_descriptive"
                 :rules="rules.required"
               >
                 <VRadio
@@ -486,7 +517,7 @@ watch(() => {
               In which area do you need help in your academics?
 
               <VTextarea
-                v-model="inputData[7].answer[0].answer_descriptive"
+                v-model="inputData[8].answer[0].answer_descriptive"
                 label="Answer"
                 density="compact"
                 class="mt-3"

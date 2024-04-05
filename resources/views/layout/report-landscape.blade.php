@@ -146,6 +146,22 @@
             text-align: center;
             color: black;
         }
+
+        .progress-chart {
+            width: 100%;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 3px;
+        }
+
+        .progress-chart-bar {
+            /* Ubah nilai lebar sesuai dengan progress yang diinginkan */
+            height: 20px;
+            background-color: #4caf50;
+            /* Warna hijau untuk progress yang sudah selesai */
+            border-radius: 5px;
+        }
     </style>
 </head>
 

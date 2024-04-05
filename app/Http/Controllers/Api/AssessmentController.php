@@ -404,7 +404,8 @@ class AssessmentController extends Controller
 
             $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : $totalPercentage / 4;
 
-            return $reports;
+            // return view('report.IA.report', ['reports' => $reports, 'user' => $user]);
+            // exit(0);
 
             if (in_array(500, $reports)) {
                 return response()->json([
