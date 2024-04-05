@@ -254,7 +254,7 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'optional',
                 'answer_type' => 'description',
-                'point_type' => 'question',
+                'point_type' => 'option',
                 'total_point' => 15,
                 'minimum_answer' => 1,
                 'maximum_answer' => 3

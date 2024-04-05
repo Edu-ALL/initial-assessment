@@ -294,42 +294,42 @@ class SubQuestionSeeder extends Seeder
                 'maximum_answer' => 1
             ],
 
-            // [
-            //     'id' => 24,
-            //     'question_id' => 20,
-            //     'title' => "Competitions",
-            //     'description' => null,
-            //     'question_type' => 'optional',
-            //     'answer_type' => 'description',
-            //     'point_type' => 'description',
-            //     'total_point' => 5,
-            //     'minimum_answer' => 1,
-            //     'maximum_answer' => 1
-            // ],
-            // [
-            //     'id' => 25,
-            //     'question_id' => 20,
-            //     'title' => "Workshops",
-            //     'description' => null,
-            //     'question_type' => 'optional',
-            //     'answer_type' => 'description',
-            //     'point_type' => 'description',
-            //     'total_point' => 5,
-            //     'minimum_answer' => 1,
-            //     'maximum_answer' => 1
-            // ],
-            // [
-            //     'id' => 26,
-            //     'question_id' => 20,
-            //     'title' => "Self-writing (journals, stories, etc.)",
-            //     'description' => null,
-            //     'question_type' => 'optional',
-            //     'answer_type' => 'description',
-            //     'point_type' => 'description',
-            //     'total_point' => 5,
-            //     'minimum_answer' => 1,
-            //     'maximum_answer' => 1
-            // ],
+            [
+                'id' => 24,
+                'question_id' => 20,
+                'title' => "Competitions",
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'option',
+                'total_point' => 5,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+            [
+                'id' => 25,
+                'question_id' => 20,
+                'title' => "Workshops",
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'option',
+                'total_point' => 5,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
+            [
+                'id' => 26,
+                'question_id' => 20,
+                'title' => "Self-writing (journals, stories, etc.)",
+                'description' => null,
+                'question_type' => 'optional',
+                'answer_type' => 'description',
+                'point_type' => 'option',
+                'total_point' => 5,
+                'minimum_answer' => 1,
+                'maximum_answer' => 1
+            ],
 
 
             # additional
