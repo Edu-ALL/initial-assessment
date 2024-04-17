@@ -369,18 +369,57 @@ class OptionSeeder extends Seeder
             $newIndex++;
         }
 
-        # option no 20
-        $option_no_20 = ['Yes', 'No'];
-        foreach ($option_no_20 as $key => $value) {
+        # option sub no 24
+        $option_sub_no_24 = ['Yes', 'No'];
+        $point_sub_no_24 = [5, 0];
+        foreach ($option_sub_no_24 as $key => $value) {
             $seeds[$indexOption] =
                 [
                     'id' => $newIndex,
-                    'question_id' => 12,
-                    'sub_question_id' => null,
+                    'question_id' => 20,
+                    'sub_question_id' => 24,
                     'title_of_answer' => null,
                     'option_answer' => $value,
                     'reference_to' => null,
-                    'point' => 0
+                    'point' => $point_sub_no_24[$key]
+                ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
+        # option sub no 25
+        $option_sub_no_25 = ['Yes', 'No'];
+        $point_sub_no_25 = [5, 0];
+        foreach ($option_sub_no_25 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $newIndex,
+                    'question_id' => 20,
+                    'sub_question_id' => 25,
+                    'title_of_answer' => null,
+                    'option_answer' => $value,
+                    'reference_to' => null,
+                    'point' => $point_sub_no_25[$key]
+                ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
+        # option sub no 26
+        $option_sub_no_26 = ['Yes', 'No'];
+        $point_sub_no_26 = [5, 0];
+        foreach ($option_sub_no_26 as $key => $value) {
+            $seeds[$indexOption] =
+                [
+                    'id' => $newIndex,
+                    'question_id' => 20,
+                    'sub_question_id' => 26,
+                    'title_of_answer' => null,
+                    'option_answer' => $value,
+                    'reference_to' => null,
+                    'point' => $point_sub_no_26[$key]
                 ];
 
             $indexOption++;
