@@ -5,9 +5,6 @@
 
 
     <div class="content">
-        <h2 class="text-center mb-4">
-            PERSONALIZED ASSESSMENT REPORT
-        </h2>
         <table class="table" border=0>
             <tr>
                 <td width="50%" class="pe-5">
@@ -39,8 +36,12 @@
                         </tr>
                     </table>
 
+                    @php
+                        $total = array_sum($reports['score']);
+                        $score = $total / 4;
+                    @endphp
                     <h6 class="my-3 mt-5">
-                        Your University Admission Readiness Score is: 80%
+                        Your University Admission Readiness Score is: {{ $score }}%
                     </h6>
 
                     <p class="mb-4">
@@ -102,7 +103,6 @@
                         </tr>
                         <tr>
                             <td>
-
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -110,7 +110,6 @@
                         </tr>
                         <tr>
                             <td>
-
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -118,7 +117,6 @@
                         </tr>
                         <tr>
                             <td>
-
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -126,7 +124,6 @@
                         </tr>
                         <tr>
                             <td>
-
                             </td>
                         </tr>
                     </table>

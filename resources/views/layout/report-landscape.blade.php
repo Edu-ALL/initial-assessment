@@ -78,6 +78,7 @@
         }
 
         .content {
+            margin-top: -20px !important;
             font-size: 12px !important;
         }
 
@@ -179,8 +180,12 @@
 <body style="padding: 0; margin:0;">
 
     <header>
-        <img src="{{ public_path('img/pdf/edu-all-header.webp') }}" width="auto" height="50px"
-            style="margin-left: 50px; margin-top: 50px;">
+        <img src="{{ public_path('img/pdf/edu-all-header.webp') }}" width="auto" height="40px"
+            style="margin-left: 0px; margin-top: 50px;">
+        <h2 style="position:absolute; right:0%; top:8%; z-index:-999; opacity:.6;">
+            PERSONALIZED ASSESSMENT REPORT
+        </h2>
+        <hr>
 
         {{-- <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
         style="position:absolute; left:8%; top:32.5%; z-index:-999;"> --}}
@@ -193,7 +198,7 @@
     </footer>
 
     <main>
-        <div class="" style="padding:0 30px;">
+        <div class="" style="padding:0px;">
             @yield('body')
 
 
