@@ -28,6 +28,18 @@
             font-family: 'Ambit', sans-serif !important;
         }
 
+        h2 {
+            font-family: 'Ambit', sans-serif !important;
+            font-size: 24px !important;
+            font-weight: bold;
+        }
+
+        h6 {
+            font-family: 'Ambit', sans-serif !important;
+            font-size: 16px !important;
+            font-weight: bold;
+        }
+
         .category h5 {
             font-family: 'Ambit', sans-serif !important;
             font-weight: bold;
@@ -36,6 +48,7 @@
 
 
         p {
+            font-family: 'Ambit', sans-serif !important;
             font-size: 12px;
             margin-bottom: 8px;
         }
@@ -101,7 +114,7 @@
 
         table tr td,
         th {
-            padding: 7px;
+            padding: 3px !important;
             line-height: 1.5;
             font-size: 12px !important;
         }
@@ -149,18 +162,16 @@
 
         .progress-chart {
             width: 100%;
-            background-color: #f0f0f0;
+            background-color: #FEB019;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 3px;
+            padding: 1px;
         }
 
         .progress-chart-bar {
             /* Ubah nilai lebar sesuai dengan progress yang diinginkan */
             height: 20px;
-            background-color: #4caf50;
+            background-color: #00E396;
             /* Warna hijau untuk progress yang sudah selesai */
-            border-radius: 5px;
         }
     </style>
 </head>
@@ -174,11 +185,11 @@
         {{-- <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
         style="position:absolute; left:8%; top:32.5%; z-index:-999;"> --}}
         <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
-            style="position:absolute; left:8%; top:40%; z-index:-999;">
+            style="position:absolute; left:8%; top:40%; z-index:-999; opacity:.4;">
     </header>
 
     <footer>
-        <img src="{{ public_path('img/pdf/edu-all-footer.webp') }}" height="10%" width="120%">
+        <img src="{{ public_path('img/pdf/edu-all-footer.png') }}" height="auto" width="110%">
     </footer>
 
     <main>
