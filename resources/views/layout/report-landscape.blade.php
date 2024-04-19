@@ -10,9 +10,9 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         @page {
-            margin-top: 125px !important;
+            margin-top: 115px !important;
             /* create space for header */
-            margin-bottom: 100px !important;
+            margin-bottom: 80px !important;
             /* create space for footer */
         }
 
@@ -66,14 +66,14 @@
 
         header {
             height: auto;
-            margin-top: -125px;
+            margin-top: -115px;
             /* top: 0; */
         }
 
         footer {
             /* height: auto; */
             left: -50px !important;
-            margin-bottom: -100px !important;
+            margin-bottom: -80px !important;
             bottom: 0;
         }
 
@@ -133,7 +133,6 @@
         th {
             border: 2px solid #7272ff;
         }
-
 
         button {
             background-color: #0000FF;

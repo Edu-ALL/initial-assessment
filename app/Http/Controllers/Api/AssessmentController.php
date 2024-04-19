@@ -402,7 +402,17 @@ class AssessmentController extends Controller
                 $totalPercentage += $value;
             }
 
-            $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : $totalPercentage / 4;
+            $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : round($totalPercentage / 4);
+
+            if ($reports['score']['total'] < 30) {
+                $reports['result'] = 0;
+            } else if ($reports['score']['total'] < 65) {
+                $reports['result'] = 1;
+            } else if ($reports['score']['total'] >= 65 && $reports['score']['total'] < 85) {
+                $reports['result'] = 2;
+            } else if ($reports['score']['total'] >= 85 && $reports['score']['total'] <= 100) {
+                $reports['result'] = 3;
+            }
 
             // return view('report.IA.report', ['reports' => $reports, 'user' => $user]);
             // exit(0);
@@ -423,8 +433,8 @@ class AssessmentController extends Controller
         }
 
 
-        return $pdf->stream('report.pdf', array("Attachment" => false));
-        exit(0);
+        // return $pdf->stream('report.pdf', array("Attachment" => false));
+        // exit(0);
         return $pdf->download('Personalized Assessment Report - ' . $user->full_name . '.pdf');
     }
 

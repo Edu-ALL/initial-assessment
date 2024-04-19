@@ -27,12 +27,12 @@
                         <tr>
                             <td>Curriculum</td>
                             <td width="1%">:</td>
-                            <td></td>
+                            <td>{{ $reports['client']['curriculum'] }}</td>
                         </tr>
                         <tr>
                             <td>Interest</td>
                             <td width="1%">:</td>
-                            <td></td>
+                            <td>{{ $reports['client']['academic_interests'] }}</td>
                         </tr>
                     </table>
 
@@ -40,12 +40,30 @@
                         $total = array_sum($reports['score']);
                         $score = $total / 4;
                     @endphp
-                    <h6 class="my-3 mt-5">
-                        Your University Admission Readiness Score is: {{ $score }}%
+                    <h6 class="my-2 mt-4">
+                        Your University Admission Readiness Score is: {{ $reports['score']['total'] }}%
                     </h6>
 
-                    <p class="mb-4">
-                        Your result: can Not be Assessed/ is Below Standard/ is Standard/ has Exceeded the Standard for the
+                    <p class="mb-3">
+                        Your result:
+                        @switch($reports['result'])
+                            @case(0)
+                                can <b>Not be Assessed</b>
+                            @break
+
+                            @case(1)
+                                is <b>Below Standard</b>
+                            @break
+
+                            @case(2)
+                                is <b>Standard</b>
+                            @break
+
+                            @case(3)
+                                has <b>Exceeded Standard</b>
+                            @break
+                        @endswitch
+                        for the
                         university admission process. See the detailed graph below and suggestions on what to do next!
                     </p>
 
@@ -93,6 +111,33 @@
                                     </div>
                                 </div>
                             </td>
+                        </tr>
+                    </table>
+
+                    <table class="table-detail" border=1>
+                        <tr>
+                            <td width="15%">Not Assessed</td>
+                            <td width="8%">&lt;30%</td>
+                            <td>The student's quality can not be observed in any pillars, as it has not yet been implemented
+                                into practice.</td>
+                        </tr>
+                        <tr>
+                            <td width="15%">Below Standard</td>
+                            <td width="8%">&lt;65%</td>
+                            <td>The student's quality is observed across all 4 pillars, but not consistently. More
+                                improvement is needed to reach the desired level.</td>
+                        </tr>
+                        <tr>
+                            <td width="15%">Standard</td>
+                            <td width="8%">65-84%</td>
+                            <td>The student's quality is consistently in practice across all 4 pillars. Continous training
+                                to achieve the desired level is evident.</td>
+                        </tr>
+                        <tr>
+                            <td width="15%">Exceed Standard</td>
+                            <td width="8%">85-100%</td>
+                            <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
+                                requirements.</td>
                         </tr>
                     </table>
                 </td>
@@ -145,7 +190,7 @@
                             <p class="mb-0">
                                 <strong> What's Next? </strong>
                                 <br>
-                                For further consultation contact our academic advisor: + (Amel)
+                                For further consultation contact our academic advisor: +62 877-9838-5403 (Amel)
                             </p>
                         </div>
                     </div>
