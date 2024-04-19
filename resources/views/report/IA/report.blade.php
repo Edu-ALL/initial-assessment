@@ -103,6 +103,9 @@
                         </tr>
                         <tr>
                             <td>
+                                You have taken some time to build up your profile but there is so much more that you can and
+                                should do to maximize your exploration journey! Start by researching different majors,
+                                upgrading your daily schedule, identifying your academic and non-academic goals.
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -110,6 +113,9 @@
                         </tr>
                         <tr>
                             <td>
+                                You have taken some time to build up your profile but there is so much more that you can and
+                                should do to maximize your exploration journey! Start by researching different majors,
+                                upgrading your daily schedule, identifying your academic and non-academic goals.
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -117,6 +123,9 @@
                         </tr>
                         <tr>
                             <td>
+                                You have taken some time to build up your profile but there is so much more that you can and
+                                should do to maximize your exploration journey! Start by researching different majors,
+                                upgrading your daily schedule, identifying your academic and non-academic goals.
                             </td>
                         </tr>
                         <tr class="text-center bckg-color-table">
@@ -124,6 +133,9 @@
                         </tr>
                         <tr>
                             <td>
+                                You have taken some time to build up your profile but there is so much more that you can and
+                                should do to maximize your exploration journey! Start by researching different majors,
+                                upgrading your daily schedule, identifying your academic and non-academic goals.
                             </td>
                         </tr>
                     </table>
