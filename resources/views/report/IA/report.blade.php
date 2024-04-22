@@ -116,26 +116,27 @@
 
                     <table class="table-detail" border=1>
                         <tr>
-                            <td width="15%">Not Assessed</td>
-                            <td width="8%">&lt;30%</td>
-                            <td>The student's quality can not be observed in any pillars, as it has not yet been implemented
+                            <td class="text-center" width="15%">Not Assessed</td>
+                            <td class="text-center">&lt;30%</td>
+                            <td width="70%">The student's quality can not be observed in any pillars, as it has not yet
+                                been implemented
                                 into practice.</td>
                         </tr>
                         <tr>
-                            <td width="15%">Below Standard</td>
-                            <td width="8%">&lt;65%</td>
+                            <td class="text-center">Below Standard</td>
+                            <td class="text-center">&lt;65%</td>
                             <td>The student's quality is observed across all 4 pillars, but not consistently. More
                                 improvement is needed to reach the desired level.</td>
                         </tr>
                         <tr>
-                            <td width="15%">Standard</td>
-                            <td width="8%">65-84%</td>
+                            <td class="text-center">Standard</td>
+                            <td class="text-center">65-84%</td>
                             <td>The student's quality is consistently in practice across all 4 pillars. Continous training
                                 to achieve the desired level is evident.</td>
                         </tr>
                         <tr>
-                            <td width="15%">Exceed Standard</td>
-                            <td width="8%">85-100%</td>
+                            <td class="text-center">Exceed Standard</td>
+                            <td class="text-center">85-100%</td>
                             <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
                                 requirements.</td>
                         </tr>
@@ -147,7 +148,7 @@
                             <th class="text-uppercase">Interest Exploration</th>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="p-2">
                                 You have taken some time to build up your profile but there is so much more that you can and
                                 should do to maximize your exploration journey! Start by researching different majors,
                                 upgrading your daily schedule, identifying your academic and non-academic goals.
@@ -157,7 +158,7 @@
                             <th class="text-uppercase">Profile Building</th>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="p-2">
                                 You have taken some time to build up your profile but there is so much more that you can and
                                 should do to maximize your exploration journey! Start by researching different majors,
                                 upgrading your daily schedule, identifying your academic and non-academic goals.
@@ -167,7 +168,7 @@
                             <th class="text-uppercase">Academic Improvement</th>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="p-2">
                                 You have taken some time to build up your profile but there is so much more that you can and
                                 should do to maximize your exploration journey! Start by researching different majors,
                                 upgrading your daily schedule, identifying your academic and non-academic goals.
@@ -177,7 +178,7 @@
                             <th class="text-uppercase">Essay Writing</th>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="p-2">
                                 You have taken some time to build up your profile but there is so much more that you can and
                                 should do to maximize your exploration journey! Start by researching different majors,
                                 upgrading your daily schedule, identifying your academic and non-academic goals.

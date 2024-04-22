@@ -78,7 +78,8 @@
         }
 
         .content {
-            margin-top: -20px !important;
+            margin-top: -25px !important;
+            margin-bottom: -32px !important;
             font-size: 12px !important;
         }
 
@@ -162,15 +163,19 @@
 
         .progress-chart {
             width: 100%;
-            background-color: #FEB019;
-            border: 1px solid #ccc;
-            padding: 1px;
+            background-color: #000;
+            border: 3px solid #1414FF;
         }
 
         .progress-chart-bar {
             /* Ubah nilai lebar sesuai dengan progress yang diinginkan */
             height: 20px;
-            background-color: #00E396;
+            color: #fff;
+            font-weight: bold;
+            background-color: #1414FF;
+            border: 1px solid #1414FF;
+            clip-path: polygon(0 0, 100% 0%, 95% 100%, 0% 100%) !important;
+            -webkit-clip-path: polygon(0 0, 100% 0%, 95% 100%, 0% 100%) !important;
             /* Warna hijau untuk progress yang sudah selesai */
         }
     </style>
