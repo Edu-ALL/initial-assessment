@@ -69,7 +69,7 @@
 
                     <table class="table">
                         <tr>
-                            <td width="30%">Interest Exploration</td>
+                            <td width="30%"><b>Interest Exploration</b></td>
                             <td>
                                 <div class="progress-chart">
                                     <div class="progress-chart-bar text-white text-center"
@@ -80,7 +80,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="30%">Profile Building</td>
+                            <td width="30%"><b>Profile Building</b></td>
                             <td>
                                 <div class="progress-chart">
                                     <div class="progress-chart-bar text-white text-center"
@@ -91,7 +91,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="30%">Academic</td>
+                            <td width="30%"><b>Academic</b></td>
                             <td>
                                 <div class="progress-chart">
                                     <div class="progress-chart-bar text-white text-center"
@@ -102,7 +102,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="30%">Writing</td>
+                            <td width="30%"><b>Writing</b></td>
                             <td>
                                 <div class="progress-chart">
                                     <div class="progress-chart-bar text-white text-center"
@@ -114,20 +114,12 @@
                         </tr>
                     </table>
 
-                    <table class="table-detail" border=1>
+                    <table border=1>
                         <tr>
-                            <td class="text-center" width="15%">Not Assessed</td>
-                            <td class="text-center">&lt;30%</td>
-                            <td width="70%">
-                                The student's quality can not be observed in any pillars, as it has not yet been implemented
-                                into practice.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">Approaching Standards</td>
-                            <td class="text-center">&lt;65%</td>
-                            <td>The student's quality is observed across all 4 pillars, but not consistently. More
-                                improvement is needed to reach the desired level.</td>
+                            <td class="text-center">Exceeding Standards</td>
+                            <td class="text-center">85-100%</td>
+                            <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
+                                requirements.</td>
                         </tr>
                         <tr>
                             <td class="text-center">Meet Standards</td>
@@ -136,10 +128,18 @@
                                 to achieve the desired level is evident.</td>
                         </tr>
                         <tr>
-                            <td class="text-center">Exceeding Standards</td>
-                            <td class="text-center">85-100%</td>
-                            <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
-                                requirements.</td>
+                            <td class="text-center">Approaching Standards</td>
+                            <td class="text-center">&lt;65%</td>
+                            <td>The student's quality is observed across all 4 pillars, but not consistently. More
+                                improvement is needed to reach the desired level.</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" width="15%">Not Assessed</td>
+                            <td class="text-center">&lt;30%</td>
+                            <td width="70%">
+                                The student's quality can not be observed in any pillars, as it has not yet been implemented
+                                into practice.
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -255,9 +255,9 @@
                         </tr>
                     </table>
 
-                    <div class="mt-3 p-2" style="border:1px solid #444">
+                    <div class="mt-3 p-2" style="border:2px solid #0000FF">
                         <div class="card-body">
-                            <p class="mb-0">
+                            <p class="mb-0" style="font-size: 14px">
                                 <strong> What's Next? </strong>
                                 <br>
                                 For further consultation contact our academic advisor: +62 877-9838-5403 (Amel)
