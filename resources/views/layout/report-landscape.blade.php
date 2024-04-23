@@ -122,17 +122,18 @@
         }
 
         table>thead {
-            background-color: #0000FF;
+            /* background-color: #0000FF; */
             color: white;
         }
 
         .table-detail th {
-            border: 2px solid #7272ff;
+            border: 1px solid #7272ff;
         }
 
         .table-detail td,
         th {
-            border: 2px solid #7272ff;
+            border: 1px solid #7272ff;
+            font-size: 10px !important;
         }
 
         button {

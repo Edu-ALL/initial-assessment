@@ -45,7 +45,7 @@
                     </h6>
 
                     <p class="mb-3">
-                        Your result:
+                        Your result
                         @switch($reports['result'])
                             @case(0)
                                 can <b>Not be Assessed</b>
@@ -56,11 +56,11 @@
                             @break
 
                             @case(2)
-                                is <b>Meets the Standards</b>
+                                <b>Meets the Standards</b>
                             @break
 
                             @case(3)
-                                has <b>Exceeding the Standards</b>
+                                is <b>Exceeding the Standards</b>
                             @break
                         @endswitch
                         for the
@@ -114,7 +114,7 @@
                         </tr>
                     </table>
 
-                    <table border=1>
+                    <table class="table table-detail" border=1>
                         <tr>
                             <td class="text-center">Exceeding Standards</td>
                             <td class="text-center">85-100%</td>
@@ -255,7 +255,7 @@
                         </tr>
                     </table>
 
-                    <div class="mt-3 p-2" style="border:1px solid #1414FF">
+                    <div class="mt-3 p-2" style="border:2px solid #1414FF">
                         <div class="card-body">
                             <p class="mb-0" style="font-size: 14px">
                                 <strong> What's Next? </strong>
