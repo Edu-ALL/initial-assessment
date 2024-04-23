@@ -148,7 +148,7 @@
                         <tr class="text-center bckg-color-table">
                             <th class="text-uppercase">Interest Exploration</th>
                         </tr>
-                        <tr>
+                        <tr style="border: 1px solid #7272ff;">
                             <td class="p-2">
                                 @if ($reports['score']['Exploration'] < 30 || $reports['score']['Exploration'] < 65)
                                     {{-- Not Assessed / Approaching Standards --}}
@@ -173,7 +173,7 @@
                         <tr class="text-center bckg-color-table">
                             <th class="text-uppercase">Profile Building</th>
                         </tr>
-                        <tr>
+                        <tr style="border: 1px solid #7272ff;">
                             <td class="p-2">
                                 @if ($reports['score']['Profile Building'] < 30 || $reports['score']['Profile Building'] < 65)
                                     {{-- Not Assessed / Approaching Standards --}}
@@ -200,7 +200,7 @@
                         <tr class="text-center bckg-color-table">
                             <th class="text-uppercase">Academic Improvement</th>
                         </tr>
-                        <tr>
+                        <tr style="border: 1px solid #7272ff;">
                             <td class="p-2">
                                 @if ($reports['score']['Academic'] < 30 || $reports['score']['Academic'] < 65)
                                     {{-- Not Assessed / Approaching Standards --}}
@@ -228,7 +228,7 @@
                         <tr class="text-center bckg-color-table">
                             <th class="text-uppercase">Essay Writing</th>
                         </tr>
-                        <tr>
+                        <tr style="border: 1px solid #7272ff;">
                             <td class="p-2">
                                 @if ($reports['score']['Writing'] < 30 || $reports['score']['Writing'] < 65)
                                     {{-- Not Assessed / Approaching Standards --}}
@@ -255,7 +255,7 @@
                         </tr>
                     </table>
 
-                    <div class="mt-3 p-2" style="border:2px solid #0000FF">
+                    <div class="mt-3 p-2" style="border:1px solid #1414FF">
                         <div class="card-body">
                             <p class="mb-0" style="font-size: 14px">
                                 <strong> What's Next? </strong>
