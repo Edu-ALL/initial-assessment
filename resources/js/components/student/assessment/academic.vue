@@ -1,217 +1,226 @@
 <script setup>
-import { showNotif } from '@/helper/notification'
-import { rules } from '@/helper/rules'
-import ApiService from '@/services/ApiService'
-import { defineEmits, watch } from 'vue'
+import { showNotif } from "@/helper/notification";
+import { rules } from "@/helper/rules";
+import ApiService from "@/services/ApiService";
+import { defineEmits, watch } from "vue";
 
-const emits = defineEmits(['step'])
+const emits = defineEmits(["step"]);
 
-const formData = ref()
-const options = ref()
-const sub_option = ref()
-const loading = ref(false)
+const formData = ref();
+const options = ref();
+const sub_option = ref();
+const loading = ref(false);
 
 const radioData = ref({
-  radio1: 'yes',
-})
+  radio1: "yes",
+});
 
 const getAnswer = async () => {
   try {
-    const res = await ApiService.get('answer/3')
+    const res = await ApiService.get("answer/3");
 
-    if (res.success && res.data.length>0) {
-      inputData.value = res.data
+    if (res.success && res.data.length > 0) {
+      inputData.value = res.data;
 
-      // check radio standardized test 
-      if(inputData.value[3].answer[0].score==null && 
-        inputData.value[4].answer[0].score==null && 
-        inputData.value[5].answer[0].score==null) {
-        radioData.value.radio1 = 'no'
+      // check radio standardized test
+      if (
+        inputData.value[3].answer[0].score == null &&
+        inputData.value[4].answer[0].score == null &&
+        inputData.value[5].answer[0].score == null
+      ) {
+        radioData.value.radio1 = "no";
       }
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-const getOptions =  async() => {
-  const endpoint = 'question/3'
+const getOptions = async () => {
+  const endpoint = "question/3";
   try {
-    const res = await ApiService.get(endpoint)
+    const res = await ApiService.get(endpoint);
     if (res.success) {
-      options.value = res.data
+      options.value = res.data;
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-const getSubOption  = async ()  => {
-  // Reset Answer 
-  inputData.value[1].answer = []
+const getSubOption = async () => {
+  // Reset Answer
+  inputData.value[1].answer = [];
 
-  const id = inputData.value[0].answer[0].id
+  const id = inputData.value[0].answer[0].id;
 
-  const endpoint = 'sub_option/' + id
+  const endpoint = "sub_option/" + id;
   try {
-    const res = await ApiService.get(endpoint)
+    const res = await ApiService.get(endpoint);
     if (res.success) {
-      sub_option.value = res.data.sub_option
+      sub_option.value = res.data.sub_option;
     }
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-const inputData = ref(
-  [
-    {
-      answer: [],
-    },
-    {
-      answer: [],
-    },
-    {
-      answer: [
-        {
-          id: 258, 
-          question_id: 13, 
-          sub_question_id: null, 
-          reference_to: null, 
-          title_of_answer: 
-          null, 
-          option_answer: "I know", 
-          point: 12, 
-          answer_descriptive: null, 
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 14,
-          sub_question_id: 21,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 14,
-          sub_question_id: 22,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 14,
-          sub_question_id: 23,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 14,
-          sub_question_id: 37,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 15,
-          sub_question_id: null,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-    {
-      answer: [
-        {
-          id: null,
-          question_id: 16,
-          sub_question_id: null,
-          answer_descriptive: null,
-          score: null,
-        },
-      ],
-    },
-  ],
-)
+const inputData = ref([
+  {
+    answer: [],
+  },
+  {
+    answer: [],
+  },
+  {
+    answer: [
+      {
+        id: 258,
+        question_id: 13,
+        sub_question_id: null,
+        reference_to: null,
+        title_of_answer: null,
+        option_answer: "I know",
+        point: 12,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 14,
+        sub_question_id: 21,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 14,
+        sub_question_id: 22,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 14,
+        sub_question_id: 23,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 14,
+        sub_question_id: 37,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 15,
+        sub_question_id: null,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+  {
+    answer: [
+      {
+        id: null,
+        question_id: 16,
+        sub_question_id: null,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
+  },
+]);
 
+const checkStep = (value) => {
+  emits("step", value);
+};
 
-const checkStep = value => {
-  emits('step', value)
-}
-
-const itemProps = item => {
+const itemProps = (item) => {
   return {
     title: item.option_answer,
     subtitle: item.title_of_answer,
+  };
+};
+
+const resetRadio = (radio) => {
+  let val = radioData.value[radio];
+  inputData.value[3].answer[0].score = val == "yes" ? val : null;
+  inputData.value[4].answer[0].score = val == "yes" ? val : null;
+  inputData.value[5].answer[0].score = val == "yes" ? val : null;
+};
+
+const resetScore = () => {
+  var option_id = inputData.value[2].answer[0].id;
+  var subject_score = inputData.value[1].answer;
+
+  if (option_id == 257) {
+    subject_score.forEach((item) => {
+      item.answer_descriptive = null;
+      item.score = null;
+    });
   }
-}
-
-const resetRadio = radio => {
-  let val = radioData.value[radio]
-  inputData.value[3].answer[0].score = val == 'yes' ? val : null
-  inputData.value[4].answer[0].score = val == 'yes' ? val : null
-  inputData.value[5].answer[0].score = val == 'yes' ? val : null
-}
-
+};
 
 const submit = async () => {
-  const { valid, errors } = await formData.value.validate()
+  const { valid, errors } = await formData.value.validate();
 
   if (valid) {
-    handleSubmit()
+    handleSubmit();
   } else {
-    const element = document.getElementById(errors[0].id)
-    
-    element.focus()
+    const element = document.getElementById(errors[0].id);
+
+    element.focus();
   }
-}
+};
 
 const handleSubmit = async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    const res = await ApiService.post('answer/3', inputData.value)
-    if(res.success) {
-      checkStep(5)
+    const res = await ApiService.post("answer/3", inputData.value);
+    if (res.success) {
+      checkStep(5);
     } else {
-      showNotif('error', res.message, 'bottom-end')
+      showNotif("error", res.message, "bottom-end");
     }
-    loading.value = false
+    loading.value = false;
   } catch (error) {
-    showNotif('error', error, 'bottom-end')
-    loading.value = false
+    showNotif("error", error, "bottom-end");
+    loading.value = false;
   }
-}
+};
 
 watch(() => {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth',
-  })
-  getOptions()
-  getAnswer()
-})
+    behavior: "smooth",
+  });
+  getOptions();
+  getAnswer();
+});
 </script>
 
 <template>
@@ -226,15 +235,13 @@ watch(() => {
     >
       <VCardTitle class="mb-4">
         <h3>
-          <strong>
-            Academic
-          </strong>
+          <strong> Academic </strong>
         </h3>
         <VDivider />
       </VCardTitle>
       <VCardText>
         <VCard
-          style="border-left:4px solid rgb(var(--v-theme-primary))"
+          style="border-left: 4px solid rgb(var(--v-theme-primary))"
           class="mb-4"
         >
           <VCardText>
@@ -242,15 +249,15 @@ watch(() => {
               What subjects will help you prepare for your intended major?
             </h3>
             <p class="mb-0">
-              This area aims to understand better what academic profile you will need when applying to university, as they measure your understanding and analytical skill in specific subjects such as language, mathematics, science, social science, etc.
+              This area aims to understand better what academic profile you will
+              need when applying to university, as they measure your
+              understanding and analytical skill in specific subjects such as
+              language, mathematics, science, social science, etc.
             </p>
           </VCardText>
         </VCard>
 
-        <ol
-          type="1"
-          class="ms-5"
-        >
+        <ol type="1" class="ms-5">
           <!-- Question 1 -->
           <li class="my-5">
             What curriculum does your school use?
@@ -267,7 +274,7 @@ watch(() => {
             />
 
             <VTextField
-              v-if="inputData[0].answer[0]?.id==127"
+              v-if="inputData[0].answer[0]?.id == 127"
               v-model="inputData[0].answer[0].answer_descriptive"
               label="Curriculum Name"
               density="compact"
@@ -279,14 +286,12 @@ watch(() => {
           </li>
 
           <!-- Question 2  -->
-          <li
-            v-if="inputData[0].answer[0]?.id!=127"
-            class="my-5"
-          >
+          <li v-if="inputData[0].answer[0]?.id != 127" class="my-5">
             What is your current subject selection?
-            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br />
             <small>
-              The curriculum that appears refers to the answer in question number 1
+              The curriculum that appears refers to the answer in question
+              number 1
             </small>
             <VAutocomplete
               v-model="inputData[1].answer"
@@ -303,10 +308,7 @@ watch(() => {
           </li>
 
           <!-- Question 3  -->
-          <li
-            v-if="inputData[0].answer[0]?.id!=127"
-            class="my-5"
-          >
+          <li v-if="inputData[0].answer[0]?.id != 127" class="my-5">
             <div class="mb-3">
               What were your last report grades?
               <span style="color: rgb(var(--v-theme-error))">*</span>
@@ -314,6 +316,7 @@ watch(() => {
               <VRadioGroup
                 v-if="options && options['option13']"
                 v-model="inputData[2].answer[0]"
+                @change="resetScore"
               >
                 <VRadio
                   v-for="item in options['option13']"
@@ -327,16 +330,16 @@ watch(() => {
 
               <!-- Detail Score  -->
               <!-- If Answer I Know  -->
-              <section v-if="inputData[2].answer[0].id==258">
+              <section v-if="inputData[2].answer[0].id == 258">
                 <VRow
                   v-for="item in inputData[1].answer"
                   :key="item"
                   class="my-3"
                 >
                   <VCol
-                    :md="inputData[0].answer[0].id == 122 ? 8: 10"
+                    :md="inputData[0].answer[0].id == 122 ? 8 : 10"
                     cols="12"
-                    style="padding:5px !important"
+                    style="padding: 5px !important"
                   >
                     <VTextField
                       v-model="item.option_answer"
@@ -349,19 +352,19 @@ watch(() => {
                     v-if="inputData[0].answer[0].id == 122"
                     md="2"
                     :cols="6"
-                    style="padding:5px !important"
+                    style="padding: 5px !important"
                   >
                     <VAutocomplete
                       v-model="item.answer_descriptive"
                       label="Level"
                       density="compact"
-                      :items="['HL','SL']"
+                      :items="['HL', 'SL']"
                     />
                   </VCol>
                   <VCol
                     md="2"
-                    :cols="inputData[0].answer[0].id == 122 ? 6: 12"
-                    style="padding:5px !important"
+                    :cols="inputData[0].answer[0].id == 122 ? 6 : 12"
+                    style="padding: 5px !important"
                   >
                     <VTextField
                       v-model="item.score"
@@ -373,7 +376,7 @@ watch(() => {
               </section>
 
               <!-- If Answer I Dont Know  -->
-              <section v-if="inputData[2].answer[0].id==257">
+              <section v-if="inputData[2].answer[0].id == 257">
                 <VTextField
                   v-model="inputData[2].answer[0].score"
                   label="Total Grade/Score"
@@ -389,30 +392,15 @@ watch(() => {
               Have you done any standardized tests?
               <span style="color: rgb(var(--v-theme-error))">*</span>
 
-              <VRadioGroup
-                v-model="radioData.radio1"
-                @change="resetRadio"
-              >
-                <VRadio
-                  label="Yes"
-                  value="yes"
-                />
-                <VRadio
-                  label="No"
-                  value="no"
-                />
+              <VRadioGroup v-model="radioData.radio1" @change="resetRadio">
+                <VRadio label="Yes" value="yes" />
+                <VRadio label="No" value="no" />
               </VRadioGroup>
 
               <VDivider class="my-3" />
               <VRow class="my-3">
-                <VCol
-                  md="3"
-                  cols="12" 
-                  style="padding:5px !important"
-                >
-                  <small>
-                    The maximum score is 9
-                  </small>
+                <VCol md="3" cols="12" style="padding: 5px !important">
+                  <small> The maximum score is 9 </small>
                   <VTextField
                     v-model="inputData[3].answer[0].score"
                     type="number"
@@ -422,17 +410,11 @@ watch(() => {
                     max="9"
                     class="mt-3"
                     :rules="rules.maxScore_9"
-                    :disabled="radioData.radio1=='no'"
+                    :disabled="radioData.radio1 == 'no'"
                   />
                 </VCol>
-                <VCol
-                  md="3"
-                  cols="12" 
-                  style="padding:5px !important"
-                >
-                  <small>
-                    The maximum score is 120
-                  </small>
+                <VCol md="3" cols="12" style="padding: 5px !important">
+                  <small> The maximum score is 120 </small>
                   <VTextField
                     v-model="inputData[4].answer[0].score"
                     type="number"
@@ -442,17 +424,11 @@ watch(() => {
                     max="120"
                     class="mt-3"
                     :rules="rules.maxScore_120"
-                    :disabled="radioData.radio1=='no'"
+                    :disabled="radioData.radio1 == 'no'"
                   />
                 </VCol>
-                <VCol
-                  md="3"
-                  cols="12" 
-                  style="padding:5px !important"
-                >
-                  <small>
-                    The maximum score is 1600
-                  </small>
+                <VCol md="3" cols="12" style="padding: 5px !important">
+                  <small> The maximum score is 1600 </small>
                   <VTextField
                     v-model="inputData[5].answer[0].score"
                     type="number"
@@ -462,17 +438,11 @@ watch(() => {
                     max="1600"
                     class="mt-3"
                     :rules="rules.maxScore_1600"
-                    :disabled="radioData.radio1=='no'"
+                    :disabled="radioData.radio1 == 'no'"
                   />
                 </VCol>
-                <VCol
-                  md="3"
-                  cols="12" 
-                  style="padding:5px !important"
-                >
-                  <small>
-                    The maximum score is 36
-                  </small>
+                <VCol md="3" cols="12" style="padding: 5px !important">
+                  <small> The maximum score is 36 </small>
                   <VTextField
                     v-model="inputData[6].answer[0].score"
                     type="number"
@@ -482,7 +452,7 @@ watch(() => {
                     max="36"
                     class="mt-3"
                     :rules="rules.maxScore_36"
-                    :disabled="radioData.radio1=='no'"
+                    :disabled="radioData.radio1 == 'no'"
                   />
                 </VCol>
               </VRow>
@@ -499,14 +469,8 @@ watch(() => {
                 v-model="inputData[7].answer[0].answer_descriptive"
                 :rules="rules.required"
               >
-                <VRadio
-                  label="Yes"
-                  value="yes"
-                />
-                <VRadio
-                  label="No"
-                  value="no"
-                />
+                <VRadio label="Yes" value="yes" />
+                <VRadio label="No" value="no" />
               </VRadioGroup>
             </div>
           </li>
