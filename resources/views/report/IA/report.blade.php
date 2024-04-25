@@ -116,6 +116,9 @@
 
                     <table class="table table-detail" border=1>
                         <tr>
+                            <th colspan="3" class="text-center">University Admission Readiness Rubric</th>
+                        </tr>
+                        <tr>
                             <td class="text-center">Exceeding Standards</td>
                             <td class="text-center">85-100%</td>
                             <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
