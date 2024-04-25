@@ -156,8 +156,8 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'mandatory',
                 'answer_type' => 'option',
-                'point_type' => 'no_point',
-                'total_point' => 0,
+                'point_type' => 'score',
+                'total_point' => 12, # if they select i know
                 'minimum_answer' => 1,
                 'maximum_answer' => 6
             ],
@@ -168,8 +168,8 @@ class QuestionSeeder extends Seeder
                 'description' => null,
                 'question_type' => 'mandatory',
                 'answer_type' => 'description',
-                'point_type' => 'option',
-                'total_point' => 12,
+                'point_type' => 'score',
+                'total_point' => 6, # if they select i don't know
                 'minimum_answer' => 1,
                 'maximum_answer' => 2
             ],

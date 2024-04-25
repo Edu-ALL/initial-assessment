@@ -68,6 +68,7 @@ class AnswerRepository implements AnswerRepositoryInterface
             $point_details[$i]['user_id'] = $user_id;
             $point_details[$i]['question_id'] = $subQuestions['question_id'];
             $point_details[$i]['sub_question_id'] = $subQuestions['sub_question_id'];
+            $score = isset($subQuestions['score']) ? $subQuestions['score'] : null;
 
             $dbSubQuestion = SubQuestion::where('id', $subQuestions['sub_question_id'])->first();
 
@@ -101,7 +102,7 @@ class AnswerRepository implements AnswerRepositoryInterface
                     break;
 
                 case 'score':
-                    $point_details[$i]['point'] = $subQuestions['score'] != null ? $dbSubQuestion->total_point : 0;
+                    $point_details[$i]['point'] = $score != null ? $dbSubQuestion->total_point : 0;
                     break;
             }
 
@@ -113,7 +114,7 @@ class AnswerRepository implements AnswerRepositoryInterface
             $point_details[$i]['user_id'] = $user_id;
             $point_details[$i]['question_id'] = $Questions['question_id'];
             $point_details[$i]['sub_question_id'] = null;
-
+            $score = isset($Questions['score']) ? $Questions['score'] : null;
             $dbQuestion = Question::where('id', $Questions['question_id'])->first();
 
             switch ($dbQuestion->point_type) {
@@ -135,11 +136,13 @@ class AnswerRepository implements AnswerRepositoryInterface
                     break;
 
                 case 'scale':
-                    $point_details[$i]['point'] = $Questions['score'] != null ? $Questions['score'] + 1 : 0;
+                    $scoreInt = $score != null && gettype($score) == 'string' ? (int)$score : $score;
+                    $point_details[$i]['point'] =  $score != null ? $scoreInt : 0;
+                    // $point_details[$i]['point'] = isset($Questions['score']) ? gettype($Questions['score']) : 0;
                     break;
 
                 case 'score':
-                    $point_details[$i]['point'] = $Questions['score'] != null ? $dbQuestion->total_point : 0;
+                    $point_details[$i]['point'] = $score != null ? $dbQuestion->total_point : 0;
                     break;
             }
             $i++;
