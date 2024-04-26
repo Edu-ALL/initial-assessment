@@ -215,8 +215,9 @@
     @if ($reports[1][2])
         <div class="career-professionals mt-3">
             <p>
-                <b>To explore more about your interests,</b> Based on the professional you picked, you can see what
-                profile their careers are in and what you might be interested in the future.
+                <b>To explore more about your interests,</b> you were able to participate in a sharing session with a
+                career professional! Based on the professional you picked, you can see what profile their careers are in
+                and what you might be interested in the future.
             </p>
 
             <table class="table-detail">
@@ -272,10 +273,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="bckg-color-table fw-bold">Renardi Oetomo</th>
+                    <th class="bckg-color-table fw-bold">Ariefika Listya</th>
                     <td>
                         <p>
-                            Renardi Oetomo is a graphic designer at Shopee.
+                            Ariefika Listya is currently a DKV lecturer at various universities and previously was a
+                            graphic designer.
                         </p>
                         <p>
                             <u>Her occupational code is Artistic</u>. They focus on doing creative activities like art,
@@ -298,10 +300,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="bckg-color-table fw-bold">Brenda Chia</th>
+                    <th class="bckg-color-table fw-bold">Jeremiah Pranajaya</th>
                     <td>
                         <p>
-                            Brenda Chia is the CEO of PT X.
+                            Jeremiah Pranajaya is an Assistant Vice President of International Financial Institutions in
+                            the commercial banking industry.
                         </p>
                         <p>
                             Her occupational code is <u>Enterprising Conventional</u>. They focus on leading and

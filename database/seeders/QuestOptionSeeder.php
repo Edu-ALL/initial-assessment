@@ -126,6 +126,24 @@ class QuestOptionSeeder extends Seeder
             $indexOption++;
         }
 
+        $newIndex = 288;
+        #sub no 29
+        $option_subno_29 = ['Hilda Sucipto', 'Dr Angelina Vanessa', 'Ariefika Listya', 'Jeremiah Pranajaya'];
+        foreach ($option_subno_29 as $key => $value) {
+            $seeds[$indexOption] = [
+                'id' => $newIndex,
+                'question_id' => 22,
+                'sub_question_id' => 29,
+                'title_of_answer' => null,
+                'option_answer' => $value,
+                'reference_to' => null,
+                'point' => 1
+            ];
+
+            $indexOption++;
+            $newIndex++;
+        }
+
 
         DB::table('options')->insert($seeds);
     }
