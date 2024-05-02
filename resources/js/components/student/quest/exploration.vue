@@ -125,7 +125,7 @@ watch(() => {
           @change="changeRadio"
         >
           <VRadio
-            label="Take the 5 minute ONE*T test to find out which jobs woold fit you! "
+            label="Take the 5 minute ONE*T test to find out which jobs would fit you! "
             :value="1"
           />
           <VDivider class="my-2" />

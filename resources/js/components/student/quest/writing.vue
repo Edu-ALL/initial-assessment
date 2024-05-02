@@ -1,37 +1,40 @@
 <script setup>
-import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
-import { rules } from '@/helper/rules'
-import { verifyAuth } from '@/helper/verifyAuth'
-import ApiService from '@/services/ApiService'
-import UserService from '@/services/UserService'
-import { ref } from 'vue'
+import { confirmBeforeSubmit, showNotif } from "@/helper/notification"
+import { rules } from "@/helper/rules"
+import { verifyAuth } from "@/helper/verifyAuth"
+import ApiService from "@/services/ApiService"
+import UserService from "@/services/UserService"
+import { ref } from "vue"
 
-const done = ref(UserService.getUser().quest['Writing'])
+const done = ref(UserService.getUser().quest["Writing"])
 const formData = ref()
 const mission = ref(1)
 const loading = ref(false)
 
 const inputData = ref([
   {
-    answer: [{
-      id: null,
-      question_id: 27,
-      sub_question_id: 35,
-      answer_descriptive: null,
-      score: null,
-    }],
+    answer: [
+      {
+        id: null,
+        question_id: 27,
+        sub_question_id: 35,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
   },
   {
-    answer: [{
-      id: null,
-      question_id: 28,
-      sub_question_id: 36,
-      answer_descriptive: null,
-      score: null,
-    }],
+    answer: [
+      {
+        id: null,
+        question_id: 28,
+        sub_question_id: 36,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
   },
 ])
-
 
 const submit = async () => {
   const { valid, errors } = await formData.value.validate()
@@ -40,24 +43,27 @@ const submit = async () => {
     handleSubmit()
   } else {
     const element = document.getElementById(errors[0].id)
-    
+
     element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
+  const confirmed = await confirmBeforeSubmit(
+    "Are you sure you have completed the mission?",
+  )
+
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
     resetRadio()
     try {
-      const res = await ApiService.post('answer/8', inputData.value)
-      if(res.success) {
+      const res = await ApiService.post("answer/8", inputData.value)
+      if (res.success) {
         verifyAuth().checkMe()
         done.value = true
       } else {
-        showNotif('error', res.message)
+        showNotif("error", res.message)
       }
       loading.value = false
     } catch (error) {
@@ -70,7 +76,7 @@ const handleSubmit = async () => {
 const resetRadio = () => {
   const mission_choosed = mission.value
 
-  if(mission_choosed==1) {
+  if (mission_choosed == 1) {
     inputData.value[1].answer[0].answer_descriptive = null
   } else {
     inputData.value[0].answer[0].answer_descriptive = null
@@ -79,9 +85,9 @@ const resetRadio = () => {
 
 const getAnswer = async () => {
   try {
-    const res = await ApiService.get('answer/8')
+    const res = await ApiService.get("answer/8")
 
-    if (res.success && res.data.length>0) {
+    if (res.success && res.data.length > 0) {
       done.value = true
     } else {
       done.value = false
@@ -94,7 +100,7 @@ const getAnswer = async () => {
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
+    <VExpansionPanelTitle :class="done ? 'text-success' : 'text-secondary'">
       <VIcon
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
@@ -112,7 +118,8 @@ const getAnswer = async () => {
         <VAlert color="warning">
           <VAlertTitle>
             <p class="my-0">
-              Find out what essay can get you accepted into exceptional universities!
+              Find out what essay can get you accepted into exceptional
+              universities!
               <strong>Choose your mission!</strong>
             </p>
           </VAlertTitle>
@@ -128,15 +135,15 @@ const getAnswer = async () => {
           />
           <VDivider class="my-2" />
           <VRadio
-            label="Compare the AI and handmade essays"
+            label="Compare the AI and human-written essays"
             :value="2"
           />
         </VRadioGroup>
-      
+
         <VDivider class="my-3" />
 
         <ol class="ms-5 my-3">
-          <li v-if="mission==1">
+          <li v-if="mission == 1">
             Compare the US and UK/Asia essays
             <ol
               type="I"
@@ -144,7 +151,7 @@ const getAnswer = async () => {
             >
               <li class="mb-3">
                 Tell us what makes both these essays different?
-                <span style="color: rgb(var(--v-theme-error))">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VTextarea
                   v-model="inputData[0].answer[0].answer_descriptive"
                   label="Answer"
@@ -157,16 +164,16 @@ const getAnswer = async () => {
             <VDivider class="my-6" />
           </li>
 
-          <li v-if="mission==2">
+          <li v-if="mission == 2">
             Compare the AI and human-written essays
-          
+
             <ol
               type="I"
               class="ms-4 my-3"
             >
               <li>
                 Tell us what makes both these essays different?
-                <span style="color: rgb(var(--v-theme-error))">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
@@ -193,7 +200,7 @@ const getAnswer = async () => {
             Complete This Mission
           </VBtn>
         </div>
-      </vform>
+      </VForm>
     </VExpansionPanelText>
     <VExpansionPanelText v-if="done">
       <div class="bg-warning px-4 py-4 rounded">
