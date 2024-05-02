@@ -125,7 +125,7 @@ watch(() => {
           class="mt-3"
         >
           <VRadio
-            label="Take a short SAT/IELTS/TOEFL diagnostic test to know what to improve!"
+            label="Take a short SAT/IELTS/TOEFL iBT diagnostic test to know what to improve!"
             :value="1"
           />
           <VDivider class="my-2" />

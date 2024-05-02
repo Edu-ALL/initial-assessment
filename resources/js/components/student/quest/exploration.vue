@@ -141,7 +141,7 @@ watch(() => {
             <strong>
               Take the 5 minute ONE*T test
             </strong>
-            to find out which jobs woold fit you! 
+            to find out which jobs would fit you! 
             <ol
               type="I"
               class="ms-4 my-3"
