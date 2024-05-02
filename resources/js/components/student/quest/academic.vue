@@ -138,7 +138,7 @@ watch(() => {
         <VDivider class="my-3" />
         <ol class="ms-5 my-3">
           <li v-if="mission == 1">
-            <strong> Take a short SAT/IELTS/TOEFL diagnostic test </strong>
+            <strong> Take a short SAT/IELTS/TOEFL iBT diagnostic test </strong>
             to know what to improve!
             <ol
               type="I"
@@ -154,13 +154,13 @@ watch(() => {
                   <VRadio
                     v-for="item in options['option25']"
                     :key="item"
-                    :label="item.option_answer"
+                    :label="item.option_answer=='TOEFL' ? item.option_answer+' iBT':item.option_answer"
                     :value="item"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[0].answer[0]">
-                When chosen, they can insert their score
+                Insert your diagnostic test score!
                 <span style="color: rgb(var(--v-theme-error))">*</span>
 
                 <VTextField

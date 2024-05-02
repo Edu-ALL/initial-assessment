@@ -77,7 +77,7 @@ const handleSubmit = async () => {
         <VAlert color="warning">
           <VAlertTitle>
             <p class="my-0">
-              Just like the saying “work hard, play hard”, take time and refresh at our collaborator booths outside!
+              Just like the saying “work hard, play hard”, take time and refresh at our industry partner booths outside!
             </p>
           </VAlertTitle>
         </VAlert>

@@ -1,42 +1,49 @@
 <script setup>
-import { confirmBeforeSubmit, showNotif } from "@/helper/notification";
-import { rules } from "@/helper/rules";
-import ApiService from "@/services/ApiService";
-import { defineEmits, watch } from "vue";
+import { confirmBeforeSubmit, showNotif } from "@/helper/notification"
+import { rules } from "@/helper/rules"
+import ApiService from "@/services/ApiService"
+import { defineEmits, watch } from "vue"
 
-const emits = defineEmits(["step"]);
+const emits = defineEmits(["step"])
 
-const options = ref();
-const formData = ref();
-const loading = ref(false);
+const options = ref()
+const formData = ref()
+const loading = ref(false)
+const competitions = ref()
+const workshops = ref()
+const self_writing = ref()
 
-const checkStep = (value) => {
-  emits("step", value);
-};
+const checkStep = value => {
+  emits("step", value)
+}
 
 const getAnswer = async () => {
   try {
-    const res = await ApiService.get("answer/4");
+    const res = await ApiService.get("answer/4")
 
     if (res.success && res.data.length > 0) {
-      inputData.value = res.data;
+      inputData.value = res.data
     }
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 
 const getOptions = async () => {
-  const endpoint = "question/4";
+  const endpoint = "question/4"
   try {
-    const res = await ApiService.get(endpoint);
+    const res = await ApiService.get(endpoint)
     if (res.success) {
-      options.value = res.data;
+      options.value = res.data
+      
+      competitions.value = options.value['option20-24'].reverse()
+      workshops.value = options.value['option20-25'].reverse()
+      self_writing.value = options.value['option20-26'].reverse()      
     }
   } catch (error) {
-    console.error(error);
+    console.error(error)
   }
-};
+}
 
 const tickLabels = ref({
   1: "1",
@@ -44,7 +51,7 @@ const tickLabels = ref({
   3: "3",
   4: "4",
   5: "5",
-});
+})
 
 const inputData = ref([
   {
@@ -81,56 +88,57 @@ const inputData = ref([
   {
     answer: [],
   },
-]);
+])
 
-const itemProps = (item) => {
+const itemProps = item => {
   return {
     title: item.option_answer,
     subtitle: item.title_of_answer,
-  };
-};
+  }
+}
 
 const submit = async () => {
-  const { valid, errors } = await formData.value.validate();
+  const { valid, errors } = await formData.value.validate()
 
   if (valid) {
-    handleSubmit();
+    handleSubmit()
   } else {
-    const element = document.getElementById(errors[0].id);
+    const element = document.getElementById(errors[0].id)
 
-    element.focus();
+    element.focus()
   }
-};
+}
 
 const handleSubmit = async () => {
   const confirmed = await confirmBeforeSubmit(
-    "Are you sure you want to submit your answers?"
-  );
+    "Are you sure you want to submit your answers?",
+  )
+
   if (confirmed) {
-    loading.value = true;
+    loading.value = true
     try {
-      const res = await ApiService.post("answer/4", inputData.value);
+      const res = await ApiService.post("answer/4", inputData.value)
       if (res.success) {
-        checkStep(6);
+        checkStep(6)
       } else {
-        showNotif("error", res.message, "bottom-end");
+        showNotif("error", res.message, "bottom-end")
       }
-      loading.value = false;
+      loading.value = false
     } catch (error) {
-      showNotif("error", error, "bottom-end");
-      loading.value = false;
+      showNotif("error", error, "bottom-end")
+      loading.value = false
     }
   }
-};
+}
 
 watch(() => {
   window.scrollTo({
     top: 0,
     behavior: "smooth",
-  });
-  getOptions();
-  getAnswer();
-});
+  })
+  getOptions()
+  getAnswer()
+})
 </script>
 
 <template>
@@ -168,7 +176,10 @@ watch(() => {
           </VCardText>
         </VCard>
 
-        <ol type="1" class="ms-5">
+        <ol
+          type="1"
+          class="ms-5"
+        >
           <!-- Question 1 -->
           <li class="my-5">
             What writing activities do you most often do at school? Choose 3
@@ -193,7 +204,10 @@ watch(() => {
             <b>non-academic writing</b> (such as stories, journals)?
             <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
-              <VCol md="5" cols="12">
+              <VCol
+                md="5"
+                cols="12"
+              >
                 <VSlider
                   v-model="inputData[1].answer[0].score"
                   :min="1"
@@ -214,7 +228,10 @@ watch(() => {
             <b>academic writing</b> (such as essays and journals)?
             <span style="color: rgb(var(--v-theme-error))">*</span>
             <VRow>
-              <VCol md="5" cols="12">
+              <VCol
+                md="5"
+                cols="12"
+              >
                 <VSlider
                   v-model="inputData[2].answer[0].score"
                   :min="1"
@@ -233,57 +250,54 @@ watch(() => {
           <li class="my-5">
             Have you done any of these activities related to writing?
             <ol type="A">
-              <li class="my-3">
-                <label
-                  >Competitions
-                  <span style="color: rgb(var(--v-theme-error))">*</span></label
-                >
+              <li
+                v-if="options && options['option20-24']"
+                class="my-3"
+              >
+                <label>Competitions
+                  <span style="color: rgb(var(--v-theme-error))">*</span></label>
                 <VRadioGroup
                   v-model="inputData[3].answer[0]"
                   :rules="rules.required"
                 >
                   <VRadio
-                    v-for="item in options && options['option20-24']
-                      ? options['option20-24']
-                      : ''"
+                    v-for="item in competitions"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
                   />
                 </VRadioGroup>
               </li>
-              <li class="my-3">
-                <label
-                  >Workshops
-                  <span style="color: rgb(var(--v-theme-error))">*</span></label
-                >
+              <li
+                v-if="options && options['option20-25']"
+                class="my-3"
+              >
+                <label>Workshops
+                  <span style="color: rgb(var(--v-theme-error))">*</span></label>
                 <VRadioGroup
                   v-model="inputData[4].answer[0]"
                   :rules="rules.required"
                 >
                   <VRadio
-                    v-for="item in options && options['option20-25']
-                      ? options['option20-25']
-                      : ''"
+                    v-for="item in workshops"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"
                   />
                 </VRadioGroup>
               </li>
-              <li class="my-3">
-                <label
-                  >Self-writing (journals, stories, etc.)
-                  <span style="color: rgb(var(--v-theme-error))">*</span></label
-                >
+              <li
+                v-if="options && self_writing"
+                class="my-3"
+              >
+                <label>Self-writing (journals, stories, etc.)
+                  <span style="color: rgb(var(--v-theme-error))">*</span></label>
                 <VRadioGroup
                   v-model="inputData[5].answer[0]"
                   :rules="rules.required"
                 >
                   <VRadio
-                    v-for="item in options && options['option20-26']
-                      ? options['option20-26']
-                      : ''"
+                    v-for="item in options['option20-26']"
                     :key="item"
                     :value="item"
                     :label="item.option_answer"

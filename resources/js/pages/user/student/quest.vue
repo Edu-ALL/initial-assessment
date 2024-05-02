@@ -224,16 +224,18 @@ watch(() => {
 <style lang="scss">
 ol li {
   margin-bottom: 5px;
+  color: #3A3A3A !important;
 }
 
 ol[type="I"] {
   margin-left: 0px !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
+  color: #3A3A3A !important;
 }
 
 ol[type="A"] li::marker, 
 ol[type="A"] li label {
-  color: rgb(var(--v-theme-primary));
+  color: #3A3A3A !important;
 }
 
 // ol[type="A"] div {

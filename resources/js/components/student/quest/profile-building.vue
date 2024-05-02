@@ -141,7 +141,7 @@ watch(() => {
           @change="changeRadio"
         >
           <VRadio
-            label="Visit an NGO booth and be inspired to help out (encourage NGO to also create a small activity)"
+            label="Visit an NGO booth and be inspired to help out"
             :value="1"
           />
           <VDivider class="my-2" />
@@ -157,7 +157,7 @@ watch(() => {
             <strong>
               Visit an NGO booth 
             </strong>
-            and be inspired to help out (encourage NGO to also create a small activity)
+            and be inspired to help out
             <ol
               type="I"
               class="ms-4 my-3"
