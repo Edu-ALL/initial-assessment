@@ -95,10 +95,6 @@ ol[type="A"] {
   margin-top: -10px !important;
 }
 
-.v-label {
-  color: rgb(var(--v-theme-grey-500)) !important;
-}
-
 ol[type="A"] li::marker,
 ol[type="A"] li label {
   color: rgb(var(--v-theme-primary));
