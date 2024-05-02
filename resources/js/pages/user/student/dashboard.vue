@@ -1,4 +1,5 @@
 <script setup>
+import { verifyAuth } from "@/helper/verifyAuth";
 import ApiService from "@/services/ApiService";
 import UserService from "@/services/UserService";
 import illustrationJohnDark from "@images/cards/illustration-john-dark.png";
@@ -30,6 +31,11 @@ const downloadQuestPdf = async () => {
 
   window.open("/api/report_quest/" + id, "_blank");
 };
+
+onMounted(() => {
+  verifyAuth().checkMe();
+  user.value = UserService.getUser();
+});
 </script>
 
 <template>
@@ -86,11 +92,13 @@ const downloadQuestPdf = async () => {
         </VRow>
       </VCard>
 
-      <img
-        :src="cepBanner"
-        class="w-100 rounded shadow"
-        :class="$vuetify.display.xs ? 'd-none' : 'd-block mt-5'"
-      />
+      <a href="https://community-empowerment.edu-all.com/" target="_blank">
+        <img
+          :src="cepBanner"
+          class="w-100 rounded shadow"
+          :class="$vuetify.display.xs ? 'd-none' : 'd-block mt-5'"
+        />
+      </a>
     </VCol>
 
     <VCol cols="12" md="6">
@@ -174,11 +182,13 @@ const downloadQuestPdf = async () => {
         </VCardText>
       </VCard>
 
-      <img
-        :src="cepBanner"
-        class="w-100 rounded shadow"
-        :class="$vuetify.display.xs ? 'd-block mt-5' : 'd-none'"
-      />
+      <a href="https://community-empowerment.edu-all.com/" target="_blank">
+        <img
+          :src="cepBanner"
+          class="w-100 rounded shadow"
+          :class="$vuetify.display.xs ? 'd-block mt-5' : 'd-none'"
+        />
+      </a>
     </VCol>
   </VRow>
 </template>

@@ -36,7 +36,9 @@ watch(() => {
         Community Empowerment Program in Bali FOR FREE!
       </p>
 
-      <img :src="cepBanner" class="w-100 rounded shadow" />
+      <a href="https://community-empowerment.edu-all.com/" target="_blank">
+        <img :src="cepBanner" class="w-100 rounded shadow" />
+      </a>
 
       <div
         class="px-5 mt-8"

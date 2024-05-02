@@ -187,10 +187,9 @@
     <header>
         <img src="{{ public_path('img/pdf/edu-all-header.webp') }}" width="auto" height="40px"
             style="margin-left: 0px; margin-top: 50px;">
-        <h2 style="position:absolute; right:0%; top:8%; z-index:-999; opacity:.6;">
+        <h2 style="position:absolute; right:0%; top:8%; z-index:-999;">
             PERSONALIZED ASSESSMENT REPORT
         </h2>
-        <hr>
 
         {{-- <img src="{{ public_path('img/pdf/edu-all-watermark.webp') }}" width="85%"
         style="position:absolute; left:8%; top:32.5%; z-index:-999;"> --}}
