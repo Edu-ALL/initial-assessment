@@ -388,21 +388,23 @@ class AssessmentController extends Controller
                 'non_academic_interests' => implode(', ', $non_academic_interests->pluck('option.option_answer')->toArray()),
             ];
 
-            $categories = Category::where('id', '<', 5)->get();
-            foreach ($categories as $category) {
-                $userPoints = UserPoint::where('user_id', $user->id)->whereHas('question', function ($query) use ($category) {
-                    $query->where('category_id', $category->id);
-                })->get();
+            // $categories = Category::where('id', '<', 5)->get();
+            // foreach ($categories as $category) {
+            //     $userPoints = UserPoint::where('user_id', $user->id)->whereHas('question', function ($query) use ($category) {
+            //         $query->where('category_id', $category->id);
+            //     })->get();
 
-                $reports['score'][$category->name] = $this->calcPercentage($category, $userPoints->sum('point'));
-            }
+            //     $reports['score'][$category->name] = $this->calcPercentage($category, $userPoints->sum('point'));
+            // }
 
-            $totalPercentage = 0;
-            foreach ($reports['score'] as $key => $value) {
-                $totalPercentage += $value;
-            }
+            // $totalPercentage = 0;
+            // foreach ($reports['score'] as $key => $value) {
+            //     $totalPercentage += $value;
+            // }
 
-            $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : round($totalPercentage / 4);
+            // $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : round($totalPercentage / 4);
+
+            $reports = $this->calcPoint($user->id);
 
             if ($reports['score']['total'] < 30) {
                 $reports['result'] = 0;
@@ -644,5 +646,26 @@ class AssessmentController extends Controller
         // exit(0);
 
         return $pdf->download('report-summary.pdf');
+    }
+
+    public function calcPoint($user_id)
+    {
+        $categories = Category::where('id', '<', 5)->get();
+        foreach ($categories as $category) {
+            $userPoints = UserPoint::where('user_id', $user_id)->whereHas('question', function ($query) use ($category) {
+                $query->where('category_id', $category->id);
+            })->get();
+
+            $reports['score'][$category->name] = $this->calcPercentage($category, $userPoints->sum('point'));
+        }
+
+        $totalPercentage = 0;
+        foreach ($reports['score'] as $key => $value) {
+            $totalPercentage += $value;
+        }
+
+        $reports['score']['total'] = $totalPercentage == 0 || $totalPercentage == null ? 0 : round($totalPercentage / 4);
+
+        return $reports;
     }
 }

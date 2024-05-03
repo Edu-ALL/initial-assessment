@@ -50,6 +50,8 @@ class UserController extends Controller
 
             # query to get quest completeness status
             $user['quest'] = $this->answerRepository->checklistQuest($user->id);
+
+            $user['report'] = app(\App\Http\Controllers\Api\AssessmentController::class)->calcPoint($user->id);
         }
 
 
