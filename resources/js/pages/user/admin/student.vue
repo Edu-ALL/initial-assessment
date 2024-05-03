@@ -78,6 +78,9 @@ onMounted(() => {
               Initial Assessment
             </th>
             <th>
+              Score
+            </th>
+            <th>
               Quest
             </th>
             <th>Action</th>
@@ -113,6 +116,20 @@ onMounted(() => {
                   />
                 </div>
               </div>
+            </td>
+            <td class="py-2">
+              <p class="my-0">
+                Exploration : {{ item.report.score['Exploration'] }}
+              </p>
+              <p class="my-0">
+                Profile Building : {{ item.report.score['Profile Building'] }}
+              </p>
+              <p class="my-0">
+                Academic : {{ item.report.score['Academic'] }}
+              </p>
+              <p class="my-0">
+                Writing : {{ item.report.score['Writing'] }}
+              </p>
             </td>
             <td class="text-center">
               <div class="d-flex justify-center gap-3">
