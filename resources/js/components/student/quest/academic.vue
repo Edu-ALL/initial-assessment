@@ -1,12 +1,12 @@
 <script setup>
-import { confirmBeforeSubmit, showNotif } from '@/helper/notification'
-import { rules } from '@/helper/rules'
-import { verifyAuth } from '@/helper/verifyAuth'
-import ApiService from '@/services/ApiService'
-import UserService from '@/services/UserService'
-import { ref, watch } from 'vue'
+import { confirmBeforeSubmit, showNotif } from "@/helper/notification"
+import { rules } from "@/helper/rules"
+import { verifyAuth } from "@/helper/verifyAuth"
+import ApiService from "@/services/ApiService"
+import UserService from "@/services/UserService"
+import { ref, watch } from "vue"
 
-const done = ref(UserService.getUser().quest['Academic Profiling'])
+const done = ref(UserService.getUser().quest["Academic Profiling"])
 const formData = ref()
 const mission = ref(1)
 const options = ref()
@@ -17,18 +17,20 @@ const inputData = ref([
     answer: [],
   },
   {
-    answer: [{
-      id: null,
-      question_id: 26,
-      sub_question_id: null,
-      answer_descriptive: null,
-      score: null,
-    }],
+    answer: [
+      {
+        id: null,
+        question_id: 26,
+        sub_question_id: null,
+        answer_descriptive: null,
+        score: null,
+      },
+    ],
   },
 ])
 
-const getOptions =  async() => {
-  const endpoint = 'question/7'
+const getOptions = async () => {
+  const endpoint = "question/7"
   try {
     const res = await ApiService.get(endpoint)
     if (res.success) {
@@ -46,24 +48,27 @@ const submit = async () => {
     handleSubmit()
   } else {
     const element = document.getElementById(errors[0].id)
-    
+
     element.focus()
   }
 }
 
 const handleSubmit = async () => {
-  const confirmed = await confirmBeforeSubmit('Are you sure you have completed the mission?')
+  const confirmed = await confirmBeforeSubmit(
+    "Are you sure you have completed the mission?",
+  )
+
   if (confirmed) {
     // Lakukan pengiriman data
     loading.value = true
     resetRadio()
     try {
-      const res = await ApiService.post('answer/7', inputData.value)
-      if(res.success) {
+      const res = await ApiService.post("answer/7", inputData.value)
+      if (res.success) {
         verifyAuth().checkMe()
         done.value = true
       } else {
-        showNotif('error', res.message)
+        showNotif("error", res.message)
       }
       loading.value = false
     } catch (error) {
@@ -76,7 +81,7 @@ const handleSubmit = async () => {
 const resetRadio = () => {
   const mission_choosed = mission.value
 
-  if(mission_choosed==1) {
+  if (mission_choosed == 1) {
     inputData.value[1].answer[0].score = null
   } else {
     inputData.value[0].answer = []
@@ -90,7 +95,7 @@ watch(() => {
 
 <template>
   <VExpansionPanel>
-    <VExpansionPanelTitle :class="done?'text-success':'text-secondary'">
+    <VExpansionPanelTitle :class="done ? 'text-success' : 'text-secondary'">
       <VIcon
         :icon="done ? 'bx-check-circle' : 'bx-question-mark'"
         class="me-2"
@@ -108,7 +113,8 @@ watch(() => {
         <VAlert color="warning">
           <VAlertTitle>
             <p class="my-0">
-              Understand better what academic profile will suit your intended major!
+              Understand better what academic profile will suit your intended
+              major!
               <strong>Choose your mission!</strong>
             </p>
           </VAlertTitle>
@@ -119,7 +125,7 @@ watch(() => {
           class="mt-3"
         >
           <VRadio
-            label="Take a short SAT/IELTS/TOEFL diagnostic test to know what to improve!"
+            label="Take a short SAT/IELTS/TOEFL iBT diagnostic test to know what to improve!"
             :value="1"
           />
           <VDivider class="my-2" />
@@ -128,36 +134,34 @@ watch(() => {
             :value="2"
           />
         </VRadioGroup>
-      
+
         <VDivider class="my-3" />
         <ol class="ms-5 my-3">
-          <li v-if="mission==1">
-            <strong>
-              Take a short SAT/IELTS/TOEFL diagnostic test 
-            </strong>
-            to know what to improve! 
+          <li v-if="mission == 1">
+            <strong> Take a short SAT/IELTS/TOEFL iBT diagnostic test </strong>
+            to know what to improve!
             <ol
               type="I"
               class="ms-4 my-3"
             >
               <li class="mb-3">
                 Choose one option
-                <span style="color: rgb(var(--v-theme-error))">*</span> 
+                <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VRadioGroup
-                  v-model="inputData[0].answer[0]" 
+                  v-model="inputData[0].answer[0]"
                   :rules="rules.required"
                 >
                   <VRadio
                     v-for="item in options['option25']"
                     :key="item"
-                    :label="item.option_answer"
+                    :label="item.option_answer=='TOEFL' ? item.option_answer+' iBT':item.option_answer"
                     :value="item"
                   />
                 </VRadioGroup>
               </li>
               <li v-if="inputData[0].answer[0]">
-                When chosen, they can insert their score
-                <span style="color: rgb(var(--v-theme-error))">*</span> 
+                Insert your diagnostic test score!
+                <span style="color: rgb(var(--v-theme-error))">*</span>
 
                 <VTextField
                   v-model="inputData[0].answer[0].score"
@@ -172,18 +176,17 @@ watch(() => {
             <VDivider class="my-6" />
           </li>
 
-          <li v-if="mission==2">
-            <strong>
-              Consult your subjects 
-            </strong>
-            to ensure your best fit! 
+          <li v-if="mission == 2">
+            <strong> Consult your subjects </strong>
+            to ensure your best fit!
             <ol
               type="I"
               class="ms-4 my-3"
             >
               <li>
-                What major are you planning to go to based on your consultation and your subject selection?
-                <span style="color: rgb(var(--v-theme-error))">*</span> 
+                What major are you planning to go to based on your consultation
+                and your subject selection?
+                <span style="color: rgb(var(--v-theme-error))">*</span>
                 <VTextarea
                   v-model="inputData[1].answer[0].answer_descriptive"
                   label="Answer"
