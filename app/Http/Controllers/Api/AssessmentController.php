@@ -379,15 +379,6 @@ class AssessmentController extends Controller
                 }
             }
 
-            $reports['client'] = [
-                'name' => $user->full_name,
-                'grade' => $user->grade,
-                'school' => $user->school,
-                'curriculum' => $ansCurri,
-                'academic_interests' => implode(', ', $academic_interests->pluck('option.option_answer')->toArray()),
-                'non_academic_interests' => implode(', ', $non_academic_interests->pluck('option.option_answer')->toArray()),
-            ];
-
             // $categories = Category::where('id', '<', 5)->get();
             // foreach ($categories as $category) {
             //     $userPoints = UserPoint::where('user_id', $user->id)->whereHas('question', function ($query) use ($category) {
@@ -415,6 +406,15 @@ class AssessmentController extends Controller
             } else if ($reports['score']['total'] >= 85 && $reports['score']['total'] <= 100) {
                 $reports['result'] = 3;
             }
+
+            $reports['client'] = [
+                'name' => $user->full_name,
+                'grade' => $user->grade,
+                'school' => $user->school,
+                'curriculum' => $ansCurri,
+                'academic_interests' => implode(', ', $academic_interests->pluck('option.option_answer')->toArray()),
+                'non_academic_interests' => implode(', ', $non_academic_interests->pluck('option.option_answer')->toArray()),
+            ];
 
             // return view('report.IA.report', ['reports' => $reports, 'user' => $user]);
             // exit(0);
