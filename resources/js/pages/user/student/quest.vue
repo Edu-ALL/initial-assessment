@@ -210,7 +210,7 @@ watch(() => {
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
                 target="_blank"
-                class="mt-4 v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-2 py-md-2 py-1"
+                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
               >
                 Feedback Form
               </a>
@@ -222,7 +222,7 @@ watch(() => {
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
                 target="_blank"
-                class="mt-4 v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-2 py-md-2 py-1"
+                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
               >
                 Feedback Form
               </a>
