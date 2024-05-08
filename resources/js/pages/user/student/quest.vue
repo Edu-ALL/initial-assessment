@@ -200,20 +200,17 @@ watch(() => {
                   Expert guidance from our mentors
                 </li>
                 <li class="my-2">
-                  Raffle ticket to win EduALL Community Empowerment Program in Bali
+                  Please fill in the feedback to receive the raffle ticket to win EduALL Community Empowerment Program in Bali.
+                  <br>
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
+                    target="_blank"
+                    class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
+                  >
+                    Feedback Form
+                  </a>
                 </li>
               </ul>
-
-              <br>
-              Please fill in the feedback to receive the raffle ticket to win EduALL Community Empowerment Program in Bali.
-              <br>
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
-                target="_blank"
-                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
-              >
-                Feedback Form
-              </a>
             </p>
             <p v-else>
               Help us improve by giving us feedback.
@@ -222,7 +219,7 @@ watch(() => {
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
                 target="_blank"
-                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
+                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated my-3"
               >
                 Feedback Form
               </a>
