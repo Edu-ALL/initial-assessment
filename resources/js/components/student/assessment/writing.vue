@@ -202,7 +202,8 @@ watch(() => {
           <li class="my-5">
             How confident are you in expressing yourself through
             <b>non-academic writing</b> (such as stories, journals)?
-            <span style="color: rgb(var(--v-theme-error))">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
+            (1 = Not confident; 5 = Very confident)
             <VRow>
               <VCol
                 md="5"
@@ -226,7 +227,8 @@ watch(() => {
           <li class="my-5">
             How confident are you in expressing yourself through
             <b>academic writing</b> (such as essays and journals)?
-            <span style="color: rgb(var(--v-theme-error))">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
+            (1 = Not confident; 5 = Very confident)
             <VRow>
               <VCol
                 md="5"

@@ -203,8 +203,31 @@ watch(() => {
                   Raffle ticket to win EduALL Community Empowerment Program in Bali
                 </li>
               </ul>
+
+              <br>
+              Please fill in the feedback to receive the raffle ticket to win EduALL Community Empowerment Program in Bali.
+              <br>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
+                target="_blank"
+                class="v-btn v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated"
+              >
+                Feedback Form
+              </a>
             </p>
             <p v-else>
+              Help us improve by giving us feedback.
+              
+              <br>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
+                target="_blank"
+                class="v-btn v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated"
+              >
+                Feedback Form
+              </a>
+              <br>
+
               If you need further assistance in understanding your report, 
               stop by the EduALL booth to receive expert guidance from our mentors!
             </p>
