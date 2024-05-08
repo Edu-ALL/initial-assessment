@@ -191,9 +191,11 @@ watch(() => {
                     Get Your Free Personalized Report
                   </VBtn>
                 </li>
-                <li class="my-2">
+                <!--
+                  <li class="my-2">
                   Quest completer exclusive prize (limited)
-                </li>
+                  </li> 
+                -->
                 <li class="my-2">
                   Expert guidance from our mentors
                 </li>
