@@ -148,7 +148,10 @@ watch(() => {
   <VCard class="text-center text-sm-start my-3">
     <VCardText>
       <p>
-        Every year, 150+ of our mentees have gotten into their dream universities. <br> It's time for your turn! Get a FREE Initial Consultation at EduALL!
+        Every year, 150+ of our mentees have gotten into their dream universities. It's time for your turn! 
+      </p>
+      <p class="my-3">
+        Get a FREE Initial Consultation at EduALL!
       </p>
       <a
         href="https://edu-all.com/public/id-en/sign-me/admission-mentoring"
