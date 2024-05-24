@@ -58,12 +58,12 @@ const checkUser = () => {
       if(user.client?.took_quest) {
         router.push({ name: 'dashboard' })
       } else {
-        router.push({ name: 'quest' })
+        router.push({ name: 'dashboard' })
       }
   
     } else {
       if(user.client?.took_initial_assessment==1 && user.client?.took_quest==0 ) {
-        router.push({ name: 'quest' })
+        router.push({ name: 'dashboard' })
       } else if(user.client?.took_initial_assessment==1 && user.client?.took_quest==1) {
         router.push({ name: 'dashboard' })
       } else {
