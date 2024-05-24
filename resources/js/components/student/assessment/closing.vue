@@ -144,4 +144,24 @@ watch(() => {
       </VBtn>
     </VCardText>
   </VCard>
+
+  <VCard class="text-center text-sm-start my-3">
+    <VCardText>
+      <p>
+        Every year, 150+ of our mentees have gotten into their dream universities. <br> It's time for your turn! Get a FREE Initial Consultation at EduALL!
+      </p>
+      <a
+        href="https://edu-all.com/public/id-en/sign-me/admission-mentoring"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <VBtn
+          color="secondary"
+          size="small"
+        >
+          Schedule Now!
+        </VBtn>
+      </a>
+    </VCardText>
+  </VCard>
 </template>

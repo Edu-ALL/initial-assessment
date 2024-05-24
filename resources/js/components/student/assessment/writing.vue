@@ -3,6 +3,7 @@ import { confirmBeforeSubmit, showNotif } from "@/helper/notification"
 import { rules } from "@/helper/rules"
 import ApiService from "@/services/ApiService"
 import { defineEmits, watch } from "vue"
+import router from '@/router'
 
 const emits = defineEmits(["step"])
 
@@ -119,7 +120,9 @@ const handleSubmit = async () => {
     try {
       const res = await ApiService.post("answer/4", inputData.value)
       if (res.success) {
-        checkStep(6)
+        router.push({ name: 'dashboard' })
+
+        // checkStep(6)
       } else {
         showNotif("error", res.message, "bottom-end")
       }

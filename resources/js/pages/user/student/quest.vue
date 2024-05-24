@@ -205,6 +205,7 @@ watch(() => {
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
                   >
                     Feedback Form
@@ -219,6 +220,7 @@ watch(() => {
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated my-3"
               >
                 Feedback Form
