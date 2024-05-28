@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         if (!isset($checkUser)) {
             # can be customized depends on the endpoint
-            $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/TKT/{$ticket_no}";
+            $endpoint = env('URL_CRM') . "api/v1/get/user/by/TKT/{$ticket_no}";
 
             # create 
             $response = Http::get($endpoint);
@@ -247,7 +247,7 @@ class AuthController extends Controller
 
         if (!isset($checkUser)) {
             # can be customized depends on the endpoint
-            $endpoint = "http://127.0.0.1:8000/api/v1/get/user/by/UUID/{$uuid}";
+            $endpoint = env('URL_CRM') . "api/v1/get/user/by/UUID/{$uuid}";
 
             # create 
             $response = Http::get($endpoint);
