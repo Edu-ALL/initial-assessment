@@ -88,14 +88,19 @@ const checkUUID = async uuid => {
   try {
     const res = await ApiService.get('signin/u/'+uuid)
 
+    console.log(res)
     if(!res.success) {
       form.value.ticket_id = ""
       showNotif('error', res.message, 'bottom-end')
     } else {
       UserService.saveUser(res.data)
       JwtService.saveToken(res.data.token)
-      router.push({ name: 'login' })
-      window.location.reload()
+
+      router.push('/')
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500)
     }
     loading.value = false
   } catch (error) {
