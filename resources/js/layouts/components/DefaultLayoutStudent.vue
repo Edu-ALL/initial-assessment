@@ -66,13 +66,15 @@ const user = UserService.getUser()
           to: '/assessment',
         }"
       />
-      <VerticalNavLink
+      <!--
+        <VerticalNavLink
         :item="{
-          title: 'Quest',
-          icon: 'bx-user-check',
-          to: '/quest',
+        title: 'Quest',
+        icon: 'bx-user-check',
+        to: '/quest',
         }"
-      />
+        /> 
+      -->
     </template>
 
 

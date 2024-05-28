@@ -1,10 +1,9 @@
 <script setup>
 import { verifyAuth } from "@/helper/verifyAuth"
-import ApiService from "@/services/ApiService"
 import UserService from "@/services/UserService"
 import illustrationJohnDark from "@images/cards/illustration-john-dark.png"
 import illustrationJohnLight from "@images/cards/illustration-john-light.png"
-import cepBanner from "@images/eduall/2024_POSTER QUEST_CEP BALI-02.webp"
+import summerImage from "@images/eduall/summer-program.jpeg"
 import { ref } from "vue"
 import { useTheme } from "vuetify"
 import { VCardText } from "vuetify/lib/components/index.mjs"
@@ -33,6 +32,11 @@ const downloadQuestPdf = async () => {
 }
 
 onMounted(() => {
+  verifyAuth().checkMe()
+  user.value = UserService.getUser()
+})
+
+watch(() => {
   verifyAuth().checkMe()
   user.value = UserService.getUser()
 })
@@ -74,16 +78,6 @@ onMounted(() => {
               >
                 Your Personalized Report
               </VBtn>
-              <!--
-                <VBtn
-                color="secondary"
-                class="my-1"
-                size="small"
-                @click="downloadPdf('recap')"
-                >
-                Your Answers
-                </VBtn> 
-              -->
             </VCardText>
           </VCol>
 
@@ -106,14 +100,38 @@ onMounted(() => {
         </VRow>
       </VCard>
 
+      <VCard class="text-center text-sm-start my-3">
+        <VCardText>
+          <p>
+            Every year, 150+ of our mentees have gotten into their dream universities. It's time for your turn!
+          </p>
+          <p class="my-3">
+            Get a FREE Initial Consultation at EduALL!
+          </p>
+          <a
+            href="https://edu-all.com/public/id-en/sign-me/admission-mentoring"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <VBtn
+              color="secondary"
+              size="small"
+            >
+              Schedule Now!
+            </VBtn>
+          </a>
+        </VCardText>
+      </VCard>
+
       <a
-        href="https://community-empowerment.edu-all.com/"
+        href="https://bit.ly/portofolio-powerup"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <img
-          :src="cepBanner"
+          :src="summerImage"
           class="w-100 rounded shadow"
-          :class="$vuetify.display.xs ? 'd-none' : 'd-block mt-5'"
+          :class="$vuetify.display.xs ? 'd-none' : 'd-none mt-5'"
         >
       </a>
     </VCol>
@@ -122,7 +140,10 @@ onMounted(() => {
       cols="12"
       md="6"
     >
-      <VCard style="border-bottom: 5px solid #1414ff">
+      <VCard
+        style="border-bottom: 5px solid #1414ff"
+        class="d-none"
+      >
         <VCardTitle class="my-1">
           <div class="d-flex justify-between align-center w-100">
             <span class="w-100"> Report Activity </span>
@@ -212,13 +233,14 @@ onMounted(() => {
       </VCard>
 
       <a
-        href="https://community-empowerment.edu-all.com/"
+        href="https://bit.ly/portofolio-powerup"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <img
-          :src="cepBanner"
+          :src="summerImage"
           class="w-100 rounded shadow"
-          :class="$vuetify.display.xs ? 'd-block mt-5' : 'd-none'"
+          :class="$vuetify.display.xs ? 'd-block mt-5' : 'd-block'"
         >
       </a>
     </VCol>

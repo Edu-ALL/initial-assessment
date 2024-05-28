@@ -191,18 +191,42 @@ watch(() => {
                     Get Your Free Personalized Report
                   </VBtn>
                 </li>
-                <li class="my-2">
+                <!--
+                  <li class="my-2">
                   Quest completer exclusive prize (limited)
-                </li>
+                  </li> 
+                -->
                 <li class="my-2">
                   Expert guidance from our mentors
                 </li>
                 <li class="my-2">
-                  Raffle ticket to win EduALL Community Empowerment Program in Bali
+                  Please fill in the feedback to receive the raffle ticket to win EduALL Community Empowerment Program in Bali.
+                  <br>
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated mt-3"
+                  >
+                    Feedback Form
+                  </a>
                 </li>
               </ul>
             </p>
             <p v-else>
+              Help us improve by giving us feedback.
+              
+              <br>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScEv8nR2zA5o6fsGM-awgBvEXc_YCNtOcZgH3KYgO5RFpaYmg/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="v-btn v-btn--elevated v-theme--light bg-warning v-btn--density-compact v-btn--size-default v-btn--variant-elevated my-3"
+              >
+                Feedback Form
+              </a>
+              <br>
+
               If you need further assistance in understanding your report, 
               stop by the EduALL booth to receive expert guidance from our mentors!
             </p>

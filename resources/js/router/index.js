@@ -34,10 +34,11 @@ const router = createRouter({
       component: () => import('../layouts/blank.vue'),
       children: [
         {
-          path: 'login',
+          path: 'login/:id?',
           name: 'login',
           props: route => ({
             ticket: route.query.ticket,
+            id: route.params.id,
           }),
           component: () => import('../pages/user/student/auth/login.vue'),
         },

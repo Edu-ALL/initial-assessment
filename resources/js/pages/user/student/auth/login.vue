@@ -1,15 +1,14 @@
 <script setup>
 import { showNotif } from '@/helper/notification'
-import { verifyAuth } from '@/helper/verifyAuth'
 import router from '@/router'
 import ApiService from '@/services/ApiService'
 import JwtService from '@/services/JwtService'
 import UserService from '@/services/UserService'
-import { computed, onBeforeMount, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useTheme } from 'vuetify'
 
 
-const props = defineProps({ 'ticket': String })
+const props = defineProps({ 'ticket': String, 'id': String })
 const { global } = useTheme()
 const sk_loading = ref(true)
 const formData = ref(null)
@@ -36,8 +35,8 @@ const submit = async () => {
       } else {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
+        router.push({ name: 'login' })
         window.location.reload()
-        
       }
       loading.value = false
     } catch (error) {
@@ -54,27 +53,54 @@ const checkUser = () => {
   const user = UserService.getUser()
 
   if(user) {
-    if(user.client?.is_vip || user.client?.education?.grade<7) {
-      if(user.client?.took_quest) {
-        router.push({ name: 'dashboard' })
-      } else {
-        router.push({ name: 'quest' })
-      }
-  
+    if(user.client?.took_initial_assessment==1) {
+      router.push({ name: 'dashboard' })
     } else {
-      if(user.client?.took_initial_assessment==1 && user.client?.took_quest==0 ) {
-        router.push({ name: 'quest' })
-      } else if(user.client?.took_initial_assessment==1 && user.client?.took_quest==1) {
-        router.push({ name: 'dashboard' })
-      } else {
-        router.push({ name: 'assessment' })
-      }
-  
+      router.push({ name: 'assessment' })
     }
+
+    // ---> Old Script <--- 
+    // if(user.client?.is_vip || user.client?.education?.grade<7) {
+    //   if(user.client?.took_quest==1) {
+    //     router.push({ name: 'dashboard' })
+    //   } else {
+    //     router.push({ name: 'assessment' })
+    //   }
+  
+    // } else {
+    //   if(user.client?.took_initial_assessment==1 && user.client?.took_quest==0 ) {
+    //     router.push({ name: 'dashboard' })
+    //   } else if(user.client?.took_initial_assessment==1 && user.client?.took_quest==1) {
+    //     router.push({ name: 'dashboard' })
+    //   } else {
+    //     router.push({ name: 'assessment' })
+    //   }
+    // }
+    // ---> End Old Script <---
             
     setTimeout(() => {
       showNotif('success', 'You`ve successfully logged in', 'bottom-end')
     }, 1000)
+  }
+}
+
+const checkUUID = async uuid => {
+  try {
+    const res = await ApiService.get('signin/u/'+uuid)
+
+    if(!res.success) {
+      form.value.ticket_id = ""
+      showNotif('error', res.message, 'bottom-end')
+    } else {
+      UserService.saveUser(res.data)
+      JwtService.saveToken(res.data.token)
+      router.push({ name: 'login' })
+      window.location.reload()
+    }
+    loading.value = false
+  } catch (error) {
+    showNotif('error', error, 'bottom-end')
+    loading.value = false
   }
 }
 
@@ -88,6 +114,12 @@ onMounted(() => {
   // Check Ticket Number 
   if(props.ticket) {
     form.value.ticket_id = props.ticket
+    submit()
+  }
+
+  // Check UUID
+  if(props.id) {
+    checkUUID(props.id)
   }
   
   // Skeleton Loader 

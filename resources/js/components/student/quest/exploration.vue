@@ -125,7 +125,7 @@ watch(() => {
           @change="changeRadio"
         >
           <VRadio
-            label="Take the 5 minute ONE*T test to find out which jobs would fit you! "
+            label="Take the 5 minute O*NET test to find out which jobs would fit you! "
             :value="1"
           />
           <VDivider class="my-2" />
@@ -139,7 +139,7 @@ watch(() => {
         <ol class="ms-5 my-3">
           <li v-if="mission==1">
             <strong>
-              Take the 5 minute ONE*T test
+              Take the 5 minute O*NET test
             </strong>
             to find out which jobs would fit you! 
             <ol
@@ -151,7 +151,7 @@ watch(() => {
                   href="https://www.mynextmove.org/explore/ip"
                   target="_blank"
                   rel="noopener noreferrer"
-                >ONE*T test.</a>  <span style="color: rgb(var(--v-theme-error))">*</span> 
+                >O*NET test.</a>  <span style="color: rgb(var(--v-theme-error))">*</span> 
               </li>
               <li>
                 After finishing you have to write your score!

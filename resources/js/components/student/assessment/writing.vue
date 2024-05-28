@@ -3,6 +3,7 @@ import { confirmBeforeSubmit, showNotif } from "@/helper/notification"
 import { rules } from "@/helper/rules"
 import ApiService from "@/services/ApiService"
 import { defineEmits, watch } from "vue"
+import router from '@/router'
 
 const emits = defineEmits(["step"])
 
@@ -119,7 +120,9 @@ const handleSubmit = async () => {
     try {
       const res = await ApiService.post("answer/4", inputData.value)
       if (res.success) {
-        checkStep(6)
+        router.push({ name: 'dashboard' })
+
+        // checkStep(6)
       } else {
         showNotif("error", res.message, "bottom-end")
       }
@@ -202,7 +205,10 @@ watch(() => {
           <li class="my-5">
             How confident are you in expressing yourself through
             <b>non-academic writing</b> (such as stories, journals)?
-            <span style="color: rgb(var(--v-theme-error))">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
+            <small>
+              (1 = Not confident; 5 = Very confident)
+            </small>
             <VRow>
               <VCol
                 md="5"
@@ -226,7 +232,10 @@ watch(() => {
           <li class="my-5">
             How confident are you in expressing yourself through
             <b>academic writing</b> (such as essays and journals)?
-            <span style="color: rgb(var(--v-theme-error))">*</span>
+            <span style="color: rgb(var(--v-theme-error))">*</span> <br>
+            <small>
+              (1 = Not confident; 5 = Very confident)
+            </small>
             <VRow>
               <VCol
                 md="5"
