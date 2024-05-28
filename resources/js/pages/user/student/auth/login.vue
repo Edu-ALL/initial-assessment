@@ -35,8 +35,12 @@ const submit = async () => {
       } else {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
-        router.push({ name: 'login' })
-        window.location.reload()
+        
+        router.push('/login')
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)
       }
       loading.value = false
     } catch (error) {
@@ -88,7 +92,6 @@ const checkUUID = async uuid => {
   try {
     const res = await ApiService.get('signin/u/'+uuid)
 
-    console.log(res)
     if(!res.success) {
       form.value.ticket_id = ""
       showNotif('error', res.message, 'bottom-end')
@@ -96,7 +99,7 @@ const checkUUID = async uuid => {
       UserService.saveUser(res.data)
       JwtService.saveToken(res.data.token)
 
-      router.push('/')
+      router.push('/login')
 
       setTimeout(() => {
         window.location.reload()
