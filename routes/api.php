@@ -39,6 +39,7 @@ Route::get('report/{user}/summary', [AssessmentController::class, 'getReportSumm
 
 # Auth
 Route::post('signin', [AuthController::class, 'signIn']);
+Route::get('signin/u/{client_uuid}', [AuthController::class, 'signInByUUID']);
 
 
 # Admin

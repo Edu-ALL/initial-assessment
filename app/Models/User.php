@@ -21,6 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
+        'uuid_crm',
         'ticket_id',
         'full_name',
         'email',
