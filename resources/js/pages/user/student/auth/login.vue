@@ -36,11 +36,8 @@ const submit = async () => {
         UserService.saveUser(res.data)
         JwtService.saveToken(res.data.token)
         
-        router.push('/login')
-
-        setTimeout(() => {
-          window.location.reload()
-        }, 1500)
+        await router.push('/login')
+        router.go(0)
       }
       loading.value = false
     } catch (error) {
@@ -99,11 +96,8 @@ const checkUUID = async uuid => {
       UserService.saveUser(res.data)
       JwtService.saveToken(res.data.token)
 
-      router.push('/login')
-
-      setTimeout(() => {
-        window.location.reload()
-      }, 1500)
+      await router.push('/login')
+      router.go(0)
     }
     loading.value = false
   } catch (error) {
