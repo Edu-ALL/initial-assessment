@@ -106,6 +106,10 @@ const checkUUID = async uuid => {
   }
 }
 
+onBeforeMount(() => {
+  checkUser()
+}),
+
 onMounted(() => {
   // Check Mode 
   const mode = localStorage.getItem('mode')
@@ -127,11 +131,7 @@ onMounted(() => {
   // Skeleton Loader 
   setTimeout(() => {
     sk_loading.value=false
-  }, 2000)
-
-  // Check User 
-  checkUser()
-  
+  }, 2000)  
 })
 </script>
 
