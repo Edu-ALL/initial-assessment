@@ -373,10 +373,15 @@ class AuthController extends Controller
     {
         $user = auth()->guard('api')->user();
 
-        $ticketId = $request->user()->ticket_id;
+        $ticketId = isset($request->user()->ticket_id) ? $request->user()->ticket_id : null;
 
-        # send request to get data client using ticket id from crm
-        $response = $this->getClientInfo($ticketId, $user);
+        if ($ticketId == null) {
+            # send request to get data client using uuid from crm
+            $response = $this->getClientInfoByUUID($request->user()->uuid_crm);
+        } else {
+            # send request to get data client using ticket id from crm
+            $response = $this->getClientInfo($ticketId, $user);
+        }
         $data = $response['response'];
         $data['token'] = $request->bearerToken();
 

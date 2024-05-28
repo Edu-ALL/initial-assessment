@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Api\AssessmentController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ExtClientController;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -56,3 +57,6 @@ Route::prefix('admin')->group(function () {
         Route::post('signout', [AdminController::class, 'signOut']);
     });
 });
+
+# External API
+Route::get('get/took-ia/{uuid_crm}', [ExtClientController::class, 'getTookIA']);
