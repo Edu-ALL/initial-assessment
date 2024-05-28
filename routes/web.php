@@ -19,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{any?}', function () {
     return view('application');
 })->where('any', '.*');
+
+Route::get('signin/u/{client_uuid}', [AuthController::class, 'signInByUUID']);
