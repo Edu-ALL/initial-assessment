@@ -22,6 +22,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use PhpParser\Node\Stmt\Foreach_;
 
 class AssessmentController extends Controller
@@ -352,9 +353,27 @@ class AssessmentController extends Controller
     public function getReport(Request $request)
     {
         // (new LoggerController)->trying_warning('download report');
+        $identifier = $request->user;
+        $is_uuid = false;
+
+        # check identifier is id or uuid
+        if (preg_match("/[a-z]/i", $identifier)) {
+            $is_uuid = true;
+        }
 
         $validator = Validator::make($request->route()->parameters(), [
-            'user' => 'required|exists:users,id',
+            'user' => [
+                'required',
+                function ($q) use ($is_uuid) {
+                    if ($is_uuid) {
+                        Rule::exists('users', 'uuid_crm');
+                    } else {
+                        Rule::exists('users', 'id');
+                    }
+                }
+                // Rule::exists('users', 'id')->where(fn ($q) => $q->orWhere('uuid_crm', $identifier)),
+
+            ]
         ]);
 
         if ($validator->fails())
@@ -362,10 +381,12 @@ class AssessmentController extends Controller
 
 
         try {
-            // $reports = $this->checkReport($user->id);
+            if ($is_uuid) {
+                $user = User::where('uuid_crm', $identifier)->first();
+            } else {
+                $user = User::find($request->user);
+            }
 
-            // $user = auth()->guard('api')->user();
-            $user = User::find($request->user);
             $answer = Answer::with('option')->where('user_id', $user->id)->get();
             $curri = $answer->where('question_id', 11)->first();
             $academic_interests = $answer->where('sub_question_id', 1);
@@ -519,8 +540,25 @@ class AssessmentController extends Controller
 
     public function getReportQuest(Request $request)
     {
+        $identifier = $request->user;
+        $is_uuid = false;
+
+        # check identifier is id or uuid
+        if (preg_match("/[a-z]/i", $identifier)) {
+            $is_uuid = true;
+        }
+
         $validator = Validator::make($request->route()->parameters(), [
-            'user' => 'required|exists:users,id',
+            'user' => [
+                'required',
+                function ($q) use ($is_uuid) {
+                    if ($is_uuid) {
+                        Rule::exists('users', 'uuid_crm');
+                    } else {
+                        Rule::exists('users', 'id');
+                    }
+                }
+            ]
         ]);
 
         if ($validator->fails())
@@ -529,7 +567,12 @@ class AssessmentController extends Controller
 
         try {
             // $user = auth()->guard('api')->user();
-            $user = User::find($request->user);
+
+            if ($is_uuid) {
+                $user = User::where('uuid_crm', $identifier)->first();
+            } else {
+                $user = User::find($request->user);
+            }
 
 
             $reports = $this->checkReportQuest($user->id);
@@ -635,11 +678,48 @@ class AssessmentController extends Controller
 
     public function getReportSummary(Request $request)
     {
-        $user = User::find($request->user);
-        $jsonAnswers = app('App\Http\Controllers\UserController')->show($user->uuid);
-        $userAnswers = json_decode($jsonAnswers->content(), true);
+        $identifier = $request->user;
+        $is_uuid = false;
 
-        $pdf = Pdf::loadView('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
+        # check identifier is id or uuid
+        if (preg_match("/[a-z]/i", $identifier)) {
+            $is_uuid = true;
+        }
+
+        $validator = Validator::make($request->route()->parameters(), [
+            'user' => [
+                'required',
+                function ($q) use ($is_uuid) {
+                    if ($is_uuid) {
+                        Rule::exists('users', 'uuid_crm');
+                    } else {
+                        Rule::exists('users', 'id');
+                    }
+                }
+            ]
+        ]);
+
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()->all()]);
+
+
+        try {
+            if ($is_uuid) {
+                $user = User::where('uuid_crm', $identifier)->first();
+            } else {
+                $user = User::find($request->user);
+            }
+
+            $jsonAnswers = app('App\Http\Controllers\UserController')->show($user->uuid);
+            $userAnswers = json_decode($jsonAnswers->content(), true);
+
+            $pdf = Pdf::loadView('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "failed to download report summary " . $e->getMessage() . ' Line ' . $e->getLine()
+            ], 500);
+        }
 
         // return view('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
         // return $pdf->stream('report.pdf', array("Attachment" => false));
