@@ -60,3 +60,4 @@ Route::prefix('admin')->group(function () {
 
 # External API
 Route::get('get/took-ia/{uuid_crm}', [ExtClientController::class, 'getTookIA']);
+Route::post('get/took-ia-bulk/', [ExtClientController::class, 'getTookIABulk']);
