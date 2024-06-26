@@ -43,8 +43,7 @@
                     <h6 class="my-2 mt-4">
                         Your University Admission Readiness Score is:
                         <div style="background: #1414FF; display:inline; padding:5px; border-radius:50%; color:white;">
-                            {{-- {{ $reports['score']['total'] }}% --}}
-                            {{ round($score, 2) }}%
+                            {{ $reports['score']['total'] }}%
                         </div>
                     </h6>
 
@@ -122,25 +121,29 @@
                         <tr>
                             <th colspan="3" class="text-center">University Admission Readiness Rubric</th>
                         </tr>
-                        <tr style="{{ $score >= 85 && $score <= 100 ? 'background: #d3e1ff;' : '' }}">
+                        <tr
+                            style="{{ $reports['score']['total'] >= 85 && $reports['score']['total'] <= 100 ? 'background: #d3e1ff;' : '' }}">
                             <td class="text-center">Exceeding Standards</td>
                             <td class="text-center">85-100%</td>
                             <td>The student's quality is consistent across all 4 pillars, goes above, and beyond
                                 requirements.</td>
                         </tr>
-                        <tr style="{{ $score >= 65 && $score <= 84 ? 'background: #d3e1ff;' : '' }}">
+                        <tr
+                            style="{{ $reports['score']['total'] >= 65 && $reports['score']['total'] <= 84 ? 'background: #d3e1ff;' : '' }}">
                             <td class="text-center">Meet Standards</td>
                             <td class="text-center">65-84%</td>
                             <td>The student's quality is consistently in practice across all 4 pillars. Continous training
                                 to achieve the desired level is evident.</td>
                         </tr>
-                        <tr style="{{ $score >= 30 && $score <= 64 ? 'background: #d3e1ff;' : '' }}">
+                        <tr
+                            style="{{ $reports['score']['total'] >= 30 && $reports['score']['total'] <= 64 ? 'background: #d3e1ff;' : '' }}">
                             <td class="text-center">Approaching Standards</td>
                             <td class="text-center">&lt;65%</td>
                             <td>The student's quality is observed across all 4 pillars, but not consistently. More
                                 improvement is needed to reach the desired level.</td>
                         </tr>
-                        <tr style="{{ $score >= 0 && $score <= 29 ? 'background: #d3e1ff;' : '' }}">
+                        <tr
+                            style="{{ $reports['score']['total'] >= 0 && $reports['score']['total'] <= 29 ? 'background: #d3e1ff;' : '' }}">
                             <td class="text-center" width="15%">Not Assessed</td>
                             <td class="text-center">&lt;30%</td>
                             <td width="70%">
