@@ -43,7 +43,8 @@
                     <h6 class="my-2 mt-4">
                         Your University Admission Readiness Score is:
                         <div style="background: #1414FF; display:inline; padding:5px; border-radius:50%; color:white;">
-                            {{ $reports['score']['total'] }}%
+                            {{-- {{ $reports['score']['total'] }}% --}}
+                            {{ $score }}%
                         </div>
                     </h6>
 
