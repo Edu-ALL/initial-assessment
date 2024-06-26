@@ -355,6 +355,7 @@ class AssessmentController extends Controller
         // (new LoggerController)->trying_warning('download report');
         $identifier = $request->user;
         $is_uuid = false;
+        $is_preview = $request->get('is_preview');
 
         # check identifier is id or uuid
         if (preg_match("/[a-z]/i", $identifier)) {
@@ -456,8 +457,10 @@ class AssessmentController extends Controller
         }
 
 
-        // return $pdf->stream('report.pdf', array("Attachment" => false));
-        // exit(0);
+        if ($is_preview) {
+            return $pdf->stream('Personalized Assessment Report - ' . $user->full_name . '.pdf', array("Attachment" => false));
+            exit(0);
+        }
         return $pdf->download('Personalized Assessment Report - ' . $user->full_name . '.pdf');
     }
 

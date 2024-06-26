@@ -68,4 +68,53 @@ class ExtClientController extends Controller
             'data' => $tookIA
         ]);
     }
+
+    public function getTookIABulk(Request $request)
+    {
+        $uuidCRM = $request->uuid_crm;
+        $rules = [
+            'uuid_crm.*' => 'required',
+        ];
+
+        $tookIA = [];
+
+
+        $validator = Validator::make($uuidCRM, $rules);
+
+        # threw error if validation fails
+        if ($validator->fails()) {
+            Log::warning($validator->errors());
+            return response()->json(['error' => 'Cannot process the request.' . json_encode($validator->errors())], 400);
+        }
+
+        # collect the validated request
+        // $validated = $uuidCRM;
+
+        try {
+            foreach ($uuidCRM as $val) {
+                $user = User::where('uuid_crm', $val)->first();
+
+                $tookIA[] = [
+                    'uuid' => $val,
+                    'took_ia' => false
+                ];
+
+                if (isset($user))
+                    $tookIA[] = [
+                        'uuid' => $val,
+                        'took_ia' => $this->answerRepository->haveFilledInitialAssessment($user->id)
+                    ];
+            }
+        } catch (Exception $e) {
+            Log::error('get took IA failed: ' . $e->getMessage() . ' | Line: ' . $e->getLine());
+            return response()->json([
+                'error' => 'get took IA failed' . $e->getMessage()
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $tookIA
+        ]);
+    }
 }
