@@ -17,7 +17,8 @@
                         <tr>
                             <td>Grade</td>
                             <td width="1%">:</td>
-                            <td>{{ $reports['client']['grade'] }}</td>
+                            <td>{{ $reports['client']['grade'] > 12 ? 'Not High School' : $reports['client']['grade'] }}
+                            </td>
                         </tr>
                         <tr>
                             <td>School</td>
