@@ -683,6 +683,7 @@ class AssessmentController extends Controller
     {
         $identifier = $request->user;
         $is_uuid = false;
+        $is_preview = $request->get('is_preview');
 
         # check identifier is id or uuid
         if (preg_match("/[a-z]/i", $identifier)) {
@@ -727,8 +728,12 @@ class AssessmentController extends Controller
         // return view('report.IA.summary', ['userAnswers' => $userAnswers['data']['IA']]);
         // return $pdf->stream('report.pdf', array("Attachment" => false));
         // exit(0);
+        if ($is_preview) {
+            return $pdf->stream('Answer - ' . $user->full_name . '.pdf', array("Attachment" => false));
+            exit(0);
+        }
 
-        return $pdf->download('report-summary.pdf');
+        return $pdf->download('Answer - ' . $user->full_name . '.pdf');
     }
 
     public function calcPoint($user_id)
