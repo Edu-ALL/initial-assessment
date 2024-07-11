@@ -2,8 +2,8 @@
 import { showNotif } from '@/helper/notification'
 import router from '@/router'
 import ApiService from '@/services/ApiService'
-import JwtService from '@/services/JwtService'
-import UserService from '@/services/UserService'
+import { saveToken } from '@/services/JwtService'
+import { getUser, saveUser } from '@/services/UserService'
 import { onMounted, ref } from 'vue'
 import { useTheme } from 'vuetify'
 
@@ -33,8 +33,8 @@ const submit = async () => {
         form.value.ticket_id = ""
         showNotif('error', res.message, 'bottom-end')
       } else {
-        UserService.saveUser(res.data)
-        JwtService.saveToken(res.data.token)
+        saveUser(res.data)
+        saveToken(res.data.token)
         
         await router.push('/login')
         router.go(0)
@@ -51,14 +51,16 @@ const submit = async () => {
 }
 
 const checkUser = () => {
-  const user = UserService.getUser()
+  const user = getUser()
 
   if(user) {
-    if(user.client?.took_initial_assessment==1) {
-      router.push({ name: 'dashboard' })
-    } else {
-      router.push({ name: 'assessment' })
-    }
+    router.push({ name: 'assessment' })
+
+    // if(user.client?.took_initial_assessment==1) {
+    //   router.push({ name: 'dashboard' })
+    // } else {
+    //   router.push({ name: 'assessment' })
+    // }
 
     // ---> Old Script <--- 
     // if(user.client?.is_vip || user.client?.education?.grade<7) {
@@ -93,8 +95,8 @@ const checkUUID = async uuid => {
       form.value.ticket_id = ""
       showNotif('error', res.message, 'bottom-end')
     } else {
-      UserService.saveUser(res.data)
-      JwtService.saveToken(res.data.token)
+      saveUser(res.data)
+      saveToken(res.data.token)
 
       await router.push('/login')
       router.go(0)

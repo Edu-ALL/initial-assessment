@@ -6,15 +6,15 @@ import Sponsor from '@/components/student/quest/sponsor.vue'
 import Writing from '@/components/student/quest/writing.vue'
 import { confirmBeforeSubmit } from '@/helper/notification'
 import { verifyAuth } from '@/helper/verifyAuth'
-import ApiService from '@/services/ApiService'
-import UserService from '@/services/UserService'
-import { onMounted, ref, watch } from 'vue'
-import illustrationJohn from '@images/cards/illustration-john-light.png'
 import router from '@/router'
+import ApiService from '@/services/ApiService'
+import { getUser } from '@/services/UserService'
+import illustrationJohn from '@images/cards/illustration-john-light.png'
+import { ref, watch } from 'vue'
 
 const result = ref()
 const loading = ref(false)
-const user = ref(UserService.getUser())
+const user = ref(getUser())
 const is_completed = ref(false)
 
 const getRank = async () => {
