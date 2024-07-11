@@ -20,6 +20,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -69,6 +70,18 @@ class AssessmentController extends Controller
         try {
 
             $insertedAnswer = $this->answerRepository->syncAnswer($user, $category_id, $collectionAnswer);
+
+            if ($category_id == 4) {
+                User::where('id', $user->id)->update(['took_ia' => 1]);
+
+                if ($user->uuid_crm != null) {
+                    Http::withHeaders([
+                        'crm_authorization' => env('CRM_AUTHORIZATION_KEY')
+                    ])->post(env('URL_CRM') . 'api/assessment/update', [
+                        'uuid' => $user->uuid_crm
+                    ]);
+                }
+            }
 
             DB::commit();
         } catch (Exception $e) {

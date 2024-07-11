@@ -103,7 +103,7 @@ class AuthController extends Controller
                 }
 
                 if (array_key_exists('took_initial_assessment', $value)) {
-                    $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_initial_assessment'] = $user != null ? $user->took_ia : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
                     $value['type'] = 0;
                 }
@@ -143,7 +143,7 @@ class AuthController extends Controller
                 }
 
                 if (array_key_exists('took_initial_assessment', $value)) {
-                    $value['took_initial_assessment'] = $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_initial_assessment'] = $user != null ? $user->took_ia : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
                     $value['type'] = 0;
                 }
@@ -159,7 +159,7 @@ class AuthController extends Controller
                 'client' => [
                     'id' => $checkUser->id,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
-                    'took_initial_assessment' => $this->answerRepository->haveFilledInitialAssessment($checkUser->id) ? 1 : 0,
+                    'took_initial_assessment' => $checkUser->took_ia,
                     'full_name' => $checkUser->full_name,
                     'email' => $checkUser->email,
                     'phone' => $checkUser->phone_number,
@@ -271,7 +271,7 @@ class AuthController extends Controller
                 }
 
                 if (array_key_exists('took_initial_assessment', $value)) {
-                    $value['took_initial_assessment'] =  $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_initial_assessment'] = $user != null ? $user->took_ia : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
                     $value['type'] = 0;
                 }
@@ -312,7 +312,7 @@ class AuthController extends Controller
                 }
 
                 if (array_key_exists('took_initial_assessment', $value)) {
-                    $value['took_initial_assessment'] = $this->answerRepository->haveFilledInitialAssessment($userId) ? 1 : 0;
+                    $value['took_initial_assessment'] = $user != null ? $user->took_ia : 0;
                     $value['took_quest'] = $user != null ? $user->took_quest : 0;
                     $value['type'] = 0;
                 }
@@ -332,7 +332,7 @@ class AuthController extends Controller
                 'client' => [
                     'id' => $checkUser->id,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
-                    'took_initial_assessment' => $this->answerRepository->haveFilledInitialAssessment($checkUser->id) ? 1 : 0,
+                    'took_initial_assessment' => $checkUser->took_ia,
                     'full_name' => $checkUser->full_name,
                     'email' => $checkUser->email,
                     'phone' => $checkUser->phone_number,
