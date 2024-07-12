@@ -266,7 +266,7 @@
                         </tr>
                     </table>
 
-                    <div class="mt-3 p-2" style="border:2px solid #1414FF">
+                    {{-- <div class="mt-3 p-2" style="border:2px solid #1414FF">
                         <div class="card-body">
                             <p class="mb-0" style="font-size: 14px">
                                 <strong> What's Next? </strong>
@@ -274,7 +274,7 @@
                                 For further consultation contact our academic advisor: +62 877-9838-5403 (Amel)
                             </p>
                         </div>
-                    </div>
+                    </div> --}}
                 </td>
             </tr>
         </table>
