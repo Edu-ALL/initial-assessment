@@ -218,7 +218,7 @@ onMounted(() => {
         <h5 class="mb-3">
           I don't have a ticket number,
         </h5>
-        <a href="https://registration.edu-all.com/form/event?ft=cta&ev=evt-0014&et=offline&as=attend&s=ots&t=self&a=true">
+        <a href="https://registration.edu-all.com/form/event?ft=cta&ev=evt-0037&et=offline&as=attend&s=ots&t=self&a=true">
           <VBtn
             block
             color="secondary"
