@@ -1,0 +1,44 @@
+version: '3'
+
+networks:
+    ia:
+
+services:
+    php:
+        container_name: ia_php
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "9002:9000"
+        volumes:
+            - ./src:/code
+        networks:
+            - ia
+    
+    node:
+        container_name: ia_node
+        build: 
+            context: .
+            dockerfile: Dockerfile.Node
+        ports:
+            - "3001:3000"
+        restart: unless-stopped
+        volumes:
+            - ./src:/code
+            - /code/node_modules
+        networks:
+            - ia
+            
+    nginx:
+        container_name: ia_nginx
+        image: nginx:alpine
+        ports:
+            - "8082:80"
+        volumes:
+            - ./src:/code
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - ia
+        depends_on:
+            - php

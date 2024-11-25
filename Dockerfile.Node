@@ -1,0 +1,19 @@
+# Set the base image
+FROM node:20-alpine
+
+# Set working directory to /code
+WORKDIR /code
+
+# Copy `package.json` and `package-lock.json`
+COPY ./src/package*.json /code
+
+# Install project dependencies
+RUN npm update
+
+# Copy project files into the docker image
+COPY ./src /code
+
+RUN npm run build
+
+# Expose the port Vite runs on
+EXPOSE 3001

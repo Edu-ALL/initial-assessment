@@ -9,6 +9,13 @@ import vuetify from 'vite-plugin-vuetify'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    hmr: {
+      host: "0.0.0.0",
+    },
+    port: 3001,
+    host: true,
+  },
   plugins: [
     laravel({
       input: ['resources/js/main.js'],
