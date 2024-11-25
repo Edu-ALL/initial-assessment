@@ -1,6 +1,7 @@
 <script setup>
 import { verifyAuth } from "@/helper/verifyAuth"
-import UserService from "@/services/UserService"
+import router from "@/router"
+import { getUser } from "@/services/UserService"
 import illustrationJohnDark from "@images/cards/illustration-john-dark.png"
 import illustrationJohnLight from "@images/cards/illustration-john-light.png"
 import summerImage from "@images/eduall/summer-program.jpeg"
@@ -14,7 +15,7 @@ const illustrationJohn = computed(() =>
   global.name.value === "dark" ? illustrationJohnDark : illustrationJohnLight,
 )
 
-const user = ref(UserService.getUser())
+const user = ref(getUser())
 
 const downloadPdf = async type => {
   const id = user.value.client?.id
@@ -32,13 +33,16 @@ const downloadQuestPdf = async () => {
 }
 
 onMounted(() => {
+  // redirect to assessment
+  router.push('/assessment')
+
   verifyAuth().checkMe()
-  user.value = UserService.getUser()
+  user.value = getUser()
 })
 
 watch(() => {
   verifyAuth().checkMe()
-  user.value = UserService.getUser()
+  user.value = getUser()
 })
 </script>
 

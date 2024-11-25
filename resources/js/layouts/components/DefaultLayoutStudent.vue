@@ -1,8 +1,6 @@
 <script setup>
-import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
 import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
-import { useTheme } from 'vuetify'
 
 
 // Components
@@ -44,20 +42,24 @@ const user = UserService.getUser()
     </template>
 
     <template #vertical-nav-content>
-      <VerticalNavLink
+      <!--
+        <VerticalNavLink
         :item="{
-          title: 'Dashboard',
-          icon: 'bx-home',
-          to: '/dashboard',
+        title: 'Dashboard',
+        icon: 'bx-home',
+        to: '/dashboard',
         }"
-      />
-      
+        />
+      -->
       <!-- 👉 Pages -->
-      <VerticalNavSectionTitle
+      <!--
+        <VerticalNavSectionTitle
         :item="{
-          heading: 'Pages',
+        heading: 'Pages',
         }"
-      />
+        /> 
+      -->
+      
       <VerticalNavLink
         v-if="user.client?.is_vip==0 && (user.client?.education?.grade>=7 || user.client?.education?.grade<=12)"
         :item="{

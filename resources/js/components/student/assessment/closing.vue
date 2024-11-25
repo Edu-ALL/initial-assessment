@@ -1,12 +1,11 @@
 <script setup>
-import ApiService from "@/services/ApiService"
-import UserService from "@/services/UserService"
-import cepBanner from "@images/eduall/2024_POSTER QUEST_CEP BALI-01.webp"
-import { watch } from "vue"
+import ApiService from "@/services/ApiService";
+import { getUser } from "@/services/UserService";
+import { watch } from "vue";
 
 const result = ref()
 
-const user = ref(UserService.getUser())
+const user = ref(getUser())
 
 const getRank = async () => {
   try {
@@ -132,39 +131,10 @@ watch(() => {
 
   <VCard>
     <VCardText>
-      <h3>Congratulations {{ user.client?.full_name }} ! 🎉</h3>
+      <h3>Congratulations, {{ user.client?.full_name }} ! 🎉</h3>
       <p class="mt-4 mb-3">
-        Thank you for completing the assessment. Check your results by clicking the button below.
+        You've successfully completed the assessment. Now, it's time to take the next step! Contact our education consultant today to schedule your FREE initial consultation with EduALL and unlock your personalized Assessment Report!
       </p>
-      <VBtn
-        class="me-2"
-        @click="downloadPdf('result')"
-      >
-        Your Personalized Report
-      </VBtn>
-    </VCardText>
-  </VCard>
-
-  <VCard class="text-center text-sm-start my-3">
-    <VCardText>
-      <p>
-        Every year, 150+ of our mentees have gotten into their dream universities. It's time for your turn! 
-      </p>
-      <p class="my-3">
-        Get a FREE Initial Consultation at EduALL!
-      </p>
-      <a
-        href="https://edu-all.com/public/id-en/sign-me/admission-mentoring"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <VBtn
-          color="secondary"
-          size="small"
-        >
-          Schedule Now!
-        </VBtn>
-      </a>
     </VCardText>
   </VCard>
 </template>
