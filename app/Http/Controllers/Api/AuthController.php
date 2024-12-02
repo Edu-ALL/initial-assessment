@@ -118,6 +118,7 @@ class AuthController extends Controller
                 # insert user into edu all assessment db
                 $user = new User();
                 $user->uuid = Str::uuid();
+                $user->uuid_crm = $data['client']['uuid_crm'];
                 $user->ticket_id = $data['clientevent']['ticket_id'];
                 $user->full_name =  $data['client']['full_name'];
                 $user->email = $data['client']['email'];
@@ -158,6 +159,7 @@ class AuthController extends Controller
             $data = [
                 'client' => [
                     'id' => $checkUser->id,
+                    'uuid_crm' => $checkUser->uuid_crm,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
                     'took_initial_assessment' => $checkUser->took_ia,
                     'full_name' => $checkUser->full_name,
@@ -331,6 +333,7 @@ class AuthController extends Controller
             $data = [
                 'client' => [
                     'id' => $checkUser->id,
+                    'uuid_crm' => $checkUser->uuid_crm,
                     'is_vip' => intval($checkUser->is_vip) == 0 ? false : true,
                     'took_initial_assessment' => $checkUser->took_ia,
                     'full_name' => $checkUser->full_name,
