@@ -81,7 +81,7 @@ class AssessmentController extends Controller
                         'uuid' => $user->uuid_crm
                     ]);
                 } else {
-                    Log::warning('Failed update took ia to CRM', ['id' => $user->id]);
+                    Log::warning('Failed update took ia to CRM', User::where('id', $user->id)->first()->toArray());
                 }
             }
 
