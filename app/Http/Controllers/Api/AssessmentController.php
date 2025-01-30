@@ -80,6 +80,8 @@ class AssessmentController extends Controller
                     ])->post(env('URL_CRM') . 'api/assessment/update', [
                         'uuid' => $user->uuid_crm
                     ]);
+                } else {
+                    Log::warning('Failed update took ia to CRM', ['id' => $user->id]);
                 }
             }
 
