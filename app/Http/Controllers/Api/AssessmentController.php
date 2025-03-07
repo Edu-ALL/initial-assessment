@@ -78,7 +78,7 @@ class AssessmentController extends Controller
                     Log::debug('crm key from assessment:' . env('CRM_AUTHORIZATION_KEY'));
 
                     $response = Http::withHeaders([
-                        'crm_authorization' => env('CRM_AUTHORIZATION_KEY')
+                        'crm-authorization' => env('CRM_AUTHORIZATION_KEY')
                     ])->post(env('URL_CRM') . 'api/assessment/update', [
                         'uuid' => $user->uuid_crm
                     ]);
