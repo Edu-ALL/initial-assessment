@@ -75,11 +75,15 @@ class AssessmentController extends Controller
                 User::where('id', $user->id)->update(['took_ia' => 1]);
 
                 if ($user->uuid_crm != null) {
-                    Http::withHeaders([
+                    $response = Http::withHeaders([
                         'crm_authorization' => env('CRM_AUTHORIZATION_KEY')
                     ])->post(env('URL_CRM') . 'api/assessment/update', [
                         'uuid' => $user->uuid_crm
                     ]);
+
+                    if (!$response->successful()) {
+                        Log::error('Failed update took ia to CRM: ' . $response->status() . ' - ' . $response->body());
+                    }
                 } else {
                     Log::warning('Failed update took ia to CRM', User::where('id', $user->id)->first()->toArray());
                 }
